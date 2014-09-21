@@ -15,7 +15,6 @@ namespace DOM
         private string apellido;
         //Mail
         private Documento documento;
-        //Mail
         //Telefono
         //Direccion
         //FechaNacimiento
