@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auxiliares\Direccion.cs" />
     <Compile Include="Auxiliares\Documento.cs" />
     <Compile Include="Auxiliares\Estado_Reservas.cs" />
     <Compile Include="Auxiliares\PasswordEncoding.cs" />

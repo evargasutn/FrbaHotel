@@ -15,7 +15,7 @@ namespace DOM.Auxiliares
 
         public string nombreEstado()
         {
-            throw new NotImplementedException();
+            return "Reserva Correcta";
         }
 
         #endregion
@@ -26,7 +26,7 @@ namespace DOM.Auxiliares
 
         public string nombreEstado()
         {
-            throw new NotImplementedException();
+            return "Reserva Modificada";
         }
 
         #endregion
@@ -37,7 +37,7 @@ namespace DOM.Auxiliares
 
         public string nombreEstado()
         {
-            throw new NotImplementedException();
+            return "Reserva Cancelada por Recepcion";
         }
 
         #endregion
@@ -48,7 +48,7 @@ namespace DOM.Auxiliares
 
         public string nombreEstado()
         {
-            throw new NotImplementedException();
+            return "Reserva Cancelada por Cliente";
         }
 
         #endregion
@@ -59,7 +59,7 @@ namespace DOM.Auxiliares
 
         public string nombreEstado()
         {
-            throw new NotImplementedException();
+            return "Reserva Cnacelada por No-Show";
         }
 
         #endregion
@@ -71,7 +71,7 @@ namespace DOM.Auxiliares
 
         public string nombreEstado()
         {
-            throw new NotImplementedException();
+            return "Reserva Efectivizada";
         }
 
         #endregion

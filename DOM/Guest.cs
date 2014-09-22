@@ -14,7 +14,7 @@ namespace DOM
         private string apellido;
         private MailAddress email;
         private int telefono;
-        //Direccion
+        private Direccion direccion; //Direccion con formato
         private string localidad;
         private string pais;
         private string nacionalidad;

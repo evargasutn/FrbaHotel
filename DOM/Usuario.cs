@@ -12,15 +12,14 @@ namespace DOM
         #region Atributos Privados
         private string usr;
         private string password; //password encriptado con SHA256
-        //Password
         private string nombre;
         private string apellido;
         private MailAddress email;
         private Documento documento;
         private int telefono;
-        //Direccion
+        private Direccion direccion; //Direccion con formato
         private DateTime fecha_nacimiento;
-        //Hoteles
+        private List<Hotel> hoteles;
         private List<Rol> roles;
         #endregion
 
