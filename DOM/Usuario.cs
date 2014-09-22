@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DOM.Auxiliares;
+using System.Net.Mail;
 
 namespace DOM
 {
@@ -10,16 +11,17 @@ namespace DOM
     {
         #region Atributos Privados
         private string usr;
+        private string password; //password encriptado con SHA256
         //Password
         private string nombre;
         private string apellido;
-        //Mail
+        private MailAddress email;
         private Documento documento;
-        //Telefono
+        private int telefono;
         //Direccion
-        //FechaNacimiento
+        private DateTime fecha_nacimiento;
         //Hoteles
-        //Roles
+        private List<Rol> roles;
         #endregion
 
     }

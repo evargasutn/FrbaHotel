@@ -7,5 +7,12 @@ namespace DOM
 {
     class Funcionalidad
     {
+        private string id_funcionalidad;
+
+        public string id
+        {
+            get { return id_funcionalidad; }
+            set { id_funcionalidad = value; }
+        }
     }
 }

@@ -18,8 +18,8 @@ namespace DOM.Auxiliares
         }
         public tipo tipoDoc
         {
-            get {return tipoDocumento;}
-            set { tipoDocumento = value;}
-
+            get { return tipoDocumento; }
+            set { tipoDocumento = value; }
+        }
     }
 }
