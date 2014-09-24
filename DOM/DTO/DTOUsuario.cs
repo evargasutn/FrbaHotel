@@ -21,12 +21,12 @@ namespace DOM
         private string nombre = null;
         private string apellido = null;
         private MailAddress email = null;
-        private Documento documento = null;
+        private Documento documento;
         private int? telefono = null;
-        private Direccion direccion = null; //Direccion con formato
-        private DateTime? fecha_nacimiento = null;
-        private List<DTOHotel> hoteles = null;
-        private List<DTORol> roles = null;
+        private Direccion direccion; //Direccion con formato
+        private DateTime fecha_nacimiento;
+        private List<DTOHotel> hoteles;
+        private List<DTORol> roles;
         #endregion
 
         #region Propiedades
@@ -55,22 +55,92 @@ namespace DOM
             set { apellido = value; }
         }
 
-        public string Nombre
+        public string Mail
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return email.Address; }
+            set { email = new MailAddress(value); }
         }
 
-        public string Nombre
+        public int? TipoDocu
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return (int?) documento.tipoDoc; }
+            set { documento.tipoDoc = (Documento.tipo) value; }
         }
 
-        public string Nombre
+        public int? NroDocu
         {
-            get { return nombre; }
-            set { nombre = value; }
+            get { return documento.nroDoc; }
+            set { documento.nroDoc = (int) value; }
+        }
+
+        public int? Telefono
+        {
+            get { return telefono; }
+            set { telefono = value; }
+        }
+
+        public string Direccion
+        {
+            get { return direccion.obtenerDireccion(); }
+        }
+
+        public Direccion Direccion
+        {
+            set { direccion = value; }
+        }
+
+        public string Fecha_nacimiento
+        {
+            get { return fecha_nacimiento.ToString("s"); }
+            set { fecha_nacimiento = DateTime.Parse(value); }
+        }
+
+        #endregion
+
+        #region Listas
+
+        public void agregarHotel(DTOHotel hotel)
+        {
+            hoteles.Add(hotel);
+        }
+
+        public DTOHotel obtenerHotel(int id)
+        {
+            if ((id >= 0) && (id <= hoteles.Count))
+                return hoteles[id];
+            return null;
+        }
+
+        public void removerHotel(DTOHotel rol)
+        {
+            hoteles.Remove(rol);
+        }
+
+        public void agregarRol(DTORol rol)
+        {
+            roles.Add(rol);
+        }
+
+        public DTORol obtenerRol(int id)
+        {
+            if ((id >= 0) && (id <= roles.Count))
+                return roles[id];
+            return null;
+        }
+
+        public void removerRol(DTORol rol)
+        {
+            roles.Remove(rol);
+        }
+
+        #endregion
+
+        #region Constructor
+        public DTOUsuario()
+        {
+            documento = new Documento();
+            direccion = new Direccion();
+
         }
 
         #endregion
