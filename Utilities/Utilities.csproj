@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{36C27CE4-069A-4BCA-8EAF-7F4556E6DE67}</ProjectGuid>
+    <ProjectGuid>{626EE58F-8600-487B-B02F-627FBA4BE73C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DOM</RootNamespace>
-    <AssemblyName>DOM</AssemblyName>
+    <RootNamespace>Utilities</RootNamespace>
+    <AssemblyName>Utilities</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -35,8 +35,6 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -47,24 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auxiliares\Direccion.cs" />
-    <Compile Include="Auxiliares\Documento.cs" />
-    <Compile Include="Auxiliares\Estado_Reservas.cs" />
-    <Compile Include="Auxiliares\PasswordEncoding.cs" />
-    <Compile Include="DTO\DTOConsumible.cs" />
-    <Compile Include="DTO\DTOEstadia.cs" />
-    <Compile Include="DTO\DTOFuncionalidad.cs" />
-    <Compile Include="DTO\DTOGuest.cs" />
-    <Compile Include="DTO\DTOHabitacion.cs" />
-    <Compile Include="DTO\DTOHotel.cs" />
-    <Compile Include="DTO\DTOReserva.cs" />
-    <Compile Include="DTO\DTORol.cs" />
-    <Compile Include="DTO\DTOUsuario.cs" />
+    <Compile Include="BoolManager.cs" />
+    <Compile Include="DataGridViewColumnManager.cs" />
+    <Compile Include="DateTimeManager.cs" />
+    <Compile Include="DecimalManager.cs" />
+    <Compile Include="DropDownListManager.cs" />
+    <Compile Include="IntManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeguridadManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DAO\" />
+    <Compile Include="StringManager.cs" />
+    <Compile Include="ValidadorManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
