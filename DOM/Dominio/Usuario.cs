@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using DOM.Auxiliares;
 using System.Net.Mail;
+using DOM.Dominio;
 
 namespace DOM
 {
@@ -20,13 +21,13 @@ namespace DOM
         private string password; //password encriptado con SHA256
         private string nombre;
         private string apellido;
-        private MailAddress email;
+        private MailAddress email = null;
         private Documento documento;
         private int? telefono;
         private Direccion direccion; //Direccion con formato
         private DateTime fecha_nacimiento;
-        private List<Hotel> hoteles;
-        private List<Rol> roles;
+        private List<Hotel> hoteles = new List<Hotel>();
+        private List<Rol> roles = new List<Rol>();
         #endregion
 
         #region Propiedades
@@ -61,10 +62,10 @@ namespace DOM
             set { email = new MailAddress(value); }
         }
 
-        public int? TipoDocu
+        public int TipoDocu
         {
-            get { return (int?)documento.tipoDoc; }
-            set { documento.tipoDoc = (Documento.tipo)value; }
+            get { return (int)documento.tipoDoc; }
+            set { documento.tipoDoc = (DocumentoTipoEnum)value; }
         }
 
         public int? NroDocu
@@ -79,7 +80,7 @@ namespace DOM
             set { telefono = value; }
         }
 
-        public string Direccion
+        public string DireccionReal
         {
             get { return direccion.obtenerDireccion(); }
         }
@@ -111,9 +112,9 @@ namespace DOM
             return null;
         }
 
-        public void removerHotel(Hotel rol)
+        public void removerHotel(Hotel hotel)
         {
-            hoteles.Remove(rol);
+            hoteles.Remove(hotel);
         }
 
         public void agregarRol(Rol rol)
@@ -140,7 +141,6 @@ namespace DOM
         {
             documento = new Documento();
             direccion = new Direccion();
-
         }
 
         #endregion

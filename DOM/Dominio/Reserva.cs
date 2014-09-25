@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DOM.Auxiliares;
 
 namespace DOM.Dominio
 {
@@ -13,9 +14,9 @@ namespace DOM.Dominio
         private DateTime fecha_fin;
         private DateTime fecha_reserva;
         private EstadoReserva estado;
-        private DTOHotel hotel;
-        private List<DTOHabitacion> habitaciones;
-        private DTOGuest guest;
-        private DTOEstadia datosEstadia;
+        private Hotel hotel;
+        private List<Habitacion> habitaciones = new List<Habitacion>();
+        private Guest guest;
+        private Estadia datosEstadia;
     }
 }

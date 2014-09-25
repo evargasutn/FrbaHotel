@@ -7,24 +7,24 @@ namespace DOM.Dominio
 {
     class Consumible
     {
-        #region Atributos Privados
+        #region Atributos
         private int codigo;
         private string descripcion;
         private int importe;
         #endregion
 
-        #region Getters&Seters
-        public int codigoConsumible
+        #region Propuedades
+        public int Codigo
         {
             get { return codigo; }
             set { codigo = value; }
         }
-        public string descripcionConsumible
+        public string Descripcion
         {
             get { return descripcion; }
             set { descripcion = value; }
         }
-        public int importeConsumible
+        public int Importe
         {
             get { return importe; }
             set { importe = value; }

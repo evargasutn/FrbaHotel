@@ -14,6 +14,6 @@ namespace DOM.Dominio
         private Usuario usr_egreso_estadia;
         private int cod_factura;
         private DateTime fecha_factura;
-        private List<Consumible> consumibles;
-    }
+        private List<Consumible> consumibles = new List<Consumible>();
+    }  
 }
