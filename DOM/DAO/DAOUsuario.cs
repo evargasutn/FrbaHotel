@@ -15,7 +15,7 @@ namespace DOM
     /// 
     /// Tomas Ferraro     24/09/2014    Creación
     ///
-    public class DTOUsuario : SqlConnector, DAAOUsuario
+    public class DAOUsuario : SqlConnector, DAAOUsuario
     {
         
     }

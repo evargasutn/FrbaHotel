@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using DOM.Dominio;
+using FrbaHotel.DOM;
+using DOM.Interfaces;
 
 namespace DOM
 {
-    class DTOEstadia
+    class DAOEstadia : SqlConnector, DAAOEstadia
     {
-        private DateTime fecha_ingreso;
-        private Usuario usr_ingreso_estadia;
-        private DateTime fecha_egreso;
-        private Usuario usr_egreso_estadia;
-        private int cod_factura;
-        private DateTime fecha_factura;
-        private List<DTOConsumible> consumibles;
+
     }
 }

@@ -2,16 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FrbaHotel.DOM;
+using DOM.Interfaces;
 
 namespace DOM
 {
-    class DTOHabitacion
+    class DAOHabitacion : SqlConnector, DAAOHabitacion
     {
-        private int piso;
-        private string ubicacion;
-        private string tipo_habitacion;
-        private string descripcion;
 
-        //CampoBaja
     }
 }

@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FrbaHotel.DOM;
+using DOM.Interfaces;
 
 namespace DOM
 {
-    class DTOFuncionalidad
+    class DTOFuncionalidad : SqlConnector, DAAOFuncionalidad
     {
-        private string id_funcionalidad;
-
-        public string id
-        {
-            get { return id_funcionalidad; }
-            set { id_funcionalidad = value; }
-        }
     }
 }

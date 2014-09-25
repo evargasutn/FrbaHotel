@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FrbaHotel.DOM;
+using DOM.Interfaces;
 
 namespace DOM
 {
-    class DTORol
+    class DAORol : SqlConnector, DAAORol
     {
 
     }

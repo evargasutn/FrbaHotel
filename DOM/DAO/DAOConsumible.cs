@@ -2,34 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FrbaHotel.DOM;
+using DOM.Interfaces;
 
 namespace DOM
 {
-    class DTOConsumible
+    class DAOConsumible : SqlConnector, DAAOConsumible
     {
-        #region Atributos Privados
-        private int codigo;
-        private string descripcion;
-        private int importe;
-        #endregion
-
-        #region Getters&Seters
-        public int codigoConsumible
-        {
-            get { return codigo; }
-            set { codigo = value; }
-        }
-        public string descripcionConsumible
-        {
-            get { return descripcion; }
-            set { descripcion = value; }
-        }
-        public int importeConsumible
-        {
-            get { return importe; }
-            set { importe = value; }
-        }
-        #endregion
-
+     
     }
 }

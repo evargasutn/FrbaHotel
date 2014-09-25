@@ -7,5 +7,12 @@ namespace DOM.Dominio
 {
     class Habitacion
     {
+        private int id_habitacion;
+        private int piso;
+        private string ubicacion;
+        private string tipo_habitacion;
+        private string descripcion;
+
+        //CampoBaja
     }
 }

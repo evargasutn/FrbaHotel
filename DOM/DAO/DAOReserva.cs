@@ -3,20 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DOM.Auxiliares;
+using FrbaHotel.DOM;
+using DOM.Interfaces;
+using DOM.Dominio;
 
 namespace DOM
 {
-    class DTOReserva
+    class DAOReserva : SqlConnector, DAAOReserva
     {
-        private int codigoReserva;
-        private int cod_regimen;
-        private DateTime fecha_inicio;
-        private DateTime fecha_fin;
-        private DateTime fecha_reserva;
-        private EstadoReserva estado;
-        private DTOHotel hotel;
-        private List<DTOHabitacion> habitaciones;
-        private DTOGuest guest;
-        private DTOEstadia datosEstadia;
+
     }
 }
