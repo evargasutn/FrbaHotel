@@ -12,3 +12,6 @@ D:\TP Hotel Frba 1.0 - 2C 2014\Aplicacion Desktop\FrbaHotel\FrbaHotel\bin\Debug\
 D:\TP Hotel Frba 1.0 - 2C 2014\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\ResolveAssemblyReference.cache
 D:\TP Hotel Frba 1.0 - 2C 2014\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Properties.Resources.resources
 D:\TP Hotel Frba 1.0 - 2C 2014\Aplicacion Desktop\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
+D:\FrbaHotel\FrbaHotel\bin\Debug\FrbaHotel.exe.config
+D:\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.exe
+D:\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.pdb

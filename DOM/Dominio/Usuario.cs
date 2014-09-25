@@ -8,25 +8,25 @@ using System.Net.Mail;
 namespace DOM
 {
     /// <summary>
-    /// Clase que representa a la entidad Usuario, almacenada en una fuente de datos
+    /// Clase que representa el modelo de Negocio Usuario
     /// </summary>
     /// 
     /// Tomas Ferraro     24/09/2014    Creación
     ///
-    public class DTOUsuario
+    public class Usuario
     {
         #region Atributos
-        private string usr = null;
-        private string password = null; //password encriptado con SHA256
-        private string nombre = null;
-        private string apellido = null;
-        private MailAddress email = null;
+        private string usr;
+        private string password; //password encriptado con SHA256
+        private string nombre;
+        private string apellido;
+        private MailAddress email;
         private Documento documento;
-        private int? telefono = null;
+        private int? telefono;
         private Direccion direccion; //Direccion con formato
         private DateTime fecha_nacimiento;
-        private List<DTOHotel> hoteles;
-        private List<DTORol> roles;
+        private List<Hotel> hoteles;
+        private List<Rol> roles;
         #endregion
 
         #region Propiedades
@@ -63,14 +63,14 @@ namespace DOM
 
         public int? TipoDocu
         {
-            get { return (int?) documento.tipoDoc; }
-            set { documento.tipoDoc = (Documento.tipo) value; }
+            get { return (int?)documento.tipoDoc; }
+            set { documento.tipoDoc = (Documento.tipo)value; }
         }
 
         public int? NroDocu
         {
             get { return documento.nroDoc; }
-            set { documento.nroDoc = (int) value; }
+            set { documento.nroDoc = (int)value; }
         }
 
         public int? Telefono
@@ -99,36 +99,36 @@ namespace DOM
 
         #region Listas
 
-        public void agregarHotel(DTOHotel hotel)
+        public void agregarHotel(Hotel hotel)
         {
             hoteles.Add(hotel);
         }
 
-        public DTOHotel obtenerHotel(int id)
+        public Hotel obtenerHotel(int id)
         {
             if ((id >= 0) && (id <= hoteles.Count))
                 return hoteles[id];
             return null;
         }
 
-        public void removerHotel(DTOHotel rol)
+        public void removerHotel(Hotel rol)
         {
             hoteles.Remove(rol);
         }
 
-        public void agregarRol(DTORol rol)
+        public void agregarRol(Rol rol)
         {
             roles.Add(rol);
         }
 
-        public DTORol obtenerRol(int id)
+        public Rol obtenerRol(int id)
         {
             if ((id >= 0) && (id <= roles.Count))
                 return roles[id];
             return null;
         }
 
-        public void removerRol(DTORol rol)
+        public void removerRol(Rol rol)
         {
             roles.Remove(rol);
         }
@@ -136,7 +136,7 @@ namespace DOM
         #endregion
 
         #region Constructor
-        public DTOUsuario()
+        public Usuario()
         {
             documento = new Documento();
             direccion = new Direccion();

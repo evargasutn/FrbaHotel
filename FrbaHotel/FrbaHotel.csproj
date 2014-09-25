@@ -148,14 +148,6 @@
       <Project>{36C27CE4-069A-4BCA-8EAF-7F4556E6DE67}</Project>
       <Name>DOM</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Excepciones\Excepciones.csproj">
-      <Project>{264B0A48-DAC3-4AEE-87CE-6D253149D580}</Project>
-      <Name>Excepciones</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Utilities\Utilities.csproj">
-      <Project>{626EE58F-8600-487B-B02F-627FBA4BE73C}</Project>
-      <Name>Utilities</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
