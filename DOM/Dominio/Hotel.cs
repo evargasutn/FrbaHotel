@@ -7,14 +7,14 @@ using DOM.Auxiliares;
 
 namespace DOM.Dominio
 {
-    class Hotel
+    public class Hotel
     {
         #region Atributos
         private string nombre;
         private MailAddress email;
         private DateTime fecha_creacion;
         private int telefono;
-        private Direccion direccion; //Direccion con formato
+        private DireccionStruct direccion; //Direccion con formato
         private string ciudad;
         private string pais;
         private int estrellas;
@@ -51,7 +51,7 @@ namespace DOM.Dominio
         {
             get { return direccion.obtenerDireccion(); }
         }
-        public Direccion Direccion
+        public DireccionStruct Direccion
         {
             set { direccion = value; }
         }
@@ -70,19 +70,19 @@ namespace DOM.Dominio
 
         #region Listas
 
-        public void agregarHabitaciones(Habitacion habitacion)
+        public void agregarHabitacion(Habitacion habitacion)
         {
             habitaciones.Add(habitacion);
         }
 
-        public Habitacion obtenerReserva(int id)
+        public Habitacion obtenerHabitacion(int id)
         {
             if ((id >= 0) && (id <= habitaciones.Count))
                 return habitaciones[id];
             return null;
         }
 
-        public void removerHotel(Habitacion habitacion)
+        public void removerHabitacion(Habitacion habitacion)
         {
             habitaciones.Remove(habitacion);
         }

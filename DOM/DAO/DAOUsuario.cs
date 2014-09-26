@@ -17,6 +17,34 @@ namespace DOM
     ///
     public class DAOUsuario : SqlConnector, DAAOUsuario
     {
-        
+
+        #region DAAOUsuario Members
+
+        public List<Usuario> getAllUsuarios()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario addUsuario(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Usuario getUsuario(string usr_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void updateUsuario(Usuario usuario)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void deteleUsuario(string usr_id)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

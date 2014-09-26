@@ -7,7 +7,7 @@ using System.Net.Mail;
 
 namespace DOM.Dominio
 {
-    class Guest
+    public class Guest
     {
         #region Atributos
         private Documento documento;
@@ -15,7 +15,7 @@ namespace DOM.Dominio
         private string apellido;
         private MailAddress email;
         private int telefono;
-        private Direccion direccion; //Direccion con formato
+        private DireccionStruct direccion; //Direccion con formato
         private string localidad;
         private string pais;
         private string nacionalidad;
@@ -28,7 +28,7 @@ namespace DOM.Dominio
         public Guest()
         {
             documento = new Documento();
-            direccion = new Direccion();
+            direccion = new DireccionStruct();
         }
         #endregion
 
@@ -42,7 +42,7 @@ namespace DOM.Dominio
         public int? TipoDocu
         {
             get { return (int?)documento.tipoDoc; }
-            set { documento.tipoDoc = (Documento.tipo)value; }
+            set { documento.tipoDoc = (DocumentoTipoEnum)value; }
         }
 
         public int? NroDocu
@@ -80,7 +80,7 @@ namespace DOM.Dominio
             get { return direccion.obtenerDireccion(); }
         }
 
-        public Direccion Direccion
+        public DireccionStruct Direccion
         {
             set { direccion = value; }
         }

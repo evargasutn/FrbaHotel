@@ -7,7 +7,7 @@ namespace DOM.Auxiliares
 {
     public enum DocumentoTipoEnum { DNI = 0, LC = 1, LE = 2, Pasaporte = 3 };
 
-    class Documento
+    public class Documento
     {
         private DocumentoTipoEnum tipoDocumento;
         private int numero;
@@ -27,9 +27,9 @@ namespace DOM.Auxiliares
 
         public Documento() { }
 
-        public Documento(int tipoDocu, int num)
+        public Documento(DocumentoTipoEnum tipoDocu, int num)
         {
-            tipoDocumento = (DocumentoTipoEnum)tipoDocu;
+            tipoDocumento = tipoDocu;
             numero = num;
         }
 

@@ -5,11 +5,11 @@ using System.Text;
 
 namespace DOM.Auxiliares
 {
-    interface EstadoReserva
+    public interface EstadoReserva
     {
         string nombreEstado();
     }
-    class EstadoCorrecta : EstadoReserva
+    public class EstadoCorrecta : EstadoReserva
     {
         #region EstadoReserva Members
 
@@ -20,7 +20,7 @@ namespace DOM.Auxiliares
 
         #endregion
     }
-    class EstadoModificada : EstadoReserva
+    public class EstadoModificada : EstadoReserva
     {
         #region EstadoReserva Members
 
@@ -31,7 +31,7 @@ namespace DOM.Auxiliares
 
         #endregion
     }
-    class EstadoCanceladaRecepcion : EstadoReserva
+    public class EstadoCanceladaRecepcion : EstadoReserva
     {
         #region EstadoReserva Members
 
@@ -42,7 +42,7 @@ namespace DOM.Auxiliares
 
         #endregion
     }
-    class EstadoCanceladaCliente : EstadoReserva
+    public class EstadoCanceladaCliente : EstadoReserva
     {
         #region EstadoReserva Members
 
@@ -53,7 +53,7 @@ namespace DOM.Auxiliares
 
         #endregion
     }
-    class EstadoCanceladaNoShow : EstadoReserva
+    public class EstadoCanceladaNoShow : EstadoReserva
     {
         #region EstadoReserva Members
 
@@ -64,8 +64,7 @@ namespace DOM.Auxiliares
 
         #endregion
     }
-
-    class EstadoEfectivizada : EstadoReserva
+    public class EstadoEfectivizada : EstadoReserva
     {
         #region EstadoReserva Members
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Dominio
 {
-    class Funcionalidad
+    public class Funcionalidad
     {
         private string id_funcionalidad;
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Auxiliares
 {
-    class Direccion
+    public class DireccionStruct
     {
         #region Atributos Privados
         private string calle;

@@ -6,7 +6,7 @@ using DOM.Auxiliares;
 
 namespace DOM.Dominio
 {
-    class Reserva
+    public class Reserva
     {
         private int codigoReserva;
         private int cod_regimen;

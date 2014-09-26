@@ -8,8 +8,36 @@ using DOM.Interfaces;
 
 namespace DOM
 {
-    class DAOHotel : SqlConnector, DAAOHotel
+    public class DAOHotel : SqlConnector, DAAOHotel
     {
-       
+
+        #region DAAOHotel Members
+
+        public List<DOM.Dominio.Hotel> getAllHotel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public DOM.Dominio.Hotel addHotel(DOM.Dominio.Hotel hotel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DOM.Dominio.Hotel getHotel(string nombre)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void updateHotel(DOM.Dominio.Hotel hotel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void deteleHotel(string nombre)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

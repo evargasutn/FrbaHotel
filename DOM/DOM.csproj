@@ -52,6 +52,7 @@
     <Compile Include="Auxiliares\Documento.cs" />
     <Compile Include="Auxiliares\Estado_Reservas.cs" />
     <Compile Include="Auxiliares\PasswordEncoding.cs" />
+    <Compile Include="Globals.cs" />
     <Compile Include="Interfaces\DAAOConsumible.cs" />
     <Compile Include="Interfaces\DAAOEstadia.cs" />
     <Compile Include="Interfaces\DAAOFuncionalidad.cs" />
@@ -79,7 +80,6 @@
     <Compile Include="DAO\DAOUsuario.cs" />
     <Compile Include="Interfaces\DAAORol.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeguridadManager.cs" />
     <Compile Include="SqlConnector.cs" />
     <Compile Include="Dominio\Usuario.cs" />
   </ItemGroup>

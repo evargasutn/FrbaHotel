@@ -9,8 +9,36 @@ using FrbaHotel.DOM;
 
 namespace DOM
 {
-    class DAOGuest : SqlConnector, DAAOGuest
+    public class DAOGuest : SqlConnector, DAAOGuest
     {
 
+        #region DAAOGuest Members
+
+        public List<DOM.Dominio.Guest> getAllGuest()
+        {
+            throw new NotImplementedException();
+        }
+
+        public DOM.Dominio.Guest addGuest(DOM.Dominio.Guest invitado)
+        {
+            throw new NotImplementedException();
+        }
+
+        public DOM.Dominio.Guest getGuest(Documento documento)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void updateGuest(DOM.Dominio.Guest invitado)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void deteleGuest(Documento documento)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Dominio
 {
-    class Consumible
+    public class Consumible
     {
         #region Atributos
         private int codigo;

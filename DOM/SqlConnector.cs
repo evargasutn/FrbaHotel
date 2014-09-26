@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using System.Data;
 using System.Text.RegularExpressions;
+using DOM;
 
 namespace FrbaHotel.DOM
 {

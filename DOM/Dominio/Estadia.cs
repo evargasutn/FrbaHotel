@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Dominio
 {
-    class Estadia
+    public class Estadia
     {
         private int codigoReserva;
         private DateTime fecha_ingreso;

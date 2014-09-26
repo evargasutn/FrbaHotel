@@ -24,7 +24,7 @@ namespace DOM
         private MailAddress email = null;
         private Documento documento;
         private int? telefono;
-        private Direccion direccion; //Direccion con formato
+        private DireccionStruct direccion; //Direccion con formato
         private DateTime fecha_nacimiento;
         private List<Hotel> hoteles = new List<Hotel>();
         private List<Rol> roles = new List<Rol>();
@@ -85,7 +85,7 @@ namespace DOM
             get { return direccion.obtenerDireccion(); }
         }
 
-        public Direccion Direccion
+        public DireccionStruct Direccion
         {
             set { direccion = value; }
         }
@@ -140,7 +140,7 @@ namespace DOM
         public Usuario()
         {
             documento = new Documento();
-            direccion = new Direccion();
+            direccion = new DireccionStruct();
         }
 
         #endregion

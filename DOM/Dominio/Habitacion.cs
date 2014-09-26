@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Dominio
 {
-    class Habitacion
+    public class Habitacion
     {
         private int id_habitacion;
         private int piso;

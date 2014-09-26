@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Dominio
 {
-    class Rol
+    public class Rol
     {
         #region Atributos
         private string nombreRol;

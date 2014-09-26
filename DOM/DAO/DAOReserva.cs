@@ -9,8 +9,36 @@ using DOM.Dominio;
 
 namespace DOM
 {
-    class DAOReserva : SqlConnector, DAAOReserva
+    public class DAOReserva : SqlConnector, DAAOReserva
     {
 
+        #region DAAOReserva Members
+
+        public List<Reserva> getAllReserva()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Reserva addReserva(Reserva rol)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Reserva getReserva(int codigoReserva)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void updateReserva(Reserva rol)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void deteleReserva(int codigoReserva)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
