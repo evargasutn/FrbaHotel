@@ -155,14 +155,14 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 	paisOrigen			varchar(50) not null,
 	nacionalidad		varchar(50) not null,
 	fecNacimiento		datetime not null,
-	campo_baja			bit	not null default 1
+	campo_baja			bit	not null default 0
 )
 go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
 (
 	codReserva	numeric(18) PRIMARY KEY,
-	idHuesped	int identity(1,1) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped),
+	idHuesped	int FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped),
 	usr			varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
 	fecDesde	datetime,
 	fecHasta	datetime,
@@ -414,5 +414,3 @@ GO
 	FROM  gd_esquema.Maestra
 	WHERE Hotel_Calle IS NOT NULL
 GO
-	
-	
