@@ -182,14 +182,15 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES
 (
-	nombreHotel		varchar(50) PRIMARY KEY,
-	mail			varchar(50),
-	fecCreacion		datetime not null,
-	telefono		numeric(20) not null,
+	codHotel		numeric(8) identity(1,1) PRIMARY KEY,
+	nombreHotel		varchar(50) not null default 'A',
+	mail			varchar(50) default '',
+	fecCreacion		datetime not null default GETDATE(),
+	telefono		numeric(20) not null default '11111111',
 	direccionCalle	varchar(50) not null,
 	direccionNumero	numeric(8) not null,
-	ciudad			varchar(50) not null,
-	pais			varchar(50) not null,
+	ciudad			varchar(50) not null default 'Buenos Aires',
+	pais			varchar(50) not null default 'Argentina',
 	cantEstrellas	numeric(1) not null
 )
 go
@@ -197,7 +198,7 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
 (
-	codRegimen		numeric(8) PRIMARY KEY,
+	codRegimen		numeric(8) identity(1,1) PRIMARY KEY,
 	descripcion		varchar(255) not null,
 	precio			numeric(18, 2) not null,
 	estado			bit	not null default 1
@@ -206,6 +207,7 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 (
+	codHotel		numeric(8),
 	nombreHotel		varchar(50) not null,
 	habitacion		numeric(4) PRIMARY KEY,
 	piso			numeric(2),
@@ -215,15 +217,15 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 	campoBaja		bit	not null default 0,
 )
 go
-ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT Fk_Habitacion_Hotel FOREIGN KEY (nombreHotel) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(nombreHotel);
+ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT Fk_Habitacion_Hotel FOREIGN KEY (codHotel) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel);
 
 create table COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
 (
-	codReserva	numeric(18) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
-	nombreHotel		varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(nombreHotel),
+	codReserva	numeric(18)FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
+	codHotel	numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
 	habitacion	numeric(4) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES(habitacion),
 	codRegimen	numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen),
-	PRIMARY KEY (codReserva, habitacion, nombreHotel)
+	PRIMARY KEY (codReserva, habitacion, codHotel)
 )
 go
 
@@ -257,7 +259,7 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES
 (
-	hotel			varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(nombreHotel),
+	hotel			numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
 	fecInicio		datetime not null,
 	fecFin			datetime not null,
 	motivo			varchar(255) not null,
@@ -268,8 +270,8 @@ go
 create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO
 (
 	usr				varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
-	nombreHotel		varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(nombreHotel),
-	PRIMARY KEY(nombreHotel, usr)
+	codHotel		numeric(8)  FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
+	PRIMARY KEY(codHotel, usr)
 )
 go
 
@@ -295,29 +297,34 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL
 (
-	hotel			varchar(50) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(nombreHotel),
+	codHotel		numeric(8) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
 	codRegimen		numeric(8) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen),
-	PRIMARY KEY (hotel, codRegimen)	
+	PRIMARY KEY (codHotel, codRegimen)	
 )
 go
 
-/* 
-** MIGRACION
-**/	
---// USUARIO, Administrador	
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre) 
-	VALUES 	('admin','w23e','Administrador General')
-	GO
-	--// ROL
+/** 
+ ** MIGRACION
+ **/
+ 	
+--//USUARIO, Administrador	
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre, apellido, tipoDocu, numDocu, direccionCalle, direccionNumero, FecNacimiento) 
+/*Agrego un apellido para que no me chille por estar en NULL*/
+	VALUES 	('admin','w23e','Administrador General', 'Gerez', 'DNI', '24264123', 'Av. Cordoba', '8834', '17/04/1981')
+GO
+	
+--//ROL
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES (nombreRol) 
 	VALUES ('Administrador'),
 		   ('Recepcionista'),
 		   ('Guest')
-GO		   
+GO	
+	   
 --//ROLES_X_USUARIO, CARGA PARA USR: Administrador
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO (nombreRol, usr) 
 	VALUES ('Administrador','admin')
 GO
+
 --//FUNCIONALIDADES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES (idFuncionalidad, descripcion) 
 	VALUES 	('1','ABM de Rol'), 
@@ -333,6 +340,7 @@ GO
 			('11','Facturar Estadia'), 
 			('12','Listado Estadistico')
 GO	
+
 --//ROL_FUNCIONALIDADES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES_X_ROL (nombreRol, idFuncionalidad) 
 	VALUES 	('Administrador','1'), 
@@ -354,6 +362,10 @@ GO
 			('Guest','7'), 
 			('Guest','8')
 GO
+
+
+/*Migracion de Regimenes no hace falta usar Cursor*/
+/*
 --//REGIMENES - MIGRACION DE DATOS USANDO CURSOR PARA GENERAR CODREGIMEN
 	/*Step 1: Declare variables to hold the output from the cursor.*/
 	DECLARE @descripcion as varchar(255);
@@ -372,21 +384,35 @@ GO
 	
 	/*Step 4: Open the cursor.*/
 	OPEN @Cursor_Regimen
-	/*Step 5: Fetch the first row.*/
-	FETCH NEXT FROM @Cursor_Regimen INTO @descripcion, @precio;
-	/*Step 6: Loop until there are no more results. */
-	WHILE @@FETCH_STATUS = 0
-		BEGIN
-			SET @codRegimen = @codRegimen+1;
-			INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen, descripcion, precio)
-			VALUES (@codRegimen, @descripcion, @precio)
+		/*Step 5: Fetch the first row.*/
 		FETCH NEXT FROM @Cursor_Regimen INTO @descripcion, @precio;
-	END
+		/*Step 6: Loop until there are no more results. */
+		WHILE @@FETCH_STATUS = 0
+			BEGIN
+				SET @codRegimen = @codRegimen+1;
+				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen, descripcion, precio)
+				VALUES (@codRegimen, @descripcion, @precio)
+			FETCH NEXT FROM @Cursor_Regimen INTO @descripcion, @precio;
+		END
 	/*Step 7: Close the cursor.*/
 	CLOSE @Cursor_Regimen
 	/*Step 7: Deallocate the cursor to free up any memory or open result sets.*/
 	DEALLOCATE @Cursor_Regimen
-	GO
+GO*/	
 	
+--//REGIMENES
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(descripcion, precio)
+	SELECT DISTINCT Regimen_Descripcion, Regimen_Precio
+	FROM  gd_esquema.Maestra
+	WHERE Regimen_Descripcion IS NOT NULL
+GO
+		
+--//HOTELES
+/*No es posible tomar nombreHotel como PK porque en la tabla maestra no estan los nombres de los hoteles*/
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES(direccionCalle, direccionNumero, ciudad, cantEstrellas)
+	SELECT DISTINCT Hotel_Calle, Hotel_Nro_Calle, Hotel_Ciudad, Hotel_CantEstrella
+	FROM  gd_esquema.Maestra
+	WHERE Hotel_Calle IS NOT NULL
+GO
 	
 	
