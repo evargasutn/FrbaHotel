@@ -9,17 +9,11 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class Form1 : Form
+    public partial class FormAlta : Form
     {
-        public Form1()
+        public FormAlta()
         {
             InitializeComponent();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-         FormAlta alta = new FormAlta();
-            alta.Show();
         }
     }
 }
