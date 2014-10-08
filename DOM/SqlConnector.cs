@@ -32,17 +32,63 @@ namespace FrbaHotel.DOM
             }
         }
         /// <summary>
-        /// Ejecuta un stored procedure y devuelve un datatable con el resultado del mismo.
+        /// Realiza una consulta y devuelve un datatable con el resultado del mismo.
         /// </summary>
-        /// <param name="procedure">Nombre del stored procedure almacenado en la BDD sin el nombre del esquema delante.</param>
-        /// <param name="values">Argumentos que recibe el stored procedure.</param>
+        /// <param name="procedure">Consulta.</param>
         /// <returns></returns>
-        public static DataTable retrieveDataTable(string procedure, params object[] values)
+        public static DataTable retrieveDataTable(string consulta)
         {
-            List<string> argumentos = _generateArguments(procedure);
-            return _retrieveDataTable(procedure, argumentos, values);
-        }
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cm = new SqlCommand();
+            SqlDataReader dr;
+            DataTable dt = new DataTable();
+            List<string> args = new List<string>();
+            try
+            {
+                conexionSql(cn, cm);
+                cm.CommandType = CommandType.Text;
+                cm.CommandText = /*"COMPUMUNDO_HIPER_MEGA_RED." +*/ consulta;
+                dr = cm.ExecuteReader();
+                dt.Load(dr);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
 
+            finally
+            {
+                if (cn != null)
+                {
+                    cn.Close();
+                }
+            }
+        }
+        public static void executeDynamicQuery(string consulta)
+        {
+            SqlConnection cn = new SqlConnection();
+            SqlCommand cm = new SqlCommand();
+            SqlDataReader dr;
+            List<string> args = new List<string>();
+            try
+            {
+                conexionSql(cn, cm);
+                cm.CommandText = /*"COMPUMUNDO_HIPER_MEGA_RED." +*/ consulta;
+                cm.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+            }
+            finally
+            {
+                if (cn != null)
+                {
+                    cn.Close();
+                }
+            }
+        }
+        /*
         /// <summary>
         /// Ejecuta un stored procedure y devuelve un datatable con el resultado del mismo.
         /// </summary>
@@ -115,7 +161,7 @@ namespace FrbaHotel.DOM
             {
                 conexionSql(cn, cm);
                 cm.CommandType = CommandType.StoredProcedure;
-                cm.CommandText = "SMALL."+procedure;
+                cm.CommandText = "COMPUMUNDO_HIPER_MEGA_RED."+procedure;
                 if (_validateArgumentsAndParameters(args, values))
                 {
                     _loadSqlCommand(args, values, cm);
@@ -146,7 +192,7 @@ namespace FrbaHotel.DOM
             {
                 conexionSql(cn, cm);
                 cm.CommandType = CommandType.StoredProcedure;
-                cm.CommandText = "SMALL." + procedure;
+                cm.CommandText = "COMPUMUNDO_HIPER_MEGA_RED." + procedure;
                 if (_validateArgumentsAndParameters(args, values))
                 {
                     _loadSqlCommand(args, values, cm);
@@ -177,7 +223,7 @@ namespace FrbaHotel.DOM
             {
                 conexionSql(cn, cm);
                 cm.CommandType = CommandType.StoredProcedure;
-                cm.CommandText = "SMALL." + procedure;
+                cm.CommandText = "COMPUMUNDO_HIPER_MEGA_RED." + procedure;
                 if (_validateArgumentsAndParameters(args, values))
                 {
                     _loadSqlCommand(args, values, cm);
@@ -210,7 +256,7 @@ namespace FrbaHotel.DOM
             {
                 conexionSql(cn, cm);
                 cm.CommandType = CommandType.StoredProcedure;
-                cm.CommandText = "SMALL." + procedure;
+                cm.CommandText = "COMPUMUNDO_HIPER_MEGA_RED." + procedure;
                 if (_validateArgumentsAndParameters(args, values))
                 {
                     _loadSqlCommand(args, values, cm);
@@ -243,7 +289,7 @@ namespace FrbaHotel.DOM
             {
                 conexionSql(cn, cm);
                 cm.CommandType = CommandType.Text;
-                cm.CommandText = "SELECT PARAMETER_NAME FROM information_schema.parameters WHERE SPECIFIC_SCHEMA='SMALL' AND SPECIFIC_NAME='" + procedure + "'";
+                cm.CommandText = "SELECT PARAMETER_NAME FROM information_schema.parameters WHERE SPECIFIC_SCHEMA='COMPUMUNDO_HIPER_MEGA_RED' AND SPECIFIC_NAME='" + procedure + "'";
                 dr = cm.ExecuteReader();
                 dt.Load(dr);
                 foreach (DataRow d in dt.Rows)
@@ -283,6 +329,6 @@ namespace FrbaHotel.DOM
             {
                 cm.Parameters.AddWithValue(args[i], values[i]);
             }
-        }
+        }*/
     }
 }

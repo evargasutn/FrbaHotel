@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
+using DOM.Interfaces;
 
 namespace DOM
 {
-    class Globals
+    public class Globals
     {
+        #region Configuracion
         private static int _userID = 0;
 
         private static string connectionString = ConfigurationManager.ConnectionStrings["BaseDatos"].ConnectionString;
@@ -36,7 +38,15 @@ namespace DOM
         {
             return isLogged;
         }
+        #endregion
 
+        #region DAO
+        private DAAOUsuario usuario = new DAOUsuario();
 
+        public DAAOUsuario USUARIOS
+        {
+            get { return usuario; }
+        }
+        #endregion
     }
 }

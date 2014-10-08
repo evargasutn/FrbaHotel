@@ -9,7 +9,6 @@ namespace DOM
 {
     public class DAOConsumible : SqlConnector, DAAOConsumible
     {
-
         #region DAAOConsumible Members
 
         public List<DOM.Dominio.Consumible> getAllConsumible()

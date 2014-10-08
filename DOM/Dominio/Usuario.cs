@@ -28,6 +28,7 @@ namespace DOM
         private DateTime fecha_nacimiento;
         private List<Hotel> hoteles = new List<Hotel>();
         private List<Rol> roles = new List<Rol>();
+        private bool campoBaja;
         #endregion
 
         #region Propiedades
@@ -58,8 +59,15 @@ namespace DOM
 
         public string Mail
         {
-            get { return email.Address; }
-            set { email = new MailAddress(value); }
+            get 
+            {
+                if (email != null)
+                    return email.Address;
+                else
+                    return null;
+            }
+            set { if(value != "") 
+                    email = new MailAddress(value);}
         }
 
         public int TipoDocu
@@ -87,15 +95,27 @@ namespace DOM
 
         public DireccionStruct Direccion
         {
+            get { return direccion; }
             set { direccion = value; }
         }
 
         public string Fecha_nacimiento
         {
-            get { return fecha_nacimiento.ToString("s"); }
+            get { return fecha_nacimiento.ToString("yyyyMMdd"); }
             set { fecha_nacimiento = DateTime.Parse(value); }
         }
 
+        public DateTime Fecha_nacimiento_struct
+        {
+            get { return fecha_nacimiento; }
+            set { fecha_nacimiento = value; }
+        }
+
+        public bool CampoBaja
+        {
+            get { return campoBaja; }
+            set { campoBaja = value; }
+        }
         #endregion
 
         #region Listas
@@ -141,8 +161,11 @@ namespace DOM
         {
             documento = new Documento();
             direccion = new DireccionStruct();
+            Telefono = -1;
         }
 
         #endregion
+
+        public bool estoyInhabilitado() { return CampoBaja; }
     }
 }

@@ -7,12 +7,13 @@ using System.Data;
 
 namespace DOM.Interfaces
 {
-    interface DAAOUsuario
+    public interface DAAOUsuario
     {
         List<Usuario> getAllUsuarios();
         Usuario addUsuario(Usuario usuario);
         Usuario getUsuario(string usr_id);
         void updateUsuario(Usuario usuario);
         void deteleUsuario(string usr_id);
+        List<Usuario> transductor(DataTable tabla);
     }
 }
