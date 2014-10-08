@@ -141,7 +141,7 @@ go
 create table COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 (
 	idHuesped 			int identity(1,1) PRIMARY KEY,
-	tipoDocu			varchar(8) not null,
+	tipoDocu			numeric(8) not null,
 	numDocu				numeric(18) not null,
 	nombre				varchar(50) not null,
 	apellido			varchar(50) not null,
@@ -150,7 +150,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 	direccionCalle		varchar(50) not null,
 	direccionNumero		numeric(8) not null,
 	direccionPiso		numeric(2),
-	DireccionDepto		numeric(2),
+	DireccionDepto		varchar(2),
 	localidad			varchar(50) not null,
 	paisOrigen			varchar(50) not null,
 	nacionalidad		varchar(50) not null,
