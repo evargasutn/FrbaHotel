@@ -42,6 +42,9 @@ COMMIT;
 				
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES;
+
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES;
@@ -54,7 +57,8 @@ COMMIT;
 				
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA;
-				IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.FACTURAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
@@ -189,9 +193,10 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES
 	telefono		numeric(20) not null default '11111111',
 	direccionCalle	varchar(50) not null,
 	direccionNumero	numeric(8) not null,
-	ciudad			varchar(50) not null default 'Buenos Aires',
+	ciudad			varchar(50) not null,
 	pais			varchar(50) not null default 'Argentina',
-	cantEstrellas	numeric(1) not null
+	cantEstrellas	numeric(1) not null,
+	recargoEstrella numeric(3,2) not null
 )
 go
 
@@ -208,16 +213,24 @@ go
 create table COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 (
 	codHotel		numeric(8),
-	nombreHotel		varchar(50) not null,
 	habitacion		numeric(4) PRIMARY KEY,
 	piso			numeric(2),
 	ubicacion		varchar(255) not null,
-	tipoHabitacion	varchar(50) not null,
-	descripcion		varchar(255) not null,
+	tipoCodigo		numeric(10) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES,
+	descripcion		varchar(255) not null default "",
 	campoBaja		bit	not null default 0,
 )
-go
+go 
 ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT Fk_Habitacion_Hotel FOREIGN KEY (codHotel) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel);
+ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT Fk_Habitacion_Tipo FOREIGN KEY (tipoCodigo) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(tipoCodigo);
+
+create table COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES
+(
+	tipoCodigo		numeric(10) PRIMARY KEY,
+	tipoDescripcion	varchar(50) not null,
+	tipoPorcentual	numeric(5,2) not null
+)
+go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
 (
@@ -409,8 +422,38 @@ GO
 		
 --//HOTELES
 /*No es posible tomar nombreHotel como PK porque en la tabla maestra no estan los nombres de los hoteles*/
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES(direccionCalle, direccionNumero, ciudad, cantEstrellas)
-	SELECT DISTINCT Hotel_Calle, Hotel_Nro_Calle, Hotel_Ciudad, Hotel_CantEstrella
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES(direccionCalle, direccionNumero, ciudad, cantEstrellas, recargoEstrella)
+	SELECT DISTINCT Hotel_Calle, Hotel_Nro_Calle, Hotel_Ciudad, Hotel_CantEstrella, Hotel_Recarga_Estrella
 	FROM  gd_esquema.Maestra
 	WHERE Hotel_Calle IS NOT NULL
 GO
+
+--//HABITACIONES
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES(habitacion, piso, ubicacion, tipoCodigo)
+	SELECT DISTINCT Habitacion_Numero, Habitacion_Piso, Habitacion_Frente, Habitacion_Tipo_Codigo
+	FROM  gd_esquema.Maestra
+	WHERE Habitacion_Numero IS NOT NULL
+GO
+
+--//TIPO_HABITACIONES
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES(tipoCodigo, tipoDescripcion, tipoPorcentual)
+	SELECT DISTINCT Habitacion_Tipo_Codigo, Habitacion_Tipo_Descripcion, Habitacion_Tipo_Porcentual
+	FROM  gd_esquema.Maestra
+	WHERE Habitacion_Tipo_Codigo IS NOT NULL
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
