@@ -16,10 +16,27 @@ namespace FrbaHotel.ABM_de_Rol
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonAlta_Click(object sender, EventArgs e)
         {
          FormAlta alta = new FormAlta();
             alta.Show();
+        }
+
+        private void buttonMod_Click(object sender, EventArgs e)
+        {
+            FormLsMod modificacion = new FormLsMod();
+            modificacion.Show();
+        }
+
+        private void buttonBaja_Click(object sender, EventArgs e)
+        {
+            FormLsBaja baja = new FormLsBaja();
+            baja.Show();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

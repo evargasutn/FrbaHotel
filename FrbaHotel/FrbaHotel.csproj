@@ -73,11 +73,23 @@
     <Compile Include="ABM de Rol\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Rol\FormLsBaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Rol\FormLsBaja.Designer.cs">
+      <DependentUpon>FormLsBaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="ABM de Rol\FormAlta.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ABM de Rol\FormAlta.Designer.cs">
       <DependentUpon>FormAlta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Rol\FormLsMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Rol\FormLsMod.Designer.cs">
+      <DependentUpon>FormLsMod.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Usuario\Form1.cs">
       <SubType>Form</SubType>
@@ -122,6 +134,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Rol\FormAlta.resx">
       <DependentUpon>FormAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Rol\FormLsBaja.resx">
+      <DependentUpon>FormLsBaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Rol\FormLsMod.resx">
+      <DependentUpon>FormLsMod.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

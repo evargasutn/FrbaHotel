@@ -34,3 +34,5 @@ C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_R
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Rol.FormAlta.resources
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Properties.Resources.resources
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.csproj.GenerateResource.Cache
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Rol.FormLsBaja.resources
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Rol.FormLsMod.resources
