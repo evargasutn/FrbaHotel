@@ -7,12 +7,12 @@ using DOM.Auxiliares;
 
 namespace DOM.Interfaces
 {
-    interface DAAOGuest
+    interface DAAOHuesped
     {
-        List<Guest> getAllGuest();
-        Guest addGuest(Guest invitado);
-        Guest getGuest(Documento documento);
-        void updateGuest(Guest invitado);
+        List<Huesped> getAllGuest();
+        Huesped addGuest(Huesped invitado);
+        Huesped getGuest(Documento documento);
+        void updateGuest(Huesped invitado);
         void deteleGuest(Documento documento);
     }
 }

@@ -7,7 +7,7 @@ using System.Net.Mail;
 
 namespace DOM.Dominio
 {
-    public class Guest
+    public class Huesped
     {
         #region Atributos
         private Documento documento;
@@ -25,7 +25,7 @@ namespace DOM.Dominio
 
         #region Constructor
 
-        public Guest()
+        public Huesped()
         {
             documento = new Documento();
             direccion = new DireccionStruct();

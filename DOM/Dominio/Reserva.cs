@@ -16,7 +16,7 @@ namespace DOM.Dominio
         private EstadoReserva estado;
         private Hotel hotel;
         private List<Habitacion> habitaciones = new List<Habitacion>();
-        private Guest guest;
+        private Huesped guest;
         private Estadia datosEstadia;
     }
 }
