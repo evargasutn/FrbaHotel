@@ -20,7 +20,7 @@ namespace DOM.Dominio
         private string pais;
         private string nacionalidad;
         private DateTime fecha_nacimiento;
-        //Campo Baja
+        private bool campo_baja//Campo Baja
         #endregion
 
         #region Constructor
@@ -105,8 +105,14 @@ namespace DOM.Dominio
 
         public string Fecha_nacimiento
         {
-            get { return fecha_nacimiento.ToString("s"); }
+            get { return fecha_nacimiento.ToString("yyyyMMdd"); }
             set { fecha_nacimiento = DateTime.Parse(value); }
+        }
+
+        public bool Campo_Baja
+        {
+            get { return campo_baja; }
+            set { campo_baja = value; }
         }
         #endregion
 

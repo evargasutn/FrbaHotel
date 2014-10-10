@@ -50,8 +50,11 @@
   <ItemGroup>
     <Compile Include="Auxiliares\Direccion.cs" />
     <Compile Include="Auxiliares\Documento.cs" />
+    <Compile Include="Auxiliares\EstadiaXConsumible.cs" />
     <Compile Include="Auxiliares\Estado_Reservas.cs" />
+    <Compile Include="Auxiliares\Inhabilitacion.cs" />
     <Compile Include="Auxiliares\PasswordEncoding.cs" />
+    <Compile Include="Auxiliares\Tipo_Habitacion.cs" />
     <Compile Include="DAO\DAAOTipo_Habitacion.cs" />
     <Compile Include="DAO\DAOCancelacionReserva.cs" />
     <Compile Include="DAO\DAOConsumibleXEstadia.cs" />
@@ -64,7 +67,7 @@
     <Compile Include="DAO\DAORegimenXHotel.cs" />
     <Compile Include="DAO\DAORolXUsuario.cs" />
     <Compile Include="Dominio\CancelacionReserva.cs" />
-    <Compile Include="Dominio\Facturas.cs" />
+    <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\ItemsFactura.cs" />
     <Compile Include="Dominio\Regimen.cs" />
     <Compile Include="Globals.cs" />

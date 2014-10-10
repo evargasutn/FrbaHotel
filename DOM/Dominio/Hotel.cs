@@ -21,8 +21,8 @@ namespace DOM.Dominio
         private List<Reserva> reservas = new List<Reserva>();
         private List<Habitacion> habitaciones = new List<Habitacion>();
 
-        //Regimenes
-        //Inabilitaciones
+        private List<Regimen> regimenes = new List<Regimen>();
+        private List<Inhabilitacion> inhabilitaciones = new List<Inhabilitacion>();
         #endregion
 
         #region Propiedades
@@ -69,6 +69,40 @@ namespace DOM.Dominio
         #endregion
 
         #region Listas
+
+        public void agregarInhabilitacion(Inhabilitacion inhabilitacion)
+        {
+            inhabilitaciones.Add(inhabilitacion);
+        }
+
+        public Inhabilitacion obtenerInhabilitacion(int id)
+        {
+            if ((id >= 0) && (id <= inhabilitaciones.Count))
+                return inhabilitaciones[id];
+            return null;
+        }
+
+        public void removerInhabilitacion(Inhabilitacion inhabilitacion)
+        {
+            inhabilitaciones.Remove(inhabilitacion);
+        }
+
+        public void agregarRegimen(Regimen regimen)
+        {
+            regimenes.Add(regimen);
+        }
+
+        public Regimen obtenerRegimen(int id)
+        {
+            if ((id >= 0) && (id <= regimenes.Count))
+                return regimenes[id];
+            return null;
+        }
+
+        public void removerRegimen(Regimen regimen)
+        {
+            regimenes.Remove(regimen);
+        }
 
         public void agregarHabitacion(Habitacion habitacion)
         {
