@@ -15,5 +15,15 @@ namespace FrbaHotel.ABM_de_Rol
         {
             InitializeComponent();
         }
+
+        private void buttonLimpiar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

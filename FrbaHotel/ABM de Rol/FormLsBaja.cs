@@ -16,5 +16,15 @@ namespace FrbaHotel.ABM_de_Rol
         {
             InitializeComponent();
         }
+
+        private void textBoxNombreRol_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboDeFuncionalidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

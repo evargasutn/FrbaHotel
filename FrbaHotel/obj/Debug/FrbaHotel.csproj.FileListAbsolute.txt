@@ -37,3 +37,5 @@ C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.csproj.G
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Rol.FormLsBaja.resources
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Rol.FormLsMod.resources
 D:\TP Hotel Frba 1.0 - 2C 2014\Aplicacion Desktop\FrbaHotel\FrbaHotel\bin\Debug\FrbaHotel.exe.config
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Inicial.resources
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Form2.resources

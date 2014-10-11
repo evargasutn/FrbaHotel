@@ -15,5 +15,31 @@ namespace FrbaHotel
         {
             InitializeComponent();
         }
+
+        private void Inicial_Load(object sender, EventArgs e)
+        {
+
+        }
+/// <summary>
+/// Para los restrictivos
+/// </summary>
+/// <param name="sender"></param>
+/// <param name="e"></param>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ///validar al usuario
+            ///
+
+            if (true)
+            {
+                Form2 formEspR= new Form2();
+                formEspR.Show();
+              
+            }
+            else {
+               //mostrar error 
+            }
+
+        }
     }
 }
