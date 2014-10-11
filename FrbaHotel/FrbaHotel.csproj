@@ -97,6 +97,12 @@
     <Compile Include="ABM de Usuario\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ABM de Usuario\FormAltaUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Usuario\FormAltaUser.Designer.cs">
+      <DependentUpon>FormAltaUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar Reserva\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +153,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Rol\FormLsMod.resx">
       <DependentUpon>FormLsMod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Usuario\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Usuario\FormAltaUser.resx">
+      <DependentUpon>FormAltaUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>

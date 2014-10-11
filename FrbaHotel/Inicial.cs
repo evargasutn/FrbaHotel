@@ -29,7 +29,6 @@ namespace FrbaHotel
         {
             ///validar al usuario
             ///
-
             if (true)
             {
                 Form2 formEspR= new Form2();
