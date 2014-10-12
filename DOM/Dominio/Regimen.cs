@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Dominio
 {
-    class Regimen
+    public class Regimen
     {
         #region Atributos
         private int codRegimen;

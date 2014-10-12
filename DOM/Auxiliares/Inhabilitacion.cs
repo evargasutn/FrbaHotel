@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Auxiliares
 {
-    class Inhabilitacion
+    public class Inhabilitacion
     {
     }
 }

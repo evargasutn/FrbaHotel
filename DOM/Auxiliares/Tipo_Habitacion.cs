@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Auxiliares
 {
-    class Tipo_Habitacion
+    public class Tipo_Habitacion
     {
         public int TipoCodigo;
         public string Descripcion;

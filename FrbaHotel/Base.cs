@@ -5,11 +5,11 @@ using System.Text;
 using System.Windows.Forms;
 namespace FrbaHotel
 {
-    class Class1
+    public class Base
     {
-       public static void cargarEnComboBox(ComboBox combo, List <object>opciones)
+       public static void cargarEnComboBox(ComboBox combo, List <Object>opciones)
         {
-           foreach( object opcion in opciones ){
+           foreach(Object opcion in opciones ){
                combo.Items.Add(opcion);
 
            }

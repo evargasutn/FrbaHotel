@@ -20,7 +20,7 @@ namespace DOM.Dominio
         private string pais;
         private string nacionalidad;
         private DateTime fecha_nacimiento;
-        private bool campo_baja//Campo Baja
+        private bool campo_baja;//Campo Baja
         #endregion
 
         #region Constructor

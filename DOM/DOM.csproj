@@ -55,7 +55,7 @@
     <Compile Include="Auxiliares\Inhabilitacion.cs" />
     <Compile Include="Auxiliares\PasswordEncoding.cs" />
     <Compile Include="Auxiliares\Tipo_Habitacion.cs" />
-    <Compile Include="DAO\DAAOTipo_Habitacion.cs" />
+    <Compile Include="DAO\DAOTipo_Habitacion.cs" />
     <Compile Include="DAO\DAOCancelacionReserva.cs" />
     <Compile Include="DAO\DAOConsumibleXEstadia.cs" />
     <Compile Include="DAO\DAODetalles_Reserva.cs" />

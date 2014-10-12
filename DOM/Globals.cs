@@ -11,7 +11,7 @@ namespace DOM
         #region Configuracion
         private static int _userID = 0;
 
-        private static string connectionString = ConfigurationManager.ConnectionStrings["BaseDatos"].ConnectionString;
+        private static string connectionString = ConfigurationManager.ConnectionStrings["sqlserver2008"].ConnectionString;
         private static bool isLogged = false;
 
         public static int userID
@@ -41,12 +41,18 @@ namespace DOM
         #endregion
 
         #region DAO
-        private DAAOUsuario usuario = new DAOUsuario();
+        private static DAAOUsuario usuario = new DAOUsuario();
+        private static DAAOFuncionalidad funcionalidad = new DAOFuncionalidad();
 
         public DAAOUsuario USUARIOS
         {
             get { return usuario; }
         }
+        public DAAOFuncionalidad FUNCIONALIDAD
+        {
+            get { return funcionalidad; }
+        }
+
         #endregion
     }
 }

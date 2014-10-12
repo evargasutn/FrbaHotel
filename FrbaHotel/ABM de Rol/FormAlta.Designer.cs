@@ -28,41 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelRol = new System.Windows.Forms.Label();
+            this.labelFuncionalidad = new System.Windows.Forms.Label();
+            this.labelEstado = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.comboDeFuncionalidades = new System.Windows.Forms.ComboBox();
+            this.comboFuncionalidades = new System.Windows.Forms.ComboBox();
             this.textRol = new System.Windows.Forms.TextBox();
-            this.comboDeEstado = new System.Windows.Forms.ComboBox();
+            this.comboEstado = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
-            // label1
+            // labelRol
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 36);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Nombre de Rol";
+            this.labelRol.AutoSize = true;
+            this.labelRol.Location = new System.Drawing.Point(30, 36);
+            this.labelRol.Name = "labelRol";
+            this.labelRol.Size = new System.Drawing.Size(78, 13);
+            this.labelRol.TabIndex = 0;
+            this.labelRol.Text = "Nombre de Rol";
             // 
-            // label2
+            // labelFuncionalidad
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 77);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Funcionalidad";
+            this.labelFuncionalidad.AutoSize = true;
+            this.labelFuncionalidad.Location = new System.Drawing.Point(30, 77);
+            this.labelFuncionalidad.Name = "labelFuncionalidad";
+            this.labelFuncionalidad.Size = new System.Drawing.Size(73, 13);
+            this.labelFuncionalidad.TabIndex = 1;
+            this.labelFuncionalidad.Text = "Funcionalidad";
             // 
-            // label3
+            // labelEstado
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 126);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Estado";
+            this.labelEstado.AutoSize = true;
+            this.labelEstado.Location = new System.Drawing.Point(30, 126);
+            this.labelEstado.Name = "labelEstado";
+            this.labelEstado.Size = new System.Drawing.Size(40, 13);
+            this.labelEstado.TabIndex = 2;
+            this.labelEstado.Text = "Estado";
             // 
             // button1
             // 
@@ -74,14 +74,14 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.buttonAlta_Click);
             // 
-            // comboDeFuncionalidades
+            // comboFuncionalidades
             // 
-            this.comboDeFuncionalidades.FormattingEnabled = true;
-            this.comboDeFuncionalidades.Location = new System.Drawing.Point(132, 74);
-            this.comboDeFuncionalidades.Name = "comboDeFuncionalidades";
-            this.comboDeFuncionalidades.Size = new System.Drawing.Size(130, 21);
-            this.comboDeFuncionalidades.TabIndex = 6;
-            this.comboDeFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.comboDeFuncionalidades_SelectedIndexChanged);
+            this.comboFuncionalidades.FormattingEnabled = true;
+            this.comboFuncionalidades.Location = new System.Drawing.Point(132, 74);
+            this.comboFuncionalidades.Name = "comboFuncionalidades";
+            this.comboFuncionalidades.Size = new System.Drawing.Size(130, 21);
+            this.comboFuncionalidades.TabIndex = 6;
+            this.comboFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.comboDeFuncionalidades_SelectedIndexChanged);
             // 
             // textRol
             // 
@@ -90,27 +90,27 @@
             this.textRol.Size = new System.Drawing.Size(129, 20);
             this.textRol.TabIndex = 7;
             // 
-            // comboBox1
+            // comboEstado
             // 
-            this.comboDeEstado.FormattingEnabled = true;
-            this.comboDeEstado.Location = new System.Drawing.Point(132, 118);
-            this.comboDeEstado.Name = "comboBox1";
-            this.comboDeEstado.Size = new System.Drawing.Size(130, 21);
-            this.comboDeEstado.TabIndex = 8;
-            this.comboDeEstado.SelectedIndexChanged += new System.EventHandler(this.comboDeEstado_SelectedIndexChanged);
+            this.comboEstado.FormattingEnabled = true;
+            this.comboEstado.Location = new System.Drawing.Point(132, 118);
+            this.comboEstado.Name = "comboEstado";
+            this.comboEstado.Size = new System.Drawing.Size(130, 21);
+            this.comboEstado.TabIndex = 8;
+            this.comboEstado.SelectedIndexChanged += new System.EventHandler(this.comboDeEstado_SelectedIndexChanged);
             // 
             // FormAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(282, 235);
-            this.Controls.Add(this.comboDeEstado);
+            this.Controls.Add(this.comboEstado);
             this.Controls.Add(this.textRol);
-            this.Controls.Add(this.comboDeFuncionalidades);
+            this.Controls.Add(this.comboFuncionalidades);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelEstado);
+            this.Controls.Add(this.labelFuncionalidad);
+            this.Controls.Add(this.labelRol);
             this.Name = "FormAlta";
             this.Text = "Alta de Rol";
             this.Load += new System.EventHandler(this.FormAlta_Load);
@@ -121,12 +121,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelRol;
+        private System.Windows.Forms.Label labelFuncionalidad;
+        private System.Windows.Forms.Label labelEstado;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ComboBox comboDeFuncionalidades;
+        private System.Windows.Forms.ComboBox comboFuncionalidades;
         private System.Windows.Forms.TextBox textRol;
-        private System.Windows.Forms.ComboBox comboDeEstado;
+        private System.Windows.Forms.ComboBox comboEstado;
     }
 }

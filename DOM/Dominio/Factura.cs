@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Dominio
 {
-    class Factura
+    public class Factura
     {
         #region Atributos
         private int numFactura;

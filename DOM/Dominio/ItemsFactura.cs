@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Dominio
 {
-    class ItemsFactura
+    public class ItemsFactura
     {
         private int numItem;
         private string descripcion;

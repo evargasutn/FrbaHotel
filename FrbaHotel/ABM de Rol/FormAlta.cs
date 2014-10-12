@@ -6,48 +6,51 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using DOM;
+using DOM.Dominio;
 namespace FrbaHotel.ABM_de_Rol
 {
     public partial class FormAlta : Form
     {
         public FormAlta()
         {
-
             InitializeComponent();
-            List<object> primes = new List<object>();
-            primes.Add("....");
-            primes.Add("......");
-            Class1.cargarEnComboBox(comboDeFuncionalidades,primes);
-            List<object> estado = new List<object>();
-            primes.Add("Activo");
-            primes.Add("No Activo");
-            Class1.cargarEnComboBox(comboDeEstado, estado);
-            
+            List<Funcionalidad> funcionalidades = Program.global.FUNCIONALIDAD.getAllFuncionalidades();
+            foreach(Funcionalidad func in funcionalidades)
+                comboFuncionalidades.Items.Add(func);
+            comboEstado.Items.Add("Activo");
+            comboEstado.Items.Add("No Activo");            
+        }
+        private bool todosCamposCompletos()
+        {
+            if (textRol.Text == "")
+                return false;
+            if (comboEstado.SelectedItem == null)
+                return false;
+            if (comboFuncionalidades.SelectedItem == null)
+                return false;
+            return true;
         }
 
         private void buttonAlta_Click(object sender, EventArgs e)
         {
-            if (textRol.Text == "" | comboDeFuncionalidades.SelectedItem == null)
+            if (todosCamposCompletos())
             {
-                MessageBox.Show("The data input are complete", "My Application",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Asterisk);
             }
-
-            else {  
-            ///Cargar Datos
-            ///
-            
+            else
+            {
+                MessageBox.Show("Complete todos los campos", "Error al crear Nuevo Rol", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        
 
         string _textComboBoxFuncional;
 
         private void comboDeFuncionalidades_TextChanged(object sender, EventArgs e)
         {
             // Called whenever text changes.
-            _textComboBoxFuncional = comboDeFuncionalidades.Text;
+            _textComboBoxFuncional = comboFuncionalidades.Text;
         }
     
         

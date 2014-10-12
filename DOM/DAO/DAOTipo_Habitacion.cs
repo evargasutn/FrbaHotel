@@ -7,7 +7,7 @@ using DOM.Interfaces;
 
 namespace DOM.DAO
 {
-    class DAAOTipo_Habitacion : SqlConnector, DAAOTipo_Habitacion
+    class DAOTipo_Habitacion : SqlConnector, DAAOTipo_Habitacion
     {
 
     }

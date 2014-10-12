@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DOM.Dominio
 {
-    class CancelacionReserva
+    public class CancelacionReserva
     {
         #region Atributos
         private int codReserva;

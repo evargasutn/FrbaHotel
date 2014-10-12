@@ -6,12 +6,12 @@ using DOM.Dominio;
 
 namespace DOM.Interfaces
 {
-    interface DAAOFuncionalidad
+    public interface DAAOFuncionalidad
     {
-        List<Funcionalidad> getAllGuest();
-        Funcionalidad addGuest(Funcionalidad funcionalidad);
-        Funcionalidad getGuest(string id);
-        void updateGuest(Funcionalidad funcionalidad);
-        void deteleGuest(string id);
+        List<Funcionalidad> getAllFuncionalidades();
+        Funcionalidad addFuncionalidad(Funcionalidad funcionalidad);
+        Funcionalidad getFuncionalidad(string id);
+        void updateFuncionalidad(Funcionalidad funcionalidad);
+        void deteleFuncionalidad(string id);
     }
 }

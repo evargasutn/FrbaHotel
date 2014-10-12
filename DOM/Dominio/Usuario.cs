@@ -26,8 +26,8 @@ namespace DOM
         private int? telefono;
         private DireccionStruct direccion; //Direccion con formato
         private DateTime fecha_nacimiento;
-        private List<Hotel> hoteles = new List<Hotel>();
-        private List<Rol> roles = new List<Rol>();
+        //private List<Hotel> hoteles = new List<Hotel>();
+        //private List<Rol> roles = new List<Rol>();
         private bool campoBaja;
         #endregion
 
@@ -116,44 +116,6 @@ namespace DOM
             get { return campoBaja; }
             set { campoBaja = value; }
         }
-        #endregion
-
-        #region Listas
-
-        public void agregarHotel(Hotel hotel)
-        {
-            hoteles.Add(hotel);
-        }
-
-        public Hotel obtenerHotel(int id)
-        {
-            if ((id >= 0) && (id <= hoteles.Count))
-                return hoteles[id];
-            return null;
-        }
-
-        public void removerHotel(Hotel hotel)
-        {
-            hoteles.Remove(hotel);
-        }
-
-        public void agregarRol(Rol rol)
-        {
-            roles.Add(rol);
-        }
-
-        public Rol obtenerRol(int id)
-        {
-            if ((id >= 0) && (id <= roles.Count))
-                return roles[id];
-            return null;
-        }
-
-        public void removerRol(Rol rol)
-        {
-            roles.Remove(rol);
-        }
-
         #endregion
 
         #region Constructor

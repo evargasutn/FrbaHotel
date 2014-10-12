@@ -6,7 +6,7 @@ using DOM.Dominio;
 
 namespace DOM.Auxiliares
 {
-    class EstadiaXConsumible
+    public class EstadiaXConsumible
     {
         public int cantidad;
         public Consumible consumible;
