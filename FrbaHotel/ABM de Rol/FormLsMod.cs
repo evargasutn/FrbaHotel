@@ -34,10 +34,7 @@ namespace FrbaHotel.ABM_de_Rol
         
         }
 
-        private void FormLsMod_Load(object sender, EventArgs e)
-        {
-
-        }
+       
 
         
 
