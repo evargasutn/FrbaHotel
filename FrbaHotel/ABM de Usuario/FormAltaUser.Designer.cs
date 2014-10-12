@@ -56,6 +56,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonAlta = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -75,6 +76,7 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingresar los datos";
+         
             // 
             // comboRol
             // 
@@ -100,6 +102,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Controls.Add(this.buttonSelHotel);
             this.groupBox2.Controls.Add(this.textBoxHotel);
             this.groupBox2.Controls.Add(this.buttonSelFecha);
@@ -317,6 +320,14 @@
             this.buttonAlta.Text = "Guardar";
             this.buttonAlta.UseVisualStyleBackColor = true;
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(125, 61);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(105, 21);
+            this.comboBox1.TabIndex = 25;
+            // 
             // FormAltaUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -364,6 +375,7 @@
         private System.Windows.Forms.TextBox textBoxHotel;
         private System.Windows.Forms.Button buttonAlta;
         private System.Windows.Forms.ComboBox comboRol;
+        private System.Windows.Forms.ComboBox comboBox1;
 
     }
 }

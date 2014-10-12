@@ -26,5 +26,31 @@ namespace FrbaHotel.ABM_de_Rol
         {
 
         }
+
+        private void dataGridViewRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (this.dataGridViewRol.Columns[e.ColumnIndex].Name == "ColumnSelecBaja")
+            {
+                ////dar de Baja al rol()inhabilitar
+            }
+
+        }
+
+        private void buttonBuscar_Click(object sender, EventArgs e)
+        {
+            ////////////
+        }
+
+        private void buttonLimpiar_Click(object sender, EventArgs e)
+        {
+            //////////
+        }
+
+        private void FormLsBaja_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
+    
 }

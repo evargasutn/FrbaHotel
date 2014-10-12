@@ -9,21 +9,11 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.ABM_de_Usuario
 {
-    public partial class FormAltaUser : Form
+    public partial class FormLsBajaUser : Form
     {
-        public FormAltaUser()
+        public FormLsBajaUser()
         {
             InitializeComponent();
         }
-
-      
-
-
-
-        
-
-      
-
-        
     }
 }

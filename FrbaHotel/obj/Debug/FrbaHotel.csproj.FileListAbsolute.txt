@@ -41,3 +41,5 @@ C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Inicial.
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Form2.resources
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Usuario.Form1.resources
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Usuario.FormAltaUser.resources
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Usuario.FormLsBajaUser.resources
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Usuario.FormLsModUser.resources

@@ -18,12 +18,29 @@ namespace FrbaHotel.ABM_de_Rol
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
         {
-
+            ////
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+       
+
+        private void dataGridViewRol_CellClick(object sender, DataGridViewCellEventArgs e)
+        {         
+           ///detecta la seleccion de la columna
+            if (this.dataGridViewRol.Columns[e.ColumnIndex].Name == "ColumnSeleccionar")
+            {
+               ////
+                ////abrir fr para seleccionar las funcionaidades
+            }
+        
+        }
+
+        private void FormLsMod_Load(object sender, EventArgs e)
         {
 
         }
+
+        
+
+       
     }
 }
