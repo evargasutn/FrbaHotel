@@ -303,9 +303,10 @@ go
 create table COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA
 (
 	numeroFactura	numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura),
-	numeroItem		numeric(5) not null,
+	numeroItem		numeric(5) identity(1,1) not null,
 	descripcion		varchar(255) not null,
 	monto			numeric(18,2) not null,
+	cantidad		numeric(2) not null,
 	PRIMARY KEY (numeroFactura, numeroItem)
 )
 go
@@ -533,4 +534,44 @@ GO
 		  R.descripcion = M.Regimen_Descripcion AND
 		  R.precio = M.Regimen_Precio
 	ORDER BY H.codHotel
+GO
+
+--//CANCELACIONES_RESERVA
+	IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.P_CANCELA_RESERVA', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.P_CANCELA_RESERVA;
+GO
+	CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.P_CANCELA_RESERVA 
+		--Toma la fecha del sistema al momento de agregar una cancelacion
+		@codReserva		numeric,
+		@motivo			varchar,
+		@usr			varchar(50)
+	     
+	AS 
+		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA (codReserva, motivo, usr, fecCancelacion)
+		VALUES (@codReserva, @motivo, @usr, GETDATE())
+GO
+
+--//FACTURAS
+	--PARA QUE TOME LOS NROS. FACTURAS YA EXISTENTE
+	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.FACTURAS ON
+
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura, codReserva, fecha, montoTotal, idHuesped)
+	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, M.Factura_Total, HUES.idHuesped
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
+	WHERE M.Factura_Nro IS NOT NULL AND
+		  M.Cliente_Pasaporte_Nro = HUES.numDocu AND
+		  M.Cliente_Apellido = HUES.apellido AND
+		  M.Cliente_Nombre = HUES.nombre
+		  
+  	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.FACTURAS ON
+GO
+
+--//ITEMS_FACTURA
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, monto, cantidad, descripcion)
+	SELECT DISTINCT M.Factura_Nro, M.Item_Factura_Monto, M.Item_Factura_Cantidad, ''
+	FROM gd_esquema.Maestra M
+	WHERE M.Item_Factura_Monto IS NOT NULL AND
+		  M.Item_Factura_Cantidad IS NOT NULL AND
+		  M.Factura_Nro IS NOT NULL
+	ORDER BY M.Factura_Nro ASC
 GO
