@@ -43,11 +43,11 @@ COMMIT;
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES;
 
-		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES;
-		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES;
+		
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.HOTELES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.HOTELES;
@@ -96,17 +96,17 @@ create table COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 (
 	usr							varchar(50) PRIMARY KEY,
 	password					varchar(50) not null, 
-	nombre						varchar(50) not null,
-	apellido					varchar(50) not null,
+	nombre						varchar(255) not null,
+	apellido					varchar(255) not null,
 	contador_intentos_login		numeric(1,0) default 0, -- 3 intentos
-	tipoDocu					numeric(8) not null,
-	numDocu						numeric(18) not null,
-	mail						varchar(50),
+	tipoDocu					varchar(50) not null default 'DNI',
+	numDocu						numeric(18,0) not null,
+	mail						varchar(255),
 	telefono					numeric(12),
-	direccionCalle				varchar(50) not null,
-	direccionNumero				numeric(8) not null,
-	direccionPiso				numeric(2),
-	DireccionDepto				varchar(2),
+	direccionCalle				varchar(255) not null,
+	direccionNumero				numeric(18,0) not null,
+	direccionPiso				numeric(18,0),
+	DireccionDepto				varchar(50),
 	FecNacimiento				DateTime not null,
 	campoBaja					bit	not null default 0
 )
@@ -145,19 +145,19 @@ go
 create table COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 (
 	idHuesped 			int identity(1,1) PRIMARY KEY,
-	tipoDocu			numeric(8) not null,
-	numDocu				numeric(18) not null,
-	nombre				varchar(50) not null,
-	apellido			varchar(50) not null,
-	mail				varchar(50),
-	telefono			numeric(12),
-	direccionCalle		varchar(50) not null,
-	direccionNumero		numeric(8) not null,
-	direccionPiso		numeric(2),
-	DireccionDepto		varchar(2),
+	tipoDocu			varchar(50),
+	numDocu				numeric(18,0) not null,
+	nombre				varchar(255) not null,
+	apellido			varchar(255) not null,
+	mail				varchar(255),
+	telefono			numeric(18,0),
+	direccionCalle		varchar(255) not null,
+	direccionNumero		numeric(18,0) not null,
+	direccionPiso		numeric(18,0),
+	DireccionDepto		varchar(50),
 	localidad			varchar(50) not null,
 	paisOrigen			varchar(50) not null,
-	nacionalidad		varchar(50) not null,
+	nacionalidad		varchar(255) not null,
 	fecNacimiento		datetime not null,
 	campo_baja			bit	not null default 0
 )
@@ -165,7 +165,7 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
 (
-	codReserva	numeric(18) PRIMARY KEY,
+	codReserva	numeric(18) identity(1,1) PRIMARY KEY,
 	idHuesped	int FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped),
 	usr			varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
 	fecDesde	datetime,
@@ -191,12 +191,12 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES
 	mail			varchar(50) default '',
 	fecCreacion		datetime not null default GETDATE(),
 	telefono		numeric(20) not null default '11111111',
-	direccionCalle	varchar(50) not null,
-	direccionNumero	numeric(8) not null,
-	ciudad			varchar(50) not null,
+	direccionCalle	varchar(255) not null,
+	direccionNumero	numeric(18,0) not null,
+	ciudad			varchar(255) not null,
 	pais			varchar(50) not null default 'Argentina',
-	cantEstrellas	numeric(1) not null,
-	recargoEstrella numeric(3,2) not null
+	cantEstrellas	numeric(18,0) not null,
+	recargoEstrella numeric(18,0) not null
 )
 go
 
@@ -210,20 +210,6 @@ create table COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
 )
 go
 
-create table COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
-(
-	codHotel		numeric(8),
-	habitacion		numeric(4) PRIMARY KEY,
-	piso			numeric(2),
-	ubicacion		varchar(255) not null,
-	tipoCodigo		numeric(10) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES,
-	descripcion		varchar(255) not null default "",
-	campoBaja		bit	not null default 0,
-)
-go 
-ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT Fk_Habitacion_Hotel FOREIGN KEY (codHotel) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel);
-ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT Fk_Habitacion_Tipo FOREIGN KEY (tipoCodigo) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(tipoCodigo);
-
 create table COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES
 (
 	tipoCodigo		numeric(10) PRIMARY KEY,
@@ -232,22 +218,38 @@ create table COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES
 )
 go
 
+create table COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
+(
+	codHotel		numeric(8) not null,
+	habitacion		numeric(4) not null,
+	piso			numeric(2) not null,
+	ubicacion		varchar(255) not null,
+	tipoCodigo		numeric(10) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES,
+	descripcion		varchar(255) not null default '',
+	campoBaja		bit	not null default 0
+)
+go 
+ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT PK_Habitaciones PRIMARY KEY(codHotel, habitacion, piso);
+ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT Fk_Habitacion_Hotel FOREIGN KEY (codHotel) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel);
+
 create table COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
 (
-	codReserva	numeric(18)FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
-	codHotel	numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
-	habitacion	numeric(4) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES(habitacion),
+	codReserva	numeric(18) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
+	codHotel	numeric(8) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
+	habitacion	numeric(4) not null,
+	piso		numeric(2) not null,
 	codRegimen	numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen),
-	PRIMARY KEY (codReserva, habitacion, codHotel)
 )
 go
+ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA ADD CONSTRAINT PK_Detalles_Reserva PRIMARY KEY(codReserva, codHotel, habitacion, piso);
+--ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA ADD CONSTRAINT FK_Detalles_Reserva FOREIGN KEY (habitacion,piso) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES(habitacion,piso);
 
 create table COMPUMUNDO_HIPER_MEGA_RED.ESTADIA
 (
-	codReserva	numeric(18) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
+	codReserva	numeric(18) NOT NULL FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
 	fecIngreso	datetime not null,
 	usrIngreso	varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
-	fecEgreso	datetime not null,
+	fecEgreso	datetime,
 	usrEgreso	varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
 	PRIMARY KEY (codReserva)
 )
@@ -354,7 +356,7 @@ GO
 			('12','Listado Estadistico')
 GO	
 
---//ROL_FUNCIONALIDADES
+--//FUNCIONALIDADES_X_ROL
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES_X_ROL (nombreRol, idFuncionalidad) 
 	VALUES 	('Administrador','1'), 
 			('Administrador','2'), 
@@ -429,11 +431,14 @@ GO
 GO
 
 --//HABITACIONES
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES(habitacion, piso, ubicacion, tipoCodigo)
-	SELECT DISTINCT Habitacion_Numero, Habitacion_Piso, Habitacion_Frente, Habitacion_Tipo_Codigo
-	FROM  gd_esquema.Maestra
-	WHERE Habitacion_Numero IS NOT NULL
-GO
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES(codHotel,habitacion, piso, ubicacion, tipoCodigo, descripcion)
+	SELECT DISTINCT H.codHotel, M.Habitacion_Numero, M.Habitacion_Piso, M.Habitacion_Frente, M.Habitacion_Tipo_Codigo, M.Habitacion_Tipo_Descripcion
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H, gd_esquema.Maestra M
+	WHERE H.direccionCalle = M.Hotel_Calle AND 
+		  H.direccionNumero = M.Hotel_Nro_Calle AND 
+		  H.ciudad = M.Hotel_Ciudad AND 
+		  H.direccionCalle IS NOT NULL
+GO	
 
 --//TIPO_HABITACIONES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES(tipoCodigo, tipoDescripcion, tipoPorcentual)
@@ -442,18 +447,90 @@ GO
 	WHERE Habitacion_Tipo_Codigo IS NOT NULL
 GO
 
+--//HUESPEDES
+    INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(tipoDocu, numDocu, apellido, nombre, fecNacimiento, mail, direccionCalle,
+                                                   direccionNumero, direccionPiso, direccionDepto, localidad, nacionalidad, paisOrigen)
+    SELECT DISTINCT 'DNI', Cliente_Pasaporte_Nro , Cliente_Apellido, Cliente_Nombre, Cliente_Fecha_Nac, Cliente_Mail,   
+                    Cliente_Dom_Calle, Cliente_Nro_Calle, Cliente_Piso, Cliente_Depto, 'CABA', Cliente_Nacionalidad, 'Argentina'
+    FROM  gd_esquema.Maestra
+	WHERE Cliente_Apellido IS NOT NULL AND Cliente_Nombre IS NOT NULL
+GO
 
+--//RESERVAS
+/*SUPONEMOS QUE LAS RESERVAS FUERON REGISTRADAS POR EL ADMINISTRADOR
+  Y QUE FUERON REALIZADAS 5 DÍAS ANTES DE SU INICIO.
+  NO SE TRATAN LAS FECHAS REGISTRADAS EN EL FUTURO*/
+	
+	--PARA QUE TOME LOS CODIGOS YA EXISTENTE
+	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.RESERVAS ON
 
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva, idHuesped, usr, fecDesde, fecHasta, fecReserva)
+	SELECT DISTINCT M.Reserva_Codigo , HUES.idHuesped, 'admin', M.Reserva_Fecha_Inicio, M.Reserva_Fecha_Inicio + M.Reserva_Cant_Noches, M.Reserva_Fecha_Inicio - 5
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
+	WHERE M.Cliente_Pasaporte_Nro = HUES.numDocu AND
+		  M.Cliente_Apellido = HUES.apellido AND
+		  M.Cliente_Nombre = HUES.nombre
+		  
+	--RESET IDENTITY_INSERT PARA QUE VUELVA A INSERTAR VALORES AUTOMATICAMENTE
+	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.RESERVAS OFF
+GO
 
+--//REGIMENES_X_HOTEL
+    INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL(codHotel, codRegimen)
+	SELECT DISTINCT H.codHotel, R.codRegimen
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H, COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R, gd_esquema.Maestra M
+	WHERE H.direccionCalle = M.Hotel_Calle AND 
+		  H.direccionNumero = M.Hotel_Nro_Calle AND 
+		  H.ciudad = M.Hotel_Ciudad AND 
+		  H.direccionCalle IS NOT NULL AND
+		  R.descripcion = M.Regimen_Descripcion AND
+		  R.precio = M.Regimen_Precio
+	ORDER BY H.codHotel ASC
+GO	
 
+--//ESTADIA
+/*SUPONEMOS QUE LA ESTADIA FINALIZA Estadia_Cant_Noches LUEGO DE LA FECHA DE INICIO DE LA MISMA
+  Y QUE FUE REGISTRADA POR EL ADMINISTRADOR.
+  NO SE TRATAN LAS FECHAS REGISTRADAS EN EL FUTURO*/
+  	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ESTADIA(codReserva,fecIngreso, fecEgreso, usrIngreso, usrEgreso)
+	SELECT DISTINCT M.Reserva_Codigo, M.Estadia_Fecha_Inicio, M.Estadia_Fecha_Inicio + M.Estadia_Cant_Noches, 'admin', 'admin'
+	FROM gd_esquema.Maestra M
+	WHERE M.Estadia_Fecha_Inicio IS NOT NULL AND
+		  M.Reserva_Codigo IS NOT NULL
+GO
 
+--//CONSUMIBLES
+--PARA QUE TOME LOS CODIGOS YA EXISTENTE
+	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES ON
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(codConsumible, descripcion, importe)
+	SELECT DISTINCT M.Consumible_Codigo, M.Consumible_Descripcion, M.Consumible_Precio
+	FROM gd_esquema.Maestra M
+	WHERE M.Consumible_Codigo IS NOT NULL
+	
+/*RESETEO IDENTITY_INSERT, CUANDO HAYA NUEVOS INSERT SEGUIRÁ CON LA SECUENCIA DE CODIGO ULTIMO
+  SI EL ULTIMO CODIGO CARGADO ES 2327 CUANDO HAGA INSERT SERA 2328*/
+	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES OFF
+GO
 
+--//CONSUMIBLES_X_ESTADIA
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA(codConsumible, codReserva, cantidad)
+	SELECT DISTINCT M.Consumible_Codigo, M.Reserva_Codigo, count(M.Consumible_Codigo)
+	FROM gd_esquema.Maestra M
+	WHERE M.Consumible_Codigo IS NOT NULL AND
+		  M.Reserva_Codigo IS NOT NULL
+	GROUP BY M.Consumible_Codigo, M.Reserva_Codigo
+	ORDER BY M.Reserva_Codigo ASC
+GO	
 
-
-
-
-
-
-
-
-
+--//DETALLES_RESERVA
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, codRegimen, habitacion, piso)
+	SELECT DISTINCT H.codHotel, M.Reserva_Codigo, R.codRegimen, M.Habitacion_Numero, M.Habitacion_Piso
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H, COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R, gd_esquema.Maestra M
+	WHERE H.direccionCalle = M.Hotel_Calle AND 
+		  H.direccionNumero = M.Hotel_Nro_Calle AND 
+		  H.ciudad = M.Hotel_Ciudad AND 
+		  H.direccionCalle IS NOT NULL AND
+		  R.descripcion = M.Regimen_Descripcion AND
+		  R.precio = M.Regimen_Precio
+	ORDER BY H.codHotel
+GO
