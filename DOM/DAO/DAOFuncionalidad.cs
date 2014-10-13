@@ -10,7 +10,7 @@ namespace DOM
 {
     public class DAOFuncionalidad : SqlConnector, DAAOFuncionalidad
     {
-        string T_FUNCIONALIDAD = "FUNCIONALIDADES";
+        string T_FUNCIONALIDAD = "COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES";
         #region DAAOFuncionalidad Members
 
         public List<Funcionalidad> getAllFuncionalidades()
@@ -58,7 +58,7 @@ namespace DOM
                     //Transcribir
                     Funcionalidad user = new Funcionalidad();
                     user.Id_funcionalidad = Convert.ToInt32(fila["idFuncionalidad"]);
-                    user.Descripcioion = Convert.ToString(fila["descripcion"]);
+                    user.Descripcion = Convert.ToString(fila["descripcion"]);
                     lista.Add(user);
                 }
             return lista;

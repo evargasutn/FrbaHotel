@@ -155,7 +155,6 @@
             this.Controls.Add(this.groupBox1);
             this.Name = "FormRolMod";
             this.Text = "Listado De Seleccion";
-            this.Load += new System.EventHandler(this.FormRolMod_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).EndInit();

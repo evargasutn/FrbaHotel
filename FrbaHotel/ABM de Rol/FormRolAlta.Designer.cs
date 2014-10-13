@@ -69,7 +69,7 @@ namespace FrbaHotel.ABM_de_Rol
             // botonGuardar
             // 
             this.botonGuardar.Location = new System.Drawing.Point(74, 173);
-            this.botonGuardar.Name = "button1";
+            this.botonGuardar.Name = "botonGuardar";
             this.botonGuardar.Size = new System.Drawing.Size(136, 28);
             this.botonGuardar.TabIndex = 5;
             this.botonGuardar.Text = "guardar";
