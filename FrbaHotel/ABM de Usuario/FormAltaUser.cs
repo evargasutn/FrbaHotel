@@ -18,9 +18,10 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void buttonSelFecha_Click(object sender, EventArgs e)
         {
-            Globals.VentanaAnterior=this;
-            this.Enabled = false;
+          
+            Base.establecerVentanaAnterior(this);
             Globals.TextBoxAnterior=textBoxFechaNac;
+
             CalendarioGlobal calendarioFechaNacimiento=new CalendarioGlobal();
             calendarioFechaNacimiento.Show();
         }

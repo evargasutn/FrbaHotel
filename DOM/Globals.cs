@@ -52,6 +52,8 @@ namespace DOM
 
         #endregion
 
+
+        //Fecha:10/13/2014
         #region TextBoxes
         private static TextBox textBoxAnterior;
         public static TextBox TextBoxAnterior
@@ -79,8 +81,70 @@ namespace DOM
         }
 
         #endregion
+        ///
+        //Fecha:10/13/2014
+        #region VentanasViajeras
+        public static IList<Form> conjuntoDeVentanas = new List<Form>();
+        public static IList<Form> ConjuntoDeVentanas
+        {
+            get { return conjuntoDeVentanas; }
+            set { conjuntoDeVentanas = value; }
+        }
+        public static int indexVentanas = 0;
+        public static int IndexVentanas
+        {
+            get { return indexVentanas; }
+            set { indexVentanas = value; }
+        }
 
 
+        /// <summary>
+        /// agrega a la lista la ventana ventana actual(anterior)
+        /// </summary>
+        /// <param name="unaVentanaADondeVolver"></param>
+        public static void establecerVentanaAVolver(Form unaVentanaADondeVolver)
+        {
+            unaVentanaADondeVolver.Enabled = false;
+            ConjuntoDeVentanas.Add(unaVentanaADondeVolver);
+
+        }
+
+        /// <summary>
+        /// Abre una nueva ventana ,y la establece la ventana a volver
+        /// </summary>
+        /// <param name="ventanaNueva"></param>
+        public static void irANuevaVentana(Form ventanaAAbrir, Form ventanaAnterior)
+        {
+            establecerVentanaAVolver(ventanaAnterior);
+            ventanaAAbrir.Show();
+        }
+
+        //
+        /// <summary>
+        /// Cierra la ventana actual y saca de la lista la ventana a la que se vuelve
+        /// Se debe colocar este metodo en dispose de cada formulario , tare a corregir
+        /// </summary>
+        /// <param name="ventanaActual"></param>
+        public static void volverAAnteriorVentana(Form ventanaActual)
+        {
+            var index = ConjuntoDeVentanas.Count - 1;
+            ConjuntoDeVentanas[index].Enabled = true;
+            ConjuntoDeVentanas.RemoveAt(index);
+        }
+
+
+        /// <summary>
+        /// //Acordate q el metodo dispose llama a volverALaVentanaAnterior
+        /// </summary>
+        /// <param name="ventanaActual"></param>
+        public static void cerrarVentana(Form ventanaActual)
+        {
+
+            ventanaActual.Dispose();
+        }
+
+        #endregion
+        
         #region DAO
         private static DAAOUsuario usuario = new DAOUsuario();
         private static DAAORol rol = new DAORol();

@@ -35,6 +35,7 @@ namespace FrbaHotel
             this.monthCalendar1 = new System.Windows.Forms.MonthCalendar();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxFecha = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,14 +45,14 @@ namespace FrbaHotel
             this.groupBox1.Controls.Add(this.monthCalendar1);
             this.groupBox1.Location = new System.Drawing.Point(32, 60);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(313, 227);
+            this.groupBox1.Size = new System.Drawing.Size(318, 212);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mi calendario";
             // 
             // buttonAceptarFecha
             // 
-            this.buttonAceptarFecha.Location = new System.Drawing.Point(226, 195);
+            this.buttonAceptarFecha.Location = new System.Drawing.Point(228, 169);
             this.buttonAceptarFecha.Name = "buttonAceptarFecha";
             this.buttonAceptarFecha.Size = new System.Drawing.Size(86, 31);
             this.buttonAceptarFecha.TabIndex = 1;
@@ -78,16 +79,28 @@ namespace FrbaHotel
             // 
             // textBoxFecha
             // 
-            this.textBoxFecha.Location = new System.Drawing.Point(107, 38);
+            this.textBoxFecha.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBoxFecha.Location = new System.Drawing.Point(124, 38);
             this.textBoxFecha.Name = "textBoxFecha";
+            this.textBoxFecha.ReadOnly = true;
             this.textBoxFecha.Size = new System.Drawing.Size(194, 20);
             this.textBoxFecha.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Fecha seleccionada:";
             // 
             // CalendarioGlobal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(408, 299);
+            this.ClientSize = new System.Drawing.Size(353, 285);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxFecha);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
@@ -106,5 +119,6 @@ namespace FrbaHotel
         private System.Windows.Forms.MonthCalendar monthCalendar1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxFecha;
+        private System.Windows.Forms.Label label2;
     }
 }

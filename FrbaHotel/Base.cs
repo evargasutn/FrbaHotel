@@ -44,7 +44,12 @@ namespace FrbaHotel
            unDataGrid.DataSource = dt;
            con.Close();    
        }
-
+       public static void establecerVentanaAnterior(Form ventanaAVolver)
+       {
+           Globals.VentanaAnterior = ventanaAVolver;
+           ventanaAVolver.Enabled = false;
+       
+       }
 
 
     }

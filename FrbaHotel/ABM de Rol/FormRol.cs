@@ -37,8 +37,12 @@ namespace FrbaHotel.ABM_de_Rol
         private void mostrarVentana(Form ventana)
         {
             ventana.Show();
-            Globals.VentanaAnterior = this;
-            this.Enabled = false;
+            Base.establecerVentanaAnterior(this);
+        }
+
+        private void FormRol_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

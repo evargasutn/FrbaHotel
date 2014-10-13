@@ -168,6 +168,7 @@ namespace FrbaHotel.ABM_de_Usuario
             // 
             this.textBoxFechaNac.Location = new System.Drawing.Point(369, 126);
             this.textBoxFechaNac.Name = "textBoxFechaNac";
+            this.textBoxFechaNac.ReadOnly = true;
             this.textBoxFechaNac.Size = new System.Drawing.Size(108, 20);
             this.textBoxFechaNac.TabIndex = 20;
             // 
