@@ -18,7 +18,7 @@ namespace DOM.Dominio
             get { return id_funcionalidad; }
             set { id_funcionalidad = value; }
         }
-        public string Descripcioion
+        public string Descripcion
         {
             get { return descripcion; }
             set { descripcion = value; }

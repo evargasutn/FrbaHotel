@@ -1,0 +1,5 @@
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\DOM\bin\Debug\DOM.dll
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\DOM\bin\Debug\DOM.pdb
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\DOM\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\DOM\obj\Debug\DOM.dll
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\DOM\obj\Debug\DOM.pdb
