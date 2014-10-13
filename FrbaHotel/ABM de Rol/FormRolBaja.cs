@@ -9,10 +9,10 @@ using System.Windows.Forms;
 
 namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class FormLsBaja : Form
+    public partial class FormRolBaja : Form
     {//En el listado deben aparecer solo los activos
         //para dar la baja logica a no activo
-        public FormLsBaja()
+        public FormRolBaja()
         {
             InitializeComponent();
         }

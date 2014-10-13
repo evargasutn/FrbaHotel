@@ -1,6 +1,6 @@
 ﻿namespace FrbaHotel.ABM_de_Rol
 {
-    partial class Form1
+    partial class FormRol
     {
         /// <summary>
         /// Required designer variable.
@@ -73,7 +73,6 @@
             this.Controls.Add(this.buttonAlta);
             this.Name = "Form1";
             this.Text = "ABM de Rol";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }

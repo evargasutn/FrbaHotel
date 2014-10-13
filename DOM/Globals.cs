@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
 using DOM.Interfaces;
+using System.Windows.Forms;
 
 namespace DOM
 {
@@ -40,15 +41,31 @@ namespace DOM
         }
         #endregion
 
+        #region Singletons Ventanas
+        private static Form ventanaAnterior;
+
+        public static Form VentanaAnterior
+        {
+            get { return ventanaAnterior; }
+            set { ventanaAnterior = value; }
+        }
+
+        #endregion
+
         #region DAO
         private static DAAOUsuario usuario = new DAOUsuario();
+        private static DAAORol rol = new DAORol();
         private static DAAOFuncionalidad funcionalidad = new DAOFuncionalidad();
 
-        public DAAOUsuario USUARIOS
+        public static DAAOUsuario USUARIOS
         {
             get { return usuario; }
         }
-        public DAAOFuncionalidad FUNCIONALIDAD
+        public static DAAORol ROL
+        {
+            get { return rol; }
+        }
+        public static DAAOFuncionalidad FUNCIONALIDAD
         {
             get { return funcionalidad; }
         }

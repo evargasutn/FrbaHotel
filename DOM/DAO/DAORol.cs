@@ -9,10 +9,11 @@ namespace DOM
 {
     public class DAORol : SqlConnector, DAAORol
     {
+        string T_ROL = "ROLES";
 
         #region DAAORol Members
 
-        public List<DOM.Dominio.Rol> getAllRol()
+        public List<DOM.Dominio.Rol> getAllRoles()
         {
             throw new NotImplementedException();
         }
@@ -35,6 +36,18 @@ namespace DOM
         public void deteleRol(string nombreRol)
         {
             throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region DAAORol Members
+
+
+        public bool createRolConFuncionalidad(DOM.Dominio.Rol rol, int id_funcionalidad)
+        {
+            //Transaccion que agrega un Rol a la tabla ROLES y una entrada Rol.id con id_funcionalidad en la tabla ROLES_X_FUNCIONALIDADES
+            return false;
+            //throw new NotImplementedException();
         }
 
         #endregion

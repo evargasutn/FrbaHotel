@@ -6,12 +6,14 @@ using DOM.Dominio;
 
 namespace DOM.Interfaces
 {
-    interface DAAORol
+    public interface DAAORol
     {
-        List<Rol> getAllRol();
+        List<Rol> getAllRoles();
         Rol addRol(Rol rol);
         Rol getRol(string nombreRol);
         void updateRol(Rol rol);
         void deteleRol(string nombreRol);
+
+        bool createRolConFuncionalidad(Rol rol, int id_funcionalidad);
     }
 }

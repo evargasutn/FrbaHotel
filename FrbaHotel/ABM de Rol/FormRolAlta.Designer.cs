@@ -1,6 +1,7 @@
-﻿namespace FrbaHotel.ABM_de_Rol
+﻿using DOM;
+namespace FrbaHotel.ABM_de_Rol
 {
-    partial class FormAlta
+    partial class FormRolAlta
     {
         /// <summary>
         /// Required designer variable.
@@ -13,6 +14,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            Globals.VentanaAnterior.Enabled = true;
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -31,7 +33,7 @@
             this.labelRol = new System.Windows.Forms.Label();
             this.labelFuncionalidad = new System.Windows.Forms.Label();
             this.labelEstado = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.botonGuardar = new System.Windows.Forms.Button();
             this.comboFuncionalidades = new System.Windows.Forms.ComboBox();
             this.textRol = new System.Windows.Forms.TextBox();
             this.comboEstado = new System.Windows.Forms.ComboBox();
@@ -64,15 +66,15 @@
             this.labelEstado.TabIndex = 2;
             this.labelEstado.Text = "Estado";
             // 
-            // button1
+            // botonGuardar
             // 
-            this.button1.Location = new System.Drawing.Point(74, 173);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(136, 28);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "guardar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.buttonAlta_Click);
+            this.botonGuardar.Location = new System.Drawing.Point(74, 173);
+            this.botonGuardar.Name = "button1";
+            this.botonGuardar.Size = new System.Drawing.Size(136, 28);
+            this.botonGuardar.TabIndex = 5;
+            this.botonGuardar.Text = "guardar";
+            this.botonGuardar.UseVisualStyleBackColor = true;
+            this.botonGuardar.Click += new System.EventHandler(this.buttonAlta_Click);
             // 
             // comboFuncionalidades
             // 
@@ -81,7 +83,6 @@
             this.comboFuncionalidades.Name = "comboFuncionalidades";
             this.comboFuncionalidades.Size = new System.Drawing.Size(130, 21);
             this.comboFuncionalidades.TabIndex = 6;
-            this.comboFuncionalidades.SelectedIndexChanged += new System.EventHandler(this.comboDeFuncionalidades_SelectedIndexChanged);
             // 
             // textRol
             // 
@@ -97,9 +98,8 @@
             this.comboEstado.Name = "comboEstado";
             this.comboEstado.Size = new System.Drawing.Size(130, 21);
             this.comboEstado.TabIndex = 8;
-            this.comboEstado.SelectedIndexChanged += new System.EventHandler(this.comboDeEstado_SelectedIndexChanged);
             // 
-            // FormAlta
+            // FormRolAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -107,13 +107,13 @@
             this.Controls.Add(this.comboEstado);
             this.Controls.Add(this.textRol);
             this.Controls.Add(this.comboFuncionalidades);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.labelEstado);
             this.Controls.Add(this.labelFuncionalidad);
             this.Controls.Add(this.labelRol);
-            this.Name = "FormAlta";
+            this.Name = "FormRolAlta";
             this.Text = "Alta de Rol";
-            this.Load += new System.EventHandler(this.FormAlta_Load);
+            this.Load += new System.EventHandler(this.FormRolAlta_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,7 +124,7 @@
         private System.Windows.Forms.Label labelRol;
         private System.Windows.Forms.Label labelFuncionalidad;
         private System.Windows.Forms.Label labelEstado;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button botonGuardar;
         private System.Windows.Forms.ComboBox comboFuncionalidades;
         private System.Windows.Forms.TextBox textRol;
         private System.Windows.Forms.ComboBox comboEstado;

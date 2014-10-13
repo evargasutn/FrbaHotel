@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using DOM;
+using FrbaHotel.ABM_de_Rol;
 
 namespace FrbaHotel
 {
     static class Program
     {
-        public static Globals global = new Globals();
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -17,7 +17,8 @@ namespace FrbaHotel
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Inicial());
+            //Application.Run(new Inicial());
+            Application.Run(new FormRol());
         }
     }
 }

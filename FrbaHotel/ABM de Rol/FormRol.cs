@@ -6,37 +6,39 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DOM;
 
 namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class Form1 : Form
+    public partial class FormRol : Form
     {
-        public Form1()
+        public FormRol()
         {
             InitializeComponent();
         }
 
         private void buttonAlta_Click(object sender, EventArgs e)
         {
-         FormAlta alta = new FormAlta();
-            alta.Show();
+            FormRolAlta alta = new FormRolAlta();
+            mostrarVentana(alta);
         }
 
         private void buttonMod_Click(object sender, EventArgs e)
         {
-            FormLsMod modificacion = new FormLsMod();
-            modificacion.Show();
+            FormRolMod modificacion = new FormRolMod();
+            mostrarVentana(modificacion);
         }
 
         private void buttonBaja_Click(object sender, EventArgs e)
         {
-            FormLsBaja baja = new FormLsBaja();
-            baja.Show();
+            FormRolBaja baja = new FormRolBaja();
+            mostrarVentana(baja);
         }
-
-        private void Form1_Load(object sender, EventArgs e)
+        private void mostrarVentana(Form ventana)
         {
-
+            ventana.Show();
+            Globals.VentanaAnterior = this;
+            this.Enabled = false;
         }
     }
 }

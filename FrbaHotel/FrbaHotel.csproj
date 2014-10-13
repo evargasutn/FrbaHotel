@@ -67,29 +67,29 @@
     <Compile Include="ABM de Regimen\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Rol\Form1.cs">
+    <Compile Include="ABM de Rol\FormRol.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Rol\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM de Rol\FormRol.Designer.cs">
+      <DependentUpon>FormRol.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Rol\FormLsBaja.cs">
+    <Compile Include="ABM de Rol\FormRolBaja.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Rol\FormLsBaja.Designer.cs">
-      <DependentUpon>FormLsBaja.cs</DependentUpon>
+    <Compile Include="ABM de Rol\FormRolBaja.Designer.cs">
+      <DependentUpon>FormRolBaja.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Rol\FormAlta.cs">
+    <Compile Include="ABM de Rol\FormRolAlta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Rol\FormAlta.Designer.cs">
-      <DependentUpon>FormAlta.cs</DependentUpon>
+    <Compile Include="ABM de Rol\FormRolAlta.Designer.cs">
+      <DependentUpon>FormRolAlta.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Rol\FormLsMod.cs">
+    <Compile Include="ABM de Rol\FormRolMod.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Rol\FormLsMod.Designer.cs">
-      <DependentUpon>FormLsMod.cs</DependentUpon>
+    <Compile Include="ABM de Rol\FormRolMod.Designer.cs">
+      <DependentUpon>FormRolMod.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Usuario\Form1.cs">
       <SubType>Form</SubType>
@@ -155,17 +155,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ABM de Rol\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Rol\FormRol.resx">
+      <DependentUpon>FormRol.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Rol\FormAlta.resx">
-      <DependentUpon>FormAlta.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Rol\FormRolAlta.resx">
+      <DependentUpon>FormRolAlta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Rol\FormLsBaja.resx">
-      <DependentUpon>FormLsBaja.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Rol\FormRolBaja.resx">
+      <DependentUpon>FormRolBaja.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Rol\FormLsMod.resx">
-      <DependentUpon>FormLsMod.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Rol\FormRolMod.resx">
+      <DependentUpon>FormRolMod.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Usuario\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
