@@ -28,10 +28,14 @@ namespace FrbaHotel.ABM_de_Rol
            ///detecta la seleccion de la columna
             if (this.dataGridViewRol.Columns[e.ColumnIndex].Name == "ColumnSeleccionar")
             {
-               ////
                 ////abrir fr para seleccionar las funcionaidades
             }
         
+        }
+
+        private void FormRolMod_Load(object sender, EventArgs e)
+        {
+
         }
 
        

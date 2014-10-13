@@ -108,19 +108,19 @@
             this.textBoxRol.Size = new System.Drawing.Size(120, 20);
             this.textBoxRol.TabIndex = 0;
             // 
-            // buttonLimpiar
+            // buttonBuscar
             // 
             this.buttonBuscar.Location = new System.Drawing.Point(50, 215);
-            this.buttonBuscar.Name = "buttonLimpiar";
+            this.buttonBuscar.Name = "buttonBuscar";
             this.buttonBuscar.Size = new System.Drawing.Size(121, 27);
             this.buttonBuscar.TabIndex = 2;
             this.buttonBuscar.Text = "Buscar";
             this.buttonBuscar.UseVisualStyleBackColor = true;
             // 
-            // buttonBuscar
+            // buttonLimpiar
             // 
             this.buttonLimpiar.Location = new System.Drawing.Point(288, 215);
-            this.buttonLimpiar.Name = "buttonBuscar";
+            this.buttonLimpiar.Name = "buttonLimpiar";
             this.buttonLimpiar.Size = new System.Drawing.Size(121, 27);
             this.buttonLimpiar.TabIndex = 3;
             this.buttonLimpiar.Text = "Limpiar";
@@ -144,7 +144,7 @@
             this.ColumnSeleccionar.HeaderText = "Seleccionar";
             this.ColumnSeleccionar.Name = "ColumnSeleccionar";
             // 
-            // FormLsMod
+            // FormRolMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -153,9 +153,9 @@
             this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.buttonBuscar);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FormLsMod";
+            this.Name = "FormRolMod";
             this.Text = "Listado De Seleccion";
-            this.Load += new System.EventHandler(this.FormLsMod_Load);
+            this.Load += new System.EventHandler(this.FormRolMod_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).EndInit();
