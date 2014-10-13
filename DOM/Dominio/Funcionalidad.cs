@@ -9,7 +9,7 @@ namespace DOM.Dominio
     {
         #region Atributos
         private int id_funcionalidad;
-        private string descripcion;
+        private string descripcion; ////
         #endregion
 
         #region Setters&Getters

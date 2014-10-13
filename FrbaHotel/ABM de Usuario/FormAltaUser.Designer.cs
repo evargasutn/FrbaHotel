@@ -1,4 +1,5 @@
-﻿namespace FrbaHotel.ABM_de_Usuario
+﻿using DOM;
+namespace FrbaHotel.ABM_de_Usuario
 {
     partial class FormAltaUser
     {
@@ -13,6 +14,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -33,6 +35,7 @@
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.textBoxUser = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.buttonSelHotel = new System.Windows.Forms.Button();
             this.textBoxHotel = new System.Windows.Forms.TextBox();
             this.buttonSelFecha = new System.Windows.Forms.Button();
@@ -56,7 +59,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonAlta = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -76,7 +78,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ingresar los datos";
-         
             // 
             // comboRol
             // 
@@ -129,6 +130,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(125, 61);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(105, 21);
+            this.comboBox1.TabIndex = 25;
+            // 
             // buttonSelHotel
             // 
             this.buttonSelHotel.Location = new System.Drawing.Point(198, 162);
@@ -153,6 +162,7 @@
             this.buttonSelFecha.TabIndex = 22;
             this.buttonSelFecha.Text = "Seleccionar";
             this.buttonSelFecha.UseVisualStyleBackColor = true;
+            this.buttonSelFecha.Click += new System.EventHandler(this.buttonSelFecha_Click);
             // 
             // textBoxFechaNac
             // 
@@ -319,14 +329,6 @@
             this.buttonAlta.TabIndex = 25;
             this.buttonAlta.Text = "Guardar";
             this.buttonAlta.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(125, 61);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(105, 21);
-            this.comboBox1.TabIndex = 25;
             // 
             // FormAltaUser
             // 

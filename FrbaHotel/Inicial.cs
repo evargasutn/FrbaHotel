@@ -35,7 +35,7 @@ namespace FrbaHotel
             {
                 Form2 formEspR= new Form2();
                 formEspR.Show();
-                MessageBox.Show(Globals.getConnectionString(),"posta");
+               
               
             }
             else {

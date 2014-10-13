@@ -18,3 +18,4 @@ C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\bin\Debug\DOM.dll
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\bin\Debug\DOM.pdb
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.exe
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.pdb
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.CalendarioGlobal.resources
