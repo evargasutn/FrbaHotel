@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DOM;
+using DOM.Dominio;
 
 namespace FrbaHotel
 {
@@ -33,6 +35,7 @@ namespace FrbaHotel
             {
                 Form2 formEspR= new Form2();
                 formEspR.Show();
+                MessageBox.Show(Globals.getConnectionString(),"posta");
               
             }
             else {

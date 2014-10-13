@@ -52,6 +52,35 @@ namespace DOM
 
         #endregion
 
+        #region TextBoxes
+        private static TextBox textBoxAnterior;
+        public static TextBox TextBoxAnterior
+        {
+            get { return textBoxAnterior; }
+            set { textBoxAnterior = value; }
+        }
+
+        private static List<TextBox> conjuntoDeTextBox;
+        public static List<TextBox> ConjuntoDeTextBox
+        {
+            get { return conjuntoDeTextBox; }
+            set { conjuntoDeTextBox = value; }
+        }
+
+        public static void cargarConjuntoDeTextBoxAnteriores(List<TextBox> conjuntoTextBoxActual)
+        {
+            var i = 0;
+            foreach (TextBox unTextBox in conjuntoTextBoxActual)
+            {
+                conjuntoDeTextBox[i++].Text = unTextBox.Text;
+
+            }
+
+        }
+
+        #endregion
+
+
         #region DAO
         private static DAAOUsuario usuario = new DAOUsuario();
         private static DAAORol rol = new DAORol();
