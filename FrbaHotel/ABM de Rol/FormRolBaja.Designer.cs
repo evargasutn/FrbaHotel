@@ -1,4 +1,5 @@
-﻿namespace FrbaHotel.ABM_de_Rol
+﻿using DOM;
+namespace FrbaHotel.ABM_de_Rol
 {
     partial class FormRolBaja
     {
@@ -13,6 +14,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            Globals.VentanaAnterior.Enabled = true;
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -28,40 +30,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBoxFuncs = new System.Windows.Forms.ComboBox();
+            this.marcoBusqueda = new System.Windows.Forms.GroupBox();
+            this.comboFuncionalidad = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxRol = new System.Windows.Forms.TextBox();
+            this.textRol = new System.Windows.Forms.TextBox();
             this.buttonBuscar = new System.Windows.Forms.Button();
             this.buttonLimpiar = new System.Windows.Forms.Button();
             this.dataGridViewRol = new System.Windows.Forms.DataGridView();
             this.ColumnSelecBaja = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.groupBox1.SuspendLayout();
+            this.marcoBusqueda.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // marcoBusqueda
             // 
-            this.groupBox1.Controls.Add(this.comboBoxFuncs);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBoxRol);
-            this.groupBox1.Location = new System.Drawing.Point(35, 30);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(281, 129);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filtros de busqueda";
+            this.marcoBusqueda.Controls.Add(this.comboFuncionalidad);
+            this.marcoBusqueda.Controls.Add(this.label2);
+            this.marcoBusqueda.Controls.Add(this.label1);
+            this.marcoBusqueda.Controls.Add(this.textRol);
+            this.marcoBusqueda.Location = new System.Drawing.Point(35, 30);
+            this.marcoBusqueda.Name = "marcoBusqueda";
+            this.marcoBusqueda.Size = new System.Drawing.Size(281, 129);
+            this.marcoBusqueda.TabIndex = 1;
+            this.marcoBusqueda.TabStop = false;
+            this.marcoBusqueda.Text = "Filtros de busqueda";
             // 
-            // comboBoxFuncs
+            // comboFuncionalidad
             // 
-            this.comboBoxFuncs.FormattingEnabled = true;
-            this.comboBoxFuncs.Location = new System.Drawing.Point(109, 63);
-            this.comboBoxFuncs.Name = "comboBoxFuncs";
-            this.comboBoxFuncs.Size = new System.Drawing.Size(120, 21);
-            this.comboBoxFuncs.TabIndex = 3;
-            this.comboBoxFuncs.SelectedIndexChanged += new System.EventHandler(this.comboDeFuncionalidades_SelectedIndexChanged);
+            this.comboFuncionalidad.FormattingEnabled = true;
+            this.comboFuncionalidad.Location = new System.Drawing.Point(109, 63);
+            this.comboFuncionalidad.Name = "comboFuncionalidad";
+            this.comboFuncionalidad.Size = new System.Drawing.Size(120, 21);
+            this.comboFuncionalidad.TabIndex = 3;
+            this.comboFuncionalidad.SelectedIndexChanged += new System.EventHandler(this.comboDeFuncionalidades_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -81,13 +83,13 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Nombre de Rol";
             // 
-            // textBoxRol
+            // textRol
             // 
-            this.textBoxRol.Location = new System.Drawing.Point(109, 36);
-            this.textBoxRol.Name = "textBoxRol";
-            this.textBoxRol.Size = new System.Drawing.Size(120, 20);
-            this.textBoxRol.TabIndex = 0;
-            this.textBoxRol.TextChanged += new System.EventHandler(this.textBoxNombreRol_TextChanged);
+            this.textRol.Location = new System.Drawing.Point(109, 36);
+            this.textRol.Name = "textRol";
+            this.textRol.Size = new System.Drawing.Size(120, 20);
+            this.textRol.TabIndex = 0;
+            this.textRol.TextChanged += new System.EventHandler(this.textBoxNombreRol_TextChanged);
             // 
             // buttonBuscar
             // 
@@ -126,7 +128,7 @@
             this.ColumnSelecBaja.HeaderText = "Seleccionar";
             this.ColumnSelecBaja.Name = "ColumnSelecBaja";
             // 
-            // FormLsBaja
+            // FormRolBaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -134,12 +136,12 @@
             this.Controls.Add(this.dataGridViewRol);
             this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.buttonBuscar);
-            this.Controls.Add(this.groupBox1);
-            this.Name = "FormLsBaja";
+            this.Controls.Add(this.marcoBusqueda);
+            this.Name = "FormRolBaja";
             this.Text = "Listado de Seleccion/Baja";
             this.Load += new System.EventHandler(this.FormLsBaja_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.marcoBusqueda.ResumeLayout(false);
+            this.marcoBusqueda.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).EndInit();
             this.ResumeLayout(false);
 
@@ -147,11 +149,11 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox comboBoxFuncs;
+        private System.Windows.Forms.GroupBox marcoBusqueda;
+        private System.Windows.Forms.ComboBox comboFuncionalidad;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxRol;
+        private System.Windows.Forms.TextBox textRol;
         private System.Windows.Forms.Button buttonBuscar;
         private System.Windows.Forms.Button buttonLimpiar;
         private System.Windows.Forms.DataGridView dataGridViewRol;

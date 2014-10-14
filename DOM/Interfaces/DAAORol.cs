@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DOM.Dominio;
+using System.Data;
 
 namespace DOM.Interfaces
 {
@@ -15,5 +16,6 @@ namespace DOM.Interfaces
         void deteleRol(string nombreRol);
 
         bool createRolConFuncionalidad(Rol rol, int id_funcionalidad);
+        DataTable buscarRoles(string nombreRol, int id_funcionalidad);
     }
 }
