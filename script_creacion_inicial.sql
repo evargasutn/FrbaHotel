@@ -212,7 +212,7 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES
 (
-	tipoCodigo		numeric(10) PRIMARY KEY,
+	tipoCodigo		numeric(18, 0) PRIMARY KEY,
 	tipoDescripcion	varchar(50) not null,
 	tipoPorcentual	numeric(5,2) not null
 )
@@ -224,13 +224,14 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 	habitacion		numeric(4) not null,
 	piso			numeric(2) not null,
 	ubicacion		varchar(255) not null,
-	tipoCodigo		numeric(10) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES,
+	tipoCodigo		numeric(18, 0) not null,
 	descripcion		varchar(255) not null default '',
 	campoBaja		bit	not null default 0
 )
 go 
-ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT PK_Habitaciones PRIMARY KEY(codHotel, habitacion, piso);
+ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT PK_Habitaciones PRIMARY KEY(codHotel, habitacion);
 ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT Fk_Habitacion_Hotel FOREIGN KEY (codHotel) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel);
+ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ADD CONSTRAINT Fk_Codigo_Habitacion FOREIGN KEY (tipoCodigo) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES(tipoCodigo);
 
 create table COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
 (
@@ -292,7 +293,7 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.FACTURAS
 (
-	numeroFactura	numeric(8) identity(1,1) PRIMARY KEY,
+	numeroFactura	numeric(18, 0) identity(1,1) PRIMARY KEY,
 	codReserva		numeric(18) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
 	fecha			datetime not null,
 	montoTotal		numeric(18,2) not null,
@@ -302,11 +303,11 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA
 (
-	numeroFactura	numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura),
+	numeroFactura	numeric(18,0) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura),
 	numeroItem		numeric(5) identity(1,1) not null,
-	descripcion		varchar(255) not null,
+	descripcion		varchar(255) not null default '',
 	monto			numeric(18,2) not null,
-	cantidad		numeric(2) not null,
+	cantidad		numeric(18,0) not null,
 	PRIMARY KEY (numeroFactura, numeroItem)
 )
 go
@@ -431,6 +432,13 @@ GO
 	WHERE Hotel_Calle IS NOT NULL
 GO
 
+--//TIPO_HABITACIONES
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES(tipoCodigo, tipoDescripcion, tipoPorcentual)
+	SELECT DISTINCT Habitacion_Tipo_Codigo, Habitacion_Tipo_Descripcion, Habitacion_Tipo_Porcentual
+	FROM  gd_esquema.Maestra
+	WHERE Habitacion_Tipo_Codigo IS NOT NULL
+GO
+
 --//HABITACIONES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES(codHotel,habitacion, piso, ubicacion, tipoCodigo, descripcion)
 	SELECT DISTINCT H.codHotel, M.Habitacion_Numero, M.Habitacion_Piso, M.Habitacion_Frente, M.Habitacion_Tipo_Codigo, M.Habitacion_Tipo_Descripcion
@@ -440,13 +448,6 @@ GO
 		  H.ciudad = M.Hotel_Ciudad AND 
 		  H.direccionCalle IS NOT NULL
 GO	
-
---//TIPO_HABITACIONES
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES(tipoCodigo, tipoDescripcion, tipoPorcentual)
-	SELECT DISTINCT Habitacion_Tipo_Codigo, Habitacion_Tipo_Descripcion, Habitacion_Tipo_Porcentual
-	FROM  gd_esquema.Maestra
-	WHERE Habitacion_Tipo_Codigo IS NOT NULL
-GO
 
 --//HUESPEDES
     INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(tipoDocu, numDocu, apellido, nombre, fecNacimiento, mail, direccionCalle,

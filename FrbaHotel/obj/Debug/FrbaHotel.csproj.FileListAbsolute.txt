@@ -19,3 +19,6 @@ C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Calendar
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Usuario.FormUser.resources
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Usuario.FormBajaUser.resources
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_Usuario.FormModUser.resources
+C:\Facu\GestionDeDatos\2014\tp\Repositorio\FrbaHotel\FrbaHotel\bin\Debug\FrbaHotel.exe.config
+C:\Facu\GestionDeDatos\2014\tp\Repositorio\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.exe
+C:\Facu\GestionDeDatos\2014\tp\Repositorio\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.pdb
