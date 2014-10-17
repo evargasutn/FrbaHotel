@@ -304,10 +304,11 @@ go
 create table COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA
 (
 	numeroFactura	numeric(18,0) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura),
-	numeroItem		numeric(5) identity(1,1) not null,
+	numeroItem		numeric(18) not null,
 	descripcion		varchar(255) not null default '',
-	monto			numeric(18,2) not null,
+	montoUnitario	numeric(18,2) not null,
 	cantidad		numeric(18,0) not null,
+	montoTotal		numeric(18,2) not null,
 	PRIMARY KEY (numeroFactura, numeroItem)
 )
 go
@@ -564,15 +565,15 @@ GO
 		  M.Cliente_Apellido = HUES.apellido AND
 		  M.Cliente_Nombre = HUES.nombre
 		  
-  	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.FACTURAS ON
+  	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.FACTURAS OFF
 GO
 
 --//ITEMS_FACTURA
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, monto, cantidad, descripcion)
-	SELECT DISTINCT M.Factura_Nro, M.Item_Factura_Monto, M.Item_Factura_Cantidad, ''
-	FROM gd_esquema.Maestra M
-	WHERE M.Item_Factura_Monto IS NOT NULL AND
+INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, descripcion, montoUnitario, cantidad, montoTotal)
+SELECT DISTINCT M.Factura_Nro, ROW_NUMBER() OVER (PARTITION BY M.Factura_Nro ORDER BY M.Factura_Nro) AS Item_Nro, '', M.Item_Factura_Monto, COUNT(*), (M.Item_Factura_Monto * COUNT(*))
+FROM gd_esquema.Maestra M
+WHERE M.Item_Factura_Monto IS NOT NULL AND
 		  M.Item_Factura_Cantidad IS NOT NULL AND
 		  M.Factura_Nro IS NOT NULL
-	ORDER BY M.Factura_Nro ASC
-GO
+GROUP BY M.Factura_Nro, M.Item_Factura_Monto
+
