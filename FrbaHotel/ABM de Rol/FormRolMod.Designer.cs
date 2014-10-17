@@ -1,4 +1,5 @@
-﻿namespace FrbaHotel.ABM_de_Rol
+﻿using DOM;
+namespace FrbaHotel.ABM_de_Rol
 {
     partial class FormRolMod
     {
@@ -13,6 +14,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+            Globals.habilitarAnterior();
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -28,154 +30,166 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBoxEstado = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.comboBoxFuncs = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxRol = new System.Windows.Forms.TextBox();
-            this.buttonBuscar = new System.Windows.Forms.Button();
-            this.buttonLimpiar = new System.Windows.Forms.Button();
-            this.dataGridViewRol = new System.Windows.Forms.DataGridView();
-            this.ColumnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).BeginInit();
+            this.comboEstado = new System.Windows.Forms.ComboBox();
+            this.textRol = new System.Windows.Forms.TextBox();
+            this.comboFuncionalidad = new System.Windows.Forms.ComboBox();
+            this.botonGuardar = new System.Windows.Forms.Button();
+            this.labelEstado = new System.Windows.Forms.Label();
+            this.labelFuncionalidad = new System.Windows.Forms.Label();
+            this.labelRol = new System.Windows.Forms.Label();
+            this.labelDisponibles = new System.Windows.Forms.Label();
+            this.listBox = new System.Windows.Forms.ListBox();
+            this.botonAgregar = new System.Windows.Forms.Button();
+            this.botonQuitar = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // comboEstado
             // 
-            this.groupBox1.Controls.Add(this.comboBoxEstado);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.comboBoxFuncs);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBoxRol);
-            this.groupBox1.Location = new System.Drawing.Point(50, 64);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(281, 129);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Filtros de busqueda";
+            this.comboEstado.FormattingEnabled = true;
+            this.comboEstado.Location = new System.Drawing.Point(194, 73);
+            this.comboEstado.Name = "comboEstado";
+            this.comboEstado.Size = new System.Drawing.Size(130, 21);
+            this.comboEstado.TabIndex = 15;
             // 
-            // comboBoxEstado
+            // textRol
             // 
-            this.comboBoxEstado.FormattingEnabled = true;
-            this.comboBoxEstado.Location = new System.Drawing.Point(109, 97);
-            this.comboBoxEstado.Name = "comboBoxEstado";
-            this.comboBoxEstado.Size = new System.Drawing.Size(120, 21);
-            this.comboBoxEstado.TabIndex = 5;
+            this.textRol.Location = new System.Drawing.Point(193, 36);
+            this.textRol.Name = "textRol";
+            this.textRol.Size = new System.Drawing.Size(130, 20);
+            this.textRol.TabIndex = 14;
             // 
-            // label3
+            // comboFuncionalidad
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 100);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Estado";
+            this.comboFuncionalidad.FormattingEnabled = true;
+            this.comboFuncionalidad.Location = new System.Drawing.Point(156, 45);
+            this.comboFuncionalidad.Name = "comboFuncionalidad";
+            this.comboFuncionalidad.Size = new System.Drawing.Size(138, 21);
+            this.comboFuncionalidad.TabIndex = 13;
             // 
-            // comboBoxFuncs
+            // botonGuardar
             // 
-            this.comboBoxFuncs.FormattingEnabled = true;
-            this.comboBoxFuncs.Location = new System.Drawing.Point(109, 63);
-            this.comboBoxFuncs.Name = "comboBoxFuncs";
-            this.comboBoxFuncs.Size = new System.Drawing.Size(120, 21);
-            this.comboBoxFuncs.TabIndex = 3;
+            this.botonGuardar.Location = new System.Drawing.Point(215, 262);
+            this.botonGuardar.Name = "botonGuardar";
+            this.botonGuardar.Size = new System.Drawing.Size(109, 28);
+            this.botonGuardar.TabIndex = 12;
+            this.botonGuardar.Text = "guardar";
+            this.botonGuardar.UseVisualStyleBackColor = true;
+            this.botonGuardar.Click += new System.EventHandler(this.botonGuardar_Click);
             // 
-            // label2
+            // labelEstado
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 71);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Funcionalidad";
+            this.labelEstado.AutoSize = true;
+            this.labelEstado.Location = new System.Drawing.Point(12, 76);
+            this.labelEstado.Name = "labelEstado";
+            this.labelEstado.Size = new System.Drawing.Size(40, 13);
+            this.labelEstado.TabIndex = 11;
+            this.labelEstado.Text = "Estado";
             // 
-            // label1
+            // labelFuncionalidad
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 39);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Nombre de Rol";
+            this.labelFuncionalidad.AutoSize = true;
+            this.labelFuncionalidad.Location = new System.Drawing.Point(14, 17);
+            this.labelFuncionalidad.Name = "labelFuncionalidad";
+            this.labelFuncionalidad.Size = new System.Drawing.Size(84, 13);
+            this.labelFuncionalidad.TabIndex = 10;
+            this.labelFuncionalidad.Text = "Funcionalidades";
             // 
-            // textBoxRol
+            // labelRol
             // 
-            this.textBoxRol.Location = new System.Drawing.Point(109, 36);
-            this.textBoxRol.Name = "textBoxRol";
-            this.textBoxRol.Size = new System.Drawing.Size(120, 20);
-            this.textBoxRol.TabIndex = 0;
+            this.labelRol.AutoSize = true;
+            this.labelRol.Location = new System.Drawing.Point(12, 39);
+            this.labelRol.Name = "labelRol";
+            this.labelRol.Size = new System.Drawing.Size(78, 13);
+            this.labelRol.TabIndex = 9;
+            this.labelRol.Text = "Nombre de Rol";
             // 
-            // buttonBuscar
+            // labelDisponibles
             // 
-            this.buttonBuscar.Location = new System.Drawing.Point(50, 215);
-            this.buttonBuscar.Name = "buttonBuscar";
-            this.buttonBuscar.Size = new System.Drawing.Size(121, 27);
-            this.buttonBuscar.TabIndex = 2;
-            this.buttonBuscar.Text = "Buscar";
-            this.buttonBuscar.UseVisualStyleBackColor = true;
+            this.labelDisponibles.AutoSize = true;
+            this.labelDisponibles.Location = new System.Drawing.Point(153, 17);
+            this.labelDisponibles.Name = "labelDisponibles";
+            this.labelDisponibles.Size = new System.Drawing.Size(141, 13);
+            this.labelDisponibles.TabIndex = 16;
+            this.labelDisponibles.Text = "Funcionalidades Disponibles";
             // 
-            // buttonLimpiar
+            // listBox
             // 
-            this.buttonLimpiar.Location = new System.Drawing.Point(288, 215);
-            this.buttonLimpiar.Name = "buttonLimpiar";
-            this.buttonLimpiar.Size = new System.Drawing.Size(121, 27);
-            this.buttonLimpiar.TabIndex = 3;
-            this.buttonLimpiar.Text = "Limpiar";
-            this.buttonLimpiar.UseVisualStyleBackColor = true;
-            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
+            this.listBox.FormattingEnabled = true;
+            this.listBox.Location = new System.Drawing.Point(17, 33);
+            this.listBox.Name = "listBox";
+            this.listBox.Size = new System.Drawing.Size(128, 108);
+            this.listBox.TabIndex = 17;
             // 
-            // dataGridViewRol
+            // botonAgregar
             // 
-            this.dataGridViewRol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRol.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnSeleccionar});
-            this.dataGridViewRol.Location = new System.Drawing.Point(30, 266);
-            this.dataGridViewRol.Name = "dataGridViewRol";
-            this.dataGridViewRol.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.dataGridViewRol.Size = new System.Drawing.Size(406, 120);
-            this.dataGridViewRol.TabIndex = 4;
-            this.dataGridViewRol.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRol_CellClick);
+            this.botonAgregar.Location = new System.Drawing.Point(156, 72);
+            this.botonAgregar.Name = "botonAgregar";
+            this.botonAgregar.Size = new System.Drawing.Size(64, 24);
+            this.botonAgregar.TabIndex = 18;
+            this.botonAgregar.Text = "+";
+            this.botonAgregar.UseVisualStyleBackColor = true;
+            this.botonAgregar.Click += new System.EventHandler(this.botonAgregar_Click);
             // 
-            // ColumnSeleccionar
+            // botonQuitar
             // 
-            this.ColumnSeleccionar.HeaderText = "Seleccionar";
-            this.ColumnSeleccionar.Name = "ColumnSeleccionar";
+            this.botonQuitar.Location = new System.Drawing.Point(230, 72);
+            this.botonQuitar.Name = "botonQuitar";
+            this.botonQuitar.Size = new System.Drawing.Size(64, 24);
+            this.botonQuitar.TabIndex = 19;
+            this.botonQuitar.Text = "-";
+            this.botonQuitar.UseVisualStyleBackColor = true;
+            this.botonQuitar.Click += new System.EventHandler(this.botonQuitar_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.botonAgregar);
+            this.panel1.Controls.Add(this.botonQuitar);
+            this.panel1.Controls.Add(this.listBox);
+            this.panel1.Controls.Add(this.labelDisponibles);
+            this.panel1.Controls.Add(this.labelFuncionalidad);
+            this.panel1.Controls.Add(this.comboFuncionalidad);
+            this.panel1.Location = new System.Drawing.Point(12, 100);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(311, 155);
+            this.panel1.TabIndex = 20;
             // 
             // FormRolMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(483, 406);
-            this.Controls.Add(this.dataGridViewRol);
-            this.Controls.Add(this.buttonLimpiar);
-            this.Controls.Add(this.buttonBuscar);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(336, 302);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.comboEstado);
+            this.Controls.Add(this.textRol);
+            this.Controls.Add(this.botonGuardar);
+            this.Controls.Add(this.labelEstado);
+            this.Controls.Add(this.labelRol);
             this.Name = "FormRolMod";
-            this.Text = "Listado De Seleccion";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).EndInit();
+            this.Text = "Modificar Rol";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxRol;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBoxFuncs;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBoxEstado;
-        private System.Windows.Forms.Button buttonBuscar;
-        private System.Windows.Forms.Button buttonLimpiar;
-        private System.Windows.Forms.DataGridView dataGridViewRol;
-        private System.Windows.Forms.DataGridViewButtonColumn ColumnSeleccionar;
-
+        private System.Windows.Forms.ComboBox comboEstado;
+        private System.Windows.Forms.TextBox textRol;
+        private System.Windows.Forms.ComboBox comboFuncionalidad;
+        private System.Windows.Forms.Button botonGuardar;
+        private System.Windows.Forms.Label labelEstado;
+        private System.Windows.Forms.Label labelFuncionalidad;
+        private System.Windows.Forms.Label labelRol;
+        private System.Windows.Forms.Label labelDisponibles;
+        private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.Button botonAgregar;
+        private System.Windows.Forms.Button botonQuitar;
+        private System.Windows.Forms.Panel panel1;
 
     }
 }
