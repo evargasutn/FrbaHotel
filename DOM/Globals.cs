@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
-using DOM.Interfaces;
 using System.Windows.Forms;
 
 namespace DOM
@@ -50,6 +49,38 @@ namespace DOM
             set { ventanaAnterior = value; }
         }
 
+        public static void deshabilitarAnterior(Form vent)
+        {
+            ventanaAnterior = vent;
+            vent.Enabled = false;
+        }
+
+        public static void habilitarAnterior()
+        {
+            ventanaAnterior.Enabled = true;
+        }
+
+        #endregion
+
+        //En cualquier momento vuelo esto, trabajo dirctamente con las clases como estaticas
+        #region DAO
+        private static DAOUsuario usuario = new DAOUsuario();
+        private static DAORol rol = new DAORol();
+        private static DAOFuncionalidad funcionalidad = new DAOFuncionalidad();
+
+        public static DAOUsuario USUARIOS
+        {
+            get { return usuario; }
+        }
+        public static DAORol ROL
+        {
+            get { return rol; }
+        }
+        public static DAOFuncionalidad FUNCIONALIDAD
+        {
+            get { return funcionalidad; }
+        }
+
         #endregion
 
 
@@ -81,7 +112,7 @@ namespace DOM
         }
 
         #endregion
-        ///
+        
         //Fecha:10/13/2014
         #region VentanasViajeras
         public static IList<Form> conjuntoDeVentanas = new List<Form>();
@@ -144,25 +175,6 @@ namespace DOM
         }
 
         #endregion
-        
-        #region DAO
-        private static DAAOUsuario usuario = new DAOUsuario();
-        private static DAAORol rol = new DAORol();
-        private static DAAOFuncionalidad funcionalidad = new DAOFuncionalidad();
 
-        public static DAAOUsuario USUARIOS
-        {
-            get { return usuario; }
-        }
-        public static DAAORol ROL
-        {
-            get { return rol; }
-        }
-        public static DAAOFuncionalidad FUNCIONALIDAD
-        {
-            get { return funcionalidad; }
-        }
-
-        #endregion
     }
 }

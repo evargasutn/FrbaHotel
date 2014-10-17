@@ -17,7 +17,7 @@ namespace FrbaHotel.ABM_de_Rol
         public FormRolAlta()
         {
             InitializeComponent();
-            funcionalidades = Globals.FUNCIONALIDAD.getAllFuncionalidades();
+            funcionalidades = DAOFuncionalidad.getAllFuncionalidades();
             foreach (Funcionalidad func in funcionalidades)
                 comboFuncionalidades.Items.Add(func.Descripcion);
             comboEstado.Items.Add("Activo");
@@ -41,8 +41,10 @@ namespace FrbaHotel.ABM_de_Rol
                 //Crear Rol
                 Rol rol = new Rol();
                 rol.Nombre = textRol.Text;
-                rol.Estado = (string) comboEstado.SelectedItem;
-
+                if ((string)comboEstado.SelectedItem == "Activo")
+                    rol.Estado = true;
+                else
+                    rol.Estado = false;
                 Funcionalidad funcionalidad_elegida = funcionalidades[comboFuncionalidades.SelectedIndex];
                 //Transaccion
                 bool respuesta = Globals.ROL.createRolConFuncionalidad(rol, funcionalidad_elegida.Id_funcionalidad);

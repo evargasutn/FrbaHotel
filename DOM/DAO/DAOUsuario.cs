@@ -5,7 +5,6 @@ using System.Text;
 using DOM.Auxiliares;
 using System.Net.Mail;
 using FrbaHotel.DOM;
-using DOM.Interfaces;
 using System.Data;
 
 namespace DOM
@@ -16,7 +15,7 @@ namespace DOM
     /// 
     /// Tomas Ferraro     24/09/2014    Creación
     ///
-    public class DAOUsuario : SqlConnector, DAAOUsuario
+    public class DAOUsuario : SqlConnector
     {
         private string T_USUARIOS = "COMPUMUNDO_HIPER_MEGA_RED.USUARIOS";
 
@@ -26,7 +25,7 @@ namespace DOM
         {
             string consulta = "SELECT * FROM " + T_USUARIOS;
             //Armar Consulta
-            return transductor(retrieveDataTable(consulta));
+            return transductor(obtenerTablaSegunScript(consulta));
             //throw new NotImplementedException();
         }
 
@@ -48,7 +47,7 @@ namespace DOM
         {
             string consulta = "SELECT * FROM " + T_USUARIOS + " WHERE usr='" + usr_id + "'";
             //Armar Consulta
-            List<Usuario> resultadosConsulta = transductor(retrieveDataTable(consulta));
+            List<Usuario> resultadosConsulta = transductor(obtenerTablaSegunScript(consulta));
             return resultadosConsulta[0];
             //throw new NotImplementedException();
         }

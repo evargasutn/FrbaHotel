@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FrbaHotel.DOM;
-using DOM.Interfaces;
 using DOM.Dominio;
 using System.Data;
 namespace DOM
 {
-    public class DAOFuncionalidad : SqlConnector, DAAOFuncionalidad
+    public class DAOFuncionalidad : SqlConnector
     {
         string T_FUNCIONALIDAD = "COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES";
         #region DAAOFuncionalidad Members
 
-        public List<Funcionalidad> getAllFuncionalidades()
+        public static List<Funcionalidad> getAllFuncionalidades()
         {
-            string consulta = "SELECT * FROM " + T_FUNCIONALIDAD;
+            //string consulta = "SELECT * FROM " + T_FUNCIONALIDAD;
             //Armar Consulta
-            return transductor(retrieveDataTable(consulta));
-            //throw new NotImplementedException();
+            //return transductor(obtenerTablaSegunScript(consulta));
+            throw new NotImplementedException();
         }
 
         public Funcionalidad addFuncionalidad(Funcionalidad funcionalidad)
@@ -30,7 +29,7 @@ namespace DOM
         {
             string consulta = "SELECT * FROM " + T_FUNCIONALIDAD + " WHERE usr='" + id + "'";
             //Armar Consulta
-            List<Funcionalidad> resultadosConsulta = transductor(retrieveDataTable(consulta));
+            List<Funcionalidad> resultadosConsulta = transductor(obtenerTablaSegunScript(consulta));
             if (resultadosConsulta.Count > 0)
                 return resultadosConsulta[0];
             else
@@ -62,6 +61,11 @@ namespace DOM
                     lista.Add(user);
                 }
             return lista;
+        }
+
+        public static List<Funcionalidad> getFuncionalidades(string nombreRol)
+        {
+            throw new NotImplementedException();
         }
     }
 }

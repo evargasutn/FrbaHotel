@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FrbaHotel.DOM;
-using DOM.Interfaces;
 using System.Data;
+using DOM.Dominio;
 
 namespace DOM
 {
-    public class DAORol : SqlConnector, DAAORol
+    public class DAORol : SqlConnector
     {
         string T_ROL = "COMPUMUNDO_HIPER_MEGA_RED.ROLES";
 
@@ -20,11 +20,6 @@ namespace DOM
         }
 
         public DOM.Dominio.Rol addRol(DOM.Dominio.Rol rol)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DOM.Dominio.Rol getRol(string nombreRol)
         {
             throw new NotImplementedException();
         }
@@ -63,5 +58,19 @@ namespace DOM
         }
 
         #endregion
+
+        public static DataTable getRolTable()
+        {
+            throw new NotImplementedException();
+        }
+        public static Rol getRol(string nombreRol)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static void deleteRol(string rolAbaja)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -24,5 +24,21 @@ namespace DOM.Dominio
             set { descripcion = value; }
         }
         #endregion
+
+
+        public bool matchFuncionalidadWithDescrp(List<Funcionalidad> lista)
+        {
+            if (descripcion == null)
+                return false;
+            for (int i = 0; i < lista.Count; i++)
+            {
+                if(descripcion == lista[i].descripcion)
+                {
+                    id_funcionalidad = lista[i].id_funcionalidad;
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

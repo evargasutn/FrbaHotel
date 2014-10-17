@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Net.Mail;
 using FrbaHotel.DOM;
-using DOM.Interfaces;
 
 namespace DOM
 {
-    public class DAOHotel : SqlConnector, DAAOHotel
+    public class DAOHotel : SqlConnector
     {
 
         #region DAAOHotel Members

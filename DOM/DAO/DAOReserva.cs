@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using DOM.Auxiliares;
 using FrbaHotel.DOM;
-using DOM.Interfaces;
 using DOM.Dominio;
 
 namespace DOM
 {
-    public class DAOReserva : SqlConnector, DAAOReserva
+    public class DAOReserva : SqlConnector
     {
 
         #region DAAOReserva Members

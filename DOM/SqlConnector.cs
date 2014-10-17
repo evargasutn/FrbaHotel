@@ -36,7 +36,7 @@ namespace FrbaHotel.DOM
         /// </summary>
         /// <param name="procedure">Consulta.</param>
         /// <returns></returns>
-        public static DataTable retrieveDataTable(string consulta)
+        public static DataTable obtenerTablaSegunScript(string consulta)
         {
             SqlConnection cn = new SqlConnection();
             SqlCommand cm = new SqlCommand();
@@ -88,7 +88,7 @@ namespace FrbaHotel.DOM
                 }
             }
         }
-        /*
+        
         /// <summary>
         /// Ejecuta un stored procedure y devuelve un datatable con el resultado del mismo.
         /// </summary>
@@ -329,6 +329,6 @@ namespace FrbaHotel.DOM
             {
                 cm.Parameters.AddWithValue(args[i], values[i]);
             }
-        }*/
+        }
     }
 }
