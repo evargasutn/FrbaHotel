@@ -24,11 +24,6 @@ namespace DOM
             throw new NotImplementedException();
         }
 
-        public void updateRol(DOM.Dominio.Rol rol)
-        {
-            throw new NotImplementedException();
-        }
-
         public void deteleRol(string nombreRol)
         {
             throw new NotImplementedException();
@@ -61,16 +56,39 @@ namespace DOM
 
         public static DataTable getRolTable()
         {
-            throw new NotImplementedException();
+            return retrieveDataTable("getRol", "");
         }
         public static Rol getRol(string nombreRol)
         {
-            throw new NotImplementedException();
+            List<Rol> lista = transductor(retrieveDataTable("getRol", nombreRol));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
+        }
+
+        public static void updateRol(Rol rol)
+        {
+            executeProcedure("updateRol", rol.Nombre, rol.Estado);
         }
 
         public static void deleteRol(string rolAbaja)
         {
-            throw new NotImplementedException();
+            executeProcedure("deleteRol", rolAbaja);
+        }
+
+        private static List<Rol> transductor(DataTable tabla)
+        {
+            List<Rol> lista = new List<Rol>();
+            if (tabla != null)
+                foreach (DataRow fila in tabla.Rows)
+                {
+                    //Transcribir
+                    Rol rol = new Rol();
+                    rol.Nombre = Convert.ToString(fila["nombreRol"]);
+                    rol.Estado = Convert.ToBoolean(fila["estado"]);
+                    lista.Add(rol);
+                }
+            return lista;
         }
     }
 }

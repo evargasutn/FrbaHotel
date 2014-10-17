@@ -88,7 +88,18 @@ namespace FrbaHotel.DOM
                 }
             }
         }
-        
+        /// <summary>
+        /// Ejecuta un stored procedure y devuelve un datatable con el resultado del mismo.
+        /// </summary>
+        /// <param name="procedure">Nombre del stored procedure almacenado en la BDD sin el nombre del esquema delante.</param>
+        /// <param name="values">Argumentos que recibe el stored procedure.</param>
+        /// <returns></returns>
+        public static DataTable retrieveDataTable(string procedure, params object[] values)
+        {
+            List<string> argumentos = _generateArguments(procedure);
+            return _retrieveDataTable(procedure, argumentos, values);
+        }
+
         /// <summary>
         /// Ejecuta un stored procedure y devuelve un datatable con el resultado del mismo.
         /// </summary>

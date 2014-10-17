@@ -17,6 +17,11 @@ namespace FrbaHotel.ABM_de_Rol
         List<Funcionalidad> funcionalidades;
         List<Funcionalidad> funcionalidadesRol;
         Rol rolSeleccionado;
+
+        //Listas locas para stash de funcionalidades
+        List<Funcionalidad> lista_baja = new List<Funcionalidad>();
+        List<Funcionalidad> lista_alta = new List<Funcionalidad>();
+
         public FormRolMod(string nombreRol)
         {
             InitializeComponent();
@@ -63,7 +68,10 @@ namespace FrbaHotel.ABM_de_Rol
             Funcionalidad funcNueva = new Funcionalidad();
             funcNueva.Descripcion = (string) comboFuncionalidad.SelectedItem;
             funcNueva.matchFuncionalidadWithDescrp(funcionalidades);
-            funcionalidadesRol.Add(funcNueva);
+
+            removerLista(lista_baja, funcNueva);
+            lista_alta.Add(funcNueva);          
+
             comboFuncionalidad.Items.Add(funcNueva.Descripcion);
         }
 
@@ -75,24 +83,45 @@ namespace FrbaHotel.ABM_de_Rol
                 return;
             }
             string descripcion = (string)listBox.SelectedItem;
-            //Lo quitamos de la lista de func
-            foreach (Funcionalidad func in funcionalidadesRol)
-                if (func.Descripcion == descripcion)
-                    funcionalidadesRol.Remove(func);
-            //Lo quitamos de la lista visual
+            Funcionalidad funcNueva = new Funcionalidad();
+            funcNueva.Descripcion = descripcion;
+            funcNueva.matchFuncionalidadWithDescrp(funcionalidades);
+
+            removerLista(lista_alta, funcNueva);
+            lista_baja.Add(funcNueva);
+
             for (int i = 0; i < listBox.Items.Count; i++)
             {
                 if ((string)listBox.Items[i] == descripcion)
                 {
                     listBox.Items.RemoveAt(i);
-                    break;
+                    return;
                 }
             }
         }
 
         private void botonGuardar_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            rolSeleccionado.Nombre = (string)textRol.Text;
+            if ((string)comboEstado.SelectedItem == "Activo")
+                rolSeleccionado.Estado = true;
+            else
+                rolSeleccionado.Estado = false;
+            DAORol.updateRol(rolSeleccionado);
+            DAOFuncionalidad.updateFuncXRol(rolSeleccionado.Nombre, lista_alta, lista_baja);
+            this.Dispose();
+        }
+
+        private void removerLista(List<Funcionalidad> lista, Funcionalidad funcNueva)
+        {
+            foreach (Funcionalidad f in lista)
+            {
+                if (f.Id_funcionalidad == funcNueva.Id_funcionalidad)
+                {
+                    lista.Remove(f);
+                    return;
+                }
+            }
         }
     }
     

@@ -67,5 +67,23 @@ namespace DOM
         {
             throw new NotImplementedException();
         }
+
+        public static void updateFuncXRol(string rol, List<Funcionalidad> alta, List<Funcionalidad> baja)
+        {
+            foreach(Funcionalidad f in alta)
+                agregarFuncionalidad(rol, f.Id_funcionalidad);
+            foreach (Funcionalidad f in baja)
+                removerFuncionalidad(rol, f.Id_funcionalidad);
+        }
+
+        private static void removerFuncionalidad(string rol, int p)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static void agregarFuncionalidad(string rol, int p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
