@@ -90,7 +90,9 @@ COMMIT;
 		
 		--*/
 
--- CREACION DE TABLAS
+/* 
+ *CREACION DE TABLAS
+ */
 
 create table COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 (
@@ -717,6 +719,27 @@ AS
 	VALUES(@nombreHotel, @mail, GETDATE(), @telefono, @direccionCalle, @direccionNumero, @ciudad, @pais, @cantEstrellas, @recargoEstrella)
 GO
 
+--//PROC GETUSUARIO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getUsuario
+	@unUsr VARCHAR(50)
+AS
+	BEGIN
+	 IF (@unUsr IS NULL)
+ 		SELECT U.usr, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
+ 				U.DireccionDepto, U.mail, U.telefono, U.password
+ 		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.campoBaja = 0
+	 ELSE
+		SELECT U.usr, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
+				U.DireccionDepto, U.mail, U.telefono, U.password
+		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
+		WHERE U.usr = @unUsr
+	END
+GO
+--//PROC INSERTUSUARIO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
