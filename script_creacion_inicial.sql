@@ -601,3 +601,93 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRol
  
 END
 GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRol
+	@nombreRol	varchar(15),
+	@estado		bit
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES (nombreRol, estado)
+	VALUES(@nombreRol, @estado)
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertFuncionalidad
+	@idFuncionalidad numeric(2),
+	@descripcion varchar(255)	
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES (idFuncionalidad, descripcion)
+	VALUES(@idFuncionalidad, @descripcion)
+GO
+
+
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotel
+	@nombreHotel varchar(50),
+	@mail varchar(50),
+	@telefono numeric(20),
+	@direccionCalle varchar(255),
+	@direccionNumero numeric(18,0),
+	@ciudad varchar(255),
+	@pais varchar(50),
+	@cantEstrellas numeric(18,0),
+	@recargoEstrella numeric(18,0)
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES (nombreHotel, mail, fecCreacion, telefono, direccionCalle,
+								direccionNumero, ciudad, pais, cantEstrellas, recargoEstrella)
+	VALUES(@nombreHotel, @mail, GETDATE(), @telefono, @direccionCalle, @direccionNumero, @ciudad, @pais, @cantEstrellas, @recargoEstrella)
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertUsuario
+	@usr varchar(50),
+	@password varchar(50), 
+	@nombre varchar(255),
+	@apellido varchar(255),
+	@tipoDocu varchar(50),
+	@numDocu	numeric(18,0),
+	@mail varchar(255),
+	@telefono numeric(12),
+	@direccionCalle varchar(255),
+	@direccionNumero numeric(18,0),
+	@direccionPiso numeric(18,0),
+	@DireccionDepto varchar(50),
+	@FecNacimiento DateTime
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr, password, nombre, apellido, contador_intentos_login, tipoDocu, numDocu,
+		mail, telefono, direccionCalle, direccionNumero, direccionPiso, DireccionDepto, FecNacimiento, campoBaja)
+	VALUES(@usr, @password, @nombre, @apellido, 0, @tipoDocu, @numDocu, @mail, @telefono, @direccionCalle, @direccionNumero, 
+			@direccionPiso, @DireccionDepto, @FecNacimiento, 0)
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHabitacion
+	@codHotel numeric(8),
+	@habitacion numeric(4),
+	@piso numeric(2),
+	@ubicacion varchar(255),
+	@tipo varchar(50),
+	@descripcion varchar(255)
+AS
+	DECLARE @codTipo numeric(8)
+	SELECT @codTipo = tipoCodigo from COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES 
+	WHERE tipoDescripcion = @tipo
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES (codHotel, habitacion, piso, ubicacion, tipoCodigo,
+		descripcion, campoBaja)
+VALUES(@codHotel, @habitacion, @piso, @ubicacion, @codTipo, @descripcion, 0)
+GO
