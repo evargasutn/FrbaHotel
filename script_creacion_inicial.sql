@@ -625,6 +625,7 @@ AS
 	SET estado = 0
 	WHERE nombreRol = @nombreRol
 GO
+
 --/PROC UPDATEROL
 SET QUOTED_IDENTIFIER ON
 GO
@@ -639,39 +640,7 @@ AS
 	WHERE nombreRol = @nombreRol
 GO
 
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_NULLS ON
-GO
-CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertFuncionalidad
-	@idFuncionalidad numeric(2),
-	@descripcion varchar(255)	
-AS
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES (idFuncionalidad, descripcion)
-	VALUES(@idFuncionalidad, @descripcion)
-GO
-
-
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_NULLS ON
-GO
-CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotel
-	@nombreHotel varchar(50),
-	@mail varchar(50),
-	@telefono numeric(20),
-	@direccionCalle varchar(255),
-	@direccionNumero numeric(18,0),
-	@ciudad varchar(255),
-	@pais varchar(50),
-	@cantEstrellas numeric(18,0),
-	@recargoEstrella numeric(18,0)
-AS
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES (nombreHotel, mail, fecCreacion, telefono, direccionCalle,
-								direccionNumero, ciudad, pais, cantEstrellas, recargoEstrella)
-	VALUES(@nombreHotel, @mail, GETDATE(), @telefono, @direccionCalle, @direccionNumero, @ciudad, @pais, @cantEstrellas, @recargoEstrella)
-GO
-
+--/PROCEDIMIENTO INSERTAR USUARIO 
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -697,6 +666,7 @@ AS
 			@direccionPiso, @DireccionDepto, @FecNacimiento, 0)
 GO
 
+--/PROCEDIMIENTO INSERTAR HABITACION
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -717,28 +687,28 @@ AS
 VALUES(@codHotel, @habitacion, @piso, @ubicacion, @codTipo, @descripcion, 0)
 GO
 
+--/PROCEDIMIENTO GET REGIMEN BY HOTEL 
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
-CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenbyHotel
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
 	@codigo numeric(8)
 	AS
 		SELECT R.codRegimen FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL R 
 		WHERE R.codHotel = @codigo  
 GO
 
+--/PROCEDIMIENTO GET REGIMEN 
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimen
 	@codigo numeric(8)
 	AS
 		BEGIN
-		--SI RECIBE -1, MUESTRA TODOS LOS REGIMENES
+		--SI RECIBE -1, MUESTRA TODOS LOS REGIMENES HABILITADOS
 			IF (@codigo = -1)
 				SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
 				WHERE R.estado = 1				
@@ -747,3 +717,98 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimen
 				WHERE R.codRegimen = @codigo
 		END 
 GO
+
+--/PROCEDIMIENTO GET HOTEL BY USUARIO 
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelByUsuario
+	@usuario varchar(50)
+	AS
+		SELECT H.codHotel FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO H 
+		WHERE H.usr = @usuario  
+GO
+
+--/PROCEDIMIENTO GET HOTEL 
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotel
+	@codigo numeric(8)
+	AS
+		BEGIN
+		--SI RECIBE -1, MUESTRA TODOS LOS HOTELES
+			IF (@codigo = -1)
+				SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
+				H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella 
+				FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
+			ELSE
+				SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
+				H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella
+				FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
+				WHERE H.codHotel = @codigo
+		END 
+GO
+
+--/PROCEDIMIENTO INSERTAR HOTEL 
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotel
+	@nombreHotel varchar(50),
+	@mail varchar(50),
+	@telefono numeric(20),
+	@direccionCalle varchar(255),
+	@direccionNumero numeric(18,0),
+	@ciudad varchar(255),
+	@pais varchar(50),
+	@cantEstrellas numeric(18,0),
+	@recargoEstrella numeric(18,0)
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES (nombreHotel, mail, fecCreacion, telefono, direccionCalle,
+								direccionNumero, ciudad, pais, cantEstrellas, recargoEstrella)
+	VALUES(@nombreHotel, @mail, GETDATE(), (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono), 
+		@direccionCalle, (CASE WHEN @direccionNumero = -1 THEN NULL ELSE @direccionNumero), @ciudad, 
+		@pais, (CASE WHEN @cantEstrellas = -1 THEN NULL ELSE @cantEstrellas), 
+		(CASE WHEN @recargoEstrella = -1 THEN NULL ELSE @recargoEstrella))
+GO
+
+--/PROCEDIMIENTO DELETE HOTEL (EN REALIDAD CREA UNA INHABILITACION) 
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteHotel
+	@codHotel numeric(8),
+	@fecInicio datetime,
+	@fecFin datetime,
+	@motivo varchar(255)
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES(hotel, fecInicio, fecFin, motivo)
+	VALUES(@codHotel, @fecInicio, @fecFin, @motivo)
+GO
+/*
+	hotel			numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
+	fecInicio		datetime not null,
+	fecFin			datetime not null,
+	motivo			varchar(255) not null,
+
+	codHotel		numeric(8) identity(1,1) PRIMARY KEY,
+	nombreHotel		varchar(50) not null default 'A',
+	mail			varchar(50) default '',
+	fecCreacion		datetime not null default GETDATE(),
+	telefono		numeric(20) not null default '11111111',
+	direccionCalle	varchar(255) not null,
+	direccionNumero	numeric(18,0) not null,
+	ciudad			varchar(255) not null,
+	pais			varchar(50) not null default 'Argentina',
+	cantEstrellas	numeric(18,0) not null,
+	recargoEstrella numeric(18,0) not null
+
+updateHotel(codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas, codRegimen)
+	Si alguno de los campos que no son nulos es "" en caso de los strings o -1 en caso de los numeros, no los actualiza
+	Si el codigo regimen existe, asocia el regimen
+*/
