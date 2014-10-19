@@ -691,3 +691,34 @@ AS
 		descripcion, campoBaja)
 VALUES(@codHotel, @habitacion, @piso, @ubicacion, @codTipo, @descripcion, 0)
 GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenbyHotel
+	@codigo numeric(8)
+	AS
+		SELECT R.codRegimen FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL R 
+		WHERE R.codHotel = @codigo  
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimen
+	@codigo numeric(8)
+	AS
+		BEGIN
+		--SI RECIBE -1, MUESTRA TODOS LOS REGIMENES
+			IF (@codigo = -1)
+				SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
+				WHERE R.estado = 1				
+			ELSE
+				SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
+				WHERE R.codRegimen = @codigo
+		END 
+GO
