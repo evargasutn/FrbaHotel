@@ -1,7 +1,7 @@
 ﻿using DOM;
 namespace FrbaHotel.ABM_de_Rol
 {
-    partial class FormRolMod
+    partial class RolMod
     {
         /// <summary>
         /// Required designer variable.

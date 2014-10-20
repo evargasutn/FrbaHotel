@@ -11,7 +11,7 @@ using DOM;
 
 namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class FormRolMod : Form
+    public partial class RolMod : Form
     {//En el listado deben aparecer solo los activos
         //para dar la baja logica a no activo
         List<Funcionalidad> funcionalidades;
@@ -22,7 +22,7 @@ namespace FrbaHotel.ABM_de_Rol
         List<Funcionalidad> lista_baja = new List<Funcionalidad>();
         List<Funcionalidad> lista_alta = new List<Funcionalidad>();
 
-        public FormRolMod(string nombreRol)
+        public RolMod(string nombreRol)
         {
             InitializeComponent();
             rolSeleccionado = DAORol.getRol(nombreRol);

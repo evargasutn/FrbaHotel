@@ -15,18 +15,5 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             InitializeComponent();
         }
-
-        private void dataGridViewUsuario_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-          /////detecta boton seleccionar
-            if (this.dataGridViewUsuario.Columns[e.ColumnIndex].Name == "ColumnSelectora")
-            { 
-                ///
-               ///abrir nuevo formulario de modificacion
-            }
-        
-
-
-        }
     }
 }

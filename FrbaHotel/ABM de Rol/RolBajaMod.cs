@@ -11,11 +11,11 @@ using DOM.Dominio;
 
 namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class FormRolModBaja : Form
+    public partial class RolBajaMod : Form
     {
         List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
 
-        public FormRolModBaja()
+        public RolBajaMod()
         {
             InitializeComponent();
             funcionalidades = DAOFuncionalidad.getAllFuncionalidades();
@@ -89,13 +89,13 @@ namespace FrbaHotel.ABM_de_Rol
         private void ModificarRol(int p)
         {
             string rolElegido = (string)dataGridViewRol["nombreRol", p].Value;
-            new FormRolMod(rolElegido).Show();
+            new RolMod(rolElegido).Show();
             Base.establecerVentanaAnterior(this);
         }
 
         private void altaDeRolToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FormRolAlta alta = new FormRolAlta();
+            RolAlta alta = new RolAlta();
             alta.Show();
             Globals.deshabilitarAnterior(this);
         }

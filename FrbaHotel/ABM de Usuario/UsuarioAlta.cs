@@ -6,12 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using DOM;
 namespace FrbaHotel.ABM_de_Usuario
 {
-    public partial class FormBajaUser : Form
+    public partial class UsuarioAlta : Form
     {
-        public FormBajaUser()
+        public UsuarioAlta()
         {
             InitializeComponent();
         }

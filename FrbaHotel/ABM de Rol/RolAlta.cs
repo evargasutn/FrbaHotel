@@ -10,11 +10,11 @@ using DOM;
 using DOM.Dominio;
 namespace FrbaHotel.ABM_de_Rol
 {
-    public partial class FormRolAlta : Form
+    public partial class RolAlta : Form
     {
         private List<Funcionalidad> funcionalidades;
 
-        public FormRolAlta()
+        public RolAlta()
         {
             InitializeComponent();
             funcionalidades = DAOFuncionalidad.getAllFuncionalidades();

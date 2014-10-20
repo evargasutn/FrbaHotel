@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaHotel.ABM_de_Cliente
+namespace FrbaHotel.Login
 {
-    public partial class Form1 : Form
+    public partial class MainPanel : Form
     {
-        public Form1()
+        public MainPanel()
         {
             InitializeComponent();
         }

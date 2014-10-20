@@ -49,11 +49,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ABM de Cliente\Form1.cs">
+    <Compile Include="ABM de Cliente\ClienteAlta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Cliente\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM de Cliente\ClienteAlta.Designer.cs">
+      <DependentUpon>ClienteAlta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Cliente\ClienteBajaMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Cliente\ClienteBajaMod.Designer.cs">
+      <DependentUpon>ClienteBajaMod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Cliente\ClienteMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Cliente\ClienteMod.Designer.cs">
+      <DependentUpon>ClienteMod.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Habitacion\Form1.cs">
       <SubType>Form</SubType>
@@ -67,47 +79,41 @@
     <Compile Include="ABM de Regimen\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Rol\FormRolMod.cs">
+    <Compile Include="ABM de Rol\RolMod.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Rol\FormRolMod.Designer.cs">
-      <DependentUpon>FormRolMod.cs</DependentUpon>
+    <Compile Include="ABM de Rol\RolMod.Designer.cs">
+      <DependentUpon>RolMod.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Rol\FormRolAlta.cs">
+    <Compile Include="ABM de Rol\RolAlta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Rol\FormRolAlta.Designer.cs">
-      <DependentUpon>FormRolAlta.cs</DependentUpon>
+    <Compile Include="ABM de Rol\RolAlta.Designer.cs">
+      <DependentUpon>RolAlta.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Rol\FormRolModBaja.cs">
+    <Compile Include="ABM de Rol\RolBajaMod.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Rol\FormRolModBaja.Designer.cs">
-      <DependentUpon>FormRolModBaja.cs</DependentUpon>
+    <Compile Include="ABM de Rol\RolBajaMod.Designer.cs">
+      <DependentUpon>RolBajaMod.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Usuario\FormUser.cs">
+    <Compile Include="ABM de Usuario\UsuarioAlta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Usuario\FormUser.Designer.cs">
-      <DependentUpon>FormUser.cs</DependentUpon>
+    <Compile Include="ABM de Usuario\UsuarioAlta.Designer.cs">
+      <DependentUpon>UsuarioAlta.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Usuario\FormAltaUser.cs">
+    <Compile Include="ABM de Usuario\UsuarioMod.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Usuario\FormAltaUser.Designer.cs">
-      <DependentUpon>FormAltaUser.cs</DependentUpon>
+    <Compile Include="ABM de Usuario\UsuarioMod.Designer.cs">
+      <DependentUpon>UsuarioMod.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Usuario\FormBajaUser.cs">
+    <Compile Include="ABM de Usuario\UsuarioBajaMod.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Usuario\FormBajaUser.Designer.cs">
-      <DependentUpon>FormBajaUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ABM de Usuario\FormModUser.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ABM de Usuario\FormModUser.Designer.cs">
-      <DependentUpon>FormModUser.cs</DependentUpon>
+    <Compile Include="ABM de Usuario\UsuarioBajaMod.Designer.cs">
+      <DependentUpon>UsuarioBajaMod.cs</DependentUpon>
     </Compile>
     <Compile Include="CalendarioGlobal.cs">
       <SubType>Form</SubType>
@@ -123,17 +129,17 @@
     </Compile>
     <Compile Include="Base.cs">
     </Compile>
-    <Compile Include="Form2.cs">
+    <Compile Include="Login\LoginRequisitos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <Compile Include="Login\LoginRequisitos.Designer.cs">
+      <DependentUpon>LoginRequisitos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Inicial.cs">
+    <Compile Include="Login\Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Inicial.Designer.cs">
-      <DependentUpon>Inicial.cs</DependentUpon>
+    <Compile Include="Login\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Generar Modificar Reserva\Form1.cs">
       <SubType>Form</SubType>
@@ -147,43 +153,49 @@
     <Compile Include="Listado Estadistico\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Login\Form1.cs">
+    <Compile Include="Login\MainPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Login\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Login\MainPanel.Designer.cs">
+      <DependentUpon>MainPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ABM de Rol\FormRolAlta.resx">
-      <DependentUpon>FormRolAlta.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Cliente\ClienteAlta.resx">
+      <DependentUpon>ClienteAlta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Rol\FormRolMod.resx">
-      <DependentUpon>FormRolMod.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Cliente\ClienteBajaMod.resx">
+      <DependentUpon>ClienteBajaMod.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Rol\FormRolModBaja.resx">
-      <DependentUpon>FormRolModBaja.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Cliente\ClienteMod.resx">
+      <DependentUpon>ClienteMod.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Usuario\FormUser.resx">
-      <DependentUpon>FormUser.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Rol\RolAlta.resx">
+      <DependentUpon>RolAlta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Usuario\FormAltaUser.resx">
-      <DependentUpon>FormAltaUser.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Rol\RolMod.resx">
+      <DependentUpon>RolMod.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Usuario\FormBajaUser.resx">
-      <DependentUpon>FormBajaUser.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Rol\RolBajaMod.resx">
+      <DependentUpon>RolBajaMod.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ABM de Usuario\FormModUser.resx">
-      <DependentUpon>FormModUser.cs</DependentUpon>
+    <EmbeddedResource Include="ABM de Usuario\UsuarioAlta.resx">
+      <DependentUpon>UsuarioAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Usuario\UsuarioMod.resx">
+      <DependentUpon>UsuarioMod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Usuario\UsuarioBajaMod.resx">
+      <DependentUpon>UsuarioBajaMod.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CalendarioGlobal.resx">
       <DependentUpon>CalendarioGlobal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
+    <EmbeddedResource Include="Login\LoginRequisitos.resx">
+      <DependentUpon>LoginRequisitos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Inicial.resx">
-      <DependentUpon>Inicial.cs</DependentUpon>
+    <EmbeddedResource Include="Login\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
