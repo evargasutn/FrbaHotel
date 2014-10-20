@@ -110,7 +110,8 @@ create table COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 	direccionPiso				numeric(18,0),
 	DireccionDepto				varchar(50),
 	FecNacimiento				DateTime not null,
-	campoBaja					bit	not null default 0
+	campoBaja					bit	not null default 0,
+	primerLog					bit not null default 1
 )
 go
 
@@ -687,7 +688,7 @@ AS
 	END
 GO	
 
-<<<<<<< HEAD
+--//PROCEDIMIENTO INSERTAR HOTEL
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -728,10 +729,8 @@ AS
 		WHERE U.usr = @unUsr
 	END
 GO
---//PROC INSERTUSUARIO
-=======
+
 --/PROCEDIMIENTO INSERTAR USUARIO 
->>>>>>> origin/master
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -755,6 +754,73 @@ AS
 		mail, telefono, direccionCalle, direccionNumero, direccionPiso, DireccionDepto, FecNacimiento, campoBaja)
 	VALUES(@usr, @password, @nombre, @apellido, 0, @tipoDocu, @numDocu, @mail, @telefono, @direccionCalle, @direccionNumero, 
 			@direccionPiso, @DireccionDepto, @FecNacimiento, 0)
+GO
+
+--//PROC DELETEUSUARIO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteUsuario
+	@usr varchar(50)	
+AS
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+	SET campoBaja = 1
+	WHERE usr = @usr
+GO
+--//PROC UPDATEUSUARIO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateUsuario
+	@usr varchar(50),
+	@password varchar(50), 
+	@nombre varchar(255),
+	@apellido varchar(255),
+	@tipoDocu varchar(50),
+	@numDocu	numeric(18,0),
+	@mail varchar(255),
+	@telefono numeric(12),
+	@direccionCalle varchar(255),
+	@direccionNumero numeric(18,0),
+	@direccionPiso numeric(18,0),
+	@direccionDepto varchar(50),
+	@fecNacimiento DateTime
+AS
+	IF (@usr IS NOT NULL AND @password IS NOT NULL AND
+		@nombre IS NOT NULL AND @apellido IS NOT NULL AND
+		@tipoDocu IS NOT NULL AND @numDocu IS NOT NULL AND
+		@mail IS NOT NULL AND @telefono IS NOT NULL AND
+		@direccionCalle IS NOT NULL AND @direccionNumero IS NOT NULL AND
+		@direccionPiso IS NOT NULL AND @direccionDepto IS NOT NULL AND
+		@fecNacimiento IS NOT NULL)
+	BEGIN
+		DECLARE @nueva_clave varchar(50)
+		CREATE TABLE #TEMP_TABLA(
+			temp_usr varchar(50), temp_password varchar(50), temp_primerLog bit
+		)
+		
+		INSERT INTO #TEMP_TABLA SELECT U.usr, U.password, U.primerLog FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.usr = @usr
+		
+		IF (SELECT COUNT(TMP.temp_usr) FROM #TEMP_TABLA TMP WHERE TMP.temp_primerLog = 1) > 0
+			/*SI ES EL PRIMER LOGUEO PUEDE HACER CAMBIO DE PASSWORD*/
+			SET @nueva_clave = @password
+		ELSE
+			/*CONSERVA EL PASSWORD*/
+			SET @nueva_clave = (SELECT TMP.temp_password FROM #TEMP_TABLA TMP)
+		
+		/*ACTUALIZO LOS DATOS Y SETEO BANDERA PRIMER_LOG EN FALSO*/
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+		SET 
+				password = @nueva_clave, nombre = @nombre, apellido = @apellido, tipoDocu = @tipoDocu, 
+				numDocu = @numDocu, mail = @mail, telefono = @telefono, direccionCalle = @direccionCalle, direccionNumero = @direccionNumero, 
+				direccionPiso = @direccionPiso, direccionDepto = @direccionDepto, fecNacimiento = @fecNacimiento, primerLog = 0
+		WHERE usr = @usr
+		
+		/*DROP TABLA TEMPORAL*/
+		DROP TABLE ##TEMP_TABLA
+	END
 GO
 
 --/PROCEDIMIENTO INSERTAR HABITACION
