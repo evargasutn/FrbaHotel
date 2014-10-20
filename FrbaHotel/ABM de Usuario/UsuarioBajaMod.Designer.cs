@@ -42,8 +42,11 @@
             this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonBuscar = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.altaDeUnUsuarioToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblRol
@@ -92,7 +95,7 @@
             this.groupBox1.Controls.Add(this.lblApellido);
             this.groupBox1.Controls.Add(this.lblNombre);
             this.groupBox1.Controls.Add(this.lblUsuario);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(400, 103);
             this.groupBox1.TabIndex = 8;
@@ -137,10 +140,10 @@
             this.dataGridUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar,
             this.Baja});
-            this.dataGridUsuario.Location = new System.Drawing.Point(12, 156);
+            this.dataGridUsuario.Location = new System.Drawing.Point(12, 171);
             this.dataGridUsuario.MultiSelect = false;
             this.dataGridUsuario.Name = "dataGridUsuario";
-            this.dataGridUsuario.Size = new System.Drawing.Size(400, 222);
+            this.dataGridUsuario.Size = new System.Drawing.Size(400, 231);
             this.dataGridUsuario.TabIndex = 9;
             // 
             // Modificar
@@ -157,7 +160,7 @@
             // 
             // botonLimpiar
             // 
-            this.botonLimpiar.Location = new System.Drawing.Point(12, 121);
+            this.botonLimpiar.Location = new System.Drawing.Point(12, 136);
             this.botonLimpiar.Name = "botonLimpiar";
             this.botonLimpiar.Size = new System.Drawing.Size(120, 29);
             this.botonLimpiar.TabIndex = 10;
@@ -166,28 +169,49 @@
             // 
             // botonBuscar
             // 
-            this.botonBuscar.Location = new System.Drawing.Point(292, 121);
+            this.botonBuscar.Location = new System.Drawing.Point(292, 136);
             this.botonBuscar.Name = "botonBuscar";
             this.botonBuscar.Size = new System.Drawing.Size(120, 29);
             this.botonBuscar.TabIndex = 11;
             this.botonBuscar.Text = "Buscar";
             this.botonBuscar.UseVisualStyleBackColor = true;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.altaDeUnUsuarioToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(423, 24);
+            this.menuStrip1.TabIndex = 12;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // altaDeUnUsuarioToolStripMenuItem
+            // 
+            this.altaDeUnUsuarioToolStripMenuItem.Name = "altaDeUnUsuarioToolStripMenuItem";
+            this.altaDeUnUsuarioToolStripMenuItem.Size = new System.Drawing.Size(99, 20);
+            this.altaDeUnUsuarioToolStripMenuItem.Text = "Alta de Usuario";
+            // 
             // FormModBajaUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 390);
+            this.ClientSize = new System.Drawing.Size(423, 414);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.dataGridUsuario);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormModBajaUser";
             this.Text = "Modificacion/Baja de Usuarios";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -207,5 +231,7 @@
         private System.Windows.Forms.Button botonBuscar;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
         private System.Windows.Forms.DataGridViewButtonColumn Baja;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem altaDeUnUsuarioToolStripMenuItem;
     }
 }

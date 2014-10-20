@@ -67,17 +67,59 @@
     <Compile Include="ABM de Cliente\ClienteMod.Designer.cs">
       <DependentUpon>ClienteMod.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Habitacion\Form1.cs">
+    <Compile Include="ABM de Habitacion\HabitacionAlta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Habitacion\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM de Habitacion\HabitacionAlta.Designer.cs">
+      <DependentUpon>HabitacionAlta.cs</DependentUpon>
     </Compile>
-    <Compile Include="ABM de Regimen\Form1.cs">
+    <Compile Include="ABM de Habitacion\HabitacionBajaMod.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ABM de Regimen\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="ABM de Habitacion\HabitacionBajaMod.Designer.cs">
+      <DependentUpon>HabitacionBajaMod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Habitacion\HabitacionMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Habitacion\HabitacionMod.Designer.cs">
+      <DependentUpon>HabitacionMod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Hotel\HotelAlta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Hotel\HotelAlta.Designer.cs">
+      <DependentUpon>HotelAlta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Hotel\HotelBajaMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Hotel\HotelBajaMod.Designer.cs">
+      <DependentUpon>HotelBajaMod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Hotel\HotelMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Hotel\HotelMod.Designer.cs">
+      <DependentUpon>HotelMod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Regimen\RegimenMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Regimen\RegimenMod.Designer.cs">
+      <DependentUpon>RegimenMod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Regimen\RegimenAlta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Regimen\RegimenAlta.Designer.cs">
+      <DependentUpon>RegimenAlta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ABM de Regimen\RegimenBajaMod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ABM de Regimen\RegimenBajaMod.Designer.cs">
+      <DependentUpon>RegimenBajaMod.cs</DependentUpon>
     </Compile>
     <Compile Include="ABM de Rol\RolMod.cs">
       <SubType>Form</SubType>
@@ -169,6 +211,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Cliente\ClienteMod.resx">
       <DependentUpon>ClienteMod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Habitacion\HabitacionAlta.resx">
+      <DependentUpon>HabitacionAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Habitacion\HabitacionBajaMod.resx">
+      <DependentUpon>HabitacionBajaMod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Habitacion\HabitacionMod.resx">
+      <DependentUpon>HabitacionMod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Hotel\HotelAlta.resx">
+      <DependentUpon>HotelAlta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Hotel\HotelBajaMod.resx">
+      <DependentUpon>HotelBajaMod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Hotel\HotelMod.resx">
+      <DependentUpon>HotelMod.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Rol\RolAlta.resx">
       <DependentUpon>RolAlta.cs</DependentUpon>
