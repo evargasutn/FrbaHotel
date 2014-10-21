@@ -40,6 +40,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.comboBoxTipoRegimen = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.buttonLimpiar = new System.Windows.Forms.Button();
+            this.buttonDisponibilidad = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -95,9 +97,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(16, 81);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.Size = new System.Drawing.Size(86, 13);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Fecha de entrada*";
+            this.label3.Text = "Fecha de salida*";
             // 
             // label2
             // 
@@ -134,7 +136,7 @@
             this.groupBox2.Controls.Add(this.groupBox1);
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(36, 40);
+            this.groupBox2.Location = new System.Drawing.Point(21, 21);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(339, 273);
             this.groupBox2.TabIndex = 5;
@@ -154,15 +156,35 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(24, 226);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(87, 13);
+            this.label5.Size = new System.Drawing.Size(83, 13);
             this.label5.TabIndex = 5;
-            this.label5.Text = "Tipo de régimen*";
+            this.label5.Text = "Tipo de régimen";
+            // 
+            // buttonLimpiar
+            // 
+            this.buttonLimpiar.Location = new System.Drawing.Point(21, 300);
+            this.buttonLimpiar.Name = "buttonLimpiar";
+            this.buttonLimpiar.Size = new System.Drawing.Size(120, 34);
+            this.buttonLimpiar.TabIndex = 7;
+            this.buttonLimpiar.Text = "Limpiar";
+            this.buttonLimpiar.UseVisualStyleBackColor = true;
+            // 
+            // buttonDisponibilidad
+            // 
+            this.buttonDisponibilidad.Location = new System.Drawing.Point(237, 300);
+            this.buttonDisponibilidad.Name = "buttonDisponibilidad";
+            this.buttonDisponibilidad.Size = new System.Drawing.Size(123, 34);
+            this.buttonDisponibilidad.TabIndex = 8;
+            this.buttonDisponibilidad.Text = "Buscar Disponibilidad";
+            this.buttonDisponibilidad.UseVisualStyleBackColor = true;
             // 
             // GenerearReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(413, 325);
+            this.ClientSize = new System.Drawing.Size(378, 353);
+            this.Controls.Add(this.buttonDisponibilidad);
+            this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.groupBox2);
             this.Name = "GenerearReserva";
             this.Text = "Generar reserva";
@@ -188,6 +210,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox comboBoxTipoRegimen;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button buttonLimpiar;
+        private System.Windows.Forms.Button buttonDisponibilidad;
 
     }
 }
