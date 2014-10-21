@@ -108,7 +108,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 	direccionCalle				varchar(255) not null,
 	direccionNumero				numeric(18,0) not null,
 	direccionPiso				numeric(18,0),
-	DireccionDepto				varchar(50),
+	direccionDepto				varchar(50),
 	FecNacimiento				DateTime not null,
 	campoBaja					bit	not null default 0,
 	primerLog					bit not null default 1
@@ -157,7 +157,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 	direccionCalle		varchar(255) not null,
 	direccionNumero		numeric(18,0) not null,
 	direccionPiso		numeric(18,0),
-	DireccionDepto		varchar(50),
+	direccionDepto		varchar(50),
 	localidad			varchar(50) not null,
 	paisOrigen			varchar(50) not null,
 	nacionalidad		varchar(255) not null,
@@ -688,6 +688,7 @@ AS
 	END
 GO	
 
+/*
 --//PROCEDIMIENTO INSERTAR HOTEL
 SET QUOTED_IDENTIFIER ON
 GO
@@ -708,7 +709,7 @@ AS
 								direccionNumero, ciudad, pais, cantEstrellas, recargoEstrella)
 	VALUES(@nombreHotel, @mail, GETDATE(), @telefono, @direccionCalle, @direccionNumero, @ciudad, @pais, @cantEstrellas, @recargoEstrella)
 GO
-
+*/
 --//PROC GETUSUARIO
 SET QUOTED_IDENTIFIER ON
 GO
@@ -720,11 +721,11 @@ AS
 	BEGIN
 	 IF (@unUsr IS NULL)
  		SELECT U.usr, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
- 				U.DireccionDepto, U.mail, U.telefono, U.password
+ 				U.direccionDepto, U.mail, U.telefono, U.password
  		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.campoBaja = 0
 	 ELSE
 		SELECT U.usr, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
-				U.DireccionDepto, U.mail, U.telefono, U.password
+				U.direccionDepto, U.mail, U.telefono, U.password
 		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
 		WHERE U.usr = @unUsr
 	END
@@ -747,13 +748,13 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertUsuario
 	@direccionCalle varchar(255),
 	@direccionNumero numeric(18,0),
 	@direccionPiso numeric(18,0),
-	@DireccionDepto varchar(50),
+	@direccionDepto varchar(50),
 	@FecNacimiento DateTime
 AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr, password, nombre, apellido, contador_intentos_login, tipoDocu, numDocu,
-		mail, telefono, direccionCalle, direccionNumero, direccionPiso, DireccionDepto, FecNacimiento, campoBaja)
+		mail, telefono, direccionCalle, direccionNumero, direccionPiso, direccionDepto, FecNacimiento, campoBaja)
 	VALUES(@usr, @password, @nombre, @apellido, 0, @tipoDocu, @numDocu, @mail, @telefono, @direccionCalle, @direccionNumero, 
-			@direccionPiso, @DireccionDepto, @FecNacimiento, 0)
+			@direccionPiso, @direccionDepto, @FecNacimiento, 0)
 GO
 
 --//PROC DELETEUSUARIO
@@ -821,6 +822,21 @@ AS
 		/*DROP TABLA TEMPORAL*/
 		DROP TABLE ##TEMP_TABLA
 	END
+GO
+--//PROC INTENTOFALLIDOUSUARIO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.intentoFallidoUsuario
+	@usr varchar(50)	
+AS
+	DECLARE @contador_actual numeric(2)
+	SET @contador_actual = (SELECT U.contador_intentos_login FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.usr = @usr)
+	
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+	SET contador_intentos_login = (CASE WHEN @contador_actual < 3 THEN contador_intentos_login + 1 ELSE 0 END)
+	WHERE usr = @usr
 GO
 
 --/PROCEDIMIENTO INSERTAR HABITACION
@@ -927,10 +943,10 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotel
 AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES (nombreHotel, mail, fecCreacion, telefono, direccionCalle,
 								direccionNumero, ciudad, pais, cantEstrellas, recargoEstrella)
-	VALUES(@nombreHotel, @mail, GETDATE(), (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono), 
-		@direccionCalle, (CASE WHEN @direccionNumero = -1 THEN NULL ELSE @direccionNumero), @ciudad, 
-		@pais, (CASE WHEN @cantEstrellas = -1 THEN NULL ELSE @cantEstrellas), 
-		(CASE WHEN @recargoEstrella = -1 THEN NULL ELSE @recargoEstrella))
+	VALUES(@nombreHotel, @mail, GETDATE(), (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono END), 
+		@direccionCalle, (CASE WHEN @direccionNumero = -1 THEN NULL ELSE @direccionNumero END), @ciudad, 
+		@pais, (CASE WHEN @cantEstrellas = -1 THEN NULL ELSE @cantEstrellas END), 
+		(CASE WHEN @recargoEstrella = -1 THEN NULL ELSE @recargoEstrella END))
 GO
 
 --/PROCEDIMIENTO DELETE HOTEL (EN REALIDAD CREA UNA INHABILITACION) 
@@ -969,3 +985,97 @@ updateHotel(codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pai
 	Si alguno de los campos que no son nulos es "" en caso de los strings o -1 en caso de los numeros, no los actualiza
 	Si el codigo regimen existe, asocia el regimen
 */
+
+--/PROC GETRESERVA 
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getReserva
+	@codReserva numeric(18)
+	AS
+		BEGIN
+		--SI RECIBE -1, MUESTRA TODOS LAS RESERVAS
+		IF (@codReserva = -1)
+			SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R			
+		ELSE
+			SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R	
+			WHERE R.codReserva = @codReserva
+		END 
+GO
+--/PROC INSERTRESERVA
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertReserva
+	@idHuesped int,
+	@usr varchar(50), 
+	@habitacion numeric(4), 
+	@piso numeric(2), 
+	@codHotel numeric(8), 
+	@codRegimen numeric(8), 
+	@fecDesde datetime, 
+	@fecHasta datetime,
+	@fedReserva datetime	
+AS
+	--INSERT EN LA TABLA DE RESERVAS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(idHuesped, usr, fecDesde, fecHasta, fecReserva)
+	VALUES(@idHuesped, @usr, @fecDesde, @fecHasta, @fecHasta)
+	
+	DECLARE @max_codReserva bigint
+	SET @max_codReserva = (SELECT MAX(R.codReserva) FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R)
+	--INSERT EN LA TABLA DE DETALLES_RESERVA
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion, piso, codRegimen)
+	VALUES (@codHotel, @max_codReserva, @habitacion, @piso, @codRegimen)
+GO
+
+--/PROC GETHUESPED 
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHuesped
+	@idHuesped int
+	AS
+		BEGIN
+		--SI RECIBE -1, MUESTRA TODOS LAS RESERVAS
+		IF (@idHuesped = -1)
+			SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES H			
+		ELSE
+			SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES H	
+			WHERE H.idHuesped = @idHuesped
+		END 
+GO
+
+--/PROC INSERTHUESPED
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHuesped
+	@idHuesped	int,
+	@tipoDocu	varchar(50),
+	@numDocu	numeric(18, 0),
+	@nombre	varchar(255),
+	@apellido	varchar(255),
+	@mail	varchar(255),
+	@telefono	numeric(18, 0),
+	@direccionCalle	varchar(255),
+	@direccionNumero	numeric(18, 0),
+	@direccionPiso	numeric(18, 0),
+	@direccionDepto	varchar(50),
+	@localidad	varchar(50),
+	@paisOrigen	varchar(50),
+	@nacionalidad	varchar(255),
+	@fecNacimiento	datetime		
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped, tipoDocu, numDocu, nombre, apellido,
+				mail, telefono, direccionCalle, direccionNumero, direccionPiso, direccionDepto,
+				localidad, paisOrigen, fecNacimiento)
+	VALUES(@idHuesped, @tipoDocu, @numDocu, @nombre, @apellido,
+		   @mail, (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono END), 
+		   @direccionCalle, @direccionNumero, 
+		   (CASE WHEN @direccionPiso = -1 THEN NULL ELSE @direccionPiso END), @direccionDepto,
+		   @localidad, @paisOrigen, @fecNacimiento)
+GO
