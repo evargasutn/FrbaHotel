@@ -163,6 +163,12 @@
     <Compile Include="CalendarioGlobal.Designer.cs">
       <DependentUpon>CalendarioGlobal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cancelar Reserva\BuscarIdHuesped.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Reserva\BuscarIdHuesped.Designer.cs">
+      <DependentUpon>BuscarIdHuesped.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar Reserva\BuscarReserva.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -262,6 +268,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CalendarioGlobal.resx">
       <DependentUpon>CalendarioGlobal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Reserva\BuscarIdHuesped.resx">
+      <DependentUpon>BuscarIdHuesped.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Reserva\BuscarReserva.resx">
       <DependentUpon>BuscarReserva.cs</DependentUpon>
