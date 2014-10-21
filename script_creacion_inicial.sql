@@ -159,10 +159,9 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 	direccionPiso		numeric(18,0),
 	direccionDepto		varchar(50),
 	localidad			varchar(50) not null,
-	paisOrigen			varchar(50) not null,
 	nacionalidad		varchar(255) not null,
 	fecNacimiento		datetime not null,
-	campo_baja			bit	not null default 0
+	campoBaja			bit	not null default 0
 )
 go
 
@@ -542,10 +541,10 @@ GO
 GO
 
 --//CANCELACIONES_RESERVA
-	IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.P_CANCELA_RESERVA', 'P' ) IS NOT NULL 
+	IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.P_CANCELA_RESERVA;
 GO
-	CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.P_CANCELA_RESERVA 
+	CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva 
 		--Toma la fecha del sistema al momento de agregar una cancelacion
 		@codReserva		numeric,
 		@motivo			varchar,
@@ -1039,7 +1038,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHuesped
 	@idHuesped int
 	AS
 		BEGIN
-		--SI RECIBE -1, MUESTRA TODOS LAS RESERVAS
+		--SI RECIBE -1, MUESTRA TODOS LOS HUESPEDES
 		IF (@idHuesped = -1)
 			SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES H			
 		ELSE
@@ -1066,16 +1065,67 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHuesped
 	@direccionPiso	numeric(18, 0),
 	@direccionDepto	varchar(50),
 	@localidad	varchar(50),
-	@paisOrigen	varchar(50),
 	@nacionalidad	varchar(255),
 	@fecNacimiento	datetime		
 AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped, tipoDocu, numDocu, nombre, apellido,
 				mail, telefono, direccionCalle, direccionNumero, direccionPiso, direccionDepto,
-				localidad, paisOrigen, fecNacimiento)
+				localidad, nacionalidad, fecNacimiento)
 	VALUES(@idHuesped, @tipoDocu, @numDocu, @nombre, @apellido,
 		   @mail, (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono END), 
 		   @direccionCalle, @direccionNumero, 
 		   (CASE WHEN @direccionPiso = -1 THEN NULL ELSE @direccionPiso END), @direccionDepto,
-		   @localidad, @paisOrigen, @fecNacimiento)
+		   @localidad, @nacionalidad, @fecNacimiento)
+GO
+--//PROC DELETEHUESPED
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteHuesped
+	@idHuesped int	
+AS
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+	SET campoBaja = 1
+	WHERE idHuesped = @idHuesped
+GO
+--//PROC UPDATEHUESPED
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHuesped
+	@idHuesped int,
+	@nombre varchar(255),
+	@apellido varchar(255),
+	@tipoDocu varchar(50),
+	@numDocu	numeric(18,0),
+	@mail varchar(255),
+	@telefono numeric(12),
+	@direccionCalle varchar(255),
+	@direccionNumero numeric(18,0),
+	@direccionPiso numeric(18,0),
+	@direccionDepto varchar(50),
+	@fecNacimiento DateTime,
+	@localidad varchar(50),
+	@nacionalidad varchar(255)
+AS
+	IF (@idHuesped IS NOT NULL AND 
+		@nombre IS NOT NULL AND @apellido IS NOT NULL AND
+		@tipoDocu IS NOT NULL AND @numDocu IS NOT NULL AND
+		@mail IS NOT NULL AND @telefono IS NOT NULL AND
+		@direccionCalle IS NOT NULL AND @direccionNumero IS NOT NULL AND
+		@direccionPiso IS NOT NULL AND @direccionDepto IS NOT NULL AND
+		@fecNacimiento IS NOT NULL AND @localidad IS NOT NULL AND
+		@nacionalidad IS NOT NULL)
+	BEGIN
+		
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+		SET 
+				nombre = @nombre, apellido = @apellido, tipoDocu = @tipoDocu, 
+				numDocu = @numDocu, mail = @mail, telefono = @telefono, direccionCalle = @direccionCalle, direccionNumero = @direccionNumero, 
+				direccionPiso = @direccionPiso, direccionDepto = @direccionDepto, fecNacimiento = @fecNacimiento, 
+				localidad = @localidad, nacionalidad = @nacionalidad
+		WHERE idHuesped = @idHuesped
+	END
 GO
