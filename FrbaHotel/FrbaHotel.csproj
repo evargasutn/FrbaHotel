@@ -163,6 +163,18 @@
     <Compile Include="CalendarioGlobal.Designer.cs">
       <DependentUpon>CalendarioGlobal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Cancelar Reserva\BuscarReserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Reserva\BuscarReserva.Designer.cs">
+      <DependentUpon>BuscarReserva.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cancelar Reserva\CancelarReserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cancelar Reserva\CancelarReserva.Designer.cs">
+      <DependentUpon>CancelarReserva.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar Reserva\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -183,11 +195,11 @@
     <Compile Include="Login\Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Modificar Reserva\Form1.cs">
+    <Compile Include="Generar Modificar Reserva\GenerarReserva.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Modificar Reserva\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Generar Modificar Reserva\GenerarReserva.Designer.cs">
+      <DependentUpon>GenerarReserva.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\Form1.cs">
       <SubType>Form</SubType>
@@ -250,6 +262,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CalendarioGlobal.resx">
       <DependentUpon>CalendarioGlobal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Reserva\BuscarReserva.resx">
+      <DependentUpon>BuscarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cancelar Reserva\CancelarReserva.resx">
+      <DependentUpon>CancelarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Modificar Reserva\GenerarReserva.resx">
+      <DependentUpon>GenerarReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login\LoginRequisitos.resx">
       <DependentUpon>LoginRequisitos.cs</DependentUpon>
