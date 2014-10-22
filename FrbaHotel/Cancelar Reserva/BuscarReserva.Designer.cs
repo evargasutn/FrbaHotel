@@ -30,6 +30,7 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.dateTimeFin = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimeFechaInicio = new System.Windows.Forms.DateTimePicker();
@@ -38,7 +39,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridReserva = new System.Windows.Forms.DataGridView();
             this.ColumnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label4 = new System.Windows.Forms.Label();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
@@ -59,6 +59,7 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // groupBox2
             // 
@@ -72,6 +73,15 @@
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Fecha de reserva";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(16, 49);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(21, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Fin";
             // 
             // dateTimeFin
             // 
@@ -139,15 +149,6 @@
             // 
             this.ColumnSeleccionar.HeaderText = "Seleccionar";
             this.ColumnSeleccionar.Name = "ColumnSeleccionar";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 49);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(21, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Fin";
             // 
             // botonLimpiar
             // 

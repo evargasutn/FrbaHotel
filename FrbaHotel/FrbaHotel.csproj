@@ -181,12 +181,6 @@
     <Compile Include="Cancelar Reserva\CancelarReserva.Designer.cs">
       <DependentUpon>CancelarReserva.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cancelar Reserva\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cancelar Reserva\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Base.cs">
     </Compile>
     <Compile Include="Generar Modificar Reserva\ConfirmarReserva.cs">
@@ -310,6 +304,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registrar Estadia\RegistrarEstadia.resx">
+      <DependentUpon>RegistrarEstadia.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -330,11 +327,11 @@
     <Compile Include="Registrar Consumible\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registrar Estadia\Form1.cs">
+    <Compile Include="Registrar Estadia\RegistrarEstadia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registrar Estadia\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Registrar Estadia\RegistrarEstadia.Designer.cs">
+      <DependentUpon>RegistrarEstadia.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

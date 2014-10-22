@@ -7,15 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaHotel.Cancelar_Reserva
+namespace FrbaHotel.Registrar_Estadia
 {
-    public partial class BuscarReserva : Form
+    public partial class RegistrarEstadia : Form
     {
-        public BuscarReserva()
+        public RegistrarEstadia()
         {
             InitializeComponent();
         }
 
-      
+    
+
+        
     }
 }
