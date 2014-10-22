@@ -304,6 +304,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registrar Consumible\RegistrarConsumibles.resx">
+      <DependentUpon>RegistrarConsumibles.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Registrar Estadia\RegistrarEstadia.resx">
       <DependentUpon>RegistrarEstadia.cs</DependentUpon>
     </EmbeddedResource>
@@ -326,6 +329,12 @@
     </Compile>
     <Compile Include="Registrar Consumible\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registrar Consumible\RegistrarConsumibles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registrar Consumible\RegistrarConsumibles.Designer.cs">
+      <DependentUpon>RegistrarConsumibles.cs</DependentUpon>
     </Compile>
     <Compile Include="Registrar Estadia\RegistrarEstadia.cs">
       <SubType>Form</SubType>
