@@ -28,255 +28,192 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.label1 = new System.Windows.Forms.Label();
+            this.textCostoReserva = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxApellido = new System.Windows.Forms.TextBox();
-            this.textBoxNombre = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxTipoDocumento = new System.Windows.Forms.ComboBox();
-            this.textBoxNroDocumento = new System.Windows.Forms.TextBox();
-            this.textBoxTelefono = new System.Windows.Forms.TextBox();
-            this.textBoxMail = new System.Windows.Forms.TextBox();
+            this.textNroDoc = new System.Windows.Forms.TextBox();
+            this.comboTipoDoc = new System.Windows.Forms.ComboBox();
+            this.textMail = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.botonConfirmar = new System.Windows.Forms.Button();
+            this.buttonRegistrarCliente = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.textBoxMail);
-            this.groupBox1.Controls.Add(this.textBoxTelefono);
-            this.groupBox1.Controls.Add(this.textBoxNroDocumento);
-            this.groupBox1.Controls.Add(this.comboBoxTipoDocumento);
-            this.groupBox1.Controls.Add(this.textBoxApellido);
-            this.groupBox1.Controls.Add(this.textBoxNombre);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(58, 30);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(467, 349);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Datos para nuevo registro";
-            // 
-            // textBoxApellido
-            // 
-            this.textBoxApellido.Location = new System.Drawing.Point(135, 58);
-            this.textBoxApellido.Name = "textBoxApellido";
-            this.textBoxApellido.Size = new System.Drawing.Size(116, 20);
-            this.textBoxApellido.TabIndex = 9;
-            // 
-            // textBoxNombre
-            // 
-            this.textBoxNombre.Location = new System.Drawing.Point(135, 32);
-            this.textBoxNombre.Name = "textBoxNombre";
-            this.textBoxNombre.Size = new System.Drawing.Size(116, 20);
-            this.textBoxNombre.TabIndex = 8;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(281, 87);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(33, 13);
-            this.label12.TabIndex = 7;
-            this.label12.Text = "País*";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label11);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Location = new System.Drawing.Point(8, 145);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(418, 165);
-            this.groupBox2.TabIndex = 6;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Domicilio";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(255, 30);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(57, 13);
-            this.label11.TabIndex = 11;
-            this.label11.Text = "Localidad*";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(124, 74);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(74, 13);
-            this.label10.TabIndex = 10;
-            this.label10.Text = "Departamento";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(13, 74);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(27, 13);
-            this.label9.TabIndex = 9;
-            this.label9.Text = "Piso";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 30);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(30, 13);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Calle";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(124, 30);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 13);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Numero";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(281, 35);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(53, 13);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "Teléfono*";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(281, 61);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 13);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Mail*";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(5, 117);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(119, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Numero de documento*";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 87);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Tipo de documento*";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 61);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Apellido*";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 35);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 39);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.Size = new System.Drawing.Size(200, 15);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Nombre*";
+            this.label1.Text = "El costo total de la reserva es:";
             // 
-            // comboBox1
+            // textCostoReserva
             // 
-            this.comboBoxTipoDocumento.FormattingEnabled = true;
-            this.comboBoxTipoDocumento.Location = new System.Drawing.Point(135, 84);
-            this.comboBoxTipoDocumento.Name = "comboBox1";
-            this.comboBoxTipoDocumento.Size = new System.Drawing.Size(116, 21);
-            this.comboBoxTipoDocumento.TabIndex = 10;
+            this.textCostoReserva.Location = new System.Drawing.Point(229, 38);
+            this.textCostoReserva.Name = "textCostoReserva";
+            this.textCostoReserva.ReadOnly = true;
+            this.textCostoReserva.Size = new System.Drawing.Size(162, 20);
+            this.textCostoReserva.TabIndex = 1;
             // 
-            // textBox1
+            // groupBox1
             // 
-            this.textBoxNroDocumento.Location = new System.Drawing.Point(135, 114);
-            this.textBoxNroDocumento.Name = "textBox1";
-            this.textBoxNroDocumento.Size = new System.Drawing.Size(116, 20);
-            this.textBoxNroDocumento.TabIndex = 11;
+            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.textMail);
+            this.groupBox1.Controls.Add(this.comboTipoDoc);
+            this.groupBox1.Controls.Add(this.textNroDoc);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Location = new System.Drawing.Point(15, 115);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(532, 289);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Cliente registrado";
             // 
-            // textBox2
+            // label4
             // 
-            this.textBoxTelefono.Location = new System.Drawing.Point(340, 32);
-            this.textBoxTelefono.Name = "textBox2";
-            this.textBoxTelefono.Size = new System.Drawing.Size(116, 20);
-            this.textBoxTelefono.TabIndex = 12;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(7, 72);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(26, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Mail";
             // 
-            // textBox3
+            // label3
             // 
-            this.textBoxMail.Location = new System.Drawing.Point(340, 58);
-            this.textBoxMail.Name = "textBox3";
-            this.textBoxMail.Size = new System.Drawing.Size(116, 20);
-            this.textBoxMail.TabIndex = 13;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 48);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Número de documento";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(7, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(99, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Tipo de documento";
+            // 
+            // textNroDoc
+            // 
+            this.textNroDoc.Location = new System.Drawing.Point(128, 45);
+            this.textNroDoc.Name = "textNroDoc";
+            this.textNroDoc.Size = new System.Drawing.Size(138, 20);
+            this.textNroDoc.TabIndex = 4;
+            // 
+            // comboTipoDoc
+            // 
+            this.comboTipoDoc.FormattingEnabled = true;
+            this.comboTipoDoc.Location = new System.Drawing.Point(128, 21);
+            this.comboTipoDoc.Name = "comboTipoDoc";
+            this.comboTipoDoc.Size = new System.Drawing.Size(137, 21);
+            this.comboTipoDoc.TabIndex = 5;
+            // 
+            // textMail
+            // 
+            this.textMail.Location = new System.Drawing.Point(128, 69);
+            this.textMail.Name = "textMail";
+            this.textMail.Size = new System.Drawing.Size(138, 20);
+            this.textMail.TabIndex = 6;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Location = new System.Drawing.Point(10, 106);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(516, 171);
+            this.groupBox2.TabIndex = 7;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Clientes";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(8, 19);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dataGridView1.Size = new System.Drawing.Size(502, 140);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // botonConfirmar
+            // 
+            this.botonConfirmar.Location = new System.Drawing.Point(125, 410);
+            this.botonConfirmar.Name = "botonConfirmar";
+            this.botonConfirmar.Size = new System.Drawing.Size(117, 33);
+            this.botonConfirmar.TabIndex = 3;
+            this.botonConfirmar.Text = "Confirmar reserva";
+            this.botonConfirmar.UseVisualStyleBackColor = true;
+            // 
+            // buttonRegistrarCliente
+            // 
+            this.buttonRegistrarCliente.Location = new System.Drawing.Point(294, 410);
+            this.buttonRegistrarCliente.Name = "buttonRegistrarCliente";
+            this.buttonRegistrarCliente.Size = new System.Drawing.Size(117, 33);
+            this.buttonRegistrarCliente.TabIndex = 4;
+            this.buttonRegistrarCliente.Text = "Registrar cliente";
+            this.buttonRegistrarCliente.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(30, 61);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(420, 26);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Por favor buscar cliente para confirmar, en caso de no encontrarse en la planilla" +
+                " registre\r\n al cliente previa confirmación.";
             // 
             // ConfirmarReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 403);
+            this.ClientSize = new System.Drawing.Size(552, 447);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.buttonRegistrarCliente);
+            this.Controls.Add(this.botonConfirmar);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.textCostoReserva);
+            this.Controls.Add(this.label1);
             this.Name = "ConfirmarReserva";
-            this.Text = "Confirmar reserva";
+            this.Text = "Confirmacion de reserva";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textCostoReserva;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textBoxApellido;
-        private System.Windows.Forms.TextBox textBoxNombre;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox textBoxMail;
-        private System.Windows.Forms.TextBox textBoxTelefono;
-        private System.Windows.Forms.TextBox textBoxNroDocumento;
-        private System.Windows.Forms.ComboBox comboBoxTipoDocumento;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TextBox textMail;
+        private System.Windows.Forms.ComboBox comboTipoDoc;
+        private System.Windows.Forms.TextBox textNroDoc;
+        private System.Windows.Forms.Button botonConfirmar;
+        private System.Windows.Forms.Button buttonRegistrarCliente;
+        private System.Windows.Forms.Label label5;
     }
 }

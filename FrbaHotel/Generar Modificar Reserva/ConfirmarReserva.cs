@@ -15,5 +15,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             InitializeComponent();
         }
+
+       
     }
 }
