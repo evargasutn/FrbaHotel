@@ -6,42 +6,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DOM;
-using DOM.Dominio;
 
-namespace FrbaHotel
+namespace FrbaHotel.Login
 {
-    public partial class Inicial : Form
+    public partial class Login : Form
     {
-        public Inicial()
+        public Login()
         {
             InitializeComponent();
         }
 
-        private void Inicial_Load(object sender, EventArgs e)
+        private void botonIniciarSesion_Click(object sender, EventArgs e)
         {
-
-        }
-/// <summary>
-/// Para los restrictivos
-/// </summary>
-/// <param name="sender"></param>
-/// <param name="e"></param>
-        private void button1_Click(object sender, EventArgs e)
-        {
-            ///validar al usuario
-            ///
-            if (true)
-            {
-                Form2 formEspR= new Form2();
-                formEspR.Show();
-               
-              
-            }
-            else {
-               //mostrar error 
-            }
-
+            
         }
     }
 }

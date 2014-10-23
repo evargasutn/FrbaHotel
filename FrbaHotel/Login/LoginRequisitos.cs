@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace FrbaHotel
+namespace FrbaHotel.Login
 {
-    public partial class Form2 : Form
+    public partial class LoginRequisitos : Form
     {
-        public Form2()
+        public LoginRequisitos()
         {
             InitializeComponent();
         }
