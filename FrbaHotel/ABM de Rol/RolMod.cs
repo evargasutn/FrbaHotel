@@ -26,8 +26,8 @@ namespace FrbaHotel.ABM_de_Rol
         {
             InitializeComponent();
             rolSeleccionado = DAORol.getRol(nombreRol);
-            funcionalidadesRol = DAOFuncionalidad.getFuncionalidades(nombreRol);
-            funcionalidades = DAOFuncionalidad.getAllFuncionalidades();
+            funcionalidadesRol = DAOFuncionalidad.getFuncionalidad(nombreRol);
+            funcionalidades = DAOFuncionalidad.getTodasFuncionalidades();
             if (rolSeleccionado == null && funcionalidades == null && funcionalidadesRol == null)
             {
                 MessageBox.Show("Error al conectarse a la DB", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

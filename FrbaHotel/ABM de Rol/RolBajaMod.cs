@@ -18,10 +18,11 @@ namespace FrbaHotel.ABM_de_Rol
         public RolBajaMod()
         {
             InitializeComponent();
-            funcionalidades = DAOFuncionalidad.getAllFuncionalidades();
+            funcionalidades = DAOFuncionalidad.getTodasFuncionalidades();
             foreach (Funcionalidad func in funcionalidades)
                 comboFuncionalidad.Items.Add(func.Descripcion);
-            comboFuncionalidad.SelectedItem = comboFuncionalidad.Items[0];
+            comboEstado.Items.Add("Activo");
+            comboEstado.Items.Add("No Activo");
 
         }
         private void buttonLimpiar_Click(object sender, EventArgs e)
@@ -40,36 +41,52 @@ namespace FrbaHotel.ABM_de_Rol
         {
             DataTable respuesta = FiltrarRol(textRol.Text,(string) comboFuncionalidad.SelectedItem, (string) comboEstado.SelectedItem);
             dataGridViewRol.DataSource = respuesta;
+            dataGridViewRol.Columns["estado"].Visible = false;
             dataGridViewRol.AutoResizeColumns();
+            dataGridViewRol.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewRol.AutoResizeRows();
         }
         private DataTable FiltrarRol(string nombreRol, string nombreFuncionalidad, string estado)
         {
-            DataTable dt = DAORol.getRolTable();
-            var final = "";
+            DataTable tabla_rol = DAORol.getRolTable();
+            DataTable tabla_func = DAOFuncionalidad.getFuncionalidadTable(nombreRol);
+            var final_rol = "";
             var posFiltro = true;
             var filtrosBusqueda = new List<string>();
             if (nombreRol != "") filtrosBusqueda.Add("nombreRol LIKE '%" + nombreRol + "%'");
-            if (nombreFuncionalidad != null) filtrosBusqueda.Add("descripcion LIKE '%" + nombreFuncionalidad + "%'");
-            if (estado != null) 
-                if(estado == "Activo")
-                    filtrosBusqueda.Add("estado LIKE '%1%'");
+            if (estado != null)
+                if (estado == "Activo")
+                    filtrosBusqueda.Add("estado = 1");
                 else
-                    filtrosBusqueda.Add("estado LIKE '%0%'");
+                    filtrosBusqueda.Add("estado = 0");
 
-            foreach(var filtro in filtrosBusqueda)
+            foreach (var filtro in filtrosBusqueda)
             {
-                if(!posFiltro)
-                    final += " AND " + filtro;
+                if (!posFiltro)
+                    final_rol += " AND " + filtro;
                 else
                 {
-                    final += filtro;
+                    final_rol += filtro;
                     posFiltro = false;
                 }
             }
-            dt.DefaultView.RowFilter = final;
-            return dt;
-
+            //Rearmar
+            if (tabla_rol != null) {
+                if (nombreFuncionalidad != null && tabla_func != null) {
+                    for(int i = 0; i < tabla_rol.Rows.Count; i++)
+                    {
+                        string rol = Convert.ToString(tabla_rol.Rows[i]["nombreRol"]);
+                        foreach (DataRow row2 in tabla_func.Rows)
+                        {
+                            if(rol == Convert.ToString(row2["nombreRol"]))
+                                if(Convert.ToString(row2["descripcion"]) == nombreFuncionalidad)
+                                    tabla_rol.Rows.RemoveAt(i);
+                        }
+                    }
+                }
+                tabla_rol.DefaultView.RowFilter = final_rol;
+            }
+            return tabla_rol;
         }
 
         private void dataGridViewRol_CellContentClick(object sender, DataGridViewCellEventArgs e)

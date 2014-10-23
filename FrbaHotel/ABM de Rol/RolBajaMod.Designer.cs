@@ -40,11 +40,11 @@ namespace FrbaHotel.ABM_de_Rol
             this.buttonBuscar = new System.Windows.Forms.Button();
             this.buttonLimpiar = new System.Windows.Forms.Button();
             this.dataGridViewRol = new System.Windows.Forms.DataGridView();
-            this.ColumnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.altaDeRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.titulo = new System.Windows.Forms.Label();
+            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -146,26 +146,14 @@ namespace FrbaHotel.ABM_de_Rol
             this.dataGridViewRol.BackgroundColor = System.Drawing.SystemColors.ControlDark;
             this.dataGridViewRol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewRol.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnSeleccionar,
-            this.Baja});
+            this.Baja,
+            this.Modificar});
             this.dataGridViewRol.Location = new System.Drawing.Point(12, 223);
             this.dataGridViewRol.Name = "dataGridViewRol";
-            this.dataGridViewRol.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.dataGridViewRol.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dataGridViewRol.Size = new System.Drawing.Size(397, 221);
             this.dataGridViewRol.TabIndex = 4;
             this.dataGridViewRol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRol_CellContentClick);
-            // 
-            // ColumnSeleccionar
-            // 
-            this.ColumnSeleccionar.HeaderText = "Modificar";
-            this.ColumnSeleccionar.Name = "ColumnSeleccionar";
-            this.ColumnSeleccionar.ReadOnly = true;
-            // 
-            // Baja
-            // 
-            this.Baja.HeaderText = "Baja";
-            this.Baja.Name = "Baja";
-            this.Baja.ReadOnly = true;
             // 
             // menuStrip1
             // 
@@ -197,7 +185,17 @@ namespace FrbaHotel.ABM_de_Rol
             this.titulo.Text = "Modificación/Baja de Roles";
             this.titulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // FormRolModBaja
+            // Baja
+            // 
+            this.Baja.HeaderText = "Baja";
+            this.Baja.Name = "Baja";
+            // 
+            // Modificar
+            // 
+            this.Modificar.HeaderText = "Modificar";
+            this.Modificar.Name = "Modificar";
+            // 
+            // RolBajaMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -209,7 +207,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.Controls.Add(this.groupFiltros);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "FormRolModBaja";
+            this.Name = "RolBajaMod";
             this.Text = "Gestion de Roles";
             this.groupFiltros.ResumeLayout(false);
             this.groupFiltros.PerformLayout();
@@ -233,13 +231,10 @@ namespace FrbaHotel.ABM_de_Rol
         private System.Windows.Forms.DataGridView dataGridViewRol;
         private System.Windows.Forms.ComboBox comboEstado;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
-        private System.Windows.Forms.DataGridViewButtonColumn Baja;
-        private System.Windows.Forms.DataGridViewButtonColumn ColumnSeleccionar;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem altaDeRolToolStripMenuItem;
         private System.Windows.Forms.Label titulo;
-
-
+        private System.Windows.Forms.DataGridViewButtonColumn Baja;
+        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
     }
 }

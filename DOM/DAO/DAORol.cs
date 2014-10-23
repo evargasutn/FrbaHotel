@@ -56,7 +56,7 @@ namespace DOM
 
         public static DataTable getRolTable()
         {
-            return retrieveDataTable("getRol", "");
+            return retrieveDataTable("getRol", cadena_nula);
         }
         public static Rol getRol(string nombreRol)
         {

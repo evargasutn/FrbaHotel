@@ -12,6 +12,8 @@ namespace FrbaHotel.DOM
 {
     public class SqlConnector
     {
+        public static string cadena_nula = "''";
+        public static int entero_nulo = -1;
         /// <summary>
         /// Realiza la conexion a la base de datos.
         /// </summary>

@@ -9,46 +9,28 @@ namespace DOM
 {
     public class DAOFuncionalidad : SqlConnector
     {
-        string T_FUNCIONALIDAD = "COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES";
-        #region DAAOFuncionalidad Members
 
-        public static List<Funcionalidad> getAllFuncionalidades()
+        public static DataTable getFuncionalidadTable()
         {
-            //string consulta = "SELECT * FROM " + T_FUNCIONALIDAD;
-            //Armar Consulta
-            //return transductor(obtenerTablaSegunScript(consulta));
-            throw new NotImplementedException();
+            return retrieveDataTable("getFuncionalidad", entero_nulo);
+        }
+        public static DataTable getFuncionalidadTable(string nombreRol)
+        {
+            string rol = nombreRol;
+            if (rol == "")
+                rol = "''";
+            return retrieveDataTable("JoinRolFunc", rol);
+        }
+        public static List<Funcionalidad> getTodasFuncionalidades()
+        {
+            return transductor(getFuncionalidadTable());
+        }
+        public static List<Funcionalidad> getFuncionalidad(string nombreRol)
+        {
+            return transductor(retrieveDataTable("getFuncionalidad", nombreRol));
         }
 
-        public Funcionalidad addFuncionalidad(Funcionalidad funcionalidad)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Funcionalidad getFuncionalidad(string id)
-        {
-            string consulta = "SELECT * FROM " + T_FUNCIONALIDAD + " WHERE usr='" + id + "'";
-            //Armar Consulta
-            List<Funcionalidad> resultadosConsulta = transductor(obtenerTablaSegunScript(consulta));
-            if (resultadosConsulta.Count > 0)
-                return resultadosConsulta[0];
-            else
-                return null;
-        }
-
-        public void updateFuncionalidad(Funcionalidad funcionalidad)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void deteleFuncionalidad(string id)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        public List<Funcionalidad> transductor(DataTable tabla)
+        public static List<Funcionalidad> transductor(DataTable tabla)
         {
             List<Funcionalidad> lista = new List<Funcionalidad>();
             if(tabla != null)
@@ -61,11 +43,6 @@ namespace DOM
                     lista.Add(user);
                 }
             return lista;
-        }
-
-        public static List<Funcionalidad> getFuncionalidades(string nombreRol)
-        {
-            throw new NotImplementedException();
         }
 
         public static void updateFuncXRol(string rol, List<Funcionalidad> alta, List<Funcionalidad> baja)

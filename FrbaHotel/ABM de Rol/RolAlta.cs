@@ -17,7 +17,7 @@ namespace FrbaHotel.ABM_de_Rol
         public RolAlta()
         {
             InitializeComponent();
-            funcionalidades = DAOFuncionalidad.getAllFuncionalidades();
+            funcionalidades = DAOFuncionalidad.getTodasFuncionalidades();
             foreach (Funcionalidad func in funcionalidades)
                 comboFuncionalidades.Items.Add(func.Descripcion);
             comboEstado.Items.Add("Activo");
