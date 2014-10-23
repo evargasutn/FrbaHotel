@@ -29,26 +29,26 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridConsumibles = new System.Windows.Forms.DataGridView();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textDescripcion = new System.Windows.Forms.TextBox();
-            this.textCodigo = new System.Windows.Forms.TextBox();
             this.botonBuscar = new System.Windows.Forms.Button();
+            this.textCodigo = new System.Windows.Forms.TextBox();
+            this.textDescripcion = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dataGridConsumibles = new System.Windows.Forms.DataGridView();
             this.AgregarConsumible = new System.Windows.Forms.DataGridViewButtonColumn();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.dataGridConsumibleXEstadia = new System.Windows.Forms.DataGridView();
-            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ColumnaModificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.botonRegistrar = new System.Windows.Forms.Button();
+            this.ColumnaModificar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ColumnaEliminar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibleXEstadia)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -67,15 +67,30 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Consumibles";
             // 
-            // dataGridConsumibles
+            // textBox1
             // 
-            this.dataGridConsumibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridConsumibles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.AgregarConsumible});
-            this.dataGridConsumibles.Location = new System.Drawing.Point(6, 100);
-            this.dataGridConsumibles.Name = "dataGridConsumibles";
-            this.dataGridConsumibles.Size = new System.Drawing.Size(517, 127);
-            this.dataGridConsumibles.TabIndex = 0;
+            this.textBox1.Location = new System.Drawing.Point(360, 74);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(139, 20);
+            this.textBox1.TabIndex = 4;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(301, 77);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 13);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "Cantidad*";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 77);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(266, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Previo agregado de un consumible indique la cantidad.";
             // 
             // groupBox2
             // 
@@ -91,14 +106,28 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Filtros";
             // 
-            // label1
+            // botonBuscar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Descripción";
+            this.botonBuscar.Location = new System.Drawing.Point(386, 15);
+            this.botonBuscar.Name = "botonBuscar";
+            this.botonBuscar.Size = new System.Drawing.Size(80, 19);
+            this.botonBuscar.TabIndex = 4;
+            this.botonBuscar.Text = "Buscar";
+            this.botonBuscar.UseVisualStyleBackColor = true;
+            // 
+            // textCodigo
+            // 
+            this.textCodigo.Location = new System.Drawing.Point(255, 15);
+            this.textCodigo.Name = "textCodigo";
+            this.textCodigo.Size = new System.Drawing.Size(108, 20);
+            this.textCodigo.TabIndex = 3;
+            // 
+            // textDescripcion
+            // 
+            this.textDescripcion.Location = new System.Drawing.Point(75, 15);
+            this.textDescripcion.Name = "textDescripcion";
+            this.textDescripcion.Size = new System.Drawing.Size(108, 20);
+            this.textDescripcion.TabIndex = 2;
             // 
             // label2
             // 
@@ -109,28 +138,24 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Código";
             // 
-            // textDescripcion
+            // label1
             // 
-            this.textDescripcion.Location = new System.Drawing.Point(75, 15);
-            this.textDescripcion.Name = "textDescripcion";
-            this.textDescripcion.Size = new System.Drawing.Size(108, 20);
-            this.textDescripcion.TabIndex = 2;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(63, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Descripción";
             // 
-            // textCodigo
+            // dataGridConsumibles
             // 
-            this.textCodigo.Location = new System.Drawing.Point(255, 15);
-            this.textCodigo.Name = "textCodigo";
-            this.textCodigo.Size = new System.Drawing.Size(108, 20);
-            this.textCodigo.TabIndex = 3;
-            // 
-            // botonBuscar
-            // 
-            this.botonBuscar.Location = new System.Drawing.Point(386, 15);
-            this.botonBuscar.Name = "botonBuscar";
-            this.botonBuscar.Size = new System.Drawing.Size(80, 19);
-            this.botonBuscar.TabIndex = 4;
-            this.botonBuscar.Text = "Buscar";
-            this.botonBuscar.UseVisualStyleBackColor = true;
+            this.dataGridConsumibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridConsumibles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AgregarConsumible});
+            this.dataGridConsumibles.Location = new System.Drawing.Point(6, 100);
+            this.dataGridConsumibles.Name = "dataGridConsumibles";
+            this.dataGridConsumibles.Size = new System.Drawing.Size(517, 127);
+            this.dataGridConsumibles.TabIndex = 0;
             // 
             // AgregarConsumible
             // 
@@ -147,51 +172,16 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Registrar los consumibles por estadia";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 77);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(266, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Previo agregado de un consumible indique la cantidad.";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(301, 77);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Cantidad*";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(360, 74);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(139, 20);
-            this.textBox1.TabIndex = 4;
-            // 
             // dataGridConsumibleXEstadia
             // 
             this.dataGridConsumibleXEstadia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridConsumibleXEstadia.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewButtonColumn1,
-            this.ColumnaModificar});
+            this.ColumnaModificar,
+            this.ColumnaEliminar});
             this.dataGridConsumibleXEstadia.Location = new System.Drawing.Point(6, 19);
             this.dataGridConsumibleXEstadia.Name = "dataGridConsumibleXEstadia";
             this.dataGridConsumibleXEstadia.Size = new System.Drawing.Size(517, 127);
             this.dataGridConsumibleXEstadia.TabIndex = 5;
-            // 
-            // dataGridViewButtonColumn1
-            // 
-            this.dataGridViewButtonColumn1.HeaderText = "Agregar";
-            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
-            // 
-            // ColumnaModificar
-            // 
-            this.ColumnaModificar.HeaderText = "Modificar cantidad";
-            this.ColumnaModificar.Name = "ColumnaModificar";
             // 
             // groupBox3
             // 
@@ -212,6 +202,16 @@
             this.botonRegistrar.Text = "Registrar";
             this.botonRegistrar.UseVisualStyleBackColor = true;
             // 
+            // ColumnaModificar
+            // 
+            this.ColumnaModificar.HeaderText = "Modificar cantidad";
+            this.ColumnaModificar.Name = "ColumnaModificar";
+            // 
+            // ColumnaEliminar
+            // 
+            this.ColumnaEliminar.HeaderText = "Eliminar";
+            this.ColumnaEliminar.Name = "ColumnaEliminar";
+            // 
             // RegistrarConsumibles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -225,9 +225,9 @@
             this.Text = "Registrar consumibles";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibleXEstadia)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -251,9 +251,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridView dataGridConsumibleXEstadia;
-        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
-        private System.Windows.Forms.DataGridViewButtonColumn ColumnaModificar;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button botonRegistrar;
+        private System.Windows.Forms.DataGridViewButtonColumn ColumnaModificar;
+        private System.Windows.Forms.DataGridViewButtonColumn ColumnaEliminar;
     }
 }
