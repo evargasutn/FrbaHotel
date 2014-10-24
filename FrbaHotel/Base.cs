@@ -7,13 +7,14 @@ using System.Data.SqlClient;
 using System.Data;
 using DOM;
 using DOM.Dominio;
+using System.Security.Cryptography;
 namespace FrbaHotel
 {
     public class Base
     {
        
         /// <summary>
-        /// 
+        /// ////
         /// </summary>
         /// <param name="combo"></param>
         /// <param name="opciones"></param>
@@ -24,14 +25,25 @@ namespace FrbaHotel
                combo.Items.Add(opcion);
            }
        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="unDataGrid"></param> la grilla de datos a mostrar
-        /// <param name="consultaSelect"></param> la consulta de todos los campos de la tabla -->select * from tabla......LIKE
-        /// <param name="con"></param> Conexion con la base de datos
-       public static void cargarEnDataGridView(DataGridView unDataGrid,string consultaSelect) {
 
+        
+        public string pasarASha256(string input)
+        {
+            SHA256CryptoServiceProvider provider = new SHA256CryptoServiceProvider();
+            ///transforma a secuencia de bytes,codificacion
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            ///calcula a valor hash
+            byte[] hashedBytes = provider.ComputeHash(inputBytes);
+            /// cadena de caracteres modificable
+            StringBuilder output = new StringBuilder();
+            ///formatea como string hex,anexa el valor hash.
+            for (int i = 0; i < hashedBytes.Length; i++)
+                output.Append(hashedBytes[i].ToString("x2").ToLower());
+            return output.ToString();
+        }
+
+        public static void cargarEnDataGridView(DataGridView unDataGrid, string consultaSelect)
+        {
 
            SqlConnection con = new SqlConnection(@""+ Globals.getConnectionString()+""  );
            con.Open();
