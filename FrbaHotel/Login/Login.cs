@@ -15,7 +15,7 @@ namespace FrbaHotel.Login
         {
             InitializeComponent();
         }
-
+       
         private void botonIniciarSesion_Click(object sender, EventArgs e)
         {
             

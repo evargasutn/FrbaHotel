@@ -254,6 +254,9 @@
     <EmbeddedResource Include="ABM de Hotel\HotelMod.resx">
       <DependentUpon>HotelMod.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Regimen\RegimenAlta.resx">
+      <DependentUpon>RegimenAlta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABM de Rol\RolAlta.resx">
       <DependentUpon>RolAlta.cs</DependentUpon>
     </EmbeddedResource>
