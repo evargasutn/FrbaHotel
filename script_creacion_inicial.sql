@@ -251,7 +251,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.ESTADIA
 (
 	codReserva	numeric(18) NOT NULL FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
 	fecIngreso	datetime not null,
-	usrIngreso	varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
+	usrIngreso	varchar(50) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
 	fecEgreso	datetime,
 	usrEgreso	varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
 	PRIMARY KEY (codReserva)
@@ -299,7 +299,9 @@ create table COMPUMUNDO_HIPER_MEGA_RED.FACTURAS
 	codReserva		numeric(18) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
 	fecha			datetime not null,
 	montoTotal		numeric(18,2) not null,
-	idHuesped 		int not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped)
+	idHuesped 		int not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped),
+	tipoPago		varchar(50) not null,
+	codTarjetaCredito varchar(19)
 )
 go
 
@@ -556,11 +558,12 @@ GO
 GO
 
 --//FACTURAS
+/*CONSIDERO FACTURAS PAGAS EN EFECTIVO*/
 	--PARA QUE TOME LOS NROS. FACTURAS YA EXISTENTE
 	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.FACTURAS ON
 
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura, codReserva, fecha, montoTotal, idHuesped)
-	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, M.Factura_Total, HUES.idHuesped
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura, codReserva, fecha, montoTotal, idHuesped,tipoPago, codTarjetaCredito)
+	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, M.Factura_Total, HUES.idHuesped, 'Efectivo',''
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
 	WHERE M.Factura_Nro IS NOT NULL AND
 		  M.Cliente_Pasaporte_Nro = HUES.numDocu AND
@@ -685,6 +688,7 @@ AS
 		SELECT *
 		FROM COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES F  
 	END
+GO
 
 SET ANSI_NULLS ON
 GO
@@ -739,7 +743,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getUsuario
 	@unUsr VARCHAR(50)
 AS
 	BEGIN
-	 IF (@unUsr IS NULL)
+	 IF (@unUsr = '')
  		SELECT U.usr, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
  				U.direccionDepto, U.mail, U.telefono, U.password
  		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.campoBaja = 0
@@ -1148,5 +1152,70 @@ AS
 				direccionPiso = @direccionPiso, direccionDepto = @direccionDepto, fecNacimiento = @fecNacimiento, 
 				localidad = @localidad, nacionalidad = @nacionalidad
 		WHERE idHuesped = @idHuesped
+	END
+GO
+
+--//PROC GETFACTURA
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFactura
+	@numeroFactura numeric(18)
+AS
+	BEGIN
+	 IF (@numeroFactura != -1)
+ 		SELECT *
+ 		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
+ 		WHERE F.numeroFactura = @numeroFactura 
+	 ELSE
+		SELECT *
+		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS  
+	END
+GO
+--//PROC GETFACTURA_RESERVA
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFacturaReserva
+	@codReserva numeric(18)
+AS
+	BEGIN
+		SELECT *
+ 		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
+ 		WHERE F.codReserva = @codReserva
+	END
+GO
+--//PROC GETFACTURAS_CLIENTE
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFacturasCliente
+	@idHuesped int
+AS
+	BEGIN
+		SELECT *
+ 		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
+ 		WHERE F.idHuesped = @idHuesped
+	END
+GO
+--//PROC FACTURAR
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.facturar
+	@codReserva	numeric(18),
+	@montoTotal	numeric(18, 2),
+	@idHuesped	int,
+	@tipoPago	varchar(50),
+	@codTarjetaCredito	varchar(19)
+AS
+	BEGIN
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(codReserva, fecha, idHuesped, montoTotal, tipoPago, codTarjetaCredito)
+	VALUES(@codReserva, GETDATE(), @idHuesped, @montoTotal, @tipoPago, CASE WHEN @tipoPago LIKE 'Efectivo' THEN '' ELSE @codTarjetaCredito END)
+	
 	END
 GO
