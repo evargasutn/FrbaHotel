@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +9,8 @@ namespace DOM.Auxiliares
 
     public class Documento
     {
-        private DocumentoTipoEnum tipoDocumento;
+        public static string[] string_docu = new string[4] {"DNI", "LC", "LE", "PASAPORTE"};
+        private string tipoDocumento;
         private int numero;
 
         public int nroDoc
@@ -17,7 +18,7 @@ namespace DOM.Auxiliares
             get {return numero; }
             set {numero = value; }
         }
-        public DocumentoTipoEnum tipoDoc
+        public string tipoDoc
         {
             get { return tipoDocumento; }
             set { tipoDocumento = value; }
@@ -27,7 +28,7 @@ namespace DOM.Auxiliares
 
         public Documento() { }
 
-        public Documento(DocumentoTipoEnum tipoDocu, int num)
+        public Documento(string tipoDocu, int num)
         {
             tipoDocumento = tipoDocu;
             numero = num;

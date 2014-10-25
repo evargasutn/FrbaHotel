@@ -117,19 +117,19 @@ namespace FrbaHotel.DOM
         /// </summary>
         /// <param name="procedure">Nombre del stored procedure almacenado en la BDD sin el nombre del esquema delante.</param>
         /// <param name="values">Argumentos que recibe el stored procedure.</param>
-        public static void executeProcedure(string procedure, params object[] values)
+        public static bool executeProcedure(string procedure, params object[] values)
         {
             List<string> argumentos = _generateArguments(procedure);
-            _executeProcedure(procedure, argumentos, values);
+            return _executeProcedure(procedure, argumentos, values);
         }
 
         /// <summary>
         /// Ejecuta un stored procedure.
         /// </summary>
         /// <param name="procedure">Nombre del stored procedure almacenado en la BDD sin el nombre del esquema delante.</param>
-        public static void executeProcedure(string procedure)
+        public static bool executeProcedure(string procedure)
         {
-            _executeProcedure(procedure, null, null);
+            return _executeProcedure(procedure, null, null);
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace FrbaHotel.DOM
             return _executeProcedureWithReturnValue(procedure, argumentos, values);
         }
 
-        private static void _executeProcedure(string procedure, List<string> args, params object[] values)
+        private static bool _executeProcedure(string procedure, List<string> args, params object[] values)
         {
             SqlConnection cn = new SqlConnection();
             SqlCommand cm = new SqlCommand();
@@ -180,10 +180,11 @@ namespace FrbaHotel.DOM
                     _loadSqlCommand(args, values, cm);
                 }
                 cm.ExecuteNonQuery();
+                return true;
             }
             catch (Exception ex)
             {
-                throw ex;
+                return false;
             }
 
             finally

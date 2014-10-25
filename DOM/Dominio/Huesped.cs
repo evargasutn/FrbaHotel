@@ -39,10 +39,10 @@ namespace DOM.Dominio
             get { return documento;}
             set { documento = value;}
         }
-        public int? TipoDocu
+        public string TipoDocu
         {
-            get { return (int?)documento.tipoDoc; }
-            set { documento.tipoDoc = (DocumentoTipoEnum)value; }
+            get { return documento.tipoDoc; }
+            set { documento.tipoDoc = value; }
         }
 
         public int? NroDocu
