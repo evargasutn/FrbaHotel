@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using System.Security.Cryptography;
 namespace FrbaHotel.Login
 {
     public partial class Login : Form
@@ -18,7 +18,17 @@ namespace FrbaHotel.Login
 
         private void botonIniciarSesion_Click(object sender, EventArgs e)
         {
-            
+
         }
+
+
+
+        
+
+
+
+
+
+
     }
 }

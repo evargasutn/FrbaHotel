@@ -28,33 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listHoteles = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listRoles = new System.Windows.Forms.ListBox();
             this.botonAceptar = new System.Windows.Forms.Button();
-            this.groupBox2.SuspendLayout();
+            this.comboRoles = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboHoteles = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // groupBox2
+            // botonAceptar
             // 
-            this.groupBox2.Controls.Add(this.listHoteles);
-            this.groupBox2.Location = new System.Drawing.Point(12, 50);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(161, 126);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Hoteles";
+            this.botonAceptar.Location = new System.Drawing.Point(110, 162);
+            this.botonAceptar.Name = "botonAceptar";
+            this.botonAceptar.Size = new System.Drawing.Size(97, 29);
+            this.botonAceptar.TabIndex = 6;
+            this.botonAceptar.Text = "Aceptar";
+            this.botonAceptar.UseVisualStyleBackColor = true;
             // 
-            // listHoteles
+            // comboRoles
             // 
-            this.listHoteles.FormattingEnabled = true;
-            this.listHoteles.Location = new System.Drawing.Point(18, 19);
-            this.listHoteles.Name = "listHoteles";
-            this.listHoteles.Size = new System.Drawing.Size(129, 95);
-            this.listHoteles.TabIndex = 3;
+            this.comboRoles.FormattingEnabled = true;
+            this.comboRoles.Location = new System.Drawing.Point(63, 57);
+            this.comboRoles.Name = "comboRoles";
+            this.comboRoles.Size = new System.Drawing.Size(159, 21);
+            this.comboRoles.TabIndex = 1;
             // 
             // label1
             // 
@@ -66,46 +65,57 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Seleccione el Hotel al que quiere entrar y el rol.";
             // 
+            // comboHoteles
+            // 
+            this.comboHoteles.FormattingEnabled = true;
+            this.comboHoteles.Location = new System.Drawing.Point(63, 18);
+            this.comboHoteles.Name = "comboHoteles";
+            this.comboHoteles.Size = new System.Drawing.Size(159, 21);
+            this.comboHoteles.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(22, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Hotel:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(22, 60);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Rol:";
+            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.listRoles);
-            this.groupBox1.Location = new System.Drawing.Point(179, 50);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.comboRoles);
+            this.groupBox1.Controls.Add(this.comboHoteles);
+            this.groupBox1.Location = new System.Drawing.Point(36, 51);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(161, 126);
-            this.groupBox1.TabIndex = 7;
+            this.groupBox1.Size = new System.Drawing.Size(244, 96);
+            this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Roles";
-            // 
-            // listRoles
-            // 
-            this.listRoles.FormattingEnabled = true;
-            this.listRoles.Location = new System.Drawing.Point(18, 19);
-            this.listRoles.Name = "listRoles";
-            this.listRoles.Size = new System.Drawing.Size(129, 95);
-            this.listRoles.TabIndex = 3;
-            // 
-            // botonAceptar
-            // 
-            this.botonAceptar.Location = new System.Drawing.Point(129, 182);
-            this.botonAceptar.Name = "botonAceptar";
-            this.botonAceptar.Size = new System.Drawing.Size(97, 29);
-            this.botonAceptar.TabIndex = 6;
-            this.botonAceptar.Text = "Aceptar";
-            this.botonAceptar.UseVisualStyleBackColor = true;
+            this.groupBox1.Text = "HotelXRol";
             // 
             // LoginRequisitos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(349, 217);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.label1);
+            this.ClientSize = new System.Drawing.Size(343, 215);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.botonAceptar);
             this.Name = "LoginRequisitos";
             this.Text = "LoginRequisitos";
-            this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,11 +123,12 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ListBox listHoteles;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ListBox listRoles;
         private System.Windows.Forms.Button botonAceptar;
+        private System.Windows.Forms.ComboBox comboRoles;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboHoteles;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
