@@ -71,17 +71,23 @@ namespace FrbaHotel.ABM_de_Rol
                 }
             }
             //Rearmar
+            bool noTengoFuncionalidad = true;
             if (tabla_rol != null) {
                 if (nombreFuncionalidad != null && tabla_func != null) {
-                    for(int i = 0; i < tabla_rol.Rows.Count; i++)
+                    int i = 0;
+                    while(i < tabla_rol.Rows.Count)
                     {
                         string rol = Convert.ToString(tabla_rol.Rows[i]["nombreRol"]);
                         foreach (DataRow row2 in tabla_func.Rows)
                         {
-                            if(rol == Convert.ToString(row2["nombreRol"]))
-                                if(Convert.ToString(row2["descripcion"]) == nombreFuncionalidad)
-                                    tabla_rol.Rows.RemoveAt(i);
+                            if (rol == Convert.ToString(row2["nombreRol"]))
+                                if (Convert.ToString(row2["descripcion"]) == nombreFuncionalidad)
+                                    noTengoFuncionalidad = false;
                         }
+                        if (noTengoFuncionalidad)
+                            tabla_rol.Rows.RemoveAt(i);
+                        else i++;
+                        noTengoFuncionalidad = true;
                     }
                 }
                 tabla_rol.DefaultView.RowFilter = final_rol;

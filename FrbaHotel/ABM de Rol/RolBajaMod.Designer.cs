@@ -151,6 +151,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.dataGridViewRol.Location = new System.Drawing.Point(12, 223);
             this.dataGridViewRol.Name = "dataGridViewRol";
             this.dataGridViewRol.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dataGridViewRol.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridViewRol.Size = new System.Drawing.Size(397, 221);
             this.dataGridViewRol.TabIndex = 4;
             this.dataGridViewRol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRol_CellContentClick);
@@ -187,13 +188,19 @@ namespace FrbaHotel.ABM_de_Rol
             // 
             // Baja
             // 
-            this.Baja.HeaderText = "Baja";
+            this.Baja.HeaderText = "";
             this.Baja.Name = "Baja";
+            this.Baja.Text = "Baja";
+            this.Baja.UseColumnTextForButtonValue = true;
+            this.Baja.Width = 50;
             // 
             // Modificar
             // 
-            this.Modificar.HeaderText = "Modificar";
+            this.Modificar.HeaderText = "";
             this.Modificar.Name = "Modificar";
+            this.Modificar.Text = "Modificar";
+            this.Modificar.UseColumnTextForButtonValue = true;
+            this.Modificar.Width = 50;
             // 
             // RolBajaMod
             // 
@@ -206,6 +213,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.Controls.Add(this.buttonBuscar);
             this.Controls.Add(this.groupFiltros);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RolBajaMod";
             this.Text = "Gestion de Roles";
