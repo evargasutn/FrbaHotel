@@ -4,39 +4,93 @@ using System.Linq;
 using System.Text;
 using System.Net.Mail;
 using FrbaHotel.DOM;
+using System.Data;
+using DOM.Dominio;
 
 namespace DOM
 {
     public class DAOHotel : SqlConnector
     {
-
-        #region DAAOHotel Members
-
-        public List<DOM.Dominio.Hotel> getAllHotel()
+        public static DataTable obtenerTabla()
         {
-            throw new NotImplementedException();
+            return retrieveDataTable("getHotel", entero_nulo);
+        }
+        
+        public static List<Hotel> obtenerTodos()
+        {
+            return tranductor(obtenerTabla());
         }
 
-        public DOM.Dominio.Hotel addHotel(DOM.Dominio.Hotel hotel)
+        public static DataTable obtenerTabla(int codHotel)
         {
-            throw new NotImplementedException();
+            return retrieveDataTable("getHotel", codHotel); 
         }
 
-        public DOM.Dominio.Hotel getHotel(string nombre)
+        public static Hotel obtener(int codHotel)
         {
-            throw new NotImplementedException();
+            List<Hotel> lista = tranductor(obtenerTabla(codHotel));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
         }
 
-        public void updateHotel(DOM.Dominio.Hotel hotel)
+        public static DataTable obtenerByUsr(string usr)
         {
-            throw new NotImplementedException();
+            return retrieveDataTable("getHotelByUsuario", usr);
         }
 
-        public void deteleHotel(string nombre)
+        public static Hotel obtener(string usr)
+        {
+            List<Hotel> lista = tranductor(obtenerByUsr(usr));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
+        }
+
+        public static bool insertar(Hotel hotel)
+        {
+            int codHotel = hotel.CodHotel;
+            string nombre = hotel.Nombre;
+            string mail = hotel.Mail;
+            int telefono = hotel.Telefono;
+            string dir_calle = hotel.Direccion.calle_direccion;
+            int dir_numero = hotel.Direccion.calle_altura;
+            string ciudad = hotel.Ciudad;
+            string pais = hotel.Pais;
+            int estrellas = hotel.Estrellas;
+            return executeProcedure("insertHotel", codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas);
+        }
+
+        public static bool borrar(int codHotel, DateTime fecha_inicio, DateTime fecha_fin,string motivo)
+        {
+            string inicio = fecha_inicio.ToString("yyyyMMdd");
+            string fin = fecha_fin.ToString("yyyyMMdd");
+            return executeProcedure("deleteHotel", codHotel, inicio, fin, motivo);
+        }
+
+        public static bool actualizar(Hotel hotel)
+        {
+            int codHotel = hotel.CodHotel;
+            string nombre = hotel.Nombre;
+            string mail = hotel.Mail;
+            int telefono = hotel.Telefono;
+            string dir_calle = hotel.Direccion.calle_direccion;
+            int dir_numero = hotel.Direccion.calle_altura;
+            string ciudad = hotel.Ciudad;
+            string pais = hotel.Pais;
+            int estrellas = hotel.Estrellas;
+            return executeProcedure("updateHotel", codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas);
+        }
+
+        #region Convertir DataTable
+
+        private static List<Hotel> tranductor(DataTable dataTable)
         {
             throw new NotImplementedException();
         }
 
         #endregion
+
+
     }
 }

@@ -10,23 +10,25 @@ namespace DOM.Dominio
     public class Hotel
     {
         #region Atributos
-        private string nombre;
-        private MailAddress email;
-        private DateTime fecha_creacion;
-        private int telefono;
-        private DireccionStruct direccion; //Direccion con formato
-        private string ciudad;
-        private string pais;
-        private int estrellas;
-        private List<Reserva> reservas = new List<Reserva>();
-        private List<Habitacion> habitaciones = new List<Habitacion>();
+        private int codHotel = -1;
+        private string nombre = "''";
+        private MailAddress email = null;
+        private DateTime? fecha_creacion = null;
+        private int telefono = -1;
+        private DireccionStruct direccion = new DireccionStruct(); //Direccion con formato
+        private string ciudad = "''";
+        private string pais = "''";
+        private int estrellas = -1;
 
-        private List<Regimen> regimenes = new List<Regimen>();
-        private List<Inhabilitacion> inhabilitaciones = new List<Inhabilitacion>();
         #endregion
 
         #region Propiedades
 
+        public int CodHotel
+        {
+            get { return codHotel; }
+            set { codHotel = value; }
+        }
         public string Nombre
         {
             get { return nombre; }
@@ -34,13 +36,28 @@ namespace DOM.Dominio
         }
         public string Mail
         {
-            get { return email.Address; }
-            set { email = new MailAddress(value); }
+            get
+            {
+                if (email != null)
+                    return email.Address;
+                else
+                    return "''";
+            }
+            set
+            {
+                if (value != "")
+                    email = new MailAddress(value);
+            }
         }
         public string Fecha_creacion
         {
-            get { return fecha_creacion.ToString("s"); }
+            get { return ((DateTime)fecha_creacion).ToString("yyyyMMdd"); }
             set { fecha_creacion = DateTime.Parse(value); }
+        }
+        public DateTime? Fecha_creacion_struct
+        {
+            get { return fecha_creacion; }
+            set { fecha_creacion = value; }
         }
         public int Telefono
         {
@@ -53,6 +70,7 @@ namespace DOM.Dominio
         }
         public DireccionStruct Direccion
         {
+            get { return direccion; }
             set { direccion = value; }
         }
         public string Ciudad
@@ -65,77 +83,10 @@ namespace DOM.Dominio
             get { return pais; }
             set { pais = value; }
         }
-
-        #endregion
-
-        #region Listas
-
-        public void agregarInhabilitacion(Inhabilitacion inhabilitacion)
+        public int Estrellas
         {
-            inhabilitaciones.Add(inhabilitacion);
-        }
-
-        public Inhabilitacion obtenerInhabilitacion(int id)
-        {
-            if ((id >= 0) && (id <= inhabilitaciones.Count))
-                return inhabilitaciones[id];
-            return null;
-        }
-
-        public void removerInhabilitacion(Inhabilitacion inhabilitacion)
-        {
-            inhabilitaciones.Remove(inhabilitacion);
-        }
-
-        public void agregarRegimen(Regimen regimen)
-        {
-            regimenes.Add(regimen);
-        }
-
-        public Regimen obtenerRegimen(int id)
-        {
-            if ((id >= 0) && (id <= regimenes.Count))
-                return regimenes[id];
-            return null;
-        }
-
-        public void removerRegimen(Regimen regimen)
-        {
-            regimenes.Remove(regimen);
-        }
-
-        public void agregarHabitacion(Habitacion habitacion)
-        {
-            habitaciones.Add(habitacion);
-        }
-
-        public Habitacion obtenerHabitacion(int id)
-        {
-            if ((id >= 0) && (id <= habitaciones.Count))
-                return habitaciones[id];
-            return null;
-        }
-
-        public void removerHabitacion(Habitacion habitacion)
-        {
-            habitaciones.Remove(habitacion);
-        }
-
-        public void agregarReserva(Reserva reserva)
-        {
-            reservas.Add(reserva);
-        }
-
-        public Reserva obtenerReserva(int id)
-        {
-            if ((id >= 0) && (id <= reservas.Count))
-                return reservas[id];
-            return null;
-        }
-
-        public void removerHotel(Reserva reserva)
-        {
-            reservas.Remove(reserva);
+            get { return estrellas; }
+            set { estrellas = value; }
         }
 
         #endregion
