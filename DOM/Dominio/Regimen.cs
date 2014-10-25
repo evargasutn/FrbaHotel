@@ -8,10 +8,10 @@ namespace DOM.Dominio
     public class Regimen
     {
         #region Atributos
-        private int codRegimen;
-        private string descripcion;
-        private double precio;
-        private bool estado;
+        private int codRegimen = -1;
+        private string descripcion = "''";
+        private double precio = -1;
+        private bool estado = true;
         #endregion
 
         #region Getters&Setters

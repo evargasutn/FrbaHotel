@@ -34,9 +34,7 @@ namespace DOM
 
         public static bool guardar(Rol rol)
         {
-            string estado = "0";
-            if (rol.Estado)
-                estado = "1";
+            int estado = (rol.Estado) ? 1 : 0;
             return executeProcedure("updateRol", rol.Nombre, estado);
         }
 

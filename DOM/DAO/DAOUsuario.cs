@@ -76,9 +76,10 @@ namespace DOM
             int dir_piso = usuario.Direccion.calle_piso;
             string dir_dpto = usuario.Direccion.calle_dpto;
             string fecha_nacimiento = (usuario.Fecha_nacimiento_struct == null) ? usuario.Fecha_nacimiento : cadena_nula;
+            int campoBaja = (usuario.CampoBaja) ? 1 : 0;
             return executeProcedure("insertUsuario", usr, password, nombre, apellido,
                 email, doc_tipo, doc_num, telefono, dir_calle, dir_altura, dir_piso,
-                dir_dpto, fecha_nacimiento);
+                dir_dpto, fecha_nacimiento, campoBaja);
         }
         
         public static bool registrarIntentoFallido(string usr)
