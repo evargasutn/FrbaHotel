@@ -40,18 +40,52 @@ namespace DOM
             return lista[0];
         }
 
-        public static Boolean insertar(Usuario usuario)
+        public static bool insertar(Usuario usuario)
         {
-            string nombre = usuario.Usr;
+            string usr = usuario.Usr;
             string password = usuario.Password;
+            string nombre = usuario.Nombre;
+            string apellido = usuario.Apellido;
             string email = usuario.Mail;
-            string tipo_doc = usuario.TipoDocu;
-
-            throw new NotImplementedException();
-
-            //return executeProcedure("insertUsuario", "");
+            string doc_tipo = usuario.TipoDocu;
+            int doc_num = usuario.NroDocu;
+            int telefono = usuario.Telefono;
+            string dir_calle = usuario.Direccion.calle_direccion;
+            int dir_altura = usuario.Direccion.calle_altura;
+            string fecha_nacimiento = usuario.Fecha_nacimiento;
+            return executeProcedure("insertUsuario", usr, password, nombre, apellido, email, doc_tipo, doc_num, telefono, dir_calle, dir_altura, fecha_nacimiento);
         }
 
+        public static bool borrar(string usr)
+        {
+            return executeProcedure("deleteUsuario", usr);
+        }
+
+        public static bool actualizar(Usuario usuario)
+        {
+            string usr = usuario.Usr;
+            string password = usuario.Password;
+            string nombre = usuario.Nombre;
+            string apellido = usuario.Apellido;
+            string email = usuario.Mail;
+            string doc_tipo = usuario.TipoDocu;
+            int doc_num = usuario.NroDocu;
+            int telefono = usuario.Telefono;
+            string dir_calle = usuario.Direccion.calle_direccion;
+            int dir_altura = usuario.Direccion.calle_altura;
+            int dir_piso = usuario.Direccion.calle_piso;
+            string dir_dpto = usuario.Direccion.calle_dpto;
+            string fecha_nacimiento = (usuario.Fecha_nacimiento_struct == null) ? usuario.Fecha_nacimiento : cadena_nula;
+            return executeProcedure("insertUsuario", usr, password, nombre, apellido,
+                email, doc_tipo, doc_num, telefono, dir_calle, dir_altura, dir_piso,
+                dir_dpto, fecha_nacimiento);
+        }
+        
+        public static bool registrarIntentoFallido(string usr)
+        {
+            return executeProcedure("intentoFallidoUsuario", usr);
+        }
+        
         #region Convertir DataTable
         public static List<Usuario> transductor(DataTable tabla)
         {

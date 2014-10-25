@@ -8,7 +8,7 @@ namespace DOM.Dominio
     public class Rol
     {
         #region Atributos
-        private string nombreRol;
+        private string nombreRol = "''";
         private bool estado;
         #endregion
 

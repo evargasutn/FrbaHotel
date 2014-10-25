@@ -17,15 +17,15 @@ namespace DOM
     public class Usuario
     {
         #region Atributos
-        private string usr;
-        private string password; //password encriptado con SHA256
-        private string nombre;
-        private string apellido;
+        private string usr = "''";
+        private string password = "''"; //password encriptado con SHA256
+        private string nombre = "''";
+        private string apellido = "''";
         private MailAddress email = null;
         private Documento documento;
-        private int? telefono;
+        private int telefono = -1;
         private DireccionStruct direccion; //Direccion con formato
-        private DateTime fecha_nacimiento;
+        private DateTime? fecha_nacimiento = null;
         //private List<Hotel> hoteles = new List<Hotel>();
         //private List<Rol> roles = new List<Rol>();
         private bool campoBaja;
@@ -64,7 +64,7 @@ namespace DOM
                 if (email != null)
                     return email.Address;
                 else
-                    return null;
+                    return "''";
             }
             set { if(value != "") 
                     email = new MailAddress(value);}
@@ -76,13 +76,13 @@ namespace DOM
             set { documento.tipoDoc = value; }
         }
 
-        public int? NroDocu
+        public int NroDocu
         {
             get { return documento.nroDoc; }
             set { documento.nroDoc = (int)value; }
         }
 
-        public int? Telefono
+        public int Telefono
         {
             get { return telefono; }
             set { telefono = value; }
@@ -101,11 +101,11 @@ namespace DOM
 
         public string Fecha_nacimiento
         {
-            get { return fecha_nacimiento.ToString("yyyyMMdd"); }
+            get { return ((DateTime)fecha_nacimiento).ToString("yyyyMMdd"); }
             set { fecha_nacimiento = DateTime.Parse(value); }
         }
 
-        public DateTime Fecha_nacimiento_struct
+        public DateTime? Fecha_nacimiento_struct
         {
             get { return fecha_nacimiento; }
             set { fecha_nacimiento = value; }
@@ -123,7 +123,6 @@ namespace DOM
         {
             documento = new Documento();
             direccion = new DireccionStruct();
-            Telefono = -1;
         }
 
         #endregion

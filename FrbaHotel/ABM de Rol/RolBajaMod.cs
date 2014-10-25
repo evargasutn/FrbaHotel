@@ -13,12 +13,12 @@ namespace FrbaHotel.ABM_de_Rol
 {
     public partial class RolBajaMod : Form
     {
-        List<Funcionalidad> funcionalidades = new List<Funcionalidad>();
+        List<Funcionalidad> funcionalidades;
 
         public RolBajaMod()
         {
             InitializeComponent();
-            funcionalidades = DAOFuncionalidad.getTodasFuncionalidades();
+            funcionalidades = DAOFuncionalidad.obtenerTodas();
             foreach (Funcionalidad func in funcionalidades)
                 comboFuncionalidad.Items.Add(func.Descripcion);
             comboEstado.Items.Add("Activo");
@@ -48,8 +48,8 @@ namespace FrbaHotel.ABM_de_Rol
         }
         private DataTable FiltrarRol(string nombreRol, string nombreFuncionalidad, string estado)
         {
-            DataTable tabla_rol = DAORol.getRolTable();
-            DataTable tabla_func = DAOFuncionalidad.getFuncionalidadTable(nombreRol);
+            DataTable tabla_rol = DAORol.obtenerTabla();
+            DataTable tabla_func = DAOFuncionalidad.obtenerPorRol(nombreRol);
             var final_rol = "";
             var posFiltro = true;
             var filtrosBusqueda = new List<string>();
@@ -106,7 +106,7 @@ namespace FrbaHotel.ABM_de_Rol
             var rta = MessageBox.Show("¿Dar Baja al Rol?", "Baja de Rol", MessageBoxButtons.YesNo);
             string rolAbaja = (string) dataGridViewRol["nombreRol", p].Value;
             if(rta == DialogResult.Yes)
-                DAORol.deleteRol(rolAbaja);
+                DAORol.borrar(rolAbaja);
         }
 
         private void ModificarRol(int p)

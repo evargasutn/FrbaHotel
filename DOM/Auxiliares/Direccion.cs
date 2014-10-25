@@ -8,10 +8,10 @@ namespace DOM.Auxiliares
     public class DireccionStruct
     {
         #region Atributos Privados
-        private string calle;
-        private int altura;
-        private int piso = -10;
-        private string dpto = null;
+        private string calle = "''";
+        private int altura = -1;
+        private int piso = -1;
+        private string dpto = "''";
         #endregion
 
         #region Getters&Setters

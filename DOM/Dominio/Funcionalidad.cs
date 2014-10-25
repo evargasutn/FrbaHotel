@@ -8,8 +8,8 @@ namespace DOM.Dominio
     public class Funcionalidad
     {
         #region Atributos
-        private int id_funcionalidad;
-        private string descripcion; ////
+        private int id_funcionalidad = -1;
+        private string descripcion = "''";
         #endregion
 
         #region Setters&Getters

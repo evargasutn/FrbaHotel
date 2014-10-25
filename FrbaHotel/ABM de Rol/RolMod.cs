@@ -25,9 +25,9 @@ namespace FrbaHotel.ABM_de_Rol
         public RolMod(string nombreRol)
         {
             InitializeComponent();
-            rolSeleccionado = DAORol.getRol(nombreRol);
+            rolSeleccionado = DAORol.obtener(nombreRol);
             funcionalidadesRol = DAOFuncionalidad.getFuncionalidad(nombreRol);
-            funcionalidades = DAOFuncionalidad.getTodasFuncionalidades();
+            funcionalidades = DAOFuncionalidad.obtenerTodas();
             if (rolSeleccionado == null && funcionalidades == null && funcionalidadesRol == null)
             {
                 MessageBox.Show("Error al conectarse a la DB", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -107,7 +107,7 @@ namespace FrbaHotel.ABM_de_Rol
                 rolSeleccionado.Estado = true;
             else
                 rolSeleccionado.Estado = false;
-            DAORol.updateRol(rolSeleccionado);
+            DAORol.guardar(rolSeleccionado);
             DAOFuncionalidad.updateFuncXRol(rolSeleccionado.Nombre, lista_alta, lista_baja);
             this.Dispose();
         }

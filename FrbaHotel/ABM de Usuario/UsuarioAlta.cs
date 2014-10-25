@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DOM;
+using DOM.Auxiliares;
 namespace FrbaHotel.ABM_de_Usuario
 {
     public partial class UsuarioAlta : Form
@@ -39,7 +40,7 @@ namespace FrbaHotel.ABM_de_Usuario
             user.Nombre = textApellido.Text;
             user.Apellido = textApellido.Text;
             user.Password = textPassword1.Text;////pasar a sha 256
-            user.TipoDocu = comboTipoDoc.SelectedIndex;
+            user.TipoDocu = Documento.string_docu[comboTipoDoc.SelectedIndex];
             user.NroDocu = Convert.ToInt16(textNumDoc.Text);
             user.Mail = textMail.Text;
             user.Telefono = Convert.ToInt16(textTelefono.Text);
