@@ -28,7 +28,7 @@ namespace DOM
         private DateTime? fecha_nacimiento = null;
         //private List<Hotel> hoteles = new List<Hotel>();
         //private List<Rol> roles = new List<Rol>();
-        private bool campoBaja;
+        private bool campoBaja = true;
         #endregion
 
         #region Propiedades

@@ -9,7 +9,7 @@ namespace DOM.Dominio
     {
         #region Atributos
         private string nombreRol = "''";
-        private bool estado;
+        private bool estado = true;
         #endregion
 
         #region Propiedades

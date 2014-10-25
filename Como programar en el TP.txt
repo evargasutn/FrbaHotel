@@ -1,0 +1,8 @@
+1) Elegir un CU e implementar sus ventanas
+2) Chequear si estan los metodos DAOs necesarios
+3) Si falta alguno, se avisa a los demas integrantes y se lo agrega
+4) Si fuera necesario agregar o modificar un procedure para trabajar en el DAO avisar a los demas integrantes
+5) Terminar el CU
+6) Elegir otro CU hasta terminar de implementarlos
+
+Have fun ;)

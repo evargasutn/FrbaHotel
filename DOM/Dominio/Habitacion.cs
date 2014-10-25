@@ -9,14 +9,21 @@ namespace DOM.Dominio
     public class Habitacion
     {
         #region Atributos
-        private int id_habitacion;
-        private int piso;
-        private string ubicacion;
-        private Tipo_Habitacion tipo_habitacion = new Tipo_Habitacion();
-        private bool campoBaja = false;
+        private int codHotel = -1;
+        private int id_habitacion = -1;
+        private int piso = -1;
+        private string ubicacion = "''";
+        private int tipo_codigo = -1;
+        private string descripcion = "''";
+        private bool campoBaja = true;
         #endregion
 
         #region Getters&Setters
+        public int CodHotel
+        {
+            get { return codHotel; }
+            set { codHotel = value; }
+        }
         public int Id_Habitacion
         {
             get { return id_habitacion; }
@@ -32,17 +39,21 @@ namespace DOM.Dominio
             get { return ubicacion; }
             set { ubicacion = value; }
         }
-        public Tipo_Habitacion Tipo_habitacion
+        public int Tipo_codigo
         {
-            get { return tipo_habitacion; }
-            set { tipo_habitacion = value; }
+            get { return tipo_codigo; }
+            set { tipo_codigo = value; }
+        }
+        public string Descripcion
+        {
+            get { return descripcion; }
+            set { descripcion = value; }
         }
         public bool CampoBaja
         {
             get { return campoBaja; }
             set { campoBaja = value; }
         }
-
         #endregion
     }
 }
