@@ -1208,12 +1208,45 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.facturar
 	@codReserva	numeric(18),
-	@montoTotal	numeric(18, 2),
-	@idHuesped	int,
 	@tipoPago	varchar(50),
 	@codTarjetaCredito	varchar(19)
 AS
 	BEGIN
+	DECLARE @totalConsumibles numeric(3,2)
+	SET @totalConsumibles = (SELECT SUM(CE.cantidad*C.importe) 
+							FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+							JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible 
+							WHERE CE.codReserva = @codReserva)
+	
+	DECLARE @recargoEstrella numeric(18)
+	SET @recargoEstrella = (SELECT H.recargoEstrella FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+							JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = DR.codHotel
+							WHERE DR.codReserva = @codReserva)
+							
+	DECLARE @precioRegimen numeric(18,2)
+	SET @precioRegimen = (SELECT R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+							JOIN COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R ON R.codRegimen= DR.codRegimen
+							WHERE DR.codReserva = @codReserva)
+	
+	DECLARE @porcentualHabitacionTipo numeric(5,2)
+	SET @porcentualHabitacionTipo = (SELECT DISTINCT TH.tipoPorcentual 
+									FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+									JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H ON DR.codHotel = H.codHotel
+									JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ON DR.habitacion = H.habitacion
+									JOIN COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES TH ON TH.tipoCodigo = H.tipoCodigo
+									WHERE DR.codReserva = @codReserva)
+	
+	DECLARE @totalRegimenHabitacion numeric(18,2)
+	SET @totalRegimenHabitacion = @precioRegimen * @porcentualHabitacionTipo
+	
+	DECLARE @montoTotal numeric(18,2)
+	SET @montoTotal = @totalConsumibles + @totalRegimenHabitacion
+	
+	DECLARE @idHuesped int
+	SET @idHuesped = (SELECT R.idHuesped FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R
+						WHERE R.codReserva = @codReserva)
+	
+	/*INSERTO EN LA TABLA FACTURA*/
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(codReserva, fecha, idHuesped, montoTotal, tipoPago, codTarjetaCredito)
 	VALUES(@codReserva, GETDATE(), @idHuesped, @montoTotal, @tipoPago, CASE WHEN @tipoPago LIKE 'Efectivo' THEN '' ELSE @codTarjetaCredito END)
 	
