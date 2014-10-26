@@ -6,14 +6,25 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using DOM.DAO;
+using DOM.Dominio;
+using DOM;
 namespace FrbaHotel.Login
 {
     public partial class MainPanel : Form
     {
-        public MainPanel()
+        public MainPanel(Usuario elUsuario,Hotel elHotel)//para usuarios
         {
             InitializeComponent();
+            ///cargar list funcionalidades
         }
+
+        public MainPanel( )   ///Para invitados
+        {
+            InitializeComponent();
+            ///cargar list funcionalidades
+        }
+
+
     }
 }

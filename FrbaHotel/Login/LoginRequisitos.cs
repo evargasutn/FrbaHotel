@@ -16,7 +16,7 @@ namespace FrbaHotel.Login
         public LoginRequisitos(Usuario usuario)
         {
             InitializeComponent();
-        ////Completar comboHoteles
+        ////Completar comboHoteles////
         ////Completar comboRoles
         
         }

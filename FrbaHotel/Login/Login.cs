@@ -46,5 +46,10 @@ namespace FrbaHotel.Login
         {
             new MainPanel().Show();
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
