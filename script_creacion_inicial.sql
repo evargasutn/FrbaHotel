@@ -456,9 +456,9 @@ GO
 
 --//HUESPEDES
     INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(tipoDocu, numDocu, apellido, nombre, fecNacimiento, mail, direccionCalle,
-                                                   direccionNumero, direccionPiso, direccionDepto, localidad, nacionalidad, paisOrigen)
+                                                   direccionNumero, direccionPiso, direccionDepto, localidad, nacionalidad)
     SELECT DISTINCT 'DNI', Cliente_Pasaporte_Nro , Cliente_Apellido, Cliente_Nombre, Cliente_Fecha_Nac, Cliente_Mail,   
-                    Cliente_Dom_Calle, Cliente_Nro_Calle, Cliente_Piso, Cliente_Depto, 'CABA', Cliente_Nacionalidad, 'Argentina'
+                    Cliente_Dom_Calle, Cliente_Nro_Calle, Cliente_Piso, Cliente_Depto, 'CABA', Cliente_Nacionalidad
     FROM  gd_esquema.Maestra
 	WHERE Cliente_Apellido IS NOT NULL AND Cliente_Nombre IS NOT NULL
 GO
@@ -544,7 +544,7 @@ GO
 
 --//CANCELACIONES_RESERVA
 	IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva', 'P' ) IS NOT NULL 
-		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.P_CANCELA_RESERVA;
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva;
 GO
 	CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva 
 		--Toma la fecha del sistema al momento de agregar una cancelacion
@@ -563,30 +563,39 @@ GO
 	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.FACTURAS ON
 
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura, codReserva, fecha, montoTotal, idHuesped,tipoPago, codTarjetaCredito)
-	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, M.Factura_Total, HUES.idHuesped, 'Efectivo',''
+	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, SUM(M.Item_Factura_Monto), HUES.idHuesped, 'Efectivo',''
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
 	WHERE M.Factura_Nro IS NOT NULL AND
 		  M.Cliente_Pasaporte_Nro = HUES.numDocu AND
 		  M.Cliente_Apellido = HUES.apellido AND
 		  M.Cliente_Nombre = HUES.nombre
-		  
+	GROUP BY M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, idHuesped
   	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.FACTURAS OFF
 GO
 
 --//ITEMS_FACTURA
-INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, descripcion, montoUnitario, cantidad, montoTotal)
-SELECT DISTINCT M.Factura_Nro, ROW_NUMBER() OVER (PARTITION BY M.Factura_Nro ORDER BY M.Factura_Nro) AS Item_Nro, '', M.Item_Factura_Monto, COUNT(*), (M.Item_Factura_Monto * COUNT(*))
-FROM gd_esquema.Maestra M
-WHERE M.Item_Factura_Monto IS NOT NULL AND
-		  M.Item_Factura_Cantidad IS NOT NULL AND
-		  M.Factura_Nro IS NOT NULL
-GROUP BY M.Factura_Nro, M.Item_Factura_Monto
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, descripcion, montoUnitario, cantidad, montoTotal)
+	SELECT DISTINCT M.Factura_Nro, ROW_NUMBER() OVER (PARTITION BY M.Factura_Nro ORDER BY M.Factura_Nro) AS Item_Nro, CASE WHEN M.Consumible_Descripcion IS NULL THEN 'Recargos de Categoria Hotel y Regimen' ELSE M.Consumible_Descripcion END, M.Item_Factura_Monto, COUNT(*), (M.Item_Factura_Monto * COUNT(*))
+	FROM gd_esquema.Maestra M
+	WHERE M.Item_Factura_Monto IS NOT NULL AND
+			  M.Item_Factura_Cantidad IS NOT NULL AND
+			  M.Factura_Nro IS NOT NULL
+	GROUP BY M.Factura_Nro, M.Item_Factura_Monto, M.Consumible_Descripcion
+GO
 
+/*
+PRINT 'EL SIGUIENTE QUERY DEMUESTRA LA RELACION FACTURA ITEM_FACTURA'
+SELECT F.numeroFactura, F.codReserva, F.idHuesped, F.montoTotal, F.tipoPago FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F WHERE F.numeroFactura = 2396792
+SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA I WHERE i.numeroFactura = 2396792
+*/
 
 /*
  *PROCEDURES
  */
  --/PROC GETROL
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getRol', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRol
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -607,6 +616,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRol
 	END
 GO
 --//PROC INSERTROL
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertRol', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRol
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -619,6 +631,9 @@ AS
 	VALUES(@nombreRol, @estado)
 GO
 --//PROC DELETEROL
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteRol', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteRol
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -632,6 +647,9 @@ AS
 GO
 
 --/PROC UPDATEROL
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateRol', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateRol
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -646,6 +664,9 @@ AS
 GO
 
 --//PRC ADD ROL_X_FUNCIONALIDAD
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.addFuncionalidad', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.addFuncionalidad
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -659,6 +680,9 @@ AS
 GO
 
 --//PRC REMOVE ROL_X_FUNCIONALIDAD
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.removeFuncionalidad', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.removeFuncionalidad
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -672,6 +696,9 @@ AS
 GO
 
 --//PROC GETFUNCIONALIDAD
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.[getFuncionalidad]', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.[getFuncionalidad]
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -690,14 +717,17 @@ AS
 	END
 GO
 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.JoinRolFunc', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.JoinRolFunc
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.JoinRolFunc
-	@nombreRol varchar(15)
-
+CREATE PROCEDURE JoinRolFunc
+@nombreRol varchar(15)
 AS
+	BEGIN
 	 IF (@nombreRol != '')
  		SELECT FR.nombreRol,F.idFuncionalidad,F.descripcion
 		FROM COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES_X_ROL FR
@@ -709,6 +739,7 @@ AS
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES F
 			ON FR.idFuncionalidad = F.idFuncionalidad
 		WHERE fr.nombreRol = @nombreRol
+	END
 GO
 
 
@@ -735,6 +766,9 @@ AS
 GO
 */
 --//PROC GETUSUARIO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getUsuario
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -756,6 +790,9 @@ AS
 GO
 
 --/PROCEDIMIENTO INSERTAR USUARIO 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertUsuario
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -782,6 +819,9 @@ AS
 GO
 
 --//PROC DELETEUSUARIO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteUsuario
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -794,6 +834,9 @@ AS
 	WHERE usr = @usr
 GO
 --//PROC UPDATEUSUARIO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateUsuario
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -848,6 +891,9 @@ AS
 	END
 GO
 --//PROC INTENTOFALLIDOUSUARIO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.intentoFallidoUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.intentoFallidoUsuario
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -864,6 +910,9 @@ AS
 GO
 
 --/PROCEDIMIENTO INSERTAR HABITACION
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertHabitacion', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHabitacion
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -885,6 +934,9 @@ VALUES(@codHotel, @habitacion, @piso, @ubicacion, @codTipo, @descripcion, 0)
 GO
 
 --/PROCEDIMIENTO GET REGIMEN BY HOTEL 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -897,6 +949,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
 GO
 
 --/PROCEDIMIENTO GET REGIMEN 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getRegimen', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimen
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -916,6 +971,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimen
 GO
 
 --/PROCEDIMIENTO GET HOTEL BY USUARIO 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHotelByUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelByUsuario
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -928,6 +986,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelByUsuario
 GO
 
 --/PROCEDIMIENTO GET HOTEL 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHotel', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotel
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -950,6 +1011,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotel
 GO
 
 --/PROCEDIMIENTO INSERTAR HOTEL 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertHotel', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotel
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -974,6 +1038,9 @@ AS
 GO
 
 --/PROCEDIMIENTO DELETE HOTEL (EN REALIDAD CREA UNA INHABILITACION) 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteHotel', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteHotel
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -1011,6 +1078,9 @@ updateHotel(codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pai
 */
 
 --/PROC GETRESERVA 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getReserva', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getReserva
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -1028,6 +1098,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getReserva
 		END 
 GO
 --/PROC INSERTRESERVA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertReserva', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertReserva
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -1055,6 +1128,9 @@ AS
 GO
 
 --/PROC GETHUESPED 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHuesped', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHuesped
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -1073,6 +1149,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHuesped
 GO
 
 --/PROC INSERTHUESPED
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertHuesped', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHuesped
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -1103,6 +1182,9 @@ AS
 		   @localidad, @nacionalidad, @fecNacimiento)
 GO
 --//PROC DELETEHUESPED
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteHuesped', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteHuesped
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -1115,6 +1197,9 @@ AS
 	WHERE idHuesped = @idHuesped
 GO
 --//PROC UPDATEHUESPED
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateHuesped', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHuesped
+GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
@@ -1156,6 +1241,9 @@ AS
 GO
 
 --//PROC GETFACTURA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getFactura', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFactura
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1174,6 +1262,9 @@ AS
 	END
 GO
 --//PROC GETFACTURA_RESERVA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getFacturaReserva', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFacturaReserva
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1188,6 +1279,9 @@ AS
 	END
 GO
 --//PROC GETFACTURAS_CLIENTE
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getFacturasCliente', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFacturasCliente
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1201,7 +1295,66 @@ AS
  		WHERE F.idHuesped = @idHuesped
 	END
 GO
+
+
+/************************************************************************************************************
+ *AUXILIARES
+ ***********************************************************************************************************/
+IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella', N'FN') IS NOT NULL
+    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella
+GO
+CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella (@codReserva	numeric(18))
+RETURNS numeric(2)
+AS
+	BEGIN
+	DECLARE @recargoEstrella numeric(18)
+	SET @recargoEstrella =	(SELECT (H.recargoEstrella * H.cantEstrellas) 
+							FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+							JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = DR.codHotel
+							WHERE DR.codReserva = @codReserva)
+	RETURN @recargoEstrella
+	END
+GO
+
+IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.precioRegimen', N'FN') IS NOT NULL
+    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.precioRegimen
+GO
+CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.precioRegimen (@codReserva numeric(18))
+RETURNS numeric(3,2)
+AS
+	BEGIN	
+		DECLARE @precioRegimen numeric(18,2)
+		SET @precioRegimen = (SELECT R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+							 JOIN COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R ON R.codRegimen= DR.codRegimen
+							 WHERE DR.codReserva = @codReserva)
+		RETURN @precioRegimen
+	END
+GO
+
+IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion', N'FN') IS NOT NULL
+    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion
+GO
+CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva	numeric(18))
+RETURNS numeric(2,2)
+AS
+	BEGIN
+		DECLARE @porcentualHabitacionTipo numeric(5,2)
+		SET @porcentualHabitacionTipo = (SELECT DISTINCT TH.tipoPorcentual 
+				FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+				JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H ON DR.codHotel = H.codHotel
+				JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ON DR.habitacion = H.habitacion
+				JOIN COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES TH ON TH.tipoCodigo = H.tipoCodigo
+		WHERE DR.codReserva = @codReserva)
+		RETURN @porcentualHabitacionTipo
+	END
+GO
+/************************************************************************************************************/	
+
+
 --//PROC FACTURAR
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.facturar', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.facturar
+GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1217,30 +1370,20 @@ AS
 							FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 							JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible 
 							WHERE CE.codReserva = @codReserva)
-	
 	DECLARE @recargoEstrella numeric(18)
-	SET @recargoEstrella = (SELECT H.recargoEstrella FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
-							JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = DR.codHotel
-							WHERE DR.codReserva = @codReserva)
-							
-	DECLARE @precioRegimen numeric(18,2)
-	SET @precioRegimen = (SELECT R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
-							JOIN COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R ON R.codRegimen= DR.codRegimen
-							WHERE DR.codReserva = @codReserva)
+	SET @recargoEstrella = COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
+
+	DECLARE @precioRegimen numeric(3,2)
+	SET @precioRegimen = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen (@codReserva)
 	
-	DECLARE @porcentualHabitacionTipo numeric(5,2)
-	SET @porcentualHabitacionTipo = (SELECT DISTINCT TH.tipoPorcentual 
-									FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
-									JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H ON DR.codHotel = H.codHotel
-									JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ON DR.habitacion = H.habitacion
-									JOIN COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES TH ON TH.tipoCodigo = H.tipoCodigo
-									WHERE DR.codReserva = @codReserva)
+	DECLARE @porcentualHabitacionTipo numeric(2,2)
+	SET @porcentualHabitacionTipo = COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion (@codReserva)
 	
 	DECLARE @totalRegimenHabitacion numeric(18,2)
 	SET @totalRegimenHabitacion = @precioRegimen * @porcentualHabitacionTipo
 	
 	DECLARE @montoTotal numeric(18,2)
-	SET @montoTotal = @totalConsumibles + @totalRegimenHabitacion
+	SET @montoTotal = @totalConsumibles + @totalRegimenHabitacion + @recargoEstrella
 	
 	DECLARE @idHuesped int
 	SET @idHuesped = (SELECT R.idHuesped FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R
@@ -1251,4 +1394,34 @@ AS
 	VALUES(@codReserva, GETDATE(), @idHuesped, @montoTotal, @tipoPago, CASE WHEN @tipoPago LIKE 'Efectivo' THEN '' ELSE @codTarjetaCredito END)
 	
 	END
+GO
+
+--/PROC INSERTITEMFACTURA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
+	@numeroFactura  numeric(18),
+	@codReserva		numeric(18)     
+AS
+	DECLARE @nroItem numeric(2)
+	SET @nroItem = 0 
+	
+	--Guardo primero RECARGOS
+	DECLARE @totalRecargos numeric(5,2)
+	SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
+						+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+	VALUES(@numeroFactura, @nroItem+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Regimen')
+	
+	--Guardo los consumibles
+	SET @nroItem = @nroItem + 1
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+	SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, C.descripcion
+	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
 GO
