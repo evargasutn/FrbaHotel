@@ -76,6 +76,7 @@
             this.botonInvitado.TabIndex = 7;
             this.botonInvitado.Text = "Invitado";
             this.botonInvitado.UseVisualStyleBackColor = true;
+            this.botonInvitado.Click += new System.EventHandler(this.botonInvitado_Click);
             // 
             // botonIniciarSesion
             // 
