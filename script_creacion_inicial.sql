@@ -1393,6 +1393,12 @@ AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(codReserva, fecha, idHuesped, montoTotal, tipoPago, codTarjetaCredito)
 	VALUES(@codReserva, GETDATE(), @idHuesped, @montoTotal, @tipoPago, CASE WHEN @tipoPago LIKE 'Efectivo' THEN '' ELSE @codTarjetaCredito END)
 	
+	
+	DECLARE @numeroFactura  numeric(18)
+	SET @numeroFactura = (SELECT MAX(F.numeroFactura) FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F)
+	--INSERT EN LA TABLA ITEMS_FACTURA
+	EXEC COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura @numeroFactura, @codReserva
+	
 	END
 GO
 
