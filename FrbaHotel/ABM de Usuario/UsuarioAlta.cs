@@ -12,7 +12,7 @@ namespace FrbaHotel.ABM_de_Usuario
 {
     public partial class UsuarioAlta : Form
     {
-        Usuario user = new Usuario();
+        Usuario userNuevo = new Usuario();
 
         public UsuarioAlta()
         {
@@ -24,70 +24,53 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             if (camposCompletos())
             {
-                if (textPassword1 == textPassword2)
-                    completarEstructuras();
+                if (textPassword1 == textPassword2){
+                    completarEstructuraUserNuevo();
+                    DAOUsuario.insertar(userNuevo);
+                }
                 else
-                    MessageBox.Show("Error:Password no identicos");
+                    MessageBox.Show("Vuelva a ingresar el password","Error:Password no identicos");
             }
             else
-                MessageBox.Show("Error:campos incompletos");
+                MessageBox.Show("Asegurese de ingresar los campos obligatorios", "Error:campos incompletos");
         }
 
-        public void completarEstructuras()
+        public void completarEstructuraUserNuevo()
         {
- 
-            user.Usr = textUsername.Text;
-            user.Nombre = textApellido.Text;
-            user.Apellido = textApellido.Text;
-            user.Password = textPassword1.Text;////pasar a sha 256
-            user.TipoDocu = Documento.string_docu[comboTipoDoc.SelectedIndex];
-            user.NroDocu = Convert.ToInt16(textNumDoc.Text);
-            user.Mail = textMail.Text;
-            user.Telefono = Convert.ToInt16(textTelefono.Text);
-            user.Direccion.calle_direccion = textDirCalle.Text;
-            user.Direccion.calle_altura = Convert.ToInt16(textDirAltura.Text);
-            user.Direccion.calle_piso = Convert.ToInt16(textDirPiso.Text);
-            user.Direccion.calle_dpto = textDirDpto.Text;
-            user.Fecha_nacimiento = Convert.ToString(dateTimeNacimiento.Value);
-            user.CampoBaja = true;
+            userNuevo.Usr = textUsername.Text;
+            userNuevo.Nombre = textApellido.Text;
+            userNuevo.Apellido = textApellido.Text;
+            userNuevo.Password = textPassword1.Text;////pasar a sha 256
+            userNuevo.TipoDocu = Documento.string_docu[comboTipoDoc.SelectedIndex];
+            userNuevo.NroDocu = Convert.ToInt16(textNumDoc.Text);
+            userNuevo.Mail = textMail.Text;
+            userNuevo.Telefono = Convert.ToInt16(textTelefono.Text);
+            userNuevo.Direccion.calle_direccion = textDirCalle.Text;
+            userNuevo.Direccion.calle_altura = Convert.ToInt16(textDirAltura.Text);
+            userNuevo.Direccion.calle_piso = Convert.ToInt16(textDirPiso.Text);
+            userNuevo.Direccion.calle_dpto = textDirDpto.Text;
+            userNuevo.Fecha_nacimiento = Convert.ToString(dateTimeNacimiento.Value);
+            userNuevo.CampoBaja = true;
         }
 
         public Boolean camposCompletos()
         {
-
             if (textUsername.Text == "")
-            {
                 return false;
-            }
             else if (textNombre.Text == "")
-            {
                 return false;
-            }
             else if (textApellido.Text == "")
-            {
                 return false;
-            }
             else if (textPassword1.Text == "")
-            {
                 return false;
-            }
             else if (textNumDoc.Text == "")
-            {
                 return false;
-            }
             else if (textDirCalle.Text == "")
-            {
                 return false;
-
-            }
             else if (textDirAltura.Text == "")
-            {
                 return false;
-            }
             else if (dateTimeNacimiento.Text == "")
-            {
                 return false;
-            }
             return true;
         }
 

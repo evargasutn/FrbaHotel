@@ -6,6 +6,7 @@ using FrbaHotel.DOM;
 using System.Data;
 using DOM.Dominio;
 
+
 namespace DOM
 {
     public class DAORol : SqlConnector

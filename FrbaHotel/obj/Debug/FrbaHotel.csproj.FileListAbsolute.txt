@@ -58,3 +58,4 @@ C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.ABM_de_R
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Login.LoginRequisitos.resources
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Login.Login.resources
 C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Login.MainPanel.resources
+C:\Users\NikoX\Documents\GitHub\FrbaHotel\FrbaHotel\obj\Debug\FrbaHotel.Listado_Estadistico.ListadoEstadistico.resources

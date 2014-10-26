@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using DOM;
 using DOM.Dominio;
+
 namespace FrbaHotel.ABM_de_Rol
 {
     public partial class RolAlta : Form
