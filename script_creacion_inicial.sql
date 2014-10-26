@@ -58,17 +58,27 @@ COMMIT;
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA;
 		
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURAINVALIDA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURAINVALIDA;
+		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.FACTURAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.FACTURAS;
 		
+		
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.FACTURAS_INVALIDAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.FACTURAS_INVALIDAS;
+		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ESTADIA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.RESERVAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS;
+
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES;
@@ -170,6 +180,17 @@ create table COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
 	codReserva	numeric(18) identity(1,1) PRIMARY KEY,
 	idHuesped	int FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped),
 	usr			varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
+	fecDesde	datetime,
+	fecHasta	datetime,
+	fecReserva	datetime
+)
+go
+
+create table COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS
+(
+	codReserva	numeric(18),
+	idHuesped	int,
+	usr			varchar(50),
 	fecDesde	datetime,
 	fecHasta	datetime,
 	fecReserva	datetime
@@ -305,6 +326,18 @@ create table COMPUMUNDO_HIPER_MEGA_RED.FACTURAS
 )
 go
 
+create table COMPUMUNDO_HIPER_MEGA_RED.FACTURAS_INVALIDAS
+(
+	numeroFactura	numeric(18),
+	codReserva		numeric(18),
+	fecha			datetime,
+	montoTotal		numeric(18,2),
+	idHuesped 		int,
+	tipoPago		varchar(50),
+	codTarjetaCredito varchar(19)
+)
+go
+
 create table COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA
 (
 	numeroFactura	numeric(18,0) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura),
@@ -314,6 +347,17 @@ create table COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA
 	cantidad		numeric(18,0) not null,
 	montoTotal		numeric(18,2) not null,
 	PRIMARY KEY (numeroFactura, numeroItem)
+)
+go
+
+create table COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURAINVALIDA
+(
+	numeroFactura	numeric(18),
+	numeroItem		numeric(18),
+	descripcion		varchar(255),
+	montoUnitario	numeric(18,2),
+	cantidad		numeric(18),
+	montoTotal		numeric(18,2) not null
 )
 go
 
@@ -465,8 +509,8 @@ GO
 
 --//RESERVAS
 /*SUPONEMOS QUE LAS RESERVAS FUERON REGISTRADAS POR EL ADMINISTRADOR
-  Y QUE FUERON REALIZADAS 5 DÍAS ANTES DE SU INICIO.
-  NO SE TRATAN LAS FECHAS REGISTRADAS EN EL FUTURO*/
+ * Y QUE FUERON REALIZADAS EL MISMO DÍA QUE DE SU INICIO.
+ */
 	
 	--PARA QUE TOME LOS CODIGOS YA EXISTENTE
 	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.RESERVAS ON
@@ -476,10 +520,38 @@ GO
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
 	WHERE M.Cliente_Pasaporte_Nro = HUES.numDocu AND
 		  M.Cliente_Apellido = HUES.apellido AND
-		  M.Cliente_Nombre = HUES.nombre
+		  M.Cliente_Nombre = HUES.nombre AND
+		  M.Reserva_Fecha_Inicio <= CURRENT_TIMESTAMP
 		  
 	--RESET IDENTITY_INSERT PARA QUE VUELVA A INSERTAR VALORES AUTOMATICAMENTE
 	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.RESERVAS OFF
+GO
+
+--//RESERVASINVALIDAS
+/*SUPONEMOS QUE LAS RESERVAS FUERON REGISTRADAS POR EL ADMINISTRADOR
+ * Y QUE FUERON REALIZADAS EL MISMO DÍA QUE DE SU INICIO.
+ */
+	
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS(codReserva, idHuesped, usr, fecDesde, fecHasta, fecReserva)
+	SELECT DISTINCT M.Reserva_Codigo , HUES.idHuesped, 'admin', M.Reserva_Fecha_Inicio, M.Reserva_Fecha_Inicio + M.Reserva_Cant_Noches, M.Reserva_Fecha_Inicio - 5
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
+	WHERE M.Cliente_Pasaporte_Nro = HUES.numDocu AND
+		  M.Cliente_Apellido = HUES.apellido AND
+		  M.Cliente_Nombre = HUES.nombre AND
+		  M.Reserva_Fecha_Inicio > CURRENT_TIMESTAMP
+		  
+GO
+
+--//CANCELACIONES_RESERVA
+/* DE LA MIGRACION INICIAL REGISTRO AQUELLAS RESERVAS QUE NO SE EFECTIVIZARON
+ * SUPONGO QUE SE REGISTRA 3 DÍAS DESPUES DE SU INICIO.
+ */
+	
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA (codReserva, motivo, usr, fecCancelacion)
+	SELECT DISTINCT M.Reserva_Codigo , 'No se registra estadía', 'admin', M.Reserva_Fecha_Inicio + 3
+	FROM gd_esquema.Maestra M
+	WHERE M.Estadia_Fecha_Inicio IS NULL AND M.Reserva_Fecha_Inicio <= CURRENT_TIMESTAMP
+		  
 GO
 
 --//REGIMENES_X_HOTEL
@@ -502,7 +574,7 @@ GO
   	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ESTADIA(codReserva,fecIngreso, fecEgreso, usrIngreso, usrEgreso)
 	SELECT DISTINCT M.Reserva_Codigo, M.Estadia_Fecha_Inicio, M.Estadia_Fecha_Inicio + M.Estadia_Cant_Noches, 'admin', 'admin'
 	FROM gd_esquema.Maestra M
-	WHERE M.Estadia_Fecha_Inicio IS NOT NULL AND
+	WHERE M.Estadia_Fecha_Inicio <= CURRENT_TIMESTAMP AND
 		  M.Reserva_Codigo IS NOT NULL
 GO
 
@@ -524,7 +596,8 @@ GO
 	SELECT DISTINCT M.Consumible_Codigo, M.Reserva_Codigo, count(M.Consumible_Codigo)
 	FROM gd_esquema.Maestra M
 	WHERE M.Consumible_Codigo IS NOT NULL AND
-		  M.Reserva_Codigo IS NOT NULL
+		  M.Reserva_Codigo IS NOT NULL AND
+		  M.Reserva_Fecha_Inicio < CURRENT_TIMESTAMP
 	GROUP BY M.Consumible_Codigo, M.Reserva_Codigo
 	ORDER BY M.Reserva_Codigo ASC
 GO	
@@ -538,11 +611,12 @@ GO
 		  H.ciudad = M.Hotel_Ciudad AND 
 		  H.direccionCalle IS NOT NULL AND
 		  R.descripcion = M.Regimen_Descripcion AND
-		  R.precio = M.Regimen_Precio
+		  R.precio = M.Regimen_Precio AND
+		  M.Reserva_Fecha_Inicio < CURRENT_TIMESTAMP
 	ORDER BY H.codHotel
 GO
 
---//CANCELACIONES_RESERVA
+--//PROC CANCELACIONES_RESERVA
 	IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva;
 GO
@@ -568,9 +642,22 @@ GO
 	WHERE M.Factura_Nro IS NOT NULL AND
 		  M.Cliente_Pasaporte_Nro = HUES.numDocu AND
 		  M.Cliente_Apellido = HUES.apellido AND
-		  M.Cliente_Nombre = HUES.nombre
+		  M.Cliente_Nombre = HUES.nombre AND
+		  M.Factura_Fecha <= CURRENT_TIMESTAMP
 	GROUP BY M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, idHuesped
   	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.FACTURAS OFF
+GO
+
+--//FACTURAS NO VALIDAS POR TENER FECHA FUTURA A LA PRESENTE
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS_INVALIDAS(numeroFactura, codReserva, fecha, montoTotal, idHuesped,tipoPago, codTarjetaCredito)
+	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, SUM(M.Item_Factura_Monto), HUES.idHuesped, 'Efectivo',''
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
+	WHERE M.Factura_Nro IS NOT NULL AND
+		  M.Cliente_Pasaporte_Nro = HUES.numDocu AND
+		  M.Cliente_Apellido = HUES.apellido AND
+		  M.Cliente_Nombre = HUES.nombre AND
+		  M.Factura_Fecha > CURRENT_TIMESTAMP
+	GROUP BY M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, idHuesped
 GO
 
 --//ITEMS_FACTURA
@@ -579,7 +666,19 @@ GO
 	FROM gd_esquema.Maestra M
 	WHERE M.Item_Factura_Monto IS NOT NULL AND
 			  M.Item_Factura_Cantidad IS NOT NULL AND
-			  M.Factura_Nro IS NOT NULL
+			  M.Factura_Nro IS NOT NULL AND
+			  M.Factura_Fecha <= CURRENT_TIMESTAMP
+	GROUP BY M.Factura_Nro, M.Item_Factura_Monto, M.Consumible_Descripcion
+GO
+
+--//ITEMS_FACTURAINVALIDA
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURAINVALIDA(numeroFactura, numeroItem, descripcion, montoUnitario, cantidad, montoTotal)
+	SELECT DISTINCT M.Factura_Nro, ROW_NUMBER() OVER (PARTITION BY M.Factura_Nro ORDER BY M.Factura_Nro) AS Item_Nro, CASE WHEN M.Consumible_Descripcion IS NULL THEN 'Recargos de Categoria Hotel y Regimen' ELSE M.Consumible_Descripcion END, M.Item_Factura_Monto, COUNT(*), (M.Item_Factura_Monto * COUNT(*))
+	FROM gd_esquema.Maestra M
+	WHERE M.Item_Factura_Monto IS NOT NULL AND
+			  M.Item_Factura_Cantidad IS NOT NULL AND
+			  M.Factura_Nro IS NOT NULL AND
+			  M.Factura_Fecha > CURRENT_TIMESTAMP
 	GROUP BY M.Factura_Nro, M.Item_Factura_Monto, M.Consumible_Descripcion
 GO
 
@@ -724,7 +823,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE PROCEDURE JoinRolFunc
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.JoinRolFunc
 @nombreRol varchar(15)
 AS
 	BEGIN
