@@ -316,8 +316,14 @@
     <EmbeddedResource Include="Registrar Consumible\RegistrarConsumibles.resx">
       <DependentUpon>RegistrarConsumibles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registrar Estadia\RegistrarEstadia.resx">
-      <DependentUpon>RegistrarEstadia.cs</DependentUpon>
+    <EmbeddedResource Include="Registrar Estadia\Check_In.resx">
+      <DependentUpon>Check_In.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registrar Estadia\Check_Out.resx">
+      <DependentUpon>Check_Out.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Registrar Estadia\Facturacion.resx">
+      <DependentUpon>Facturacion.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -345,11 +351,29 @@
     <Compile Include="Registrar Consumible\RegistrarConsumibles.Designer.cs">
       <DependentUpon>RegistrarConsumibles.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registrar Estadia\RegistrarEstadia.cs">
+    <Compile Include="Registrar Estadia\Check_In.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registrar Estadia\RegistrarEstadia.Designer.cs">
-      <DependentUpon>RegistrarEstadia.cs</DependentUpon>
+    <Compile Include="Registrar Estadia\Check_In.Designer.cs">
+      <DependentUpon>Check_In.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registrar Estadia\Check_Out.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registrar Estadia\Check_Out.Designer.cs">
+      <DependentUpon>Check_Out.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registrar Estadia\Facturacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registrar Estadia\Facturacion.Designer.cs">
+      <DependentUpon>Facturacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Registrar Estadia\IngresoHuespedes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Registrar Estadia\IngresoHuespedes.Designer.cs">
+      <DependentUpon>IngresoHuespedes.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
