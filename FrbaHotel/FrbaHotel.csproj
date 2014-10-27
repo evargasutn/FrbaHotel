@@ -325,6 +325,9 @@
     <EmbeddedResource Include="Registrar Estadia\Facturacion.resx">
       <DependentUpon>Facturacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Registrar Estadia\IngresoHuespedes.resx">
+      <DependentUpon>IngresoHuespedes.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>

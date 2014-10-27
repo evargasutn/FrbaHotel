@@ -36,13 +36,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textCodReserva = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.textIdHuesped = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridEstadias = new System.Windows.Forms.DataGridView();
             this.botonRegistrar = new System.Windows.Forms.Button();
-            this.textCodReserva = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -130,6 +130,22 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Filtro de estadia";
             // 
+            // textCodReserva
+            // 
+            this.textCodReserva.Location = new System.Drawing.Point(365, 22);
+            this.textCodReserva.Name = "textCodReserva";
+            this.textCodReserva.Size = new System.Drawing.Size(137, 20);
+            this.textCodReserva.TabIndex = 8;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(287, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(72, 13);
+            this.label6.TabIndex = 7;
+            this.label6.Text = "Cod. Reserva";
+            // 
             // textIdHuesped
             // 
             this.textIdHuesped.Location = new System.Drawing.Point(115, 22);
@@ -172,22 +188,6 @@
             this.botonRegistrar.TabIndex = 15;
             this.botonRegistrar.Text = "Registrar";
             this.botonRegistrar.UseVisualStyleBackColor = true;
-            // 
-            // textCodReserva
-            // 
-            this.textCodReserva.Location = new System.Drawing.Point(365, 22);
-            this.textCodReserva.Name = "textCodReserva";
-            this.textCodReserva.Size = new System.Drawing.Size(137, 20);
-            this.textCodReserva.TabIndex = 8;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(287, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 13);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Cod. Reserva";
             // 
             // Check_Out
             // 
