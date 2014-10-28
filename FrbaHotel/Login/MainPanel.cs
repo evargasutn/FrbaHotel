@@ -13,10 +13,15 @@ namespace FrbaHotel.Login
 {
     public partial class MainPanel : Form
     {
-        public MainPanel(Usuario elUsuario,Hotel elHotel)//para ¿usuarios se necesita el rol?
-        {
-            InitializeComponent();
-            ///cargar list funcionalidades
+        //para ¿usuarios se necesita el rol?
+        ///Ver si no es mas necesario manejarse
+        /// //con los objetos Rol y Hotel
+        /// //en vez de usar los nombres 
+
+        public MainPanel(Usuario elUsuario,String hotelNombre,String rolNombre)
+        {                                                                      
+            InitializeComponent();                                             
+            ///cargar list funcionalidades                                                  
         }
 
         public MainPanel( )   ///Para invitados

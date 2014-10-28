@@ -17,7 +17,9 @@ namespace FrbaHotel.Login
 
         List<Hotel> hotelesDeUsuario;
         List<Rol> rolesDeUsuario;
-        public LoginRequisitos(Usuario usuario)
+        Usuario usuario;
+
+        public LoginRequisitos(Usuario unUsuario)
         {
             InitializeComponent();
             ///Completa combo hoteles
@@ -29,16 +31,19 @@ namespace FrbaHotel.Login
             rolesDeUsuario = DAORol.obtenerTodos(usuario.Usr);
             foreach (Rol unRol in rolesDeUsuario)
                 comboRoles.Items.Add(unRol.Nombre);
-           
-   
-        
+
+            usuario = unUsuario;
+
         }
 
         private void botonAceptar_Click(object sender, EventArgs e)
         {
+            var hotelSeleccionado = comboHoteles.SelectedItem;
+            var rolSeleccionado = comboRoles.SelectedItem;
 
-            if (comboHoteles.SelectedItem != null || comboRoles.SelectedItem != null)
-                ;//////////
+            if (hotelSeleccionado != null || rolSeleccionado != null)
+                new MainPanel(usuario, hotelSeleccionado.ToString()
+                                       , rolSeleccionado.ToString());//////////
             else
                 MessageBox.Show("Seleccione el hotel y el rol", "Error:Hotel o rol no seleccionados ");
         }
