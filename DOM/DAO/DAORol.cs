@@ -24,6 +24,19 @@ namespace DOM
                 return null;
             return lista[0];
         }
+/// <summary>
+/// Modificar obtenerTodos devuelve una lista de todos los roles segun el nombre del usuario
+/// </summary>
+/// <param name="usr"></param>
+/// <returns></returns>
+        public static List<Hotel> obtenerTodos(string usr)
+        {
+            //return tranductor(obtenerByUsr(usr));
+         return new List<Hotel>();       
+        }
+
+
+
 
         public static bool insertar(Rol rol)
         {

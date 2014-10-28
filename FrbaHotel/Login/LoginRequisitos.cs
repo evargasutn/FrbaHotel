@@ -8,23 +8,44 @@ using System.Text;
 using System.Windows.Forms;
 using DOM.DAO;
 using DOM;
+using DOM.Dominio;
 
 namespace FrbaHotel.Login
 {
     public partial class LoginRequisitos : Form
     {
-        public LoginRequisitos(Usuario usuario)
+
+        List<Hotel> hotelesDeUsuario;
+        List<Rol> rolesDeUsuario;
+        Usuario usuario;
+
+        public LoginRequisitos(Usuario unUsuario)
         {
             InitializeComponent();
-        ////Completar comboHoteles////
-        ////Completar comboRoles
-        
+            ///Completa combo hoteles
+            hotelesDeUsuario = DAOHotel.obtenerTodos(usuario.Usr);
+            foreach (Hotel unHotel in hotelesDeUsuario)
+                comboHoteles.Items.Add(unHotel.Nombre);
+
+            ///Completa combo hoteles
+            rolesDeUsuario = DAORol.obtenerTodos(usuario.Usr);
+            foreach (Rol unRol in rolesDeUsuario)
+                comboRoles.Items.Add(unRol.Nombre);
+
+            usuario = unUsuario;
+
         }
 
         private void botonAceptar_Click(object sender, EventArgs e)
         {
-            ////
-            ////
+            var hotelSeleccionado = comboHoteles.SelectedItem;
+            var rolSeleccionado = comboRoles.SelectedItem;
+
+            if (hotelSeleccionado != null || rolSeleccionado != null)
+                new MainPanel(usuario, hotelSeleccionado.ToString()
+                                       , rolSeleccionado.ToString());//////////
+            else
+                MessageBox.Show("Seleccione el hotel y el rol", "Error:Hotel o rol no seleccionados ");
         }
 
     }
