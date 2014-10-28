@@ -83,7 +83,25 @@ namespace DOM
 
         private static List<Hotel> tranductor(DataTable dataTable)
         {
-            throw new NotImplementedException();
+            List<Hotel> lista = new List<Hotel>();
+            if (dataTable != null)
+            {
+                foreach(DataRow fila in dataTable.Rows)
+                {
+                    Hotel hotelito = new Hotel();
+                    hotelito.CodHotel = Convert.ToInt32(fila["codHotel"]);
+                    hotelito.Nombre = Convert.ToString(fila["nombre"]);
+                    hotelito.Mail = Convert.ToString(fila["mail"]);
+                    hotelito.Telefono = Convert.ToInt32(fila["telefono"]);
+                    hotelito.Direccion.calle_direccion = Convert.ToString(fila["dir_calle"]);
+                    hotelito.Direccion.calle_altura = Convert.ToInt32(fila["dir_numero"]);
+                    hotelito.Ciudad = Convert.ToString(fila["ciudad"]);
+                    hotelito.Pais = Convert.ToString(fila["pais"]);
+                    hotelito.Estrellas = Convert.ToInt32(fila["estrellas"]);
+                    lista.Add(hotelito);
+                }
+            }
+            return lista;
         }
 
         #endregion
