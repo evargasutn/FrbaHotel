@@ -39,12 +39,9 @@ namespace DOM
             return retrieveDataTable("getHotelByUsuario", usr);
         }
 
-        public static Hotel obtener(string usr)
+        public static List<Hotel> obtenerTodos(string usr)
         {
-            List<Hotel> lista = tranductor(obtenerByUsr(usr));
-            if (lista.Count == 0)
-                return null;
-            return lista[0];
+            return tranductor(obtenerByUsr(usr));
         }
 
         public static bool insertar(Hotel hotel)
