@@ -17,17 +17,33 @@ namespace FrbaHotel.Login
         ///Ver si no es mas necesario manejarse
         /// //con los objetos Rol y Hotel
         /// //en vez de usar los nombres 
+        List<Funcionalidad> funcsDelRolDelUser; 
+
 
         public MainPanel(Usuario elUsuario,String hotelNombre,String rolNombre)
         {                                                                      
-            InitializeComponent();                                             
-            ///cargar list funcionalidades                                                  
+            InitializeComponent();
+            ///Se carga list funcionalidades                                                  
+         funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rolNombre);///devuelve una lista de funcionalidades por nmbre de rol
+          foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
+              listFuncionalidades.Items.Add(unFuncs.Descripcion);
         }
 
         public MainPanel( )   ///Para invitados
         {
             InitializeComponent();
             ///cargar list funcionalidades
+        }
+
+        private void botonAceptar_Click(object sender, EventArgs e)
+        {
+            var funcionalidadElegida = listFuncionalidades.SelectedItem;
+            if (funcionalidadElegida != null) 
+                
+                ;
+            else MessageBox.Show("Seleccione una funcionalidad", "Error no selecciono funcionalidad");
+            
+
         }
 
 
