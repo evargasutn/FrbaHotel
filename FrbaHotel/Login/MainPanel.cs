@@ -13,38 +13,58 @@ namespace FrbaHotel.Login
 {
     public partial class MainPanel : Form
     {
-        //para ¿usuarios se necesita el rol?
-        ///Ver si no es mas necesario manejarse
-        /// //con los objetos Rol y Hotel
-        /// //en vez de usar los nombres 
-        List<Funcionalidad> funcsDelRolDelUser; 
-
-
-        public MainPanel(Usuario elUsuario,String hotelNombre,String rolNombre)
+        
+        List<Funcionalidad> funcsDelRolDelUser;
+        Dictionary<String, Form> formularioXNombre;
+        Usuario usuario;
+        String hotelNombre;
+      
+        
+        
+        public MainPanel(Usuario usuario,String hotelNombre,String rolNombre)
         {                                                                      
             InitializeComponent();
-            ///Se carga list funcionalidades                                                  
-         funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rolNombre);///devuelve una lista de funcionalidades por nmbre de rol
+            cargarFormularios();          
+         funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rolNombre);
           foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
               listFuncionalidades.Items.Add(unFuncs.Descripcion);
+          
         }
-
         public MainPanel( )   ///Para invitados
         {
             InitializeComponent();
-            ///cargar list funcionalidades
+            ///cargar list funcionalidades para invitados
         }
 
         private void botonAceptar_Click(object sender, EventArgs e)
         {
             var funcionalidadElegida = listFuncionalidades.SelectedItem;
             if (funcionalidadElegida != null) 
-                
-                ;
+                funcionalidadElegida.ToString();                
             else MessageBox.Show("Seleccione una funcionalidad", "Error no selecciono funcionalidad");
-            
-
         }
+
+
+        /// <summary>
+        /// Se carga el diccionario de formularios,se deben completar las presentaciones
+        /// </summary>
+        public void cargarFormularios()
+        {
+            formularioXNombre.Add("ABM de Rol", new ABM_de_Rol.Presentacion(usuario));
+            formularioXNombre.Add("ABM de Usuario", new ABM_de_Usuario.Presentacion(usuario, hotelNombre));
+            formularioXNombre.Add("ABM de Huespedes",new ABM_de_Cliente.Presentacion(usuario,hotelNombre));
+            formularioXNombre.Add("ABM de Hotel",new ABM_de_Hotel.Presentacion(usuario,hotelNombre));
+            formularioXNombre.Add("ABM de Regimen",new ABM_de_Habitacion.Presentacion(usuario,hotelNombre));
+            formularioXNombre.Add("Generar o Modificar una Reserva",new Generar_Modificar_Reserva.Presentacion(usuario,hotelNombre));
+            formularioXNombre.Add("Cancelar Reserva",new Cancelar_Reserva.CancelarReserva(usuario,hotelNombre));
+            formularioXNombre.Add("Registrar Estadia",new Registrar_Estadia.Presentacion(usuario,hotelNombre));
+            formularioXNombre.Add("Registrar Consumibles",new Registrar_Consumible.RegistrarConsumibles());
+           // formularioXNombre.Add("Facturar Estadia",new ); 
+            formularioXNombre.Add("Listado Estadistico", new Listado_Estadistico.ListadoEstadistico());
+        }
+
+
+
 
 
     }
