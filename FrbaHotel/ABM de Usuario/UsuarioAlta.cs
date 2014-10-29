@@ -7,16 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using DOM;
+using DOM.DAO;
+using DOM.Dominio;
 using DOM.Auxiliares;
 namespace FrbaHotel.ABM_de_Usuario
 {
     public partial class UsuarioAlta : Form
     {
         Usuario userNuevo = new Usuario();
-
+        List<Rol> rolesPosibles;
         public UsuarioAlta()
         {
             InitializeComponent();
+        ////Se carga el listRol
+            rolesPosibles=DAORol.traerTodosLosRolesPosibles();
+             foreach (Rol unRol in rolesPosibles)
+               listRol.Items.Add(unRol.Nombre);        
         }
 
 
@@ -72,6 +78,28 @@ namespace FrbaHotel.ABM_de_Usuario
             else if (dateTimeNacimiento.Text == "")
                 return false;
             return true;
+        }
+
+        private void botonLimpiar_Click(object sender, EventArgs e)
+        {
+            textUsername.Text = " ";
+            textPassword1.Text = " ";
+            textPassword2.Text = " ";
+            textNombre.Text = " ";
+            textApellido.Text = " ";
+            textNumDoc.Text = " ";
+            textMail.Text = " ";
+            textDirCalle.Text = " ";
+            textDirAltura.Text = " ";
+            textDirPiso.Text = " ";
+            textDirDpto.Text = " ";
+            textTelefono.Text = " ";
+            textHotel.Text = " ";
+            listRol.SelectedItem = null;
+            comboTipoDoc.SelectedItem=null;
+
+
+            
         }
 
 

@@ -124,6 +124,7 @@ namespace FrbaHotel.ABM_de_Usuario
             this.botonLimpiar.TabIndex = 26;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // botonGuardar
             // 

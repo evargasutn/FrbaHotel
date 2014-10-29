@@ -29,10 +29,10 @@ namespace DOM
 /// </summary>
 /// <param name="usr"></param>
 /// <returns></returns>
-        public static List<Hotel> obtenerTodos(string usr)
+        public static List<Rol> obtenerTodos(string usr)
         {
             //return tranductor(obtenerByUsr(usr));
-         return new List<Hotel>();       
+         return new List<Rol>();       
         }
 
 
