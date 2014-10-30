@@ -1530,3 +1530,250 @@ AS
 	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
 GO
+
+/*****************************************************************************************
+*LISTADO ESTADISTICO
+*****************************************************************************************/
+--/PROC GETHOTELESMAYORDIASINHABILITADO
+
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorDiasInhabilitado', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorDiasInhabilitado
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorDiasInhabilitado
+	@opcion  numeric(1),
+	@anio	 numeric(4)
+	--1 Enero a Marzo
+	--2 Abril a Junio
+	--3 Julio a Septiembre
+	--4 Octubre a Diciembre
+	--5 El año 
+	/* LOS 5 HOTELES CON MAS DIAS INHABILITADOS*/    
+AS
+	DECLARE @iniPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+							   WHEN 1 | 5 THEN 1
+							   WHEN 2 THEN 4
+							   WHEN 3 THEN 7
+							   WHEN 4 THEN 10
+						  END )
+	DECLARE @finPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+						   WHEN 1 THEN 3
+						   WHEN 2 THEN 6
+						   WHEN 3 THEN 9
+						   WHEN 4 | 5 THEN 12
+						END )
+	
+	SELECT TOP 5 (I.hotel) AS Hotel, SUM(DATEDIFF(day,I.fecInicio,I.fecFin)) as Dias FROM COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES I
+	
+	WHERE MONTH (I.fecInicio) BETWEEN @iniPeriodo AND @iniPeriodo
+		   AND YEAR (I.fecInicio) = @anio
+			 	
+	GROUP BY I.hotel
+	
+	ORDER BY 2 DESC
+GO
+
+
+--/PROC GETHOTELESMAYORCANCELACIONES
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorCancelaciones', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorCancelaciones
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorCancelaciones
+	@opcion  numeric(1),
+	@anio	 numeric(4)
+	--1 Enero a Marzo
+	--2 Abril a Junio
+	--3 Julio a Septiembre
+	--4 Octubre a Diciembre
+	--5 El año 
+	/* LOS 5 HOTELES CON MAS CANCELACIONES*/    
+AS
+	DECLARE @iniPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+							   WHEN 1 | 5 THEN 1
+							   WHEN 2 THEN 4
+							   WHEN 3 THEN 7
+							   WHEN 4 THEN 10
+						  END )
+	DECLARE @finPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+						   WHEN 1 THEN 3
+						   WHEN 2 THEN 6
+						   WHEN 3 THEN 9
+						   WHEN 4 | 5 THEN 12
+						END )
+						
+	SELECT TOP 5 (DR.codHotel) AS codHotel, H.nombreHotel, COUNT(H.codHotel) AS Cancelaciones 
+	FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+	
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA C ON C.codReserva = DR.codReserva
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = DR.codHotel
+	
+	WHERE MONTH (C.fecCancelacion) BETWEEN @iniPeriodo AND @iniPeriodo
+		   AND YEAR (C.fecCancelacion) = @anio
+	
+	GROUP BY DR.codHotel, H.nombreHotel
+	
+	ORDER BY 3 DESC
+GO
+
+
+--/PROC GETHOTELESMAYORCONSUMIBLESFACTURADOS
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorConsumiblesFacturados', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorConsumiblesFacturados
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorConsumiblesFacturados
+	@opcion  numeric(1),
+	@anio	 numeric(4)
+	--1 Enero a Marzo
+	--2 Abril a Junio
+	--3 Julio a Septiembre
+	--4 Octubre a Diciembre
+	--5 El año 
+	/* LOS 5 HOTELES CON MAS CANTIDAD DE CONSUMIBLES FACTURADOS*/    
+AS
+
+	DECLARE @iniPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+							   WHEN 1 | 5 THEN 1
+							   WHEN 2 THEN 4
+							   WHEN 3 THEN 7
+							   WHEN 4 THEN 10
+						  END )
+	DECLARE @finPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+						   WHEN 1 THEN 3
+						   WHEN 2 THEN 6
+						   WHEN 3 THEN 9
+						   WHEN 4 | 5 THEN 12
+						END )
+						
+	SELECT TOP 5 (DR.codHotel) AS codHotel, H.nombreHotel, SUM(CE.cantidad) AS Cantidad_Consumibles_Facturados 
+					FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+	
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR ON DR.codReserva = CE.codReserva
+    JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = DR.codHotel
+    JOIN COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E ON E.codReserva = CE.codReserva
+	
+	WHERE MONTH (E.fecIngreso) BETWEEN @iniPeriodo AND @iniPeriodo
+		   AND YEAR (E.fecIngreso) = @anio
+							 	
+	GROUP BY DR.codHotel, H.nombreHotel
+	
+	ORDER BY 3 DESC
+GO
+
+--/PROC GETHABITACIONESMAYORCANTOCUPADAS
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHabitacionesMayorCantOcupadas', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHabitacionesMayorCantOcupadas
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHabitacionesMayorCantOcupadas
+	@opcion  numeric(1),
+	@anio	 numeric(4)
+	--1 Enero a Marzo
+	--2 Abril a Junio
+	--3 Julio a Septiembre
+	--4 Octubre a Diciembre
+	--5 El año 
+	/* LAS 5 HABITACIONES CON MAYOR CANTIDAD DE DÍAS OCUPADAS*/    
+AS
+
+	DECLARE @iniPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+							   WHEN 1 | 5 THEN 1
+							   WHEN 2 THEN 4
+							   WHEN 3 THEN 7
+							   WHEN 4 THEN 10
+						  END )
+	DECLARE @finPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+						   WHEN 1 THEN 3
+						   WHEN 2 THEN 6
+						   WHEN 3 THEN 9
+						   WHEN 4 | 5 THEN 12
+						END )
+	
+	SELECT DISTINCT TOP 5 (DR.habitacion) AS Habitacion, DR.codHotel, H.nombreHotel, 
+						  SUM(DATEDIFF(day,E.fecIngreso,E.fecEgreso))  AS Cantidad_Dias_Ocupado,
+						  COUNT(DR.Habitacion) as Veces_Ocupado
+	FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+	
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E ON E.codReserva = DR.codReserva
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = DR.codHotel
+	
+	WHERE MONTH (E.fecIngreso) BETWEEN @iniPeriodo AND @iniPeriodo
+		   AND YEAR (E.fecIngreso) = @anio
+							 	
+	GROUP BY DR.habitacion, DR.codHotel, H.nombreHotel
+	
+	ORDER BY 4 DESC
+GO
+
+
+--/PROC GETMEJORCLIENTE
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getMejorCliente', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getMejorCliente
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getMejorCliente
+	@opcion  int,
+	@anio	 int
+	--1 Enero a Marzo
+	--2 Abril a Junio
+	--3 Julio a Septiembre
+	--4 Octubre a Diciembre
+	--5 El año 
+	/* LAS 5 HABITACIONES CON MAYOR CANTIDAD DE DÍAS OCUPADAS*/    
+AS
+
+	DECLARE @iniPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+							   WHEN 1 | 5 THEN 1
+							   WHEN 2 THEN 4
+							   WHEN 3 THEN 7
+							   WHEN 4 THEN 10
+					  END )
+	DECLARE @finPeriodo int
+	SET @iniPeriodo =  (CASE @opcion
+						   WHEN 1 THEN 3
+						   WHEN 2 THEN 6
+						   WHEN 3 THEN 9
+						   WHEN 4 | 5 THEN 12
+				    END )
+				    
+	SELECT DISTINCT TOP 5 (HUES.idHuesped) AS idHuesped, HUES.Apellido, HUES.Nombre,
+						SUM(CASE WHEN ITEMS.descripcion LIKE 'Recargos%' THEN ITEMS.montoTotal / 10 ELSE ITEMS.montoTotal / 5  END)  AS Puntos_Acumulados
+					 FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS
+		
+	 JOIN COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F ON F.numeroFactura = ITEMS.numeroFactura
+	 JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R ON R.codReserva = F.codReserva
+	 JOIN COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES ON HUES.idHuesped = R.idHuesped
+
+	 WHERE MONTH (F.fecha) BETWEEN @iniPeriodo AND @iniPeriodo
+		   AND YEAR (F.fecha) = @anio
+							 	
+	GROUP BY HUES.idHuesped, HUES.Apellido, HUES.Nombre
+	
+	ORDER BY 4 DESC			 
+GO
+
