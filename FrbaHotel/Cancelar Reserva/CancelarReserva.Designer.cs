@@ -118,6 +118,7 @@
             this.buttonBuscarNroReserva.TabIndex = 8;
             this.buttonBuscarNroReserva.Text = "Buscar";
             this.buttonBuscarNroReserva.UseVisualStyleBackColor = true;
+            this.buttonBuscarNroReserva.Click += new System.EventHandler(this.buttonBuscarNroReserva_Click);
             // 
             // groupBox1
             // 
@@ -145,6 +146,7 @@
             this.botonLimpiar.TabIndex = 10;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // botonCancelarReserva
             // 

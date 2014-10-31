@@ -41,6 +41,7 @@
             this.ColumnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.botonBuscar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridHuesped)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -138,6 +139,7 @@
             this.dataGridHuesped.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dataGridHuesped.Size = new System.Drawing.Size(442, 153);
             this.dataGridHuesped.TabIndex = 2;
+            this.dataGridHuesped.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridHuesped_CellContentClick);
             // 
             // ColumnSeleccionar
             // 
@@ -152,6 +154,7 @@
             this.botonLimpiar.TabIndex = 3;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // groupBox2
             // 
@@ -163,11 +166,22 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Huespedes";
             // 
+            // botonBuscar
+            // 
+            this.botonBuscar.Location = new System.Drawing.Point(363, 359);
+            this.botonBuscar.Name = "botonBuscar";
+            this.botonBuscar.Size = new System.Drawing.Size(107, 24);
+            this.botonBuscar.TabIndex = 5;
+            this.botonBuscar.Text = "Buscar";
+            this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
+            // 
             // BuscarIdHuesped
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(499, 397);
+            this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.groupBox1);
@@ -196,5 +210,6 @@
         private System.Windows.Forms.Button botonLimpiar;
         private System.Windows.Forms.DataGridViewButtonColumn ColumnSeleccionar;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button botonBuscar;
     }
 }

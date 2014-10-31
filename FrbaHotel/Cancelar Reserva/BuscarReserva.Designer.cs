@@ -35,12 +35,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimeFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.botonBuscarIdHuesped = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textIdHuesped = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridReserva = new System.Windows.Forms.DataGridView();
             this.ColumnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.botonBuscar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridReserva)).BeginInit();
@@ -51,7 +52,7 @@
             // 
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.botonBuscarIdHuesped);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textIdHuesped);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(27, 19);
             this.groupBox1.Name = "groupBox1";
@@ -59,7 +60,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
-           
             // 
             // groupBox2
             // 
@@ -116,14 +116,15 @@
             this.botonBuscarIdHuesped.TabIndex = 6;
             this.botonBuscarIdHuesped.Text = "Buscar";
             this.botonBuscarIdHuesped.UseVisualStyleBackColor = true;
+            this.botonBuscarIdHuesped.Click += new System.EventHandler(this.botonBuscarIdHuesped_Click);
             // 
-            // textBox1
+            // textIdHuesped
             // 
-            this.textBox1.Location = new System.Drawing.Point(139, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(133, 20);
-            this.textBox1.TabIndex = 3;
+            this.textIdHuesped.Location = new System.Drawing.Point(139, 19);
+            this.textIdHuesped.Name = "textIdHuesped";
+            this.textIdHuesped.ReadOnly = true;
+            this.textIdHuesped.Size = new System.Drawing.Size(133, 20);
+            this.textIdHuesped.TabIndex = 3;
             // 
             // label2
             // 
@@ -152,7 +153,7 @@
             // 
             // botonLimpiar
             // 
-            this.botonLimpiar.Location = new System.Drawing.Point(147, 377);
+            this.botonLimpiar.Location = new System.Drawing.Point(44, 397);
             this.botonLimpiar.Name = "botonLimpiar";
             this.botonLimpiar.Size = new System.Drawing.Size(107, 26);
             this.botonLimpiar.TabIndex = 2;
@@ -169,11 +170,22 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Reservas del huesped";
             // 
+            // botonBuscar
+            // 
+            this.botonBuscar.Location = new System.Drawing.Point(222, 397);
+            this.botonBuscar.Name = "botonBuscar";
+            this.botonBuscar.Size = new System.Drawing.Size(107, 26);
+            this.botonBuscar.TabIndex = 4;
+            this.botonBuscar.Text = "Buscar";
+            this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
+            // 
             // BuscarReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(391, 435);
+            this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.groupBox1);
@@ -194,7 +206,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dataGridReserva;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textIdHuesped;
         private System.Windows.Forms.Button botonBuscarIdHuesped;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dateTimeFechaInicio;
@@ -204,5 +216,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button botonLimpiar;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button botonBuscar;
     }
 }

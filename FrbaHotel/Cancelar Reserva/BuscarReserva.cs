@@ -16,6 +16,20 @@ namespace FrbaHotel.Cancelar_Reserva
             InitializeComponent();
         }
 
+        private void botonBuscarIdHuesped_Click(object sender, EventArgs e)
+        {
+
+            foreach (DataGridViewRow dgvr in dataGridReserva.Rows) 
+                if (dgvr.Selected == true)
+                    dataGridReserva.Rows.Remove(dgvr);
+        }
+
+        private void botonBuscar_Click(object sender, EventArgs e)
+        {
+            ///buscar una reserva segun el id del huesped y un rango de fechas
+
+        }
+
       
     }
 }
