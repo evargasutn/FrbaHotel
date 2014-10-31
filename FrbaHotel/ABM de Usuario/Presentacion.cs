@@ -6,14 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using DOM;
 
-namespace FrbaHotel.ABM_de_Rol
+namespace FrbaHotel.ABM_de_Usuario
 {
     public partial class Presentacion : Form
     {
-        Usuario usuario;
-        public Presentacion()//no es necesario el usuario
+        public Presentacion(string hotel) ///Solo la baja y modificacion recibe el hotel
         {
             InitializeComponent();
         }

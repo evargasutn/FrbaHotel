@@ -1,4 +1,4 @@
-﻿namespace FrbaHotel.ABM_de_Rol
+﻿namespace FrbaHotel.ABM_de_Usuario
 {
     partial class Presentacion
     {
@@ -28,46 +28,46 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.botonAlta = new System.Windows.Forms.Button();
+            this.botonBaja = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
+            // botonAlta
+            // 
+            this.botonAlta.Location = new System.Drawing.Point(83, 50);
+            this.botonAlta.Name = "botonAlta";
+            this.botonAlta.Size = new System.Drawing.Size(119, 46);
+            this.botonAlta.TabIndex = 0;
+            this.botonAlta.Text = "Registrar usuario";
+            this.botonAlta.UseVisualStyleBackColor = true;
+            // 
+            // botonBaja
+            // 
+            this.botonBaja.Location = new System.Drawing.Point(83, 114);
+            this.botonBaja.Name = "botonBaja";
+            this.botonBaja.Size = new System.Drawing.Size(119, 46);
+            this.botonBaja.TabIndex = 1;
+            this.botonBaja.Text = "Dar de baja a Usuario";
+            this.botonBaja.UseVisualStyleBackColor = true;
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(83, 62);
+            this.button1.Location = new System.Drawing.Point(83, 176);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 43);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Alta de Rol";
+            this.button1.Size = new System.Drawing.Size(119, 46);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Modificar usuario";
             this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(83, 130);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(120, 43);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Baja de Rol";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(83, 197);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(120, 43);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "modificación de Rol";
-            this.button3.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 18);
+            this.label1.Location = new System.Drawing.Point(11, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(261, 26);
-            this.label1.TabIndex = 3;
+            this.label1.TabIndex = 4;
             this.label1.Text = "Seleccione la opcion para acceder a la funcionalidad \r\ncorrespondiente.";
             // 
             // Presentacion
@@ -76,11 +76,11 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.botonBaja);
+            this.Controls.Add(this.botonAlta);
             this.Name = "Presentacion";
-            this.Text = "ABM de Rol";
+            this.Text = "ABM de Usuario";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,9 +88,9 @@
 
         #endregion
 
+        private System.Windows.Forms.Button botonAlta;
+        private System.Windows.Forms.Button botonBaja;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label1;
     }
 }
