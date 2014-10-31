@@ -33,6 +33,11 @@ namespace FrbaHotel.ABM_de_Usuario
                 if (textPassword1 == textPassword2){
                     completarEstructuraUserNuevo();
                     DAOUsuario.insertar(userNuevo);
+                    foreach (var item in listRol.SelectedItems)
+                    {
+                       /// Relacionar al usuario con el rol
+                    }
+               
                 }
                 else
                     MessageBox.Show("Vuelva a ingresar el password","Error:Password no identicos");
@@ -59,7 +64,7 @@ namespace FrbaHotel.ABM_de_Usuario
             userNuevo.CampoBaja = true;
         }
 
-        public Boolean camposCompletos()
+        private Boolean camposCompletos()
         {
             if (textUsername.Text == "")
                 return false;
@@ -77,6 +82,9 @@ namespace FrbaHotel.ABM_de_Usuario
                 return false;
             else if (dateTimeNacimiento.Text == "")
                 return false;
+            else if (listRol.SelectedItems==null)
+            return false;
+
             return true;
         }
 
@@ -97,8 +105,10 @@ namespace FrbaHotel.ABM_de_Usuario
             textHotel.Text = " ";
             listRol.SelectedItem = null;
             comboTipoDoc.SelectedItem=null;
-
-
+            for (int item = 0; item < listRol.Items.Count; item++)
+            {
+                listRol.SetItemChecked(item, false);
+            } 
             
         }
 

@@ -15,5 +15,32 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             InitializeComponent();
         }
+
+        private void botonLimpiar_Click(object sender, EventArgs e)
+        {
+
+            //Limpiamos la DataGrid
+            foreach (DataGridViewRow dgvr in dataGridUsuario.Rows)
+                if (dgvr.Selected == true)
+                    dataGridUsuario.Rows.Remove(dgvr);
+            //Limiamos lo demas?
+            textUsuario.Text = "";
+            textNombre.Text = "";
+            textApellido.Text = "";
+            comboRol.SelectedItem = null;
+            
+
+
+
+
+
+        }
+
+        private void botonBuscar_Click(object sender, EventArgs e)
+        {
+            //////
+            ///// completar el datagridview de usarios
+            /////
+        }
     }
 }

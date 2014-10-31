@@ -166,6 +166,7 @@
             this.botonLimpiar.TabIndex = 10;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // botonBuscar
             // 
@@ -175,6 +176,7 @@
             this.botonBuscar.TabIndex = 11;
             this.botonBuscar.Text = "Buscar";
             this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
             // menuStrip1
             // 
