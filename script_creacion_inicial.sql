@@ -219,7 +219,8 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES
 	ciudad			varchar(255) not null,
 	pais			varchar(50) not null default 'Argentina',
 	cantEstrellas	numeric(18,0) not null,
-	recargoEstrella numeric(18,0) not null
+	recargoEstrella numeric(18,0) not null,
+	campoBaja		bit not null default 0
 )
 go
 
@@ -474,7 +475,6 @@ GO*/
 GO
 		
 --//HOTELES
-/*No es posible tomar nombreHotel como PK porque en la tabla maestra no estan los nombres de los hoteles*/
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES(direccionCalle, direccionNumero, ciudad, cantEstrellas, recargoEstrella)
 	SELECT DISTINCT Hotel_Calle, Hotel_Nro_Calle, Hotel_Ciudad, Hotel_CantEstrella, Hotel_Recarga_Estrella
 	FROM  gd_esquema.Maestra
@@ -989,6 +989,7 @@ AS
 		DROP TABLE ##TEMP_TABLA
 	END
 GO
+
 --//PROC INTENTOFALLIDOUSUARIO
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.intentoFallidoUsuario', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.intentoFallidoUsuario
@@ -1007,6 +1008,30 @@ AS
 	SET contador_intentos_login = (CASE WHEN @contador_actual < 3 THEN contador_intentos_login + 1 ELSE 0 END)
 	WHERE usr = @usr
 GO
+
+
+--/PROCEDIMIENTO GETHABITACION
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHabitacion', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHabitacion
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHabitacion
+	@habitacion numeric(4),
+	@codHotel numeric(8)
+AS
+	BEGIN
+			IF (@habitacion = -1)
+				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+				WHERE H.campoBaja = 0 AND H.codHotel = @codHotel				
+			ELSE
+				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+				WHERE H.habitacion = @habitacion AND H.codHotel = @codHotel				
+	END
+GO
+
 
 --/PROCEDIMIENTO INSERTAR HABITACION
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertHabitacion', 'P' ) IS NOT NULL 
@@ -1066,6 +1091,67 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimen
 			ELSE
 				SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
 				WHERE R.codRegimen = @codigo
+		END 
+GO
+
+--/PROC INSERTREGIMEN 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertRegimen', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRegimen
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRegimen
+	@codigoRegimen numeric(8),
+	@descripcion varchar(255),
+	@precio numeric (18,2)
+	AS
+		BEGIN
+		   INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen, descripcion, precio, estado)
+		   VALUES (@codigoRegimen, @descripcion, @precio, 1)
+		END 
+GO
+
+
+--/PROC UPDATEREGIMEN
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateRegimen', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateRegimen
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateRegimen
+	@codigoRegimen numeric(8),
+	@descripcion varchar(255),
+	@precio numeric (18,2),
+	@estado bit
+	AS
+		BEGIN
+		   UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
+		   SET  descripcion = @descripcion,
+				precio = @precio,
+				estado = @estado
+		   WHERE codRegimen = @codigoRegimen
+		END 
+GO
+
+--/PROC DELETEREGIMEN
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteRegimen', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteRegimen
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteRegimen
+	@codigoRegimen numeric(8)
+	AS
+		BEGIN
+		   UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
+		   SET  estado = 0
+		   WHERE codRegimen = @codigoRegimen
 		END 
 GO
 
@@ -1152,29 +1238,52 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteHotel
 AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES(hotel, fecInicio, fecFin, motivo)
 	VALUES(@codHotel, @fecInicio, @fecFin, @motivo)
+	
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+	SET campoBaja = 0
+	WHERE codHotel = @codHotel
 GO
-/*
-	hotel			numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
-	fecInicio		datetime not null,
-	fecFin			datetime not null,
-	motivo			varchar(255) not null,
 
-	codHotel		numeric(8) identity(1,1) PRIMARY KEY,
-	nombreHotel		varchar(50) not null default 'A',
-	mail			varchar(50) default '',
-	fecCreacion		datetime not null default GETDATE(),
-	telefono		numeric(20) not null default '11111111',
-	direccionCalle	varchar(255) not null,
-	direccionNumero	numeric(18,0) not null,
-	ciudad			varchar(255) not null,
-	pais			varchar(50) not null default 'Argentina',
-	cantEstrellas	numeric(18,0) not null,
-	recargoEstrella numeric(18,0) not null
-
-updateHotel(codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas, codRegimen)
-	Si alguno de los campos que no son nulos es "" en caso de los strings o -1 en caso de los numeros, no los actualiza
-	Si el codigo regimen existe, asocia el regimen
-*/
+--//PROC UPDATEHOTEL
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateHotel', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHotel
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHotel
+	@codHotel	numeric(8),
+	@nombreHotel	varchar(50),
+	@mail	varchar(50),
+	@telefono	numeric(20),
+	@direccionCalle	varchar(255),
+	@direccionNumero	numeric(18),
+	@ciudad	varchar(255),
+	@pais	varchar(50),
+	@cantEstrellas	numeric(18),
+	@recargoEstrella	numeric(18),
+	@estado bit
+AS
+	IF (@codHotel IS NOT NULL AND @nombreHotel IS NOT NULL AND
+	@mail IS NOT NULL AND @telefono	IS NOT NULL AND
+	@direccionCalle IS NOT NULL AND	@direccionNumero IS NOT NULL AND
+	@ciudad	IS NOT NULL AND	@pais IS NOT NULL AND
+	@cantEstrellas IS NOT NULL AND	@recargoEstrella IS NOT NULL AND
+	@estado IS NOT NULL) 
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+		SET nombreHotel = @nombreHotel,
+			mail = @mail,
+			telefono = @telefono,
+			direccionCalle = @direccionCalle,
+			@direccionNumero = @direccionNumero,
+			ciudad = @ciudad,
+			pais = @pais,
+			cantEstrellas = @cantEstrellas,
+			recargoEstrella = @recargoEstrella,
+			campoBaja = @estado
+		WHERE codHotel= @codHotel
+GO
 
 --/PROC GETRESERVA 
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getReserva', 'P' ) IS NOT NULL 
