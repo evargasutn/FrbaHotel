@@ -31,7 +31,7 @@
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboCantEstrellas = new System.Windows.Forms.ComboBox();
             this.listaRegimenes = new System.Windows.Forms.CheckedListBox();
             this.lblRegimen = new System.Windows.Forms.Label();
             this.textCiudad = new System.Windows.Forms.TextBox();
@@ -61,6 +61,7 @@
             this.botonLimpiar.TabIndex = 29;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // botonGuardar
             // 
@@ -70,10 +71,11 @@
             this.botonGuardar.TabIndex = 28;
             this.botonGuardar.Text = "Guardar";
             this.botonGuardar.UseVisualStyleBackColor = true;
+            this.botonGuardar.Click += new System.EventHandler(this.botonGuardar_Click);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.comboBox1);
+            this.groupBox2.Controls.Add(this.comboCantEstrellas);
             this.groupBox2.Controls.Add(this.listaRegimenes);
             this.groupBox2.Controls.Add(this.lblRegimen);
             this.groupBox2.Controls.Add(this.textCiudad);
@@ -99,13 +101,13 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
             // 
-            // comboBox1
+            // comboCantEstrellas
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(138, 155);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(141, 21);
-            this.comboBox1.TabIndex = 38;
+            this.comboCantEstrellas.FormattingEnabled = true;
+            this.comboCantEstrellas.Location = new System.Drawing.Point(138, 155);
+            this.comboCantEstrellas.Name = "comboCantEstrellas";
+            this.comboCantEstrellas.Size = new System.Drawing.Size(141, 21);
+            this.comboCantEstrellas.TabIndex = 38;
             // 
             // listaRegimenes
             // 
@@ -294,6 +296,6 @@
         private System.Windows.Forms.Label lblNombre;
         private System.Windows.Forms.CheckedListBox listaRegimenes;
         private System.Windows.Forms.Label lblRegimen;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboCantEstrellas;
     }
 }
