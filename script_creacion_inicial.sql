@@ -1077,6 +1077,55 @@ AS
 VALUES(@codHotel, @habitacion, @piso, @ubicacion, @codTipo, @descripcion, 0)
 GO
 
+--//PROC UPDATEHABITACION
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateHabitacion', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHabitacion
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHabitacion
+	@codHotel numeric(8),
+	@habitacion numeric(4),
+	@piso numeric(2),
+	@ubicacion varchar(255),
+	@tipo varchar(50),
+	@descripcion varchar(255),
+	@campoBaja bit
+AS
+	IF (@codHotel IS NOT NULL AND @habitacion IS NOT NULL AND
+	@piso IS NOT NULL AND @ubicacion IS NOT NULL AND
+	@tipo IS NOT NULL AND @descripcion IS NOT NULL AND
+	@campoBaja IS NOT NULL) 
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
+		SET codHotel = @codHotel,
+			campoBaja = @campoBaja,
+			piso = @piso,
+			tipoCodigo = @tipo,
+			ubicacion = @ubicacion,
+			descripcion = @descripcion
+			
+		WHERE habitacion= @habitacion
+GO
+
+--//PROC DELETEHABITACION
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteHabitacion', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteHabitacion
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteHabitacion
+	@codHotel numeric(8),
+	@habitacion numeric(4)
+AS
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
+	SET campoBaja = 1
+	WHERE habitacion= @habitacion AND codHotel = @codHotel
+GO
+
 --/PROCEDIMIENTO GET REGIMEN BY HOTEL 
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
@@ -1733,6 +1782,111 @@ AS
 	SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, C.descripcion
 	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
+GO
+
+--/PROC INSERTESTADIA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertEstadia', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertEstadia
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertEstadia
+	@codReserva numeric(18),
+	@usr varchar(50)		
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ESTADIA(codReserva, usrIngreso, fecIngreso)
+	VALUES(@codReserva, @usr, CURRENT_TIMESTAMP)
+GO
+--/PROC UPDATEESTADIA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateEstadia', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateEstadia
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateEstadia
+	@codReserva numeric(18),
+	@usr varchar(50)		
+AS
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA
+	SET usrEgreso = @usr, fecEgreso = CURRENT_TIMESTAMP
+	WHERE codReserva = @codReserva
+GO
+
+--/PROC AGREGAR CONSUMIBLE A UNA ESTADIA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.agregarConsumible', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.agregarConsumible
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.agregarConsumible
+	@codReserva numeric(18),
+	@codConsumible numeric(18), @cantidad numeric(3)		
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA(codReserva, codConsumible, cantidad)
+	VALUES(@codReserva, @codConsumible, @cantidad)
+GO
+
+--/PROC GETCONSUMIBLES
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getConsumibles', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumibles
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumibles
+	@codConsumible numeric(18)		
+AS
+	IF (@codConsumible = -1)
+		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C
+	ELSE
+		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C WHERE C.codConsumible = @codConsumible
+
+GO
+
+--/PROC INSERTCONSUMIBLE 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertConsumible', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertConsumible
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertConsumible
+	@descripcion varchar(255),
+	@importe numeric(18,2)
+	AS
+		BEGIN
+		   INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(descripcion, importe)
+		   VALUES (@descripcion, @importe)
+		END 
+GO
+
+--//PROC UPDATECONSUMIBLE
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateConsumible', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateConsumible
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateConsumible
+	@codConsumible numeric(18,0),
+	@descripcion varchar(255),
+	@importe numeric(18,2)
+AS
+	IF (@codConsumible IS NOT NULL AND 
+		@descripcion IS NOT NULL AND @importe IS NOT NULL)
+		
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
+		SET descripcion = @descripcion, importe = @importe
+		WHERE codConsumible = @codConsumible
 GO
 
 /*****************************************************************************************
