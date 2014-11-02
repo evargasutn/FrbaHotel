@@ -46,13 +46,13 @@ namespace DOM.DAO
             return lista[0];
         }
 
-        public static bool insertar(Regimen regimen)
-        {
-            int codRegimen = regimen.CodRegimen;
-            string descripcion = regimen.Descripcion;
-            double precio = regimen.Precio;
-            return executeProcedure("insertRegimen", codRegimen, descripcion, precio);
-        }
+        //public static bool insertar(Regimen regimen)
+        //{
+        //    int codRegimen = regimen.CodRegimen;
+        //    string descripcion = regimen.Descripcion;
+        //    double precio = regimen.Precio;
+        //    return executeProcedure("insertRegimen", codRegimen, descripcion, precio);
+        //}
 
         public static bool borrar(int codRegimen)
         {
