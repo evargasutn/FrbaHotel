@@ -110,7 +110,7 @@ COMMIT;
 create table COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 (
 	usr							varchar(50) PRIMARY KEY,
-	password					varchar(50) not null, 
+	password					varchar(256) not null, 
 	nombre						varchar(255) not null,
 	apellido					varchar(255) not null,
 	contador_intentos_login		numeric(1,0) default 0, -- 3 intentos
@@ -407,7 +407,7 @@ go
  	
 --//USUARIO, Administrador	
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre, apellido, tipoDocu, numDocu, direccionCalle, direccionNumero, FecNacimiento) 
-	VALUES 	('admin','w23e','Administrador General', 'Gerez', 'DNI', '24264123', 'Av. Cordoba', '8834', '17/04/1981')
+	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','Administrador General', 'Gerez', 'DNI', '24264123', 'Av. Cordoba', '8834', '17/04/1981')
 GO
 	
 --//ROL
@@ -805,6 +805,22 @@ AS
 	WHERE nombreRol = @nombreRol
 GO
 
+
+--//PROC INSERTROLUSUARIO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertRolUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRolUsuario
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRolUsuario
+	@rol varchar(50),
+	@usr varchar(50)	
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO (nombreRol, usr) 
+	VALUES (@rol, @usr)
+GO
 --//PRC ADD ROL_X_FUNCIONALIDAD
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.addFuncionalidad', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.addFuncionalidad
