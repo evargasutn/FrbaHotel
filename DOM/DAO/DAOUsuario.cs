@@ -6,6 +6,7 @@ using DOM.Auxiliares;
 using System.Net.Mail;
 using FrbaHotel.DOM;
 using System.Data;
+using System.Security.Cryptography;
 
 namespace DOM
 {
@@ -53,7 +54,9 @@ namespace DOM
             string dir_calle = usuario.Direccion.calle_direccion;
             int dir_altura = usuario.Direccion.calle_altura;
             string fecha_nacimiento = usuario.Fecha_nacimiento;
-            return executeProcedure("insertUsuario", usr, password, nombre, apellido, email, doc_tipo, doc_num, telefono, dir_calle, dir_altura, fecha_nacimiento);
+            int piso = usuario.Direccion.calle_piso;
+            string dpto = usuario.Direccion.calle_dpto;
+            return executeProcedure("insertUsuario", usr, password, nombre, apellido, doc_tipo, doc_num, email, telefono, dir_calle, dir_altura, piso, dpto, fecha_nacimiento);
         }
 
         public static bool borrar(string usr)
@@ -118,5 +121,17 @@ namespace DOM
             return lista;
         }
         #endregion
+
+
+        #region Hash Password
+        public static string hashPassword(string password)
+        {
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(password);
+            byte[] hash = SHA256.Create().ComputeHash(data);
+
+            return BitConverter.ToString(hash).Replace("-", string.Empty).ToLower();
+        }
+        #endregion
+
     }
 }

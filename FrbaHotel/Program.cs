@@ -18,9 +18,9 @@ namespace FrbaHotel
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Inicial());
-            //Application.Run(new ABM_de_Rol.RolBajaMod());
+            Application.Run(new ABM_de_Usuario.UsuarioAlta());
             //Application.Run(new Generar_Modificar_Reserva.GenerarReserva());
-            Application.Run(new Listado_Estadistico.ListadoEstadistico());
+            //Application.Run(new Listado_Estadistico.ListadoEstadistico());
         }
     }
 }

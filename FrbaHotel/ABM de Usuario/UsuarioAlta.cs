@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Security.Cryptography;
 using DOM;
 using DOM.DAO;
 using DOM.Dominio;
@@ -19,10 +20,13 @@ namespace FrbaHotel.ABM_de_Usuario
         public UsuarioAlta()
         {
             InitializeComponent();
+            
         ////Se carga el listRol
             rolesPosibles=DAORol.traerTodosLosRolesPosibles();
-             foreach (Rol unRol in rolesPosibles)
-               listRol.Items.Add(unRol.Nombre);        
+            foreach (Rol unRol in rolesPosibles)
+                listRol.Items.Add(unRol.Nombre);
+            
+            comboTipoDoc.SelectedIndex = 0;
         }
 
 
@@ -30,12 +34,16 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             if (camposCompletos())
             {
-                if (textPassword1 == textPassword2){
+                if (Equals(textPassword1.Text, textPassword2.Text)){
                     completarEstructuraUserNuevo();
-                    DAOUsuario.insertar(userNuevo);
+                    if (DAOUsuario.insertar(userNuevo))
+                        MessageBox.Show("Alta de Usuario correcta");
+                    else
+                        MessageBox.Show("Alta de Usuario erronea");
+
                     foreach (var item in listRol.SelectedItems)
                     {
-                       /// Relacionar al usuario con el rol
+                        DAORol.insertarRolUsuario(item.ToString(), userNuevo.Usr);
                     }
                
                 }
@@ -49,19 +57,19 @@ namespace FrbaHotel.ABM_de_Usuario
         public void completarEstructuraUserNuevo()
         {
             userNuevo.Usr = textUsername.Text;
-            userNuevo.Nombre = textApellido.Text;
+            userNuevo.Nombre = textNombre.Text;
             userNuevo.Apellido = textApellido.Text;
-            userNuevo.Password = textPassword1.Text;////pasar a sha 256
+            userNuevo.Password = DAOUsuario.hashPassword(textPassword1.Text);
             userNuevo.TipoDocu = Documento.string_docu[comboTipoDoc.SelectedIndex];
-            userNuevo.NroDocu = Convert.ToInt16(textNumDoc.Text);
+            userNuevo.NroDocu = Convert.ToInt32(textNumDoc.Text);
             userNuevo.Mail = textMail.Text;
-            userNuevo.Telefono = Convert.ToInt16(textTelefono.Text);
+            userNuevo.Telefono = Convert.ToInt32(textTelefono.Text);
             userNuevo.Direccion.calle_direccion = textDirCalle.Text;
-            userNuevo.Direccion.calle_altura = Convert.ToInt16(textDirAltura.Text);
-            userNuevo.Direccion.calle_piso = Convert.ToInt16(textDirPiso.Text);
-            userNuevo.Direccion.calle_dpto = textDirDpto.Text;
+            userNuevo.Direccion.calle_altura = Convert.ToInt32(textDirAltura.Text);
+            userNuevo.Direccion.calle_piso = textDirPiso.Text != "" ? Convert.ToInt32(textDirPiso.Text) : 0;
+            userNuevo.Direccion.calle_dpto = textDirDpto.Text != "" ? textDirDpto.Text : "";
             userNuevo.Fecha_nacimiento = Convert.ToString(dateTimeNacimiento.Value);
-            userNuevo.CampoBaja = true;
+            userNuevo.CampoBaja = false;
         }
 
         private Boolean camposCompletos()
@@ -104,15 +112,14 @@ namespace FrbaHotel.ABM_de_Usuario
             textTelefono.Text = " ";
             textHotel.Text = " ";
             listRol.SelectedItem = null;
-            comboTipoDoc.SelectedItem=null;
+            comboTipoDoc.SelectedItem = null;
             for (int item = 0; item < listRol.Items.Count; item++)
             {
                 listRol.SetItemChecked(item, false);
-            } 
-            
+            }
+
         }
 
-
-
+       
     }
 }

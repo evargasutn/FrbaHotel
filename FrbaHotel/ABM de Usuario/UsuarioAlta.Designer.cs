@@ -30,6 +30,7 @@ namespace FrbaHotel.ABM_de_Usuario
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listRol = new System.Windows.Forms.CheckedListBox();
             this.textPassword2 = new System.Windows.Forms.TextBox();
@@ -68,9 +69,6 @@ namespace FrbaHotel.ABM_de_Usuario
             this.lblRol = new System.Windows.Forms.Label();
             this.lblPassword1 = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.SuspendLayout();
             // 
             // groupBox1
             // 
@@ -134,6 +132,7 @@ namespace FrbaHotel.ABM_de_Usuario
             this.botonGuardar.TabIndex = 25;
             this.botonGuardar.Text = "Guardar";
             this.botonGuardar.UseVisualStyleBackColor = true;
+            this.botonGuardar.Click += new System.EventHandler(this.botonGuardar_Click);
             // 
             // textPassword1
             // 
@@ -257,6 +256,11 @@ namespace FrbaHotel.ABM_de_Usuario
             // comboTipoDoc
             // 
             this.comboTipoDoc.FormattingEnabled = true;
+            this.comboTipoDoc.Items.AddRange(new object[] {
+            "DNI",
+            "LC",
+            "LE",
+            "Pasaporte"});
             this.comboTipoDoc.Location = new System.Drawing.Point(138, 78);
             this.comboTipoDoc.Name = "comboTipoDoc";
             this.comboTipoDoc.Size = new System.Drawing.Size(141, 21);
@@ -430,7 +434,6 @@ namespace FrbaHotel.ABM_de_Usuario
             // 
             // UsuarioAlta
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 381);
             this.Controls.Add(this.groupBox1);
@@ -484,6 +487,5 @@ namespace FrbaHotel.ABM_de_Usuario
         private System.Windows.Forms.TextBox textPassword2;
         private System.Windows.Forms.Label lblPassword2;
         private System.Windows.Forms.CheckedListBox listRol;
-
     }
 }

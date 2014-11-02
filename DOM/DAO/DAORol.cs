@@ -71,9 +71,13 @@ namespace DOM
 
         public static List<Rol> traerTodosLosRolesPosibles()
         {
-            return transductor(obtenerTabla());
+            List<Rol> filtrada = transductor(obtenerTabla()).Where(elemento => elemento.Nombre != "Guest").ToList();
+            return filtrada;
         }
 
-
+        public static bool insertarRolUsuario(string rol, string usr)
+        {
+            return executeProcedure("insertRolUsuario", rol, usr);
+        }
     }
 }

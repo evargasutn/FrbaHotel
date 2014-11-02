@@ -50,14 +50,14 @@ namespace FrbaHotel.Login
         /// </summary>
         public void cargarFormularios()
         {
-            nombreFuncsXFormulario.Add("ABM de Rol", new ABM_de_Rol.Presentacion());
-            nombreFuncsXFormulario.Add("ABM de Usuario", new ABM_de_Usuario.Presentacion(hotelNombre));
-            nombreFuncsXFormulario.Add("ABM de Huespedes",new ABM_de_Cliente.Presentacion());
-            nombreFuncsXFormulario.Add("ABM de Hotel",new ABM_de_Hotel.Presentacion());
+            nombreFuncsXFormulario.Add("ABM de Rol", new ABM_de_Rol.RolAlta());
+            nombreFuncsXFormulario.Add("ABM de Usuario", new ABM_de_Usuario.UsuarioAlta());
+            nombreFuncsXFormulario.Add("ABM de Huespedes",new ABM_de_Cliente.ClienteAlta());
+            nombreFuncsXFormulario.Add("ABM de Hotel",new ABM_de_Hotel.HotelAlta());
             nombreFuncsXFormulario.Add("ABM de Regimen",new ABM_de_Habitacion.HabitacionAlta());
-            nombreFuncsXFormulario.Add("Generar o Modificar una Reserva",new Generar_Modificar_Reserva.Presentacion(usuario,hotelNombre));
+            nombreFuncsXFormulario.Add("Generar o Modificar una Reserva",new Generar_Modificar_Reserva.GenerarReserva());
             nombreFuncsXFormulario.Add("Cancelar Reserva",new Cancelar_Reserva.CancelarReserva(usuario,hotelNombre));
-            nombreFuncsXFormulario.Add("Registrar Estadia",new Registrar_Estadia.Presentacion(usuario,hotelNombre));
+            nombreFuncsXFormulario.Add("Registrar Estadia",new Registrar_Estadia.Check_In());
             nombreFuncsXFormulario.Add("Registrar Consumibles",new Registrar_Consumible.RegistrarConsumibles());
            // formularioXNombre.Add("Facturar Estadia",new ); 
             nombreFuncsXFormulario.Add("Listado Estadistico", new Listado_Estadistico.ListadoEstadistico());
