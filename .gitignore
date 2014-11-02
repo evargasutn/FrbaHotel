@@ -2,3 +2,8 @@
 FrbaHotel.suo
 *.Cache
 *.cache
+*.dll
+*.pdb
+*.exe
+*.Cache
+*.resources
