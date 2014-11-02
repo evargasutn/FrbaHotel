@@ -23,7 +23,7 @@ namespace FrbaHotel.Cancelar_Reserva
 
         private void buttonBuscarNroReserva_Click(object sender, EventArgs e)
         {
-            textNroReserva.Text = new BuscarIdHuesped();//devolver un valor(el id de la reserva)
+            textNroReserva.Text = Convert.ToString(new BuscarIdHuesped() );//devolver un valor(el id de la reserva)
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
