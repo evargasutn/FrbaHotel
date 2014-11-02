@@ -24,32 +24,28 @@ namespace DOM
                 return null;
             return lista[0];
         }
-/// <summary>
-/// Modificar obtenerTodos devuelve una lista de todos los roles segun el nombre del usuario
-/// </summary>
-/// <param name="usr"></param>
-/// <returns></returns>
+
         public static List<Rol> obtenerTodos(string usr)
         {
-            //return tranductor(obtenerByUsr(usr));
-         return new List<Rol>();       
+            List<Rol> lista = transductor(retrieveDataTable("getRolUsuario", usr));
+            return lista;
         }
-
 
 
 
         public static bool insertar(Rol rol)
         {
-/*            string estado = "0";
-            if (rol.Estado)
-                estado = "1";
- */ 
+            /*            string estado = "0";
+                        if (rol.Estado)
+                            estado = "1";
+             */
             return executeProcedure("insertRol", rol.Nombre, rol.Estado);
         }
 
         public static bool guardar(Rol rol)
         {
-//            int estado = (rol.Estado) ? 1 : 0;
+
+            //int estado = (rol.Estado) ? 1 : 0;
             return executeProcedure("updateRol", rol.Nombre, rol.Estado);
         }
 
@@ -72,5 +68,12 @@ namespace DOM
                 }
             return lista;
         }
+
+        public static List<Rol> traerTodosLosRolesPosibles()
+        {
+            return transductor(obtenerTabla());
+        }
+
+
     }
 }
