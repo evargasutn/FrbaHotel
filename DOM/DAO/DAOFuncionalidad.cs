@@ -52,7 +52,7 @@ namespace DOM
 
         public static bool agregarFuncionalidad(string rol, int p)
         {
-            return executeProcedure("addFuncionalidad", rol, p);
+            return executeProcedure("addFuncionalidad", p, rol);
         }
         #endregion
 

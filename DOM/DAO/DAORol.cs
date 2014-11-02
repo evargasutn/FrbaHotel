@@ -40,16 +40,17 @@ namespace DOM
 
         public static bool insertar(Rol rol)
         {
-            string estado = "0";
+/*            string estado = "0";
             if (rol.Estado)
                 estado = "1";
-            return executeProcedure("insertRol", rol.Nombre, estado);
+ */ 
+            return executeProcedure("insertRol", rol.Nombre, rol.Estado);
         }
 
         public static bool guardar(Rol rol)
         {
-            int estado = (rol.Estado) ? 1 : 0;
-            return executeProcedure("updateRol", rol.Nombre, estado);
+//            int estado = (rol.Estado) ? 1 : 0;
+            return executeProcedure("updateRol", rol.Nombre, rol.Estado);
         }
 
         public static bool borrar(string rolAbaja)
