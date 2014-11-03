@@ -89,6 +89,8 @@ namespace DOM
                 huesped.Apellido = Convert.ToString(fila["apellido"]);
                 huesped.TipoDocu = Convert.ToString(fila["tipoDocu"]);
                 huesped.NroDocu = Convert.ToInt32(fila["numDocu"]);
+                huesped.Localidad = Convert.ToString(fila["localidad"]);
+                huesped.Nacionalidad = Convert.ToString(fila["nacionalidad"]);
                 huesped.Direccion.calle_direccion = Convert.ToString(fila["direccionCalle"]);
                 huesped.Direccion.calle_altura = Convert.ToInt32(fila["direccionNumero"]);
                 huesped.Fecha_nacimiento_struct = Convert.ToDateTime(fila["fecNacimiento"]);

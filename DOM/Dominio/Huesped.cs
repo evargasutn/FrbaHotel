@@ -51,6 +51,12 @@ namespace DOM.Dominio
             set { documento.tipoDoc = value; }
         }
 
+        public DocumentoTipoEnum TipoDocu_enum
+        {
+            get { return documento.Tipo; }
+            set { documento.Tipo = value; }
+        }
+
         public int NroDocu
         {
             get { return documento.nroDoc; }
