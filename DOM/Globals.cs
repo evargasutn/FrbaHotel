@@ -62,119 +62,253 @@ namespace DOM
 
         #endregion
 
-        //En cualquier momento vuelo esto, trabajo dirctamente con las clases como estaticas
-        #region DAO
-        private static DAOUsuario usuario = new DAOUsuario();
-        private static DAORol rol = new DAORol();
-        private static DAOFuncionalidad funcionalidad = new DAOFuncionalidad();
-
-        public static DAOUsuario USUARIOS
-        {
-            get { return usuario; }
-        }
-        public static DAORol ROL
-        {
-            get { return rol; }
-        }
-        public static DAOFuncionalidad FUNCIONALIDAD
-        {
-            get { return funcionalidad; }
-        }
-
+        #region Paises array
+        public static string[] paises = new string[] {  "Abjasia",
+                                                        "Acrotiri y Dhekelia",
+                                                        "Afganistán",
+                                                        "Albania",
+                                                        "Alemania",
+                                                        "Andorra",
+                                                        "Angola",
+                                                        "Anguila",
+                                                        "Antigua y Barbuda",
+                                                        "Arabia Saudita",
+                                                        "Argelia",
+                                                        "Argentina",
+                                                        "Armenia",
+                                                        "Aruba",
+                                                        "Australia",
+                                                        "Austria",
+                                                        "Azerbaiyán",
+                                                        "Bahamas",
+                                                        "Bangladés",
+                                                        "Barbados",
+                                                        "Baréin",
+                                                        "Bélgica",
+                                                        "Belice",
+                                                        "Benín",
+                                                        "Bermudas",
+                                                        "Bielorrusia",
+                                                        "Birmania",
+                                                        "Bolivia",
+                                                        "Bosnia y Herzegovina",
+                                                        "Botsuana",
+                                                        "Brasil",
+                                                        "Brunéi",
+                                                        "Bulgaria",
+                                                        "Burkina Faso",
+                                                        "Burundi",
+                                                        "Bután",
+                                                        "Cabo Verde",
+                                                        "Caimán, Islas",
+                                                        "Camboya",
+                                                        "Camerún",
+                                                        "Canadá",
+                                                        "Catar",
+                                                        "Centroafricana, República",
+                                                        "Chad",
+                                                        "Checa, República",
+                                                        "Chile",
+                                                        "China",
+                                                        "Chipre",
+                                                        "Chipre del Norte",
+                                                        "Cocos, Islas",
+                                                        "Colombia",
+                                                        "Comoras",
+                                                        "Congo, República del",
+                                                        "Congo, República Democrática del",
+                                                        "Cook, Islas",
+                                                        "Corea del Norte",
+                                                        "Corea del Sur",
+                                                        "Costa de Marfil",
+                                                        "Costa Rica",
+                                                        "Croacia",
+                                                        "Cuba",
+                                                        "Curazao",
+                                                        "Dinamarca",
+                                                        "Dominica",
+                                                        "Dominicana, República",
+                                                        "Ecuador",
+                                                        "Egipto",
+                                                        "El Salvador",
+                                                        "Emiratos Árabes Unidos",
+                                                        "Eritrea",
+                                                        "Eslovaquia",
+                                                        "Eslovenia",
+                                                        "España",
+                                                        "Estado Islámico",
+                                                        "Estados Unidos",
+                                                        "Estonia",
+                                                        "Etiopía",
+                                                        "Feroe, Islas",
+                                                        "Filipinas",
+                                                        "Finlandia",
+                                                        "Fiyi",
+                                                        "Francia",
+                                                        "Gabón",
+                                                        "Gambia",
+                                                        "Georgia",
+                                                        "Ghana",
+                                                        "Gibraltar",
+                                                        "Granada",
+                                                        "Grecia",
+                                                        "Groenlandia",
+                                                        "Guam",
+                                                        "Guatemala",
+                                                        "Guernsey",
+                                                        "Guinea",
+                                                        "Guinea Ecuatorial",
+                                                        "Guinea-Bisáu",
+                                                        "Guyana",
+                                                        "Haití",
+                                                        "Honduras",
+                                                        "Hong Kong",
+                                                        "Hungría",
+                                                        "India",
+                                                        "Indonesia",
+                                                        "Irak",
+                                                        "Irán",
+                                                        "Irlanda",
+                                                        "Islandia",
+                                                        "Israel",
+                                                        "Italia",
+                                                        "Jamaica",
+                                                        "Japón",
+                                                        "Jersey",
+                                                        "Jordania",
+                                                        "Kazajistán",
+                                                        "Kenia",
+                                                        "Kirguistán",
+                                                        "Kiribati",
+                                                        "Kosovo",
+                                                        "Kuwait",
+                                                        "Laos",
+                                                        "Lesoto",
+                                                        "Letonia",
+                                                        "Líbano",
+                                                        "Liberia",
+                                                        "Libia",
+                                                        "Liechtenstein",
+                                                        "Lituania",
+                                                        "LTNA",
+                                                        "Luxemburgo",
+                                                        "Macao",
+                                                        "Macedonia",
+                                                        "Madagascar",
+                                                        "Malasia",
+                                                        "Malaui",
+                                                        "Maldivas",
+                                                        "Malí",
+                                                        "Malta",
+                                                        "Malvinas, Islas",
+                                                        "Man, Isla de",
+                                                        "Marianas del Norte, Islas",
+                                                        "Marruecos",
+                                                        "Marshall, Islas",
+                                                        "Mauricio",
+                                                        "Mauritania",
+                                                        "México",
+                                                        "Micronesia",
+                                                        "Moldavia",
+                                                        "Mónaco",
+                                                        "Mongolia",
+                                                        "Montenegro",
+                                                        "Montserrat",
+                                                        "Mozambique",
+                                                        "Nagorno Karabaj",
+                                                        "Namibia",
+                                                        "Nauru",
+                                                        "Navidad, Isla de",
+                                                        "Nepal",
+                                                        "Nicaragua",
+                                                        "Níger",
+                                                        "Nigeria",
+                                                        "Niue",
+                                                        "Norfolk, Isla",
+                                                        "Noruega",
+                                                        "Nueva Caledonia",
+                                                        "Nueva Rusia",
+                                                        "Nueva Zelanda",
+                                                        "Omán",
+                                                        "Osetia del Sur",
+                                                        "Países Bajos",
+                                                        "Pakistán",
+                                                        "Palaos",
+                                                        "Palestina",
+                                                        "Panamá",
+                                                        "Papúa Nueva Guinea",
+                                                        "Paraguay",
+                                                        "Perú",
+                                                        "Pitcairn, Islas",
+                                                        "Polinesia Francesa",
+                                                        "Polonia",
+                                                        "Portugal",
+                                                        "Puerto Rico",
+                                                        "Reino Unido",
+                                                        "Ruanda",
+                                                        "Rumania",
+                                                        "Rusia",
+                                                        "Sahara Occidental",
+                                                        "Salomón, Islas",
+                                                        "Samoa",
+                                                        "Samoa Americana",
+                                                        "San Bartolomé",
+                                                        "San Cristóbal y Nieves",
+                                                        "San Marino",
+                                                        "San Martín",
+                                                        "San Pedro y Miquelón",
+                                                        "San Vicente y las Granadinas",
+                                                        "Santa Elena, Ascensión y Tristán de Acuña",
+                                                        "Santa Lucía",
+                                                        "Santo Tomé y Príncipe",
+                                                        "Senegal",
+                                                        "Serbia",
+                                                        "Seychelles",
+                                                        "Sierra Leona",
+                                                        "Singapur",
+                                                        "Sint Maarten",
+                                                        "Siria",
+                                                        "Somalia",
+                                                        "Somalilandia",
+                                                        "Sri Lanka",
+                                                        "Suazilandia",
+                                                        "Sudáfrica",
+                                                        "Sudán",
+                                                        "Sudán del Sur",
+                                                        "Suecia",
+                                                        "Suiza",
+                                                        "Surinam",
+                                                        "Svalbard",
+                                                        "Tailandia",
+                                                        "Taiwán",
+                                                        "Tanzania",
+                                                        "Tayikistán",
+                                                        "Timor Oriental",
+                                                        "Togo",
+                                                        "Tokelau",
+                                                        "Tonga",
+                                                        "Transnistria",
+                                                        "Trinidad y Tobago",
+                                                        "Túnez",
+                                                        "Turcas y Caicos, Islas",
+                                                        "Turkmenistán",
+                                                        "Turquía",
+                                                        "Tuvalu",
+                                                        "Ucrania",
+                                                        "Uganda",
+                                                        "Uruguay",
+                                                        "Uzbekistán",
+                                                        "Vanuatu",
+                                                        "Vaticano, Ciudad del",
+                                                        "Venezuela",
+                                                        "Vietnam",
+                                                        "Vírgenes Británicas, Islas",
+                                                        "Vírgenes de los Estados Unidos, Islas",
+                                                        "Wallis y Futuna",
+                                                        "Yemen",
+                                                        "Yibuti",
+                                                        "Zambia",
+                                                        "Zimbabue" };
         #endregion
-
-
-        //Fecha:10/13/2014
-        #region TextBoxes
-        private static TextBox textBoxAnterior;
-        public static TextBox TextBoxAnterior
-        {
-            get { return textBoxAnterior; }
-            set { textBoxAnterior = value; }
-        }
-
-        private static List<TextBox> conjuntoDeTextBox;
-        public static List<TextBox> ConjuntoDeTextBox
-        {
-            get { return conjuntoDeTextBox; }
-            set { conjuntoDeTextBox = value; }
-        }
-
-        public static void cargarConjuntoDeTextBoxAnteriores(List<TextBox> conjuntoTextBoxActual)
-        {
-            var i = 0;
-            foreach (TextBox unTextBox in conjuntoTextBoxActual)
-            {
-                conjuntoDeTextBox[i++].Text = unTextBox.Text;
-
-            }
-
-        }
-
-        #endregion
-        
-        //Fecha:10/13/2014
-        #region VentanasViajeras
-        public static IList<Form> conjuntoDeVentanas = new List<Form>();
-        public static IList<Form> ConjuntoDeVentanas
-        {
-            get { return conjuntoDeVentanas; }
-            set { conjuntoDeVentanas = value; }
-        }
-        public static int indexVentanas = 0;
-        public static int IndexVentanas
-        {
-            get { return indexVentanas; }
-            set { indexVentanas = value; }
-        }
-
-
-        /// <summary>
-        /// agrega a la lista la ventana ventana actual(anterior)
-        /// </summary>
-        /// <param name="unaVentanaADondeVolver"></param>
-        public static void establecerVentanaAVolver(Form unaVentanaADondeVolver)
-        {
-            unaVentanaADondeVolver.Enabled = false;
-            ConjuntoDeVentanas.Add(unaVentanaADondeVolver);
-
-        }
-
-        /// <summary>
-        /// Abre una nueva ventana ,y la establece la ventana a volver
-        /// </summary>
-        /// <param name="ventanaNueva"></param>
-        public static void irANuevaVentana(Form ventanaAAbrir, Form ventanaAnterior)
-        {
-            establecerVentanaAVolver(ventanaAnterior);
-            ventanaAAbrir.Show();
-        }
-
-        //
-        /// <summary>
-        /// Cierra la ventana actual y saca de la lista la ventana a la que se vuelve
-        /// Se debe colocar este metodo en dispose de cada formulario , tare a corregir
-        /// </summary>
-        /// <param name="ventanaActual"></param>
-        public static void volverAAnteriorVentana(Form ventanaActual)
-        {
-            var index = ConjuntoDeVentanas.Count - 1;
-            ConjuntoDeVentanas[index].Enabled = true;
-            ConjuntoDeVentanas.RemoveAt(index);
-        }
-
-
-        /// <summary>
-        /// //Acordate q el metodo dispose llama a volverALaVentanaAnterior
-        /// </summary>
-        /// <param name="ventanaActual"></param>
-        public static void cerrarVentana(Form ventanaActual)
-        {
-
-            ventanaActual.Dispose();
-        }
-
-        #endregion
-
     }
 }

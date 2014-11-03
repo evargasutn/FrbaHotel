@@ -32,6 +32,9 @@
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dateTimeNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
+            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
             this.textTelefono = new System.Windows.Forms.MaskedTextBox();
             this.textNumDoc = new System.Windows.Forms.MaskedTextBox();
             this.textLocalidad = new System.Windows.Forms.TextBox();
@@ -42,7 +45,6 @@
             this.lblDirPiso = new System.Windows.Forms.Label();
             this.lblDirAltura = new System.Windows.Forms.Label();
             this.comboTipoDoc = new System.Windows.Forms.ComboBox();
-            this.textPais = new System.Windows.Forms.TextBox();
             this.textDirCalle = new System.Windows.Forms.TextBox();
             this.textMail = new System.Windows.Forms.TextBox();
             this.textApellido = new System.Windows.Forms.TextBox();
@@ -57,9 +59,7 @@
             this.lblTipoDoc = new System.Windows.Forms.Label();
             this.lblApellido = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
-            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
-            this.dateTimeNacimiento = new System.Windows.Forms.DateTimePicker();
+            this.textPais = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,6 +85,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.textPais);
             this.groupBox2.Controls.Add(this.dateTimeNacimiento);
             this.groupBox2.Controls.Add(this.textDirPiso);
             this.groupBox2.Controls.Add(this.textDirAltura);
@@ -98,7 +99,6 @@
             this.groupBox2.Controls.Add(this.lblDirPiso);
             this.groupBox2.Controls.Add(this.lblDirAltura);
             this.groupBox2.Controls.Add(this.comboTipoDoc);
-            this.groupBox2.Controls.Add(this.textPais);
             this.groupBox2.Controls.Add(this.textDirCalle);
             this.groupBox2.Controls.Add(this.textMail);
             this.groupBox2.Controls.Add(this.textApellido);
@@ -118,6 +118,31 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
+            // 
+            // dateTimeNacimiento
+            // 
+            this.dateTimeNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeNacimiento.Location = new System.Drawing.Point(138, 131);
+            this.dateTimeNacimiento.Name = "dateTimeNacimiento";
+            this.dateTimeNacimiento.Size = new System.Drawing.Size(140, 20);
+            this.dateTimeNacimiento.TabIndex = 40;
+            // 
+            // textDirPiso
+            // 
+            this.textDirPiso.Location = new System.Drawing.Point(157, 235);
+            this.textDirPiso.Mask = "99";
+            this.textDirPiso.Name = "textDirPiso";
+            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
+            this.textDirPiso.TabIndex = 39;
+            // 
+            // textDirAltura
+            // 
+            this.textDirAltura.Location = new System.Drawing.Point(50, 235);
+            this.textDirAltura.Mask = "99999";
+            this.textDirAltura.Name = "textDirAltura";
+            this.textDirAltura.Size = new System.Drawing.Size(66, 20);
+            this.textDirAltura.TabIndex = 38;
+            this.textDirAltura.ValidatingType = typeof(int);
             // 
             // textTelefono
             // 
@@ -204,13 +229,6 @@
             this.comboTipoDoc.Name = "comboTipoDoc";
             this.comboTipoDoc.Size = new System.Drawing.Size(141, 21);
             this.comboTipoDoc.TabIndex = 25;
-            // 
-            // textPais
-            // 
-            this.textPais.Location = new System.Drawing.Point(138, 287);
-            this.textPais.Name = "textPais";
-            this.textPais.Size = new System.Drawing.Size(141, 20);
-            this.textPais.TabIndex = 23;
             // 
             // textDirCalle
             // 
@@ -328,30 +346,15 @@
             this.toolTip.InitialDelay = 200;
             this.toolTip.ReshowDelay = 40;
             // 
-            // textDirAltura
+            // textPais
             // 
-            this.textDirAltura.Location = new System.Drawing.Point(50, 235);
-            this.textDirAltura.Mask = "99999";
-            this.textDirAltura.Name = "textDirAltura";
-            this.textDirAltura.Size = new System.Drawing.Size(66, 20);
-            this.textDirAltura.TabIndex = 38;
-            this.textDirAltura.ValidatingType = typeof(int);
-            // 
-            // textDirPiso
-            // 
-            this.textDirPiso.Location = new System.Drawing.Point(157, 235);
-            this.textDirPiso.Mask = "99";
-            this.textDirPiso.Name = "textDirPiso";
-            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
-            this.textDirPiso.TabIndex = 39;
-            // 
-            // dateTimeNacimiento
-            // 
-            this.dateTimeNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimeNacimiento.Location = new System.Drawing.Point(138, 131);
-            this.dateTimeNacimiento.Name = "dateTimeNacimiento";
-            this.dateTimeNacimiento.Size = new System.Drawing.Size(140, 20);
-            this.dateTimeNacimiento.TabIndex = 40;
+            this.textPais.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textPais.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.textPais.FormattingEnabled = true;
+            this.textPais.Location = new System.Drawing.Point(138, 288);
+            this.textPais.Name = "textPais";
+            this.textPais.Size = new System.Drawing.Size(139, 21);
+            this.textPais.TabIndex = 41;
             // 
             // ClienteAlta
             // 
@@ -380,7 +383,6 @@
         private System.Windows.Forms.Label lblDirPiso;
         private System.Windows.Forms.Label lblDirAltura;
         private System.Windows.Forms.ComboBox comboTipoDoc;
-        private System.Windows.Forms.TextBox textPais;
         private System.Windows.Forms.TextBox textDirCalle;
         private System.Windows.Forms.TextBox textMail;
         private System.Windows.Forms.TextBox textApellido;
@@ -403,5 +405,6 @@
         private System.Windows.Forms.MaskedTextBox textDirPiso;
         private System.Windows.Forms.MaskedTextBox textDirAltura;
         private System.Windows.Forms.DateTimePicker dateTimeNacimiento;
+        private System.Windows.Forms.ComboBox textPais;
     }
 }

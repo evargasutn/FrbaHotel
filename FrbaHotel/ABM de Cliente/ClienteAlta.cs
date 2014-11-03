@@ -20,9 +20,9 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             InitializeComponent();
             foreach (string tipo in Documento.string_docu)
-            {
                 comboTipoDoc.Items.Add(tipo);
-            }
+            foreach (string pais in Globals.paises)
+                textPais.Items.Add(pais);
             limpiar();
 
         }
@@ -51,7 +51,8 @@ namespace FrbaHotel.ABM_de_Cliente
                     huesped.Direccion.calle_piso = Int32.Parse(textDirPiso.Text);
                 if (textDirDpto.Text != "")
                     huesped.Direccion.calle_dpto = textDirDpto.Text;
-                
+                huesped.Localidad = textLocalidad.Text;
+                huesped.Nacionalidad = (string) textPais.SelectedItem;
                 if (!DAOHuesped.insertar(huesped))
                 {
                     MessageBox.Show("Error al crear el cliente.", "Error al crear Nuevo Cliente",
@@ -91,7 +92,7 @@ namespace FrbaHotel.ABM_de_Cliente
             textDirDpto.Text = "";
             textDirPiso.Text = "";
             textLocalidad.Text = "";
-            textPais.Text = "";
+            textPais.SelectedIndex = -1;
         }
 
         private bool chequearDatos()
@@ -158,7 +159,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 showToolTip("Ingrese una localidad.", textLocalidad, textLocalidad.Location);
                 return false;
             }
-            if (textPais.Text == "")
+            if (textPais.SelectedIndex < 0)
             {
                 showToolTip("Ingrese una pais.", textPais, textPais.Location);
                 return false;
