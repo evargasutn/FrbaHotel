@@ -30,7 +30,6 @@ namespace FrbaHotel.ABM_de_Usuario
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listRol = new System.Windows.Forms.CheckedListBox();
             this.textPassword2 = new System.Windows.Forms.TextBox();
@@ -40,6 +39,7 @@ namespace FrbaHotel.ABM_de_Usuario
             this.textPassword1 = new System.Windows.Forms.TextBox();
             this.textUsername = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listBoxHotel = new System.Windows.Forms.ComboBox();
             this.nota = new System.Windows.Forms.Label();
             this.textDirDpto = new System.Windows.Forms.TextBox();
             this.textDirPiso = new System.Windows.Forms.TextBox();
@@ -49,8 +49,6 @@ namespace FrbaHotel.ABM_de_Usuario
             this.lblDirAltura = new System.Windows.Forms.Label();
             this.dateTimeNacimiento = new System.Windows.Forms.DateTimePicker();
             this.comboTipoDoc = new System.Windows.Forms.ComboBox();
-            this.botonHotel = new System.Windows.Forms.Button();
-            this.textHotel = new System.Windows.Forms.TextBox();
             this.textDirCalle = new System.Windows.Forms.TextBox();
             this.textTelefono = new System.Windows.Forms.TextBox();
             this.textMail = new System.Windows.Forms.TextBox();
@@ -69,6 +67,9 @@ namespace FrbaHotel.ABM_de_Usuario
             this.lblRol = new System.Windows.Forms.Label();
             this.lblPassword1 = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.SuspendLayout();
             // 
             // groupBox1
             // 
@@ -102,6 +103,7 @@ namespace FrbaHotel.ABM_de_Usuario
             // 
             this.textPassword2.Location = new System.Drawing.Point(6, 113);
             this.textPassword2.Name = "textPassword2";
+            this.textPassword2.PasswordChar = '*';
             this.textPassword2.Size = new System.Drawing.Size(106, 20);
             this.textPassword2.TabIndex = 28;
             // 
@@ -138,6 +140,7 @@ namespace FrbaHotel.ABM_de_Usuario
             // 
             this.textPassword1.Location = new System.Drawing.Point(6, 74);
             this.textPassword1.Name = "textPassword1";
+            this.textPassword1.PasswordChar = '*';
             this.textPassword1.Size = new System.Drawing.Size(106, 20);
             this.textPassword1.TabIndex = 12;
             // 
@@ -150,6 +153,7 @@ namespace FrbaHotel.ABM_de_Usuario
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.listBoxHotel);
             this.groupBox2.Controls.Add(this.nota);
             this.groupBox2.Controls.Add(this.textDirDpto);
             this.groupBox2.Controls.Add(this.textDirPiso);
@@ -159,8 +163,6 @@ namespace FrbaHotel.ABM_de_Usuario
             this.groupBox2.Controls.Add(this.lblDirAltura);
             this.groupBox2.Controls.Add(this.dateTimeNacimiento);
             this.groupBox2.Controls.Add(this.comboTipoDoc);
-            this.groupBox2.Controls.Add(this.botonHotel);
-            this.groupBox2.Controls.Add(this.textHotel);
             this.groupBox2.Controls.Add(this.textDirCalle);
             this.groupBox2.Controls.Add(this.textTelefono);
             this.groupBox2.Controls.Add(this.textMail);
@@ -183,11 +185,19 @@ namespace FrbaHotel.ABM_de_Usuario
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
             // 
+            // listBoxHotel
+            // 
+            this.listBoxHotel.FormattingEnabled = true;
+            this.listBoxHotel.Location = new System.Drawing.Point(138, 264);
+            this.listBoxHotel.Name = "listBoxHotel";
+            this.listBoxHotel.Size = new System.Drawing.Size(141, 21);
+            this.listBoxHotel.TabIndex = 34;
+            // 
             // nota
             // 
             this.nota.AutoSize = true;
             this.nota.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nota.Location = new System.Drawing.Point(6, 297);
+            this.nota.Location = new System.Drawing.Point(0, 297);
             this.nota.Name = "nota";
             this.nota.Size = new System.Drawing.Size(127, 13);
             this.nota.TabIndex = 33;
@@ -265,22 +275,6 @@ namespace FrbaHotel.ABM_de_Usuario
             this.comboTipoDoc.Name = "comboTipoDoc";
             this.comboTipoDoc.Size = new System.Drawing.Size(141, 21);
             this.comboTipoDoc.TabIndex = 25;
-            // 
-            // botonHotel
-            // 
-            this.botonHotel.Location = new System.Drawing.Point(176, 287);
-            this.botonHotel.Name = "botonHotel";
-            this.botonHotel.Size = new System.Drawing.Size(103, 23);
-            this.botonHotel.TabIndex = 24;
-            this.botonHotel.Text = "Seleccionar";
-            this.botonHotel.UseVisualStyleBackColor = true;
-            // 
-            // textHotel
-            // 
-            this.textHotel.Location = new System.Drawing.Point(138, 261);
-            this.textHotel.Name = "textHotel";
-            this.textHotel.Size = new System.Drawing.Size(141, 20);
-            this.textHotel.TabIndex = 23;
             // 
             // textDirCalle
             // 
@@ -434,6 +428,7 @@ namespace FrbaHotel.ABM_de_Usuario
             // 
             // UsuarioAlta
             // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 381);
             this.Controls.Add(this.groupBox1);
@@ -471,8 +466,6 @@ namespace FrbaHotel.ABM_de_Usuario
         private System.Windows.Forms.TextBox textNumDoc;
         private System.Windows.Forms.TextBox textApellido;
         private System.Windows.Forms.TextBox textNombre;
-        private System.Windows.Forms.Button botonHotel;
-        private System.Windows.Forms.TextBox textHotel;
         private System.Windows.Forms.Button botonGuardar;
         private System.Windows.Forms.ComboBox comboTipoDoc;
         private System.Windows.Forms.DateTimePicker dateTimeNacimiento;
@@ -487,5 +480,6 @@ namespace FrbaHotel.ABM_de_Usuario
         private System.Windows.Forms.TextBox textPassword2;
         private System.Windows.Forms.Label lblPassword2;
         private System.Windows.Forms.CheckedListBox listRol;
+        private System.Windows.Forms.ComboBox listBoxHotel;
     }
 }

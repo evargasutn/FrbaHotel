@@ -17,6 +17,7 @@ namespace FrbaHotel.ABM_de_Usuario
     {
         Usuario userNuevo = new Usuario();
         List<Rol> rolesPosibles;
+        List<Hotel> hotelesPosibles;
         public UsuarioAlta()
         {
             InitializeComponent();
@@ -25,10 +26,16 @@ namespace FrbaHotel.ABM_de_Usuario
             rolesPosibles=DAORol.traerTodosLosRolesPosibles();
             foreach (Rol unRol in rolesPosibles)
                 listRol.Items.Add(unRol.Nombre);
-            
+        
+        //// Agregar una opción al combo 
             comboTipoDoc.SelectedIndex = 0;
+            
+        ////Carga de hoteles
+            hotelesPosibles = DAOHotel.obtenerTodos();
+            foreach (Hotel unHotel in hotelesPosibles)
+                listBoxHotel.Items.Add(unHotel.Nombre);
+            
         }
-
 
         private void botonGuardar_Click(object sender, EventArgs e)
         {
@@ -69,6 +76,7 @@ namespace FrbaHotel.ABM_de_Usuario
             userNuevo.Direccion.calle_piso = textDirPiso.Text != "" ? Convert.ToInt32(textDirPiso.Text) : 0;
             userNuevo.Direccion.calle_dpto = textDirDpto.Text != "" ? textDirDpto.Text : "";
             userNuevo.Fecha_nacimiento = Convert.ToString(dateTimeNacimiento.Value);
+
             userNuevo.CampoBaja = false;
         }
 
@@ -99,8 +107,8 @@ namespace FrbaHotel.ABM_de_Usuario
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
             textUsername.Text = " ";
-            textPassword1.Text = " ";
-            textPassword2.Text = " ";
+            textPassword1.Text = "";
+            textPassword2.Text = "";
             textNombre.Text = " ";
             textApellido.Text = " ";
             textNumDoc.Text = " ";
@@ -110,9 +118,9 @@ namespace FrbaHotel.ABM_de_Usuario
             textDirPiso.Text = " ";
             textDirDpto.Text = " ";
             textTelefono.Text = " ";
-            textHotel.Text = " ";
             listRol.SelectedItem = null;
             comboTipoDoc.SelectedItem = null;
+            listBoxHotel.SelectedItem = null;
             for (int item = 0; item < listRol.Items.Count; item++)
             {
                 listRol.SetItemChecked(item, false);
@@ -120,6 +128,5 @@ namespace FrbaHotel.ABM_de_Usuario
 
         }
 
-       
     }
 }

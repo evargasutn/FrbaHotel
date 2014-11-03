@@ -90,14 +90,14 @@ namespace DOM
                 {
                     Hotel hotelito = new Hotel();
                     hotelito.CodHotel = Convert.ToInt32(fila["codHotel"]);
-                    hotelito.Nombre = Convert.ToString(fila["nombre"]);
+                    hotelito.Nombre = Convert.ToString(fila["nombreHotel"]);
                     hotelito.Mail = Convert.ToString(fila["mail"]);
                     hotelito.Telefono = Convert.ToInt32(fila["telefono"]);
-                    hotelito.Direccion.calle_direccion = Convert.ToString(fila["dir_calle"]);
-                    hotelito.Direccion.calle_altura = Convert.ToInt32(fila["dir_numero"]);
+                    hotelito.Direccion.calle_direccion = Convert.ToString(fila["direccionCalle"]);
+                    hotelito.Direccion.calle_altura = Convert.ToInt32(fila["direccionNumero"]);
                     hotelito.Ciudad = Convert.ToString(fila["ciudad"]);
                     hotelito.Pais = Convert.ToString(fila["pais"]);
-                    hotelito.Estrellas = Convert.ToInt32(fila["estrellas"]);
+                    hotelito.Estrellas = Convert.ToInt32(fila["cantEstrellas"]);
                     lista.Add(hotelito);
                 }
             }
