@@ -10,17 +10,17 @@ namespace DOM.Dominio
     public class Huesped
     {
         #region Atributos
+        private int idHuesped;
         private Documento documento;
-        private string nombre;
-        private string apellido;
-        private MailAddress email;
-        private int telefono;
+        private string nombre = "''";
+        private string apellido = "''";
+        private MailAddress email = null;
+        private int telefono = -1;
         private DireccionStruct direccion; //Direccion con formato
-        private string localidad;
-        private string pais;
-        private string nacionalidad;
-        private DateTime fecha_nacimiento;
-        private bool campo_baja;//Campo Baja
+        private string localidad = "''";
+        private string nacionalidad = "''";
+        private DateTime? fecha_nacimiento = null;
+        private bool campo_baja = true;//Campo Baja
         #endregion
 
         #region Constructor
@@ -34,6 +34,12 @@ namespace DOM.Dominio
 
         #region Propiedades
 
+        public int Id
+        {
+            get { return idHuesped; }
+            set { idHuesped = value; }
+        }
+
         public Documento Documento
         {
             get { return documento;}
@@ -45,7 +51,7 @@ namespace DOM.Dominio
             set { documento.tipoDoc = value; }
         }
 
-        public int? NroDocu
+        public int NroDocu
         {
             get { return documento.nroDoc; }
             set { documento.nroDoc = (int)value; }
@@ -92,12 +98,6 @@ namespace DOM.Dominio
             set { localidad = value; }
         }
 
-        public string Pais
-        {
-            get { return pais; }
-            set { pais = value; }
-        }
-
         public string Nacionalidad
         {
             get { return nacionalidad; }
@@ -106,8 +106,14 @@ namespace DOM.Dominio
 
         public string Fecha_nacimiento
         {
-            get { return fecha_nacimiento.ToString("yyyyMMdd"); }
+            get { return ((DateTime)fecha_nacimiento).ToString("yyyyMMdd"); }
             set { fecha_nacimiento = DateTime.Parse(value); }
+        }
+
+        public DateTime? Fecha_nacimiento_struct
+        {
+            get { return fecha_nacimiento; }
+            set { fecha_nacimiento = value; }
         }
 
         public bool Campo_Baja
@@ -116,7 +122,5 @@ namespace DOM.Dominio
             set { campo_baja = value; }
         }
         #endregion
-
-
     }
 }
