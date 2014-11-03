@@ -11,6 +11,7 @@ namespace DOM.Auxiliares
     {
         public static string[] string_docu = new string[4] {"DNI", "LC", "LE", "PASAPORTE"};
         private string tipoDocumento;
+        private DocumentoTipoEnum tipo;
         private int numero;
 
         public int nroDoc
@@ -21,7 +22,20 @@ namespace DOM.Auxiliares
         public string tipoDoc
         {
             get { return tipoDocumento; }
-            set { tipoDocumento = value; }
+            set
+            {
+                tipoDocumento = value;
+                tipo = enumByString(value);
+            }
+        }
+        public DocumentoTipoEnum Tipo
+        {
+            get { return tipo; }
+            set
+            {
+                tipo = value;
+                tipoDocumento = stringByEnum(value);
+            }
         }
 
         #region Constructores
@@ -35,5 +49,38 @@ namespace DOM.Auxiliares
         }
 
         #endregion
+
+        private DocumentoTipoEnum enumByString(string cadena)
+        {
+            switch (cadena)
+            {
+                case "DNI":
+                    return DocumentoTipoEnum.DNI;
+                case "LC":
+                    return DocumentoTipoEnum.LC;
+                case "LE":
+                    return DocumentoTipoEnum.LE;
+                case "Pasaporte":
+                    return DocumentoTipoEnum.Pasaporte;
+            }
+            return DocumentoTipoEnum.DNI;
+        }
+
+        private string stringByEnum(DocumentoTipoEnum enumerador)
+        {
+            switch (enumerador)
+            {
+                case DocumentoTipoEnum.DNI:
+                    return "DNI";
+                case DocumentoTipoEnum.LC:
+                    return "LC";
+                case DocumentoTipoEnum.LE:
+                    return "LE";
+                case DocumentoTipoEnum.Pasaporte:
+                    return "Pasaporte";
+            }
+            return null;
+
+        }
     }
 }

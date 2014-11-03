@@ -75,13 +75,18 @@ namespace DOM
             get { return documento.tipoDoc; }
             set { documento.tipoDoc = value; }
         }
+        public DocumentoTipoEnum TipoDocu_enum
+        {
+            get { return documento.Tipo; }
+            set { documento.Tipo = value; }
+        }
 
         public int NroDocu
         {
             get { return documento.nroDoc; }
             set { documento.nroDoc = (int)value; }
         }
-
+ 
         public int Telefono
         {
             get { return telefono; }

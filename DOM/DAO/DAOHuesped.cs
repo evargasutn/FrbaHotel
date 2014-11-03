@@ -5,39 +5,15 @@ using System.Text;
 using DOM.Auxiliares;
 using System.Net.Mail;
 using FrbaHotel.DOM;
+using DOM.Dominio;
 
 namespace DOM
 {
-    public class DAOGuest : SqlConnector
+    public class DAOHuesped : SqlConnector
     {
-
-        #region DAAOGuest Members
-
-        public List<DOM.Dominio.Huesped> getAllGuest()
+        public static bool insertar(Huesped huesped)
         {
-            throw new NotImplementedException();
+            return false;
         }
-
-        public DOM.Dominio.Huesped addGuest(DOM.Dominio.Huesped invitado)
-        {
-            throw new NotImplementedException();
-        }
-
-        public DOM.Dominio.Huesped getGuest(Documento documento)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void updateGuest(DOM.Dominio.Huesped invitado)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void deteleGuest(Documento documento)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }

@@ -28,25 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
+            this.textNumDoc = new System.Windows.Forms.MaskedTextBox();
             this.textLocalidad = new System.Windows.Forms.TextBox();
             this.lblLocalidad = new System.Windows.Forms.Label();
             this.nota = new System.Windows.Forms.Label();
             this.textDirDpto = new System.Windows.Forms.TextBox();
-            this.textDirPiso = new System.Windows.Forms.TextBox();
             this.lblDirDpto = new System.Windows.Forms.Label();
             this.lblDirPiso = new System.Windows.Forms.Label();
-            this.textDirAltura = new System.Windows.Forms.TextBox();
             this.lblDirAltura = new System.Windows.Forms.Label();
-            this.dateTimeNacimiento = new System.Windows.Forms.DateTimePicker();
             this.comboTipoDoc = new System.Windows.Forms.ComboBox();
             this.textPais = new System.Windows.Forms.TextBox();
             this.textDirCalle = new System.Windows.Forms.TextBox();
-            this.textTelefono = new System.Windows.Forms.TextBox();
             this.textMail = new System.Windows.Forms.TextBox();
-            this.textNumDoc = new System.Windows.Forms.TextBox();
             this.textApellido = new System.Windows.Forms.TextBox();
             this.textNombre = new System.Windows.Forms.TextBox();
             this.lblPais = new System.Windows.Forms.Label();
@@ -58,6 +56,10 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblTipoDoc = new System.Windows.Forms.Label();
             this.lblApellido = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
+            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
+            this.dateTimeNacimiento = new System.Windows.Forms.DateTimePicker();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,6 +71,7 @@
             this.botonLimpiar.TabIndex = 26;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // botonGuardar
             // 
@@ -78,25 +81,26 @@
             this.botonGuardar.TabIndex = 25;
             this.botonGuardar.Text = "Guardar";
             this.botonGuardar.UseVisualStyleBackColor = true;
+            this.botonGuardar.Click += new System.EventHandler(this.botonGuardar_Click);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.dateTimeNacimiento);
+            this.groupBox2.Controls.Add(this.textDirPiso);
+            this.groupBox2.Controls.Add(this.textDirAltura);
+            this.groupBox2.Controls.Add(this.textTelefono);
+            this.groupBox2.Controls.Add(this.textNumDoc);
             this.groupBox2.Controls.Add(this.textLocalidad);
             this.groupBox2.Controls.Add(this.lblLocalidad);
             this.groupBox2.Controls.Add(this.nota);
             this.groupBox2.Controls.Add(this.textDirDpto);
-            this.groupBox2.Controls.Add(this.textDirPiso);
             this.groupBox2.Controls.Add(this.lblDirDpto);
             this.groupBox2.Controls.Add(this.lblDirPiso);
-            this.groupBox2.Controls.Add(this.textDirAltura);
             this.groupBox2.Controls.Add(this.lblDirAltura);
-            this.groupBox2.Controls.Add(this.dateTimeNacimiento);
             this.groupBox2.Controls.Add(this.comboTipoDoc);
             this.groupBox2.Controls.Add(this.textPais);
             this.groupBox2.Controls.Add(this.textDirCalle);
-            this.groupBox2.Controls.Add(this.textTelefono);
             this.groupBox2.Controls.Add(this.textMail);
-            this.groupBox2.Controls.Add(this.textNumDoc);
             this.groupBox2.Controls.Add(this.textApellido);
             this.groupBox2.Controls.Add(this.textNombre);
             this.groupBox2.Controls.Add(this.lblPais);
@@ -114,6 +118,24 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
+            // 
+            // textTelefono
+            // 
+            this.textTelefono.Location = new System.Drawing.Point(138, 183);
+            this.textTelefono.Mask = "9999999999";
+            this.textTelefono.Name = "textTelefono";
+            this.textTelefono.Size = new System.Drawing.Size(141, 20);
+            this.textTelefono.TabIndex = 37;
+            this.textTelefono.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textTelefono_MaskInputRejected);
+            // 
+            // textNumDoc
+            // 
+            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
+            this.textNumDoc.Mask = "999999999";
+            this.textNumDoc.Name = "textNumDoc";
+            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
+            this.textNumDoc.TabIndex = 36;
+            this.textNumDoc.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNumDoc_MaskInputRejected);
             // 
             // textLocalidad
             // 
@@ -148,13 +170,6 @@
             this.textDirDpto.Size = new System.Drawing.Size(39, 20);
             this.textDirDpto.TabIndex = 32;
             // 
-            // textDirPiso
-            // 
-            this.textDirPiso.Location = new System.Drawing.Point(157, 235);
-            this.textDirPiso.Name = "textDirPiso";
-            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
-            this.textDirPiso.TabIndex = 31;
-            // 
             // lblDirDpto
             // 
             this.lblDirDpto.AutoSize = true;
@@ -173,13 +188,6 @@
             this.lblDirPiso.TabIndex = 29;
             this.lblDirPiso.Text = "Piso";
             // 
-            // textDirAltura
-            // 
-            this.textDirAltura.Location = new System.Drawing.Point(46, 235);
-            this.textDirAltura.Name = "textDirAltura";
-            this.textDirAltura.Size = new System.Drawing.Size(72, 20);
-            this.textDirAltura.TabIndex = 28;
-            // 
             // lblDirAltura
             // 
             this.lblDirAltura.AutoSize = true;
@@ -188,18 +196,6 @@
             this.lblDirAltura.Size = new System.Drawing.Size(38, 13);
             this.lblDirAltura.TabIndex = 27;
             this.lblDirAltura.Text = "Altura*";
-            // 
-            // dateTimeNacimiento
-            // 
-            this.dateTimeNacimiento.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.dateTimeNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimeNacimiento.Location = new System.Drawing.Point(138, 131);
-            this.dateTimeNacimiento.Name = "dateTimeNacimiento";
-            this.dateTimeNacimiento.Size = new System.Drawing.Size(141, 20);
-            this.dateTimeNacimiento.TabIndex = 26;
-            this.dateTimeNacimiento.Value = new System.DateTime(2014, 10, 20, 0, 0, 0, 0);
             // 
             // comboTipoDoc
             // 
@@ -223,26 +219,12 @@
             this.textDirCalle.Size = new System.Drawing.Size(141, 20);
             this.textDirCalle.TabIndex = 19;
             // 
-            // textTelefono
-            // 
-            this.textTelefono.Location = new System.Drawing.Point(138, 183);
-            this.textTelefono.Name = "textTelefono";
-            this.textTelefono.Size = new System.Drawing.Size(141, 20);
-            this.textTelefono.TabIndex = 18;
-            // 
             // textMail
             // 
             this.textMail.Location = new System.Drawing.Point(138, 157);
             this.textMail.Name = "textMail";
             this.textMail.Size = new System.Drawing.Size(141, 20);
             this.textMail.TabIndex = 17;
-            // 
-            // textNumDoc
-            // 
-            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
-            this.textNumDoc.Name = "textNumDoc";
-            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
-            this.textNumDoc.TabIndex = 16;
             // 
             // textApellido
             // 
@@ -339,6 +321,38 @@
             this.lblApellido.TabIndex = 4;
             this.lblApellido.Text = "Apellido*";
             // 
+            // toolTip
+            // 
+            this.toolTip.AutomaticDelay = 200;
+            this.toolTip.AutoPopDelay = 200;
+            this.toolTip.InitialDelay = 200;
+            this.toolTip.ReshowDelay = 40;
+            // 
+            // textDirAltura
+            // 
+            this.textDirAltura.Location = new System.Drawing.Point(50, 235);
+            this.textDirAltura.Mask = "99999";
+            this.textDirAltura.Name = "textDirAltura";
+            this.textDirAltura.Size = new System.Drawing.Size(66, 20);
+            this.textDirAltura.TabIndex = 38;
+            this.textDirAltura.ValidatingType = typeof(int);
+            // 
+            // textDirPiso
+            // 
+            this.textDirPiso.Location = new System.Drawing.Point(157, 235);
+            this.textDirPiso.Mask = "99";
+            this.textDirPiso.Name = "textDirPiso";
+            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
+            this.textDirPiso.TabIndex = 39;
+            // 
+            // dateTimeNacimiento
+            // 
+            this.dateTimeNacimiento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeNacimiento.Location = new System.Drawing.Point(138, 131);
+            this.dateTimeNacimiento.Name = "dateTimeNacimiento";
+            this.dateTimeNacimiento.Size = new System.Drawing.Size(140, 20);
+            this.dateTimeNacimiento.TabIndex = 40;
+            // 
             // ClienteAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -347,6 +361,7 @@
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.groupBox2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ClienteAlta";
             this.Text = "Alta de un Cliente";
             this.groupBox2.ResumeLayout(false);
@@ -361,18 +376,13 @@
         private System.Windows.Forms.Button botonGuardar;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label nota;
-        private System.Windows.Forms.TextBox textDirPiso;
         private System.Windows.Forms.Label lblDirDpto;
         private System.Windows.Forms.Label lblDirPiso;
-        private System.Windows.Forms.TextBox textDirAltura;
         private System.Windows.Forms.Label lblDirAltura;
-        private System.Windows.Forms.DateTimePicker dateTimeNacimiento;
         private System.Windows.Forms.ComboBox comboTipoDoc;
         private System.Windows.Forms.TextBox textPais;
         private System.Windows.Forms.TextBox textDirCalle;
-        private System.Windows.Forms.TextBox textTelefono;
         private System.Windows.Forms.TextBox textMail;
-        private System.Windows.Forms.TextBox textNumDoc;
         private System.Windows.Forms.TextBox textApellido;
         private System.Windows.Forms.TextBox textNombre;
         private System.Windows.Forms.Label lblPais;
@@ -387,5 +397,11 @@
         private System.Windows.Forms.TextBox textLocalidad;
         private System.Windows.Forms.Label lblLocalidad;
         private System.Windows.Forms.TextBox textDirDpto;
+        private System.Windows.Forms.MaskedTextBox textNumDoc;
+        private System.Windows.Forms.MaskedTextBox textTelefono;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.MaskedTextBox textDirPiso;
+        private System.Windows.Forms.MaskedTextBox textDirAltura;
+        private System.Windows.Forms.DateTimePicker dateTimeNacimiento;
     }
 }

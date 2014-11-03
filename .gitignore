@@ -7,3 +7,5 @@ FrbaHotel.suo
 *.exe
 *.Cache
 *.resources
+*.config
+.csproj.FileListAbsolute.txt

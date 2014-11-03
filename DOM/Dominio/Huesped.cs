@@ -82,6 +82,7 @@ namespace DOM.Dominio
 
         public DireccionStruct Direccion
         {
+            get { return direccion; }
             set { direccion = value; }
         }
         
