@@ -187,8 +187,11 @@ namespace FrbaHotel.ABM_de_Usuario
             // 
             // listBoxHotel
             // 
+            this.listBoxHotel.DropDownHeight = 50;
             this.listBoxHotel.FormattingEnabled = true;
+            this.listBoxHotel.IntegralHeight = false;
             this.listBoxHotel.Location = new System.Drawing.Point(138, 264);
+            this.listBoxHotel.MaxDropDownItems = 5;
             this.listBoxHotel.Name = "listBoxHotel";
             this.listBoxHotel.Size = new System.Drawing.Size(141, 21);
             this.listBoxHotel.TabIndex = 34;
