@@ -63,6 +63,13 @@ namespace DOM
         #endregion
 
         #region Paises array
+        public static int posPais(string pais)
+        {
+            for (int i = 0; i < paises.Length; i++)
+                if (paises[i].ToUpper().CompareTo(pais) == 0)
+                    return i;
+            return -1;
+        }
         public static string[] paises = new string[] {  "Abjasia",
                                                         "Acrotiri y Dhekelia",
                                                         "Afganistán",

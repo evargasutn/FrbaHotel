@@ -14,7 +14,7 @@ namespace DOM
     {
         public static DataTable obtenerTabla()
         {
-            return retrieveDataTable("getHuesped", cadena_nula);
+            return retrieveDataTable("getHuesped", entero_nulo);
         }
 
         public static List<Huesped> obtenerTodos()

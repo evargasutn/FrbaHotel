@@ -30,9 +30,7 @@
         {
             this.botonBuscar = new System.Windows.Forms.Button();
             this.botonLimpiar = new System.Windows.Forms.Button();
-            this.dataGridUsuario = new System.Windows.Forms.DataGridView();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridCliente = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textNumDoc = new System.Windows.Forms.TextBox();
             this.lblNumDoc = new System.Windows.Forms.Label();
@@ -46,7 +44,9 @@
             this.lblEmail = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.altaDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).BeginInit();
+            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +59,7 @@
             this.botonBuscar.TabIndex = 15;
             this.botonBuscar.Text = "Buscar";
             this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
             // botonLimpiar
             // 
@@ -68,33 +69,28 @@
             this.botonLimpiar.TabIndex = 14;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
-            // dataGridUsuario
+            // dataGridCliente
             // 
-            this.dataGridUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
+            this.dataGridCliente.AllowUserToAddRows = false;
+            this.dataGridCliente.AllowUserToDeleteRows = false;
+            this.dataGridCliente.AllowUserToResizeColumns = false;
+            this.dataGridCliente.AllowUserToResizeRows = false;
+            this.dataGridCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Modificar,
-            this.Baja});
-            this.dataGridUsuario.Location = new System.Drawing.Point(12, 189);
-            this.dataGridUsuario.MultiSelect = false;
-            this.dataGridUsuario.Name = "dataGridUsuario";
-            this.dataGridUsuario.Size = new System.Drawing.Size(501, 227);
-            this.dataGridUsuario.TabIndex = 13;
-            // 
-            // Modificar
-            // 
-            this.Modificar.HeaderText = "Modificar";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.Text = "Modificar";
-            // 
-            // Baja
-            // 
-            this.Baja.HeaderText = "Baja";
-            this.Baja.Name = "Baja";
-            this.Baja.Text = "Baja";
+            this.dataGridCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridCliente.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Baja,
+            this.Modificar});
+            this.dataGridCliente.Location = new System.Drawing.Point(12, 189);
+            this.dataGridCliente.MultiSelect = false;
+            this.dataGridCliente.Name = "dataGridCliente";
+            this.dataGridCliente.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dataGridCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridCliente.Size = new System.Drawing.Size(501, 227);
+            this.dataGridCliente.TabIndex = 13;
+            this.dataGridCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridCliente_CellContentClick);
             // 
             // groupBox1
             // 
@@ -212,6 +208,20 @@
             this.altaDeClienteToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.altaDeClienteToolStripMenuItem.Text = "Alta de Cliente";
             // 
+            // Baja
+            // 
+            this.Baja.HeaderText = "";
+            this.Baja.Name = "Baja";
+            this.Baja.Text = "Baja";
+            this.Baja.UseColumnTextForButtonValue = true;
+            // 
+            // Modificar
+            // 
+            this.Modificar.HeaderText = "";
+            this.Modificar.Name = "Modificar";
+            this.Modificar.Text = "Modificar";
+            this.Modificar.UseColumnTextForButtonValue = true;
+            // 
             // ClienteBajaMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -219,13 +229,13 @@
             this.ClientSize = new System.Drawing.Size(531, 428);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
-            this.Controls.Add(this.dataGridUsuario);
+            this.Controls.Add(this.dataGridCliente);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ClienteBajaMod";
             this.Text = "Modificacion/Baja de un Cliente";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -239,9 +249,7 @@
 
         private System.Windows.Forms.Button botonBuscar;
         private System.Windows.Forms.Button botonLimpiar;
-        private System.Windows.Forms.DataGridView dataGridUsuario;
-        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
-        private System.Windows.Forms.DataGridViewButtonColumn Baja;
+        private System.Windows.Forms.DataGridView dataGridCliente;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboTipoDoc;
         private System.Windows.Forms.TextBox textApellido;
@@ -255,5 +263,7 @@
         private System.Windows.Forms.TextBox textNumDoc;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem altaDeClienteToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewButtonColumn Baja;
+        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
     }
 }
