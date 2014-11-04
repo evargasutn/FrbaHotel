@@ -13,24 +13,22 @@ namespace FrbaHotel.Login
 {
     public partial class MainPanel : Form
     {
-        
+
         List<Funcionalidad> funcsDelRolDelUser;
-        Dictionary<String, Form> nombreFuncsXFormulario;
         Usuario usuario;
         String hotelNombre;
-      
-        
-        
-        public MainPanel(Usuario usuario,String hotelNombre,String rolNombre)
-        {                                                                      
+
+
+
+        public MainPanel(Usuario usuario, String hotelNombre, String rolNombre)
+        {
             InitializeComponent();
-            cargarFormularios();          
-         funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rolNombre);
-          foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
-              listFuncionalidades.Items.Add(unFuncs.Descripcion);
-          
+            funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rolNombre);
+            foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
+                listFuncionalidades.Items.Add(unFuncs.Descripcion);
+
         }
-        public MainPanel( )   ///Para invitados
+        public MainPanel()   ///Para invitados
         {
             InitializeComponent();
             ///cargar list funcionalidades para invitados
@@ -39,31 +37,68 @@ namespace FrbaHotel.Login
         private void botonAceptar_Click(object sender, EventArgs e)
         {
             var funcionalidadElegida = listFuncionalidades.SelectedItem;
-            if (funcionalidadElegida != null) 
-                funcionalidadElegida.ToString();                
+            if (funcionalidadElegida != null)
+                abrirFormulario(funcionalidadElegida.ToString());
             else MessageBox.Show("Seleccione una funcionalidad", "Error no selecciono funcionalidad");
         }
 
 
-        /// <summary>
-        /// Se carga el diccionario de formularios,se deben completar las presentaciones
-        /// </summary>
-        public void cargarFormularios()
+
+
+        private void abrirFormulario(string unaFuncionalidad)
         {
-            nombreFuncsXFormulario.Add("ABM de Rol", new ABM_de_Rol.RolAlta());
-            nombreFuncsXFormulario.Add("ABM de Usuario", new ABM_de_Usuario.UsuarioAlta());
-            nombreFuncsXFormulario.Add("ABM de Huespedes",new ABM_de_Cliente.ClienteAlta());
-            nombreFuncsXFormulario.Add("ABM de Hotel",new ABM_de_Hotel.HotelAlta());
-            nombreFuncsXFormulario.Add("ABM de Regimen",new ABM_de_Habitacion.HabitacionAlta());
-            nombreFuncsXFormulario.Add("Generar o Modificar una Reserva",new Generar_Modificar_Reserva.GenerarReserva());
-            nombreFuncsXFormulario.Add("Cancelar Reserva",new Cancelar_Reserva.CancelarReserva(usuario,hotelNombre));
-            nombreFuncsXFormulario.Add("Registrar Estadia",new Registrar_Estadia.Check_In());
-            nombreFuncsXFormulario.Add("Registrar Consumibles",new Registrar_Consumible.RegistrarConsumibles());
-           // formularioXNombre.Add("Facturar Estadia",new ); 
-            nombreFuncsXFormulario.Add("Listado Estadistico", new Listado_Estadistico.ListadoEstadistico());
+
+            switch (unaFuncionalidad)
+            {
+
+                case "ABM de Rol":
+                    new ABM_de_Rol.RolAlta().Show();
+                    break;
+
+                case "ABM de Usuario":
+                    new ABM_de_Usuario.UsuarioAlta().Show();
+                    break;
+
+                case "ABM de Huespedes":
+                    new ABM_de_Cliente.ClienteAlta().Show();
+                    break;
+
+                case "ABM de Hotel":
+                    new ABM_de_Hotel.HotelAlta().Show();
+                    break;
+
+                case "ABM de Habitacion":
+                    new ABM_de_Habitacion.HabitacionAlta().Show();
+                    break;
+
+                case "ABM de Regimen":
+                    new ABM_de_Regimen.RegimenAlta().Show();
+                    break;
+
+                case "Generar o Modificar una Reserva":
+                    new Generar_Modificar_Reserva.GenerarReserva().Show();
+                    break;
+                case "Cancelar Reserva":
+                    new Cancelar_Reserva.CancelarReserva(usuario, hotelNombre).Show();
+                    break;
+
+                case "Registrar Estadia":
+                    new Registrar_Estadia.Check_In().Show();
+                    break;
+
+                case "Registrar Consumibles":
+                    new Registrar_Consumible.RegistrarConsumibles().Show();
+                    break;
+
+                /*Falta ABM facturar*/
+
+                case "Listado Estadistico":
+                    new Listado_Estadistico.ListadoEstadistico().Show() ;
+                    break;
+
+            }
+
         }
-
-
 
 
 
