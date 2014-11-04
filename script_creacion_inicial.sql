@@ -118,7 +118,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 	numDocu						numeric(18,0) not null,
 	mail						varchar(255),
 	telefono					numeric(12),
-	direccionCalle				varchar(255) not null,
+	direccionCalle				varchar(100) not null,
 	direccionNumero				numeric(18,0) not null,
 	direccionPiso				numeric(18,0),
 	direccionDepto				varchar(50),
@@ -167,7 +167,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 	apellido			varchar(255) not null,
 	mail				varchar(255),
 	telefono			numeric(18,0),
-	direccionCalle		varchar(255) not null,
+	direccionCalle		varchar(100) not null,
 	direccionNumero		numeric(18,0) not null,
 	direccionPiso		numeric(18,0),
 	direccionDepto		varchar(50),
@@ -213,13 +213,13 @@ go
 create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES
 (
 	codHotel		numeric(8) identity(1,1) PRIMARY KEY,
-	nombreHotel		varchar(50) not null default 'A',
+	nombreHotel		varchar(400) not null,
 	mail			varchar(50) default '',
 	fecCreacion		datetime not null,
 	telefono		numeric(20) not null default '11111111',
-	direccionCalle	varchar(255) not null,
+	direccionCalle	varchar(100) not null,
 	direccionNumero	numeric(18,0) not null,
-	ciudad			varchar(255) not null,
+	ciudad			varchar(100) not null,
 	pais			varchar(50) not null default 'Argentina',
 	cantEstrellas	numeric(18,0) not null,
 	recargoEstrella numeric(18,0) not null,
@@ -407,19 +407,19 @@ go
  	
 --//USUARIO, Administrador	
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre, apellido, tipoDocu, numDocu, direccionCalle, direccionNumero, FecNacimiento) 
-	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','Administrador General', 'Gerez', 'DNI', '24264123', 'Av. Cordoba', '8834', '17/04/1981')
+	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','ADMINISTRADOR General', 'GEREZ', 'DNI', '24264123', 'Av. Cordoba', '8834', '17/04/1981')
 GO
 	
 --//ROL
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES (nombreRol) 
-	VALUES ('Administrador'),
-		   ('Recepcionista'),
-		   ('Guest')
+	VALUES ('ADMINISTRADOR'),
+		   ('RECEPCIONISTA'),
+		   ('GUEST')
 GO	
 	   
 --//ROLES_X_USUARIO, CARGA PARA USR: Administrador
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO (nombreRol, usr) 
-	VALUES ('Administrador','admin')
+	VALUES ('ADMINISTRADOR','admin')
 GO
 
 --//FUNCIONALIDADES
@@ -440,24 +440,24 @@ GO
 
 --//FUNCIONALIDADES_X_ROL
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES_X_ROL (nombreRol, idFuncionalidad) 
-	VALUES 	('Administrador','1'), 
-			('Administrador','2'), 
-			('Administrador','3'), 
-			('Administrador','4'), 
-			('Administrador','5'), 
-			('Administrador','6'), 
-			('Administrador','7'), 
-			('Administrador','8'), 
-			('Administrador','9'),
-			('Administrador','10'),
-			('Administrador','11'), 
-			('Administrador','12'), 
-			('Recepcionista','3'), 
-			('Recepcionista','7'), 
-			('Recepcionista','8'), 
-			('Recepcionista','9'),
-			('Guest','7'), 
-			('Guest','8')
+	VALUES 	('ADMINISTRADOR','1'), 
+			('ADMINISTRADOR','2'), 
+			('ADMINISTRADOR','3'), 
+			('ADMINISTRADOR','4'), 
+			('ADMINISTRADOR','5'), 
+			('ADMINISTRADOR','6'), 
+			('ADMINISTRADOR','7'), 
+			('ADMINISTRADOR','8'), 
+			('ADMINISTRADOR','9'),
+			('ADMINISTRADOR','10'),
+			('ADMINISTRADOR','11'), 
+			('ADMINISTRADOR','12'), 
+			('RECEPCIONISTA','3'), 
+			('RECEPCIONISTA','7'), 
+			('RECEPCIONISTA','8'), 
+			('RECEPCIONISTA','9'),
+			('GUEST','7'), 
+			('GUEST','8')
 GO
 
 
@@ -499,7 +499,7 @@ GO*/
 	
 --//REGIMENES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(descripcion, precio)
-	SELECT DISTINCT Regimen_Descripcion, Regimen_Precio
+	SELECT DISTINCT UPPER(Regimen_Descripcion), Regimen_Precio
 	FROM  gd_esquema.Maestra
 	WHERE Regimen_Descripcion IS NOT NULL
 GO
@@ -507,22 +507,22 @@ GO
 --//HOTELES
 /*PARA QUE TENGA SENTIDO LA FECHA DE CREACION SERÁ EL PRIMERO DE NOVIEMBRE DE 2012
 YA QUE LA RESERVA MAS ANTIGUA TIENE FECHA 27 DE DICIEMBRE DE 2012*/
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES(direccionCalle, direccionNumero, ciudad, cantEstrellas, recargoEstrella, fecCreacion)
-	SELECT DISTINCT Hotel_Calle, Hotel_Nro_Calle, Hotel_Ciudad, Hotel_CantEstrella, Hotel_Recarga_Estrella, '01/11/2012'
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES(nombreHotel,direccionCalle, direccionNumero, ciudad, cantEstrellas, recargoEstrella, fecCreacion)
+	SELECT DISTINCT UPPER(RTRIM(Hotel_Ciudad)+' '+RTRIM(Hotel_Calle)) AS nombreHotel,UPPER(Hotel_Calle), Hotel_Nro_Calle, UPPER(Hotel_Ciudad), Hotel_CantEstrella, Hotel_Recarga_Estrella, '01/11/2012'
 	FROM  gd_esquema.Maestra
 	WHERE Hotel_Calle IS NOT NULL
 GO
 
 --//TIPO_HABITACIONES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES(tipoCodigo, tipoDescripcion, tipoPorcentual)
-	SELECT DISTINCT Habitacion_Tipo_Codigo, Habitacion_Tipo_Descripcion, Habitacion_Tipo_Porcentual
+	SELECT DISTINCT Habitacion_Tipo_Codigo, UPPER(Habitacion_Tipo_Descripcion), Habitacion_Tipo_Porcentual
 	FROM  gd_esquema.Maestra
 	WHERE Habitacion_Tipo_Codigo IS NOT NULL
 GO
 
 --//HABITACIONES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES(codHotel,habitacion, piso, ubicacion, tipoCodigo, descripcion)
-	SELECT DISTINCT H.codHotel, M.Habitacion_Numero, M.Habitacion_Piso, M.Habitacion_Frente, M.Habitacion_Tipo_Codigo, M.Habitacion_Tipo_Descripcion
+	SELECT DISTINCT H.codHotel, M.Habitacion_Numero, M.Habitacion_Piso, UPPER(M.Habitacion_Frente), M.Habitacion_Tipo_Codigo, UPPER(M.Habitacion_Tipo_Descripcion)
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H, gd_esquema.Maestra M
 	WHERE H.direccionCalle = M.Hotel_Calle AND 
 		  H.direccionNumero = M.Hotel_Nro_Calle AND 
@@ -533,8 +533,8 @@ GO
 --//HUESPEDES
     INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(tipoDocu, numDocu, apellido, nombre, fecNacimiento, mail, direccionCalle,
                                                    direccionNumero, direccionPiso, direccionDepto, localidad, nacionalidad)
-    SELECT DISTINCT 'DNI', Cliente_Pasaporte_Nro , Cliente_Apellido, Cliente_Nombre, Cliente_Fecha_Nac, Cliente_Mail,   
-                    Cliente_Dom_Calle, Cliente_Nro_Calle, Cliente_Piso, Cliente_Depto, 'CABA', Cliente_Nacionalidad
+    SELECT DISTINCT 'DNI', Cliente_Pasaporte_Nro , UPPER(Cliente_Apellido), UPPER(Cliente_Nombre), Cliente_Fecha_Nac, Cliente_Mail,   
+                    UPPER(Cliente_Dom_Calle), Cliente_Nro_Calle, Cliente_Piso, UPPER(Cliente_Depto), 'CABA', 'ARGENTINA'
     FROM  gd_esquema.Maestra
 	WHERE Cliente_Apellido IS NOT NULL AND Cliente_Nombre IS NOT NULL
 GO
@@ -617,7 +617,7 @@ GO
 --PARA QUE TOME LOS CODIGOS YA EXISTENTE
 	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES ON
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(codConsumible, descripcion, importe)
-	SELECT DISTINCT M.Consumible_Codigo, M.Consumible_Descripcion, M.Consumible_Precio
+	SELECT DISTINCT M.Consumible_Codigo, UPPER(M.Consumible_Descripcion), M.Consumible_Precio
 	FROM gd_esquema.Maestra M
 	WHERE M.Consumible_Codigo IS NOT NULL
 	
@@ -662,7 +662,7 @@ GO
 	ORDER BY H.codHotel
 GO
 
---//DETALLES_RESERVA
+--//DETALLES_RESERVA INVALIDA
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVAINVALIDA(codHotel, codReserva, codRegimen, habitacion, piso)
 	SELECT DISTINCT H.codHotel, M.Reserva_Codigo, R.codRegimen, M.Habitacion_Numero, M.Habitacion_Piso
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H, COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R, gd_esquema.Maestra M
@@ -680,7 +680,7 @@ GO
 /*CONSIDERO FACTURAS PAGAS EN EFECTIVO*/
 
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura, codReserva, fecha, montoTotal, idHuesped,tipoPago, codTarjetaCredito)
-	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, SUM(M.Item_Factura_Monto), HUES.idHuesped, 'Efectivo',''
+	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, SUM(M.Item_Factura_Monto), HUES.idHuesped, 'EFECTIVO',''
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
 	WHERE M.Factura_Nro IS NOT NULL AND
 		  M.Cliente_Pasaporte_Nro = HUES.numDocu AND
@@ -693,7 +693,7 @@ GO
 --//FACTURAS_INVALIDAS
 --//FACTURAS NO VALIDAS POR TENER FECHA FUTURA A LA PRESENTE
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS_INVALIDAS(numeroFactura, codReserva, fecha, montoTotal, idHuesped,tipoPago, codTarjetaCredito)
-	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, SUM(M.Item_Factura_Monto), HUES.idHuesped, 'Efectivo',''
+	SELECT DISTINCT M.Factura_Nro,M.Reserva_Codigo, M.Factura_Fecha, SUM(M.Item_Factura_Monto), HUES.idHuesped, 'EFECTIVO',''
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
 	WHERE M.Factura_Nro IS NOT NULL AND
 		  M.Cliente_Pasaporte_Nro = HUES.numDocu AND
@@ -705,7 +705,7 @@ GO
 
 --//ITEMS_FACTURA
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, descripcion, montoUnitario, cantidad, montoTotal)
-	SELECT DISTINCT M.Factura_Nro, ROW_NUMBER() OVER (PARTITION BY M.Factura_Nro ORDER BY M.Factura_Nro) AS Item_Nro, CASE WHEN M.Consumible_Descripcion IS NULL THEN 'Recargos de Categoria Hotel y Regimen' ELSE M.Consumible_Descripcion END, M.Item_Factura_Monto, COUNT(*), (M.Item_Factura_Monto * COUNT(*))
+	SELECT DISTINCT M.Factura_Nro, ROW_NUMBER() OVER (PARTITION BY M.Factura_Nro ORDER BY M.Factura_Nro) AS Item_Nro, CASE WHEN M.Consumible_Descripcion IS NULL THEN 'Recargos de Categoria Hotel y Regimen' ELSE UPPER(M.Consumible_Descripcion) END, M.Item_Factura_Monto, COUNT(*), (M.Item_Factura_Monto * COUNT(*))
 	FROM gd_esquema.Maestra M
 	WHERE M.Item_Factura_Monto IS NOT NULL AND
 			  M.Item_Factura_Cantidad IS NOT NULL AND
@@ -770,7 +770,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRol
 	@estado		bit
 AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES (nombreRol, estado)
-	VALUES(@nombreRol, @estado)
+	VALUES(UPPER(@nombreRol), @estado)
 GO
 --//PROC DELETEROL
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteRol', 'P' ) IS NOT NULL 
@@ -819,7 +819,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRolUsuario
 	@usr varchar(50)	
 AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO (nombreRol, usr) 
-	VALUES (@rol, @usr)
+	VALUES (UPPER(@rol), @usr)
 GO
 --//PRC ADD ROL_X_FUNCIONALIDAD
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.addFuncionalidad', 'P' ) IS NOT NULL 
@@ -834,7 +834,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.addFuncionalidad
 	@rol varchar(15)	
 AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES_X_ROL(idFuncionalidad, nombreRol)
-	VALUES(@idFuncionalidad, @rol)
+	VALUES(@idFuncionalidad, UPPER(@rol))
 GO
 
 --//PROC REMOVE ROL_X_FUNCIONALIDAD
@@ -883,7 +883,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.JoinRolFunc
-@nombreRol varchar(15)
+	@nombreRol varchar(15)
 AS
 	BEGIN
 	 IF (@nombreRol != '')
@@ -941,7 +941,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertUsuario
 	@numDocu	numeric(18,0),
 	@mail varchar(255),
 	@telefono numeric(12),
-	@direccionCalle varchar(255),
+	@direccionCalle varchar(100),
 	@direccionNumero numeric(18,0),
 	@direccionPiso numeric(18,0),
 	@direccionDepto varchar(50),
@@ -949,8 +949,8 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertUsuario
 AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr, password, nombre, apellido, contador_intentos_login, tipoDocu, numDocu,
 		mail, telefono, direccionCalle, direccionNumero, direccionPiso, direccionDepto, FecNacimiento, campoBaja)
-	VALUES(@usr, @password, @nombre, @apellido, 0, @tipoDocu, @numDocu, @mail, @telefono, @direccionCalle, @direccionNumero, 
-			@direccionPiso, @direccionDepto, @FecNacimiento, 0)
+	VALUES(@usr, @password, UPPER(@nombre), UPPER(@apellido), 0, @tipoDocu, @numDocu, LOWER(@mail), @telefono, UPPER(@direccionCalle), @direccionNumero, 
+			@direccionPiso, UPPER(@direccionDepto), @FecNacimiento, 0)
 GO
 
 --//PROC DELETEUSUARIO
@@ -985,7 +985,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateUsuario
 	@numDocu	numeric(18,0),
 	@mail varchar(255),
 	@telefono numeric(12),
-	@direccionCalle varchar(255),
+	@direccionCalle varchar(100),
 	@direccionNumero numeric(18,0),
 	@direccionPiso numeric(18,0),
 	@direccionDepto varchar(50),
@@ -1016,9 +1016,9 @@ AS
 		/*ACTUALIZO LOS DATOS Y SETEO BANDERA PRIMER_LOG EN FALSO*/
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 		SET 
-				password = @nueva_clave, nombre = @nombre, apellido = @apellido, tipoDocu = @tipoDocu, 
-				numDocu = @numDocu, mail = @mail, telefono = @telefono, direccionCalle = @direccionCalle, direccionNumero = @direccionNumero, 
-				direccionPiso = @direccionPiso, direccionDepto = @direccionDepto, fecNacimiento = @fecNacimiento, primerLog = 0
+				password = @nueva_clave, nombre = UPPER(@nombre), apellido = UPPER(@apellido), tipoDocu = @tipoDocu, 
+				numDocu = @numDocu, mail = LOWER(@mail), telefono = @telefono, direccionCalle = UPPER(@direccionCalle), direccionNumero = @direccionNumero, 
+				direccionPiso = @direccionPiso, direccionDepto = UPPER(@direccionDepto), fecNacimiento = @fecNacimiento, primerLog = 0
 		WHERE usr = @usr
 		
 		/*DROP TABLA TEMPORAL*/
@@ -1090,7 +1090,7 @@ AS
 	WHERE tipoDescripcion = @tipo
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES (codHotel, habitacion, piso, ubicacion, tipoCodigo,
 		descripcion, campoBaja)
-VALUES(@codHotel, @habitacion, @piso, @ubicacion, @codTipo, @descripcion, 0)
+VALUES(@codHotel, @habitacion, @piso, UPPER(@ubicacion), @codTipo, UPPER(@descripcion), 0)
 GO
 
 --//PROC UPDATEHABITACION
@@ -1119,8 +1119,8 @@ AS
 			campoBaja = @campoBaja,
 			piso = @piso,
 			tipoCodigo = @tipo,
-			ubicacion = @ubicacion,
-			descripcion = @descripcion
+			ubicacion = UPPER(@ubicacion),
+			descripcion = UPPER(@descripcion)
 			
 		WHERE habitacion= @habitacion
 GO
@@ -1194,7 +1194,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRegimen
 	AS
 		BEGIN
 		   INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen, descripcion, precio, estado)
-		   VALUES (@codigoRegimen, @descripcion, @precio, 1)
+		   VALUES (@codigoRegimen, UPPER(@descripcion), @precio, 1)
 		END 
 GO
 
@@ -1215,7 +1215,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateRegimen
 	AS
 		BEGIN
 		   UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
-		   SET  descripcion = @descripcion,
+		   SET  descripcion = UPPER(@descripcion),
 				precio = @precio,
 				estado = @estado
 		   WHERE codRegimen = @codigoRegimen
@@ -1272,11 +1272,13 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotel
 				SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
 				H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella 
 				FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
+				ORDER BY H.nombreHotel ASC
 			ELSE
 				SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
 				H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella
 				FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
 				WHERE H.codHotel = @codigo
+				ORDER BY H.nombreHotel ASC
 		END 
 GO
 
@@ -1289,22 +1291,21 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotel
-	@nombreHotel varchar(50),
+	@nombreHotel varchar(400),
 	@mail varchar(50),
 	@telefono numeric(20),
-	@direccionCalle varchar(255),
+	@direccionCalle varchar(100),
 	@direccionNumero numeric(18,0),
-	@ciudad varchar(255),
+	@ciudad varchar(100),
 	@pais varchar(50),
 	@cantEstrellas numeric(18,0),
 	@recargoEstrella numeric(18,0)
 AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES (nombreHotel, mail, fecCreacion, telefono, direccionCalle,
 								direccionNumero, ciudad, pais, cantEstrellas, recargoEstrella)
-	VALUES(@nombreHotel, @mail, GETDATE(), (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono END), 
-		@direccionCalle, (CASE WHEN @direccionNumero = -1 THEN NULL ELSE @direccionNumero END), @ciudad, 
-		@pais, (CASE WHEN @cantEstrellas = -1 THEN NULL ELSE @cantEstrellas END), 
-		(CASE WHEN @recargoEstrella = -1 THEN NULL ELSE @recargoEstrella END))
+	VALUES(UPPER(@nombreHotel), LOWER(@mail), GETDATE(), (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono END), 
+		UPPER(@direccionCalle), @direccionNumero, UPPER(@ciudad), 
+		UPPER(@pais), @cantEstrellas ,@recargoEstrella)
 GO
 
 --/PROCEDIMIENTO DELETE HOTEL (EN REALIDAD CREA UNA INHABILITACION) 
@@ -1339,12 +1340,12 @@ SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHotel
 	@codHotel	numeric(8),
-	@nombreHotel	varchar(50),
+	@nombreHotel	varchar(400),
 	@mail	varchar(50),
 	@telefono	numeric(20),
-	@direccionCalle	varchar(255),
+	@direccionCalle	varchar(100),
 	@direccionNumero	numeric(18),
-	@ciudad	varchar(255),
+	@ciudad	varchar(100),
 	@pais	varchar(50),
 	@cantEstrellas	numeric(18),
 	@recargoEstrella	numeric(18),
@@ -1357,13 +1358,13 @@ AS
 	@cantEstrellas IS NOT NULL AND	@recargoEstrella IS NOT NULL AND
 	@estado IS NOT NULL) 
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
-		SET nombreHotel = @nombreHotel,
-			mail = @mail,
+		SET nombreHotel = UPPER(@nombreHotel),
+			mail = LOWER(@mail),
 			telefono = @telefono,
-			direccionCalle = @direccionCalle,
+			direccionCalle = UPPER(@direccionCalle),
 			@direccionNumero = @direccionNumero,
-			ciudad = @ciudad,
-			pais = @pais,
+			ciudad = UPPER(@ciudad),
+			pais = UPPER(@pais),
 			cantEstrellas = @cantEstrellas,
 			recargoEstrella = @recargoEstrella,
 			campoBaja = @estado
@@ -1490,14 +1491,13 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHuesped
-	@idHuesped	int,
 	@tipoDocu	varchar(50),
 	@numDocu	numeric(18, 0),
 	@nombre	varchar(255),
 	@apellido	varchar(255),
 	@mail	varchar(255),
 	@telefono	numeric(18, 0),
-	@direccionCalle	varchar(255),
+	@direccionCalle	varchar(100),
 	@direccionNumero	numeric(18, 0),
 	@direccionPiso	numeric(18, 0),
 	@direccionDepto	varchar(50),
@@ -1505,14 +1505,14 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHuesped
 	@nacionalidad	varchar(255),
 	@fecNacimiento	datetime		
 AS
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped, tipoDocu, numDocu, nombre, apellido,
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(tipoDocu, numDocu, nombre, apellido,
 				mail, telefono, direccionCalle, direccionNumero, direccionPiso, direccionDepto,
 				localidad, nacionalidad, fecNacimiento)
-	VALUES(@idHuesped, @tipoDocu, @numDocu, @nombre, @apellido,
-		   @mail, (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono END), 
-		   @direccionCalle, @direccionNumero, 
-		   (CASE WHEN @direccionPiso = -1 THEN NULL ELSE @direccionPiso END), @direccionDepto,
-		   @localidad, @nacionalidad, @fecNacimiento)
+	VALUES(UPPER(@tipoDocu), @numDocu, UPPER(@nombre), UPPER(@apellido),
+		   LOWER(@mail), (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono END), 
+		   UPPER(@direccionCalle), @direccionNumero, 
+		   (CASE WHEN @direccionPiso = -1 THEN NULL ELSE @direccionPiso END), CASE WHEN @direccionDepto IS NULL THEN '' ELSE UPPER(@direccionDepto) END,
+		   UPPER(@localidad), UPPER(@nacionalidad), @fecNacimiento)
 GO
 --//PROC DELETEHUESPED
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteHuesped', 'P' ) IS NOT NULL 
@@ -1545,7 +1545,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHuesped
 	@numDocu	numeric(18,0),
 	@mail varchar(255),
 	@telefono numeric(12),
-	@direccionCalle varchar(255),
+	@direccionCalle varchar(100),
 	@direccionNumero numeric(18,0),
 	@direccionPiso numeric(18,0),
 	@direccionDepto varchar(50),
@@ -1565,10 +1565,10 @@ AS
 		
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 		SET 
-				nombre = @nombre, apellido = @apellido, tipoDocu = @tipoDocu, 
-				numDocu = @numDocu, mail = @mail, telefono = @telefono, direccionCalle = @direccionCalle, direccionNumero = @direccionNumero, 
-				direccionPiso = @direccionPiso, direccionDepto = @direccionDepto, fecNacimiento = @fecNacimiento, 
-				localidad = @localidad, nacionalidad = @nacionalidad
+				nombre = UPPER(@nombre), apellido = UPPER(@apellido), tipoDocu = UPPER(@tipoDocu), 
+				numDocu = @numDocu, mail = LOWER(@mail), telefono = @telefono, direccionCalle = UPPER(@direccionCalle), direccionNumero = @direccionNumero, 
+				direccionPiso = @direccionPiso, direccionDepto = UPPER(@direccionDepto), fecNacimiento = @fecNacimiento, 
+				localidad = UPPER(@localidad), nacionalidad = UPPER(@nacionalidad)
 		WHERE idHuesped = @idHuesped
 	END
 GO
@@ -1720,6 +1720,36 @@ AS
 	END
 GO
 
+--/PROC INSERTITEMFACTURA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
+	@numeroFactura  numeric(18),
+	@codReserva		numeric(18)     
+AS
+	DECLARE @nroItem numeric(2)
+	SET @nroItem = 0 
+	
+	--Guardo primero RECARGOS
+	DECLARE @totalRecargos numeric(5,2)
+	SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
+						+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+	VALUES(@numeroFactura, @nroItem+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Regimen')
+	
+	--Guardo los consumibles
+	SET @nroItem = @nroItem + 1
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+	SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
+	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
+GO
+
 --//PROC FACTURAR
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.facturar', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.facturar
@@ -1768,36 +1798,6 @@ AS
 	EXEC COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura @numeroFactura, @codReserva
 	
 	END
-GO
-
---/PROC INSERTITEMFACTURA
-IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura', 'P' ) IS NOT NULL 
-		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_NULLS ON
-GO
-CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
-	@numeroFactura  numeric(18),
-	@codReserva		numeric(18)     
-AS
-	DECLARE @nroItem numeric(2)
-	SET @nroItem = 0 
-	
-	--Guardo primero RECARGOS
-	DECLARE @totalRecargos numeric(5,2)
-	SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
-						+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-	VALUES(@numeroFactura, @nroItem+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Regimen')
-	
-	--Guardo los consumibles
-	SET @nroItem = @nroItem + 1
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-	SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, C.descripcion
-	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
-	JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
 GO
 
 --/PROC INSERTESTADIA
@@ -1880,7 +1880,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertConsumible
 	AS
 		BEGIN
 		   INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(descripcion, importe)
-		   VALUES (@descripcion, @importe)
+		   VALUES (UPPER(@descripcion), @importe)
 		END 
 GO
 
@@ -1901,7 +1901,7 @@ AS
 		@descripcion IS NOT NULL AND @importe IS NOT NULL)
 		
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
-		SET descripcion = @descripcion, importe = @importe
+		SET descripcion = UPPER(@descripcion), importe = @importe
 		WHERE codConsumible = @codConsumible
 GO
 
