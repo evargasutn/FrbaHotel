@@ -1720,6 +1720,36 @@ AS
 	END
 GO
 
+--/PROC INSERTITEMFACTURA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
+	@numeroFactura  numeric(18),
+	@codReserva		numeric(18)     
+AS
+	DECLARE @nroItem numeric(2)
+	SET @nroItem = 0 
+	
+	--Guardo primero RECARGOS
+	DECLARE @totalRecargos numeric(5,2)
+	SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
+						+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+	VALUES(@numeroFactura, @nroItem+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Regimen')
+	
+	--Guardo los consumibles
+	SET @nroItem = @nroItem + 1
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+	SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
+	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
+GO
+
 --//PROC FACTURAR
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.facturar', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.facturar
@@ -1768,36 +1798,6 @@ AS
 	EXEC COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura @numeroFactura, @codReserva
 	
 	END
-GO
-
---/PROC INSERTITEMFACTURA
-IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura', 'P' ) IS NOT NULL 
-		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_NULLS ON
-GO
-CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
-	@numeroFactura  numeric(18),
-	@codReserva		numeric(18)     
-AS
-	DECLARE @nroItem numeric(2)
-	SET @nroItem = 0 
-	
-	--Guardo primero RECARGOS
-	DECLARE @totalRecargos numeric(5,2)
-	SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
-						+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-	VALUES(@numeroFactura, @nroItem+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Regimen')
-	
-	--Guardo los consumibles
-	SET @nroItem = @nroItem + 1
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-	SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
-	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
-	JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
 GO
 
 --/PROC INSERTESTADIA
