@@ -29,7 +29,8 @@ namespace FrbaHotel.Login
                     if (usuarioALoguear.Password == textContrasenia.Text)
                     {
                         MessageBox.Show("Inicio de sesion exitosa", "Logueo!!");
-                        new LoginRequisitos(usuarioALoguear).Show();
+                        Globals.logueado.User = usuarioALoguear;//
+                        new LoginRequisitos().Show();
                     }
                     else
                     {
@@ -44,7 +45,10 @@ namespace FrbaHotel.Login
 
         private void botonInvitado_Click(object sender, EventArgs e)
         {
-            new MainPanel().Show();
+            //El invitado es el guest
+            Globals.logueado.Rol = DAORol.obtener("Guest");
+            MessageBox.Show(Globals.logueado.Rol.Nombre,"pp");
+            new LoginRequisitos().Show();
         }
 
         private void Login_Load(object sender, EventArgs e)

@@ -15,25 +15,20 @@ namespace FrbaHotel.Login
     {
 
         List<Funcionalidad> funcsDelRolDelUser;
-        Usuario usuario;
-        String hotelNombre;
+        Usuario usuario=Globals.logueado.User;
+        Hotel hotel = Globals.logueado.Hotel;
+        Rol rol = Globals.logueado.Rol;
 
 
-
-        public MainPanel(Usuario usuario, String hotelNombre, String rolNombre)
+        public MainPanel()
         {
             InitializeComponent();
-            funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rolNombre);
+            ////completamos las funcionalidades
+            funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rol.Nombre);
             foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
                 listFuncionalidades.Items.Add(unFuncs.Descripcion);
-
         }
-        public MainPanel()   ///Para invitados
-        {
-            InitializeComponent();
-            ///cargar list funcionalidades para invitados
-        }
-
+  
         private void botonAceptar_Click(object sender, EventArgs e)
         {
             var funcionalidadElegida = listFuncionalidades.SelectedItem;
@@ -79,7 +74,7 @@ namespace FrbaHotel.Login
                     new Generar_Modificar_Reserva.GenerarReserva().Show();
                     break;
                 case "Cancelar Reserva":
-                    new Cancelar_Reserva.CancelarReserva(usuario, hotelNombre).Show();
+                    new Cancelar_Reserva.CancelarReserva(usuario, hotel.Nombre).Show();
                     break;
 
                 case "Registrar Estadia":
