@@ -913,14 +913,15 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getUsuario
 AS
 	BEGIN
 	 IF (@unUsr = '')
- 		SELECT U.usr, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
+ 		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
  				U.direccionDepto, U.mail, U.telefono, U.password
- 		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.campoBaja = 0
+ 		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U, COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU
+ 		WHERE RU.usr = U.usr AND U.campoBaja = 0
 	 ELSE
-		SELECT U.usr, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
+		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
 				U.direccionDepto, U.mail, U.telefono, U.password
-		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
-		WHERE U.usr = @unUsr
+		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U, COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU
+ 		WHERE RU.usr = @unUsr
 	END
 GO
 
