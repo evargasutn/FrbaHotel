@@ -915,13 +915,15 @@ AS
 	 IF (@unUsr = '')
  		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
  				U.direccionDepto, U.mail, U.telefono, U.password
- 		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U, COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU
- 		WHERE RU.usr = U.usr AND U.campoBaja = 0
+ 		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU ON RU.usr = U.usr
+ 		WHERE U.usr = U.usr AND U.campoBaja = 0
 	 ELSE
 		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
 				U.direccionDepto, U.mail, U.telefono, U.password
-		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U, COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU
- 		WHERE RU.usr = @unUsr
+		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU ON RU.usr = U.usr
+ 		WHERE U.usr = @unUsr
 	END
 GO
 
@@ -1253,8 +1255,12 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelByUsuario
 	@usuario varchar(50)
 	AS
-		SELECT H.codHotel FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO H 
-		WHERE H.usr = @usuario  
+		SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion,
+			   H.telefono, H.direccionCalle, H.direccionNumero, H.ciudad,
+			   H.pais, H.cantEstrellas, H.recargoEstrella
+		 FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO HU 
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = HU.codHotel 
+		WHERE HU.usr = @usuario  
 GO
 
 --/PROCEDIMIENTO GET HOTEL 
