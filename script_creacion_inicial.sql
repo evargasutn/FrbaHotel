@@ -406,8 +406,8 @@ go
  **/
  	
 --//USUARIO, Administrador	
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre, apellido, tipoDocu, numDocu, direccionCalle, direccionNumero, FecNacimiento) 
-	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','ADMINISTRADOR General', 'GEREZ', 'DNI', '24264123', 'Av. Cordoba', '8834', 17/04/1981)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre, apellido, tipoDocu, numDocu, direccionCalle, direccionNumero, FecNacimiento, mail) 
+	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','ADMINISTRADOR General', 'GEREZ', 'DNI', '24264123', 'Av. Cordoba', '8834', 17/04/1981, 'admin@frbaHoteles.com.ar')
 GO
 	
 --//ROL
@@ -821,6 +821,23 @@ AS
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO (nombreRol, usr) 
 	VALUES (UPPER(@rol), @usr)
 GO
+
+--//PROC DELETEROLUSUARIO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteRolUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteRolUsuario
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteRolUsuario
+	@rol varchar(50),
+	@usr varchar(50)	
+AS
+	DELETE FROM COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO 
+	WHERE nombreRol = @rol AND usr = @usr
+GO
+
 --//PRC ADD ROL_X_FUNCIONALIDAD
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.addFuncionalidad', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.addFuncionalidad
@@ -1377,6 +1394,25 @@ AS
 			recargoEstrella = @recargoEstrella,
 			campoBaja = @estado
 		WHERE codHotel= @codHotel
+GO
+
+--//PROC INSERTHOTELUSUARIO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertHotelUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotelUsuario
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotelUsuario
+	@usr varchar(50), @nombreHotel varchar(200)
+AS
+	DECLARE @idHotelBuscado numeric(8)
+	SET @idHotelBuscado = (SELECT H.codHotel 
+						   FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H 
+						   WHERE H.nombreHotel = @nombreHotel)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO(usr, codHotel) 
+	VALUES (@usr, @idHotelBuscado)
 GO
 
 --/PROC GETRESERVA 
