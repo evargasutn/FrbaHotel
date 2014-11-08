@@ -24,9 +24,11 @@ namespace FrbaHotel.Login
         {
             InitializeComponent();
             ////completamos las funcionalidades
+            ///usarJoinRolFunc devuelve lanombre rol y las funcionalidades;
             funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rol.Nombre);
             foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
                 listFuncionalidades.Items.Add(unFuncs.Descripcion);
+            
         }
   
         private void botonAceptar_Click(object sender, EventArgs e)
@@ -93,6 +95,20 @@ namespace FrbaHotel.Login
 
             }
 
+        }
+
+        private void MainPanel_Load(object sender, EventArgs e)
+        {
+            if (usuario != null)
+                textUsuario.Text = usuario.Usr;
+            else
+            {
+                textUsuario.Visible = false;
+                label2.Text = "Ingreso como invitado";
+                label2.Font= new Font(label2.Font,FontStyle.Bold) ;
+            }
+            textHotel.Text = hotel.Nombre;
+            textRol.Text = rol.Nombre;
         }
 
 

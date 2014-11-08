@@ -28,21 +28,23 @@ namespace FrbaHotel.Login
                 hotelesDeUsuario = DAOHotel.obtenerTodos(usuario.Usr);               
                 rolesDeUsuario = DAORol.obtenerTodos(usuario.Usr);                
             }
-            else { MessageBox.Show("Ingreso como huesped","Bienvenido!!");
+            else { //Se ingresa como huesped
             hotelesDeUsuario = DAOHotel.obtenerTodos();
             rolesDeUsuario = new List<Rol>();
             rolesDeUsuario.Add(Globals.logueado.Rol);
-            comboRoles.DropDownStyle = ComboBoxStyle.DropDownList;
             comboRoles.SelectedItem = Globals.logueado.Rol.Nombre;
+            comboRoles.Enabled = false;
             }
 
-            //completamos los hoteles
+            //Completamos los comboBox's, con los objetos
             foreach (Hotel unHotel in hotelesDeUsuario)
-                comboHoteles.Items.Add(unHotel.Nombre);            
+                comboHoteles.Items.Add(unHotel);            
             foreach (Rol unRol in rolesDeUsuario)
-                comboRoles.Items.Add(unRol.Nombre);
+                comboRoles.Items.Add(unRol);
+            comboHoteles.DisplayMember="Nombre";
+            comboRoles.DisplayMember = "Nombre";
             comboHoteles.SelectedIndex=0;
-            comboRoles.SelectedIndex=0;
+            comboRoles.SelectedIndex=0; 
 
            
         }
@@ -54,16 +56,13 @@ namespace FrbaHotel.Login
 
             if (hotelSeleccionado != null || rolSeleccionado != null)
             {
-                ///Inicializo Hotel
-                foreach (Hotel unHotel in hotelesDeUsuario)
-                    if (unHotel.Nombre == hotelSeleccionado.ToString())
-                    {
-                        Globals.logueado.Hotel = unHotel;
-                        break;
-                    }
+                ///Inicializo Hotel                
+                Globals.logueado.Hotel = (Hotel)hotelSeleccionado;
                 //inicializo Rol              
-                Globals.logueado.Rol=DAORol.obtener(rolSeleccionado.ToString());
+                Globals.logueado.Rol=(Rol)rolSeleccionado;
                 //abro formulario
+                MessageBox.Show("Hotel:" + Globals.logueado.Hotel.Nombre + 
+                    " rol:" + Globals.logueado.Rol.Nombre, "");
                 new MainPanel().Show();
             }
             else
