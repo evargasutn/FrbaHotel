@@ -407,7 +407,7 @@ go
  	
 --//USUARIO, Administrador	
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre, apellido, tipoDocu, numDocu, direccionCalle, direccionNumero, FecNacimiento) 
-	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','ADMINISTRADOR General', 'GEREZ', 'DNI', '24264123', 'Av. Cordoba', '8834', '17/04/1981')
+	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','ADMINISTRADOR General', 'GEREZ', 'DNI', '24264123', 'Av. Cordoba', '8834', 17/04/1981)
 GO
 	
 --//ROL
