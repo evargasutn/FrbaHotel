@@ -407,7 +407,7 @@ go
  	
 --//USUARIO, Administrador	
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre, apellido, tipoDocu, numDocu, direccionCalle, direccionNumero, FecNacimiento, mail) 
-	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','ADMINISTRADOR General', 'GEREZ', 'DNI', '24264123', 'Av. Cordoba', '8834', 17/04/1981, 'admin@frbaHoteles.com.ar')
+	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','ADMINISTRADOR General', 'GEREZ', 'DNI', '24264123', 'Av. Cordoba', '8834', '17-04-1981', 'admin@frbaHoteles.com.ar')
 GO
 	
 --//ROL
@@ -1010,7 +1010,8 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateUsuario
 	@direccionNumero numeric(18,0),
 	@direccionPiso numeric(18,0),
 	@direccionDepto varchar(50),
-	@fecNacimiento DateTime
+	@fecNacimiento DateTime,
+	@campoBaja bit
 AS
 	IF (@usr IS NOT NULL AND @password IS NOT NULL AND
 		@nombre IS NOT NULL AND @apellido IS NOT NULL AND
@@ -1039,7 +1040,8 @@ AS
 		SET 
 				password = @nueva_clave, nombre = UPPER(@nombre), apellido = UPPER(@apellido), tipoDocu = @tipoDocu, 
 				numDocu = @numDocu, mail = LOWER(@mail), telefono = @telefono, direccionCalle = UPPER(@direccionCalle), direccionNumero = @direccionNumero, 
-				direccionPiso = @direccionPiso, direccionDepto = UPPER(@direccionDepto), fecNacimiento = @fecNacimiento, primerLog = 0
+				direccionPiso = @direccionPiso, direccionDepto = UPPER(@direccionDepto), fecNacimiento = @fecNacimiento, primerLog = 0,
+				campoBaja = @campoBaja
 		WHERE usr = @usr
 		
 		/*DROP TABLA TEMPORAL*/
@@ -1413,6 +1415,25 @@ AS
 						   WHERE H.nombreHotel = @nombreHotel)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO(usr, codHotel) 
 	VALUES (@usr, @idHotelBuscado)
+GO
+
+--//PROC DELETEHOTELUSUARIO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteHotelUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteHotelUsuario
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteHotelUsuario
+	@usr varchar(50), @nombreHotel varchar(200)
+AS
+	DECLARE @idHotelBuscado numeric(8)
+	SET @idHotelBuscado = (SELECT H.codHotel 
+						   FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H 
+						   WHERE H.nombreHotel = @nombreHotel)
+	DELETE COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO
+	WHERE usr = @usr AND codHotel = @idHotelBuscado
 GO
 
 --/PROC GETRESERVA 
