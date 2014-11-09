@@ -44,8 +44,8 @@
             this.lblEmail = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.altaDeClienteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.botonModificar = new System.Windows.Forms.Button();
+            this.botonBaja = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -80,17 +80,13 @@
             this.dataGridCliente.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridCliente.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Baja,
-            this.Modificar});
             this.dataGridCliente.Location = new System.Drawing.Point(12, 189);
             this.dataGridCliente.MultiSelect = false;
             this.dataGridCliente.Name = "dataGridCliente";
             this.dataGridCliente.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dataGridCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridCliente.Size = new System.Drawing.Size(501, 227);
+            this.dataGridCliente.Size = new System.Drawing.Size(501, 192);
             this.dataGridCliente.TabIndex = 13;
-            this.dataGridCliente.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridCliente_CellContentClick);
             // 
             // groupBox1
             // 
@@ -207,26 +203,35 @@
             this.altaDeClienteToolStripMenuItem.Name = "altaDeClienteToolStripMenuItem";
             this.altaDeClienteToolStripMenuItem.Size = new System.Drawing.Size(96, 20);
             this.altaDeClienteToolStripMenuItem.Text = "Alta de Cliente";
+            this.altaDeClienteToolStripMenuItem.Click += new System.EventHandler(this.altaDeClienteToolStripMenuItem_Click);
             // 
-            // Baja
+            // botonModificar
             // 
-            this.Baja.HeaderText = "";
-            this.Baja.Name = "Baja";
-            this.Baja.Text = "Baja";
-            this.Baja.UseColumnTextForButtonValue = true;
+            this.botonModificar.Location = new System.Drawing.Point(390, 387);
+            this.botonModificar.Name = "botonModificar";
+            this.botonModificar.Size = new System.Drawing.Size(120, 29);
+            this.botonModificar.TabIndex = 18;
+            this.botonModificar.Text = "Modificar";
+            this.botonModificar.UseVisualStyleBackColor = true;
+            this.botonModificar.Click += new System.EventHandler(this.botonModificar_Click);
             // 
-            // Modificar
+            // botonBaja
             // 
-            this.Modificar.HeaderText = "";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.Text = "Modificar";
-            this.Modificar.UseColumnTextForButtonValue = true;
+            this.botonBaja.Location = new System.Drawing.Point(12, 387);
+            this.botonBaja.Name = "botonBaja";
+            this.botonBaja.Size = new System.Drawing.Size(120, 29);
+            this.botonBaja.TabIndex = 17;
+            this.botonBaja.Text = "Baja";
+            this.botonBaja.UseVisualStyleBackColor = true;
+            this.botonBaja.Click += new System.EventHandler(this.botonBaja_Click);
             // 
             // ClienteBajaMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 428);
+            this.Controls.Add(this.botonModificar);
+            this.Controls.Add(this.botonBaja);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.dataGridCliente);
@@ -263,7 +268,7 @@
         private System.Windows.Forms.TextBox textNumDoc;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem altaDeClienteToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewButtonColumn Baja;
-        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
+        private System.Windows.Forms.Button botonModificar;
+        private System.Windows.Forms.Button botonBaja;
     }
 }

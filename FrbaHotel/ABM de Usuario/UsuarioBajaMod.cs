@@ -13,12 +13,12 @@ using DOM.Auxiliares;
 
 namespace FrbaHotel.ABM_de_Usuario
 {
-    public partial class FormModBajaUser : Form
+    public partial class UsuarioBajaMod : Form
     {
 
         List<Rol> rolesPosibles;
 
-        public FormModBajaUser()
+        public UsuarioBajaMod()
         {
             InitializeComponent();
             rolesPosibles=DAORol.traerTodosLosRolesPosibles();
@@ -123,7 +123,7 @@ namespace FrbaHotel.ABM_de_Usuario
             {
                 case DialogResult.Yes:
                     //Nuevo Form que sele pasa el nombre de usuario a Modificar
-                    FormModUser usrMod = new FormModUser(usrModif);
+                    UsuarioMod usrMod = new UsuarioMod(usrModif);
                     usrMod.Show(this);
                     break;
                 case DialogResult.No: break;
