@@ -27,14 +27,13 @@ namespace FrbaHotel.ABM_de_Usuario
             foreach (Rol unRol in rolesPosibles)
                 listRol.Items.Add(unRol.Nombre);
         
-        //// Agregar una opción al combo 
+        ////Combobox mostrando una opción y no queda en blanco
             comboTipoDoc.SelectedIndex = 0;
             
         ////Carga de hoteles
             hotelesPosibles = DAOHotel.obtenerTodos();
             foreach (Hotel unHotel in hotelesPosibles)
                 listHotel.Items.Add(unHotel.Nombre);
-            
         }
 
         private void botonGuardar_Click(object sender, EventArgs e)
@@ -50,14 +49,10 @@ namespace FrbaHotel.ABM_de_Usuario
 
                     //Guarda los distintos Roles asignados al Usuario
                     foreach (var item in listRol.SelectedItems)
-                    {
                         DAORol.insertarRolUsuario(item.ToString(), userNuevo.Usr);
-                    }
-
+                    
                     //Guarda los distintos Hoteles asignados al Usuario
                     DAOUsuario.insertarHotelUsuario(userNuevo.Usr, listHotel.SelectedItem.ToString());
-
-
                 }
                 else
                     MessageBox.Show("Vuelva a ingresar el password","Error:Password no identicos");
@@ -81,7 +76,6 @@ namespace FrbaHotel.ABM_de_Usuario
             userNuevo.Direccion.calle_piso = textDirPiso.Text != "" ? Convert.ToInt32(textDirPiso.Text) : 0;
             userNuevo.Direccion.calle_dpto = textDirDpto.Text != "" ? textDirDpto.Text : "";
             userNuevo.Fecha_nacimiento = Convert.ToString(dateTimeNacimiento.Value);
-
             userNuevo.CampoBaja = false;
         }
 
@@ -135,8 +129,6 @@ namespace FrbaHotel.ABM_de_Usuario
             {
                 listHotel.SetItemChecked(itemHotel, false);
             }
-
         }
-
     }
 }

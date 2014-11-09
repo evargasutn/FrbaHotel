@@ -14,8 +14,7 @@ using DOM.Auxiliares;
 namespace FrbaHotel.ABM_de_Usuario
 {
     public partial class FormModUser : Form
-    {
-
+    {   
         Usuario usuarioMod;
         List<Hotel> hotelesPosibles;
         List<Hotel> hotelesUsuario;
@@ -34,7 +33,7 @@ namespace FrbaHotel.ABM_de_Usuario
             usuarioMod = DAOUsuario.obtener(usuarioPedido);
             rolesUsuario = DAORol.obtenerTodos(usuario);
 
-            ////Se carga el listRol
+            ////Se carga el listRol tildando las opciones que el usuario ya tiene
             int item = 0;
             rolesPosibles = DAORol.traerTodosLosRolesPosibles();
             foreach (Rol rol in rolesPosibles){
@@ -44,8 +43,8 @@ namespace FrbaHotel.ABM_de_Usuario
                 }                   
               item++;
             }
-            // Carga de listHotel
-
+            
+            // Carga de listHotel, mismo rezonamiento de arriba
             item = 0;
             hotelesPosibles = DAOHotel.obtenerTodos();
             hotelesUsuario = DAOHotel.obtenerTodos(usuario);
@@ -64,6 +63,8 @@ namespace FrbaHotel.ABM_de_Usuario
                 checkBoxBajaUsr.Checked = true;
             else
                 checkBoxBajaUsr.Checked = false;
+            
+            //Llena el resto de los campos con la info que el usuario tiene
             cargarDatos();
         }
 
@@ -72,7 +73,6 @@ namespace FrbaHotel.ABM_de_Usuario
             textUsername.Text = usuarioMod.Usr;
             textPassword1.Text = usuarioMod.Password;
             textPassword2.Text = usuarioMod.Password;
-
             textNombre.Text = usuarioMod.Nombre;
             textApellido.Text = usuarioMod.Apellido;
             comboTipoDoc.Text = usuarioMod.TipoDocu;
@@ -100,27 +100,19 @@ namespace FrbaHotel.ABM_de_Usuario
                     for (int index = 0; index < listRol.Items.Count; index++ )
                     {
                         if (listRol.GetItemChecked(index))
-                        {
                             //Agrego Rol a Usuario en tabla ROLES_X_USUARIO
                             DAORol.insertarRolUsuario(listRol.Items[index].ToString(), usuarioMod.Usr);
-                        }
                         else
-                        {
                             DAORol.borrarRolUsuario(listRol.Items[index].ToString(), usuarioMod.Usr);
-                        }
-                    }
+                     }
                     //Guarda los distintos Hoteles asignados al Usuario
                     for (int index = 0; index < listHotel.Items.Count; index++)
                     {
                         if (listHotel.GetItemChecked(index))
-                        {
                             //Agrego Rol a Usuario en tabla ROLES_X_USUARIO
                             DAOUsuario.insertarHotelUsuario(usuarioMod.Usr, listHotel.Items[index].ToString());
-                        }
                         else
-                        {
                             DAOUsuario.borrarHotelUsuario(usuarioMod.Usr, listHotel.Items[index].ToString());
-                        }
                     }
 
                     //Fin de Update de Usuario
@@ -131,7 +123,6 @@ namespace FrbaHotel.ABM_de_Usuario
             }
             else
                 MessageBox.Show("Asegurese de ingresar los campos obligatorios", "Error:campos incompletos");
-        
         }
 
 
@@ -150,7 +141,6 @@ namespace FrbaHotel.ABM_de_Usuario
             usuarioMod.Direccion.calle_piso = textDirPiso.Text != "" ? Convert.ToInt32(textDirPiso.Text) : 0;
             usuarioMod.Direccion.calle_dpto = textDirDpto.Text != "" ? textDirDpto.Text : "";
             usuarioMod.Fecha_nacimiento = Convert.ToString(dateTimeNacimiento.Value);
-
             usuarioMod.CampoBaja = checkBoxBajaUsr.Checked;
         }
 

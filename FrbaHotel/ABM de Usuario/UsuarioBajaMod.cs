@@ -22,16 +22,17 @@ namespace FrbaHotel.ABM_de_Usuario
         {
             InitializeComponent();
             rolesPosibles=DAORol.traerTodosLosRolesPosibles();
+            
+            //Llena la lista con los checkbox de Roles
             foreach (Rol unRol in rolesPosibles)
                 comboListRol.Items.Add(unRol.Nombre);
-
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
-
             //Limpiamos la DataGrid
             dataGridUsuario.DataSource = null;
+            //Los demas campos también
             textUsuario.Text = null;
             textNombre.Text = null;
             textApellido.Text = null;
@@ -45,24 +46,24 @@ namespace FrbaHotel.ABM_de_Usuario
                 String.IsNullOrEmpty(textApellido.Text) && String.IsNullOrEmpty((string)(comboListRol.SelectedItem)))
             {
                 dataGridUsuario.DataSource = DAOUsuario.obtenerTabla("");
+                //Solo muestra las primeras 6 columnas de la tabla resultante
                 for (int item = 6; item < dataGridUsuario.ColumnCount; item++)
-                {
-                    dataGridUsuario.Columns[item].Visible = false;
-                }
+                    dataGridUsuario.Columns[item].Visible = false; 
             }
             else
             {
+                //Aplica criterios de búsqueda
                 DataTable respuesta = FiltrarUsuario(textUsuario.Text, textNombre.Text, textApellido.Text, comboListRol.SelectedItem.ToString());
-
+                //Llena el DataGrid con los datos de la tabla devuelta
                 dataGridUsuario.DataSource = respuesta;
+                //Muestra solo las primeras 6 columnas
                 for (int item = 6; item < dataGridUsuario.ColumnCount; item++)
-                {
                     dataGridUsuario.Columns[item].Visible = false;
-                }
-                dataGridUsuario.AutoResizeColumns();
-                dataGridUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dataGridUsuario.AutoResizeRows();
-            }
+             }
+
+            dataGridUsuario.AutoResizeColumns();
+            dataGridUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridUsuario.AutoResizeRows();
         }
 
         private DataTable FiltrarUsuario(string usr, string nombre, string apellido, string rol)
@@ -76,7 +77,7 @@ namespace FrbaHotel.ABM_de_Usuario
             if (apellido != "") filtrosBusqueda.Add("apellido LIKE '%" + apellido + "%'");
             if (rol != "") filtrosBusqueda.Add("nombreRol LIKE '%" + rol + "%'");
             
-            
+            //Concatena hasta formar la consulta para filtrar
             foreach (var filtro in filtrosBusqueda)
             {
                 if (!posFiltro)
@@ -87,12 +88,12 @@ namespace FrbaHotel.ABM_de_Usuario
                     posFiltro = false;
                 }
             }
+            //Filtra las columnas
             tabla_usuario.DefaultView.RowFilter = final_usuario;
-            
+            //Devuelve la tabla filtradra 
             return tabla_usuario;
         }
             
-
 
         private void btnAltaUsuario_Click(object sender, EventArgs e)
         {
@@ -121,6 +122,7 @@ namespace FrbaHotel.ABM_de_Usuario
             switch (dr)
             {
                 case DialogResult.Yes:
+                    //Nuevo Form que sele pasa el nombre de usuario a Modificar
                     FormModUser usrMod = new FormModUser(usrModif);
                     usrMod.Show(this);
                     break;
