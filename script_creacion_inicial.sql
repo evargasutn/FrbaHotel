@@ -934,7 +934,6 @@ AS
  				U.direccionDepto, U.mail, U.telefono, U.password
  		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU ON RU.usr = U.usr
- 		WHERE U.usr = U.usr AND U.campoBaja = 0
 	 ELSE
 		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
 				U.direccionDepto, U.mail, U.telefono, U.password
