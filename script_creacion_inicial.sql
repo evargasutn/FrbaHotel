@@ -714,6 +714,37 @@ GO
 	GROUP BY M.Factura_Nro, M.Item_Factura_Monto, M.Consumible_Descripcion
 GO
 
+--Funcion para calcular el ultimo item ingresado de una factura
+IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura', N'FN') IS NOT NULL
+    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura
+GO
+CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura (@nroFactura numeric(18))
+RETURNS numeric(1)
+AS
+	BEGIN
+		return (select max(i.numeroItem) 
+			   from COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA i
+			   where i.numeroFactura = @nroFactura)
+	END
+GO
+
+
+----//Agrega en ITEMS_FACTURA un item para descuento por servicio All Inclusive
+--insert into COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA (numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+--select F2.numeroFactura,  COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura(F2.numeroFactura) as numeroItem, 
+--	   '1' as Cantidad, 
+--	   COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(dr.codReserva) as precioUnitario,
+--	   COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(dr.codReserva) as precioTotal,
+--	   'Descuento por Régimen de Estadía' as Descripcion
+----from (select distinct F1.numeroFactura, F1.codReserva from COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F1) F2
+--from COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F2
+--join COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA dr on dr.codReserva = F2.codReserva
+--where dr.codRegimen = 4
+--group by f2.numeroFactura, dr.codReserva
+--order by f2.numeroFactura
+--GO
+
+
 --//ITEMS_FACTURA_INVALIDA
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA_INVALIDA(numeroFactura, numeroItem, descripcion, montoUnitario, cantidad, montoTotal)
 	SELECT DISTINCT M.Factura_Nro, ROW_NUMBER() OVER (PARTITION BY M.Factura_Nro ORDER BY M.Factura_Nro) AS Item_Nro, CASE WHEN M.Consumible_Descripcion IS NULL THEN 'Recargos de Categoria Hotel y Regimen' ELSE M.Consumible_Descripcion END, M.Item_Factura_Monto, COUNT(*), (M.Item_Factura_Monto * COUNT(*))
@@ -1723,11 +1754,26 @@ GO
 /************************************************************************************************************
  *AUXILIARES CALCULO DE RECARGOS
  ***********************************************************************************************************/
+IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.reservaEs_allInclusive', N'FN') IS NOT NULL
+    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.reservaEs_allInclusive
+GO
+CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.reservaEs_allInclusive (@codReserva	numeric(18))
+RETURNS int
+AS
+	BEGIN
+	DECLARE @resultado int
+	SET @resultado = (SELECT COUNT(*) FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+						WHERE DR.codReserva = @codReserva AND DR.codRegimen = 4)
+	
+	RETURN @resultado				
+	END	
+GO
+
 IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles', N'FN') IS NOT NULL
     DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles
 GO
 CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles (@codReserva	numeric(18))
-RETURNS numeric(3,2)
+RETURNS numeric(18,2)
 AS
 	BEGIN
 	
@@ -1822,22 +1868,83 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
 	@numeroFactura  numeric(18),
 	@codReserva		numeric(18)     
 AS
-	DECLARE @nroItem numeric(2)
-	SET @nroItem = 0 
+	DECLARE @nroItem numeric(18)
+	SET @nroItem = 1 
 	
 	--Guardo primero RECARGOS
-	DECLARE @totalRecargos numeric(5,2)
+	DECLARE @totalRecargos numeric(18,2)
 	SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
 						+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-	VALUES(@numeroFactura, @nroItem+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Regimen')
+	VALUES(@numeroFactura, @nroItem, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Régimen')
 	
 	--Guardo los consumibles
-	SET @nroItem = @nroItem + 1
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 	SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
 	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
+	
+	SET @nroItem = @nroItem + 1
+	--Si la reserva es All Inclusive, agrego un item más detallando que no se considera recargo de consumibles
+	DECLARE @esAllInclusive int
+	SET @esAllInclusive = COMPUMUNDO_HIPER_MEGA_RED.reservaEs_allInclusive(@codReserva)
+	IF(@esAllInclusive > 0)
+		BEGIN	
+			DECLARE @totalConsumiblesDescontar numeric(18,2)
+			SET @totalConsumiblesDescontar = COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(@codReserva)
+		
+			INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+			VALUES(@numeroFactura, @nroItem, 1, @totalConsumiblesDescontar, @totalConsumiblesDescontar, 'Descuento por Régimen de Estadía')
+		END
+GO
+
+
+--//AGREGA DETALLE SOBRE FACTURAS DE RESERVAS CON REGIMEN ALL INCLUSIVE
+	/*Step 1: Declare variables to hold the output from the cursor.*/
+	DECLARE @numeroFactura numeric(18);
+	DECLARE @codReserva numeric(18);
+	
+	/*Step 2: Declare the cursor object*/
+	DECLARE @Cursor_allInclusive as CURSOR;
+	
+	/*Step 3: Assign the query to the cursor.*/
+	SET @Cursor_allInclusive = CURSOR FOR
+		SELECT DISTINCT F.numeroFactura,  dr.codReserva
+		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA dr on dr.codReserva = F.codReserva
+		WHERE dr.codRegimen = 4
+		GROUP BY F.numeroFactura, dr.codReserva
+		ORDER BY F.numeroFactura, dr.codReserva
+	
+	/*Step 4: Open the cursor.*/
+	OPEN @Cursor_allInclusive
+		/*Step 5: Fetch the first row.*/
+		FETCH NEXT FROM @Cursor_allInclusive INTO @numeroFactura, @codReserva;
+		/*Step 6: Loop until there are no more results. */
+		WHILE @@FETCH_STATUS = 0
+			BEGIN
+			DECLARE @nroItem numeric(18)
+			SET @nroItem = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura(@numeroFactura) + 1
+			
+			DECLARE @totalConsumiblesDescontar numeric(18,2)
+			SET @totalConsumiblesDescontar = COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(@codReserva)
+			
+			--Agrego item que detalla el descuento por tener Regimen All Inclusive
+			INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+			VALUES(@numeroFactura, @nroItem, 1, @totalConsumiblesDescontar, @totalConsumiblesDescontar, 'Descuento por Régimen de Estadía')
+
+			--Update sobre la factura para reflejar el descuento
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.FACTURAS
+			SET montoTotal = montoTotal - @totalConsumiblesDescontar
+			WHERE numeroFactura = @numeroFactura
+			
+			
+			FETCH NEXT FROM @Cursor_allInclusive INTO @numeroFactura, @codReserva;
+		END
+	/*Step 7: Close the cursor.*/
+	CLOSE @Cursor_allInclusive
+	/*Step 7: Deallocate the cursor to free up any memory or open result sets.*/
+	DEALLOCATE @Cursor_allInclusive
 GO
 
 --//PROC FACTURAR
@@ -1854,7 +1961,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.facturar
 	@codTarjetaCredito	varchar(19)
 AS
 	BEGIN
-	DECLARE @totalConsumibles numeric(3,2)
+	DECLARE @totalConsumibles numeric(18,2)
 	SET @totalConsumibles = COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(@codReserva)
 	
 	DECLARE @recargoEstrella numeric(18)
@@ -1870,7 +1977,13 @@ AS
 	SET @totalRegimenHabitacion = @precioRegimen * @porcentualHabitacionTipo
 	
 	DECLARE @montoTotal numeric(18,2)
-	SET @montoTotal = @totalConsumibles + @totalRegimenHabitacion + @recargoEstrella
+	DECLARE @es_allInclusive int
+	SET @es_allInclusive = COMPUMUNDO_HIPER_MEGA_RED.reservaEs_allInclusive(@codReserva)
+
+	IF(@es_allInclusive > 0)
+		SET @montoTotal = @totalRegimenHabitacion + @recargoEstrella
+	ELSE
+		SET @montoTotal = @totalConsumibles + @totalRegimenHabitacion + @recargoEstrella
 	
 	DECLARE @idHuesped int
 	SET @idHuesped = (SELECT R.idHuesped FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R
@@ -1879,11 +1992,11 @@ AS
 	/*INSERTO EN LA TABLA FACTURA*/
 	DECLARE @numeroFactura  numeric(18)
 	SET @numeroFactura = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoNumeroFactura()
-
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura, codReserva, fecha, idHuesped, montoTotal, tipoPago, codTarjetaCredito)
-	VALUES(@numeroFactura + 1,@codReserva, GETDATE(), @idHuesped, @montoTotal, @tipoPago, CASE WHEN @tipoPago LIKE 'Efectivo' THEN '' ELSE @codTarjetaCredito END)
-	
 	SET @numeroFactura = @numeroFactura + 1
+	
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura, codReserva, fecha, idHuesped, montoTotal, tipoPago, codTarjetaCredito)
+	VALUES(@numeroFactura,@codReserva, GETDATE(), @idHuesped, @montoTotal, @tipoPago, CASE WHEN @tipoPago LIKE 'Efectivo' THEN '' ELSE @codTarjetaCredito END)
+	
 	--INSERT EN LA TABLA ITEMS_FACTURA
 	EXEC COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura @numeroFactura, @codReserva
 	
