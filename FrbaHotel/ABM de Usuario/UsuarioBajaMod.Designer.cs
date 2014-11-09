@@ -33,16 +33,17 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblUsuario = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboRol = new System.Windows.Forms.ComboBox();
+            this.comboListRol = new System.Windows.Forms.ComboBox();
             this.textApellido = new System.Windows.Forms.TextBox();
             this.textNombre = new System.Windows.Forms.TextBox();
             this.textUsuario = new System.Windows.Forms.TextBox();
             this.dataGridUsuario = new System.Windows.Forms.DataGridView();
+            this.Elegir = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonBuscar = new System.Windows.Forms.Button();
             this.btnAltaUsuario = new System.Windows.Forms.Button();
-            this.Modificar = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Baja = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.botonBaja = new System.Windows.Forms.Button();
+            this.botonModificar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).BeginInit();
             this.SuspendLayout();
@@ -85,7 +86,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboRol);
+            this.groupBox1.Controls.Add(this.comboListRol);
             this.groupBox1.Controls.Add(this.textApellido);
             this.groupBox1.Controls.Add(this.textNombre);
             this.groupBox1.Controls.Add(this.textUsuario);
@@ -100,13 +101,13 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
             // 
-            // comboRol
+            // comboListRol
             // 
-            this.comboRol.FormattingEnabled = true;
-            this.comboRol.Location = new System.Drawing.Point(250, 32);
-            this.comboRol.Name = "comboRol";
-            this.comboRol.Size = new System.Drawing.Size(113, 21);
-            this.comboRol.TabIndex = 11;
+            this.comboListRol.FormattingEnabled = true;
+            this.comboListRol.Location = new System.Drawing.Point(250, 32);
+            this.comboListRol.Name = "comboListRol";
+            this.comboListRol.Size = new System.Drawing.Size(113, 21);
+            this.comboListRol.TabIndex = 11;
             // 
             // textApellido
             // 
@@ -138,17 +139,22 @@
             this.dataGridUsuario.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dataGridUsuario.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Modificar,
-            this.Baja});
             this.dataGridUsuario.Location = new System.Drawing.Point(12, 180);
             this.dataGridUsuario.MultiSelect = false;
             this.dataGridUsuario.Name = "dataGridUsuario";
             this.dataGridUsuario.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-            this.dataGridUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridUsuario.Size = new System.Drawing.Size(400, 249);
+            this.dataGridUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridUsuario.Size = new System.Drawing.Size(400, 205);
             this.dataGridUsuario.TabIndex = 9;
-            this.dataGridUsuario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridUsuario_CellContentClick);
+            // 
+            // Elegir
+            // 
+            this.Elegir.FalseValue = "0";
+            this.Elegir.HeaderText = "Elegir";
+            this.Elegir.Name = "Elegir";
+            this.Elegir.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Elegir.TrueValue = "1";
+            this.Elegir.Width = 39;
             // 
             // botonLimpiar
             // 
@@ -182,29 +188,34 @@
             this.btnAltaUsuario.UseVisualStyleBackColor = true;
             this.btnAltaUsuario.Click += new System.EventHandler(this.btnAltaUsuario_Click);
             // 
-            // Modificar
+            // botonBaja
             // 
-            this.Modificar.FalseValue = "0";
-            this.Modificar.HeaderText = "Modificar";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Modificar.TrueValue = "1";
-            this.Modificar.Width = 56;
+            this.botonBaja.Location = new System.Drawing.Point(65, 397);
+            this.botonBaja.Name = "botonBaja";
+            this.botonBaja.Size = new System.Drawing.Size(120, 29);
+            this.botonBaja.TabIndex = 13;
+            this.botonBaja.Text = "Baja";
+            this.botonBaja.UseVisualStyleBackColor = true;
+            this.botonBaja.Click += new System.EventHandler(this.botonBaja_Click);
             // 
-            // Baja
+            // botonModificar
             // 
-            this.Baja.FalseValue = "0";
-            this.Baja.HeaderText = "Baja";
-            this.Baja.Name = "Baja";
-            this.Baja.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Baja.TrueValue = "1";
-            this.Baja.Width = 34;
+            this.botonModificar.Location = new System.Drawing.Point(233, 397);
+            this.botonModificar.Name = "botonModificar";
+            this.botonModificar.Size = new System.Drawing.Size(120, 29);
+            this.botonModificar.TabIndex = 14;
+            this.botonModificar.Text = "Modificar";
+            this.botonModificar.UseVisualStyleBackColor = true;
+            this.botonModificar.Click += new System.EventHandler(this.botonModificar_Click);
             // 
             // FormModBajaUser
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(423, 432);
+            this.Controls.Add(this.botonModificar);
+            this.Controls.Add(this.botonBaja);
             this.Controls.Add(this.btnAltaUsuario);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
@@ -230,12 +241,13 @@
         private System.Windows.Forms.TextBox textApellido;
         private System.Windows.Forms.TextBox textNombre;
         private System.Windows.Forms.TextBox textUsuario;
-        private System.Windows.Forms.ComboBox comboRol;
+        private System.Windows.Forms.ComboBox comboListRol;
         private System.Windows.Forms.DataGridView dataGridUsuario;
         private System.Windows.Forms.Button botonLimpiar;
         private System.Windows.Forms.Button botonBuscar;
         private System.Windows.Forms.Button btnAltaUsuario;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Modificar;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Baja;
+        private System.Windows.Forms.Button botonBaja;
+        private System.Windows.Forms.Button botonModificar;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Elegir;
     }
 }

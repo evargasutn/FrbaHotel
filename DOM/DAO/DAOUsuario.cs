@@ -81,7 +81,7 @@ namespace DOM
             string fecha_nacimiento = (usuario.Fecha_nacimiento_struct == null) ? usuario.Fecha_nacimiento : cadena_nula;
             int campoBaja = (usuario.CampoBaja) ? 1 : 0;
             return executeProcedure("updateUsuario", usr, password, nombre, apellido,
-                email, doc_tipo, doc_num, telefono, dir_calle, dir_altura, dir_piso,
+                doc_tipo, doc_num, email, telefono, dir_calle, dir_altura, dir_piso,
                 dir_dpto, fecha_nacimiento, campoBaja);
         }
         
@@ -89,7 +89,17 @@ namespace DOM
         {
             return executeProcedure("intentoFallidoUsuario", usr);
         }
-        
+
+        public static bool insertarHotelUsuario(string usr, string nombreHotel)
+        {
+            return executeProcedure("insertHotelUsuario", usr, nombreHotel);
+        }
+
+        public static bool borrarHotelUsuario(string usr, string nombreHotel)
+        {
+            return executeProcedure("deleteHotelUsuario", usr, nombreHotel);
+        }
+
         #region Convertir DataTable
         public static List<Usuario> transductor(DataTable tabla)
         {
@@ -107,7 +117,7 @@ namespace DOM
                 user.Direccion.calle_direccion = Convert.ToString(fila["direccionCalle"]);
                 user.Direccion.calle_altura = Convert.ToInt32(fila["direccionNumero"]);
                 user.Fecha_nacimiento_struct = Convert.ToDateTime(fila["fecNacimiento"]);
-                user.CampoBaja = Convert.ToBoolean(fila["campoBaja"]);
+//                user.CampoBaja = Convert.ToBoolean(fila["campoBaja"]);
                 //Campos Nulleables
                 user.Mail = Convert.ToString(fila["mail"]);
                 user.Telefono = (fila["telefono"] as Int32?) ?? 0;

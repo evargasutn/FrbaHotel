@@ -17,36 +17,23 @@ namespace FrbaHotel.Login
 
         List<Hotel> hotelesDeUsuario;
         List<Rol> rolesDeUsuario;
-        Usuario usuario=Globals.logueado.User;
+        Usuario usuario;
 
-        public LoginRequisitos()
+        public LoginRequisitos(Usuario unUsuario)
         {
             InitializeComponent();
-
-            if (usuario != null)
-            {
-                hotelesDeUsuario = DAOHotel.obtenerTodos(usuario.Usr);               
-                rolesDeUsuario = DAORol.obtenerTodos(usuario.Usr);                
-            }
-            else { //Se ingresa como huesped
-            hotelesDeUsuario = DAOHotel.obtenerTodos();
-            rolesDeUsuario = new List<Rol>();
-            rolesDeUsuario.Add(Globals.logueado.Rol);
-            comboRoles.SelectedItem = Globals.logueado.Rol.Nombre;
-            comboRoles.Enabled = false;
-            }
-
-            //Completamos los comboBox's, con los objetos
+            ///Completa combo hoteles
+            hotelesDeUsuario = DAOHotel.obtenerTodos(usuario.Usr);
             foreach (Hotel unHotel in hotelesDeUsuario)
-                comboHoteles.Items.Add(unHotel);            
-            foreach (Rol unRol in rolesDeUsuario)
-                comboRoles.Items.Add(unRol);
-            comboHoteles.DisplayMember="Nombre";
-            comboRoles.DisplayMember = "Nombre";
-            comboHoteles.SelectedIndex=0;
-            comboRoles.SelectedIndex=0; 
+                comboHoteles.Items.Add(unHotel.Nombre);
 
-           
+            ///Completa combo hoteles
+            rolesDeUsuario = DAORol.obtenerTodos(usuario.Usr);
+            foreach (Rol unRol in rolesDeUsuario)
+                comboRoles.Items.Add(unRol.Nombre);
+
+            usuario = unUsuario;
+
         }
 
         private void botonAceptar_Click(object sender, EventArgs e)
@@ -55,16 +42,8 @@ namespace FrbaHotel.Login
             var rolSeleccionado = comboRoles.SelectedItem;
 
             if (hotelSeleccionado != null || rolSeleccionado != null)
-            {
-                ///Inicializo Hotel                
-                Globals.logueado.Hotel = (Hotel)hotelSeleccionado;
-                //inicializo Rol              
-                Globals.logueado.Rol=(Rol)rolSeleccionado;
-                //abro formulario
-                MessageBox.Show("Hotel:" + Globals.logueado.Hotel.Nombre + 
-                    " rol:" + Globals.logueado.Rol.Nombre, "");
-                new MainPanel().Show();
-            }
+                new MainPanel(usuario, hotelSeleccionado.ToString()
+                                       , rolSeleccionado.ToString());//////////
             else
                 MessageBox.Show("Seleccione el hotel y el rol", "Error:Hotel o rol no seleccionados ");
         }

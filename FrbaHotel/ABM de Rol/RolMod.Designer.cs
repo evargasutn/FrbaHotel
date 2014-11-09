@@ -156,7 +156,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.panel1.Size = new System.Drawing.Size(311, 155);
             this.panel1.TabIndex = 20;
             // 
-            // FormRolMod
+            // RolMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -167,7 +167,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.labelEstado);
             this.Controls.Add(this.labelRol);
-            this.Name = "FormRolMod";
+            this.Name = "RolMod";
             this.Text = "Modificar Rol";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

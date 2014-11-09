@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
 using System.Windows.Forms;
-using DOM.Dominio;
 
 namespace DOM
 {
@@ -60,33 +59,6 @@ namespace DOM
         {
             ventanaAnterior.Enabled = true;
         }
-
-        #endregion
-
-
-        #region Singletons Formulario
-
-        public static formulario logueado;  
-
-        public struct formulario
-        {
-            public Hotel Hotel;
-            public Usuario User;
-            public Rol Rol;
-
-            public formulario(Hotel a, Usuario b,Rol c)
-            {
-                Hotel = a;
-                User = b;
-                Rol = c;
-            }
-        }
-
-        
-
-
-
-
 
         #endregion
 

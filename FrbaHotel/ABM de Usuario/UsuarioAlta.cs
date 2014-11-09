@@ -33,7 +33,7 @@ namespace FrbaHotel.ABM_de_Usuario
         ////Carga de hoteles
             hotelesPosibles = DAOHotel.obtenerTodos();
             foreach (Hotel unHotel in hotelesPosibles)
-                listBoxHotel.Items.Add(unHotel.Nombre);
+                listHotel.Items.Add(unHotel.Nombre);
             
         }
 
@@ -48,11 +48,16 @@ namespace FrbaHotel.ABM_de_Usuario
                     else
                         MessageBox.Show("Alta de Usuario erronea");
 
+                    //Guarda los distintos Roles asignados al Usuario
                     foreach (var item in listRol.SelectedItems)
                     {
                         DAORol.insertarRolUsuario(item.ToString(), userNuevo.Usr);
                     }
-               
+
+                    //Guarda los distintos Hoteles asignados al Usuario
+                    DAOUsuario.insertarHotelUsuario(userNuevo.Usr, listHotel.SelectedItem.ToString());
+
+
                 }
                 else
                     MessageBox.Show("Vuelva a ingresar el password","Error:Password no identicos");
@@ -98,9 +103,10 @@ namespace FrbaHotel.ABM_de_Usuario
                 return false;
             else if (dateTimeNacimiento.Text == "")
                 return false;
-            else if (listRol.SelectedItems==null)
-            return false;
-
+            else if (listRol.SelectedItems == null)
+                return false;
+            else if (listHotel.SelectedItems == null)
+                return false;
             return true;
         }
 
@@ -120,10 +126,14 @@ namespace FrbaHotel.ABM_de_Usuario
             textTelefono.Text = " ";
             listRol.SelectedItem = null;
             comboTipoDoc.SelectedItem = null;
-            listBoxHotel.SelectedItem = null;
-            for (int item = 0; item < listRol.Items.Count; item++)
+            listHotel.SelectedItem = null;
+            for (int itemRol = 0; itemRol < listRol.Items.Count; itemRol++)
             {
-                listRol.SetItemChecked(item, false);
+                listRol.SetItemChecked(itemRol, false);
+            }
+            for (int itemHotel = 0; itemHotel < listHotel.Items.Count; itemHotel++)
+            {
+                listHotel.SetItemChecked(itemHotel, false);
             }
 
         }

@@ -26,8 +26,6 @@ namespace DOM
         private int telefono = -1;
         private DireccionStruct direccion; //Direccion con formato
         private DateTime? fecha_nacimiento = null;
-        //private List<Hotel> hoteles = new List<Hotel>();
-        //private List<Rol> roles = new List<Rol>();
         private bool campoBaja = true;
         #endregion
 

@@ -40,11 +40,11 @@ namespace FrbaHotel.ABM_de_Rol
             this.buttonBuscar = new System.Windows.Forms.Button();
             this.buttonLimpiar = new System.Windows.Forms.Button();
             this.dataGridViewRol = new System.Windows.Forms.DataGridView();
+            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.altaDeRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.titulo = new System.Windows.Forms.Label();
-            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -156,6 +156,22 @@ namespace FrbaHotel.ABM_de_Rol
             this.dataGridViewRol.TabIndex = 4;
             this.dataGridViewRol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRol_CellContentClick);
             // 
+            // Baja
+            // 
+            this.Baja.HeaderText = "";
+            this.Baja.Name = "Baja";
+            this.Baja.Text = "Baja";
+            this.Baja.UseColumnTextForButtonValue = true;
+            this.Baja.Width = 50;
+            // 
+            // Modificar
+            // 
+            this.Modificar.HeaderText = "";
+            this.Modificar.Name = "Modificar";
+            this.Modificar.Text = "Modificar";
+            this.Modificar.UseColumnTextForButtonValue = true;
+            this.Modificar.Width = 50;
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -185,22 +201,6 @@ namespace FrbaHotel.ABM_de_Rol
             this.titulo.TabIndex = 6;
             this.titulo.Text = "Modificación/Baja de Roles";
             this.titulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // Baja
-            // 
-            this.Baja.HeaderText = "";
-            this.Baja.Name = "Baja";
-            this.Baja.Text = "Baja";
-            this.Baja.UseColumnTextForButtonValue = true;
-            this.Baja.Width = 50;
-            // 
-            // Modificar
-            // 
-            this.Modificar.HeaderText = "";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.Text = "Modificar";
-            this.Modificar.UseColumnTextForButtonValue = true;
-            this.Modificar.Width = 50;
             // 
             // RolBajaMod
             // 

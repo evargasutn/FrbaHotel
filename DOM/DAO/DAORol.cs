@@ -27,18 +27,14 @@ namespace DOM
 
         public static List<Rol> obtenerTodos(string usr)
         {
-            List<Rol> lista = transductor(retrieveDataTable("getRolUsuario", usr));
+            List<Rol> lista = transductor(retrieveDataTable("JoinUsrRol", usr));
             return lista;
         }
 
-
-
+   
         public static bool insertar(Rol rol)
         {
-            /*            string estado = "0";
-                        if (rol.Estado)
-                            estado = "1";
-             */
+           
             return executeProcedure("insertRol", rol.Nombre, rol.Estado);
         }
 
@@ -78,6 +74,11 @@ namespace DOM
         public static bool insertarRolUsuario(string rol, string usr)
         {
             return executeProcedure("insertRolUsuario", rol, usr);
+        }
+
+        public static bool borrarRolUsuario(string rol, string usr)
+        {
+            return executeProcedure("deleteRolUsuario", rol, usr);
         }
     }
 }

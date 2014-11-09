@@ -15,22 +15,25 @@ namespace FrbaHotel.Login
     {
 
         List<Funcionalidad> funcsDelRolDelUser;
-        Usuario usuario=Globals.logueado.User;
-        Hotel hotel = Globals.logueado.Hotel;
-        Rol rol = Globals.logueado.Rol;
+        Usuario usuario;
+        String hotelNombre;
 
 
-        public MainPanel()
+
+        public MainPanel(Usuario usuario, String hotelNombre, String rolNombre)
         {
             InitializeComponent();
-            ////completamos las funcionalidades
-            ///usarJoinRolFunc devuelve lanombre rol y las funcionalidades;
-            funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rol.Nombre);
+            funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rolNombre);
             foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
                 listFuncionalidades.Items.Add(unFuncs.Descripcion);
-            
+
         }
-  
+        public MainPanel()   ///Para invitados
+        {
+            InitializeComponent();
+            ///cargar list funcionalidades para invitados
+        }
+
         private void botonAceptar_Click(object sender, EventArgs e)
         {
             var funcionalidadElegida = listFuncionalidades.SelectedItem;
@@ -76,7 +79,7 @@ namespace FrbaHotel.Login
                     new Generar_Modificar_Reserva.GenerarReserva().Show();
                     break;
                 case "Cancelar Reserva":
-                    new Cancelar_Reserva.CancelarReserva(usuario, hotel.Nombre).Show();
+                    new Cancelar_Reserva.CancelarReserva(usuario, hotelNombre).Show();
                     break;
 
                 case "Registrar Estadia":
@@ -95,20 +98,6 @@ namespace FrbaHotel.Login
 
             }
 
-        }
-
-        private void MainPanel_Load(object sender, EventArgs e)
-        {
-            if (usuario != null)
-                textUsuario.Text = usuario.Usr;
-            else
-            {
-                textUsuario.Visible = false;
-                label2.Text = "Ingreso como invitado";
-                label2.Font= new Font(label2.Font,FontStyle.Bold) ;
-            }
-            textHotel.Text = hotel.Nombre;
-            textRol.Text = rol.Nombre;
         }
 
 

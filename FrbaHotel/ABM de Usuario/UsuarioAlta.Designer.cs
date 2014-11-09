@@ -39,7 +39,6 @@ namespace FrbaHotel.ABM_de_Usuario
             this.textPassword1 = new System.Windows.Forms.TextBox();
             this.textUsername = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listBoxHotel = new System.Windows.Forms.ComboBox();
             this.nota = new System.Windows.Forms.Label();
             this.textDirDpto = new System.Windows.Forms.TextBox();
             this.textDirPiso = new System.Windows.Forms.TextBox();
@@ -67,6 +66,7 @@ namespace FrbaHotel.ABM_de_Usuario
             this.lblRol = new System.Windows.Forms.Label();
             this.lblPassword1 = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
+            this.listHotel = new System.Windows.Forms.CheckedListBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -153,7 +153,7 @@ namespace FrbaHotel.ABM_de_Usuario
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listBoxHotel);
+            this.groupBox2.Controls.Add(this.listHotel);
             this.groupBox2.Controls.Add(this.nota);
             this.groupBox2.Controls.Add(this.textDirDpto);
             this.groupBox2.Controls.Add(this.textDirPiso);
@@ -184,17 +184,6 @@ namespace FrbaHotel.ABM_de_Usuario
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
-            // 
-            // listBoxHotel
-            // 
-            this.listBoxHotel.DropDownHeight = 50;
-            this.listBoxHotel.FormattingEnabled = true;
-            this.listBoxHotel.IntegralHeight = false;
-            this.listBoxHotel.Location = new System.Drawing.Point(138, 264);
-            this.listBoxHotel.MaxDropDownItems = 5;
-            this.listBoxHotel.Name = "listBoxHotel";
-            this.listBoxHotel.Size = new System.Drawing.Size(141, 21);
-            this.listBoxHotel.TabIndex = 34;
             // 
             // nota
             // 
@@ -429,6 +418,14 @@ namespace FrbaHotel.ABM_de_Usuario
             this.lblUsername.TabIndex = 0;
             this.lblUsername.Text = "Username*";
             // 
+            // listHotel
+            // 
+            this.listHotel.FormattingEnabled = true;
+            this.listHotel.Location = new System.Drawing.Point(139, 264);
+            this.listHotel.Name = "listHotel";
+            this.listHotel.Size = new System.Drawing.Size(139, 49);
+            this.listHotel.TabIndex = 34;
+            // 
             // UsuarioAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -483,6 +480,6 @@ namespace FrbaHotel.ABM_de_Usuario
         private System.Windows.Forms.TextBox textPassword2;
         private System.Windows.Forms.Label lblPassword2;
         private System.Windows.Forms.CheckedListBox listRol;
-        private System.Windows.Forms.ComboBox listBoxHotel;
+        private System.Windows.Forms.CheckedListBox listHotel;
     }
 }
