@@ -26,27 +26,27 @@ namespace FrbaHotel.Login
                 Usuario usuarioALoguear = DAOUsuario.obtener(textUsuario.Text);
                 if (usuarioALoguear != null)
                 {
-                    if (usuarioALoguear.Password == textContrasenia.Text)
+                    string passwordHash = DAOUsuario.hashPassword(textContrasenia.Text);
+                    if (usuarioALoguear.Password == passwordHash)
                     {
                         MessageBox.Show("Inicio de sesion exitosa", "Logueo!!");
-                        Globals.infoSesion.User=usuarioALoguear;
-                        new LoginRequisitos( ).Show();
+                        new LoginRequisitos().Show(this);
                     }
                     else
                     {
                         DAOUsuario.registrarIntentoFallido(usuarioALoguear.Nombre);
-                        MessageBox.Show("Porfavor intentelo de vuelta", "Error:contraseña incorrecta");
+                        MessageBox.Show("Error:usuario o contraseña incorrecto");
                     }
                 }
                 else
-                    MessageBox.Show("Porfavor intentelo de vuelta", "Error:usuario inexistente");
+                    MessageBox.Show("Error:usuario o contraseña incorrecto");
             }
         }
 
         private void botonInvitado_Click(object sender, EventArgs e)
         {
-            Globals.infoSesion.Rol = DAORol.obtener("Guest");
-            new LoginRequisitos().Show();
+            Globals.infoSesion.Rol = DAORol.obtener("GUEST");
+            new LoginRequisitos().Show(this);
         }
 
         private void Login_Load(object sender, EventArgs e)

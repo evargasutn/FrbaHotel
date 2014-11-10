@@ -23,9 +23,14 @@ namespace FrbaHotel.Login
         {
             InitializeComponent();
             funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rol.Nombre);
-            foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
-                comboFuncionalidades.Items.Add(unFuncs);
+            //foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
+            //    comboFuncionalidades.Items.Add(unFuncs);
+            comboFuncionalidades.DataSource = funcsDelRolDelUser;
             comboFuncionalidades.ValueMember="Descripcion";
+
+            textHotel.Text = hotel.Nombre;
+            textUser.Text = usuario.Usr;
+            textRol.Text = rol.Nombre;
 
         }
         

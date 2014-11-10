@@ -35,18 +35,17 @@ namespace FrbaHotel.Login
                 ///Completa combo hoteles
                 rolesDeUsuario = DAORol.obtenerTodos(usuario.Usr);
                 foreach (Rol unRol in rolesDeUsuario)
-                    comboRoles.Items.Add(unRol);
+                    comboRoles.Items.Add(unRol.Nombre.ToString());
             }
             else
             {
                 hotelesDeUsuario = DAOHotel.obtenerTodos();
                 foreach (Hotel unHotel in hotelesDeUsuario)
-                    comboHoteles.Items.Add(unHotel);
-
+                    comboHoteles.Items.Add(unHotel.Nombre.ToString());
+                
                 comboRoles.Items.Add(rol);
                 comboRoles.Enabled=false;
             }
-            
             comboHoteles.ValueMember = "Nombre";
             comboRoles.ValueMember = "Nombre";
             comboHoteles.SelectedIndex = 0;
@@ -58,8 +57,8 @@ namespace FrbaHotel.Login
 
         private void botonAceptar_Click(object sender, EventArgs e)
         {
-            var hotelSeleccionado = comboHoteles.SelectedItem;
-            var rolSeleccionado = comboRoles.SelectedItem;
+            Hotel hotelSeleccionado = (Hotel)hotelesDeUsuario.Where(x => x.Nombre == comboHoteles.SelectedItem.ToString());
+            Rol rolSeleccionado = (Rol)rolesDeUsuario.Where(x => x.Nombre == comboRoles.SelectedItem.ToString());
 
             Globals.infoSesion.Hotel =(Hotel) hotelSeleccionado;
             Globals.infoSesion.Rol=(Rol)rolSeleccionado;
@@ -69,7 +68,7 @@ namespace FrbaHotel.Login
             if (hotelSeleccionado != null || rolSeleccionado != null)
                 new MainPanel().Show();
             else
-                MessageBox.Show("Seleccione el hotel y el rol", "Error:Hotel o rol no seleccionados ");
+                MessageBox.Show("Seleccione el hotel y el rol", "Error:Hotel o rol no seleccionados");
         }
 
     }
