@@ -22,14 +22,17 @@ namespace DOM
         }
         #endregion
 
-
         #region Rol_X_Funcionalidad
-        public static DataTable obtenerPorRol(string nombreRol)
+        public static DataTable obtenerPorRolTable(string nombreRol)
         {
             string rol = nombreRol;
             if (rol == "")
                 rol = "''";
             return retrieveDataTable("JoinRolFunc", rol);
+        }
+        public static List<Funcionalidad> obtenerPorRol(string nombreRol)
+        {
+            return transductor(obtenerPorRolTable(nombreRol));
         }
 
         public static List<Funcionalidad> getFuncionalidad(string nombreRol)
@@ -47,7 +50,7 @@ namespace DOM
 
         public static bool removerFuncionalidad(string rol, int p)
         {
-            return executeProcedure("removeFuncionalidad", rol, p);
+            return executeProcedure("removeFuncionalidad", p, rol);
         }
 
         public static bool agregarFuncionalidad(string rol, int p)

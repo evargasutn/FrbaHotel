@@ -113,7 +113,6 @@ namespace FrbaHotel.ABM_de_Rol
             this.Controls.Add(this.labelRol);
             this.Name = "FormRolAlta";
             this.Text = "Alta de Rol";
-            this.Load += new System.EventHandler(this.FormRolAlta_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

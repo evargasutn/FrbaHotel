@@ -63,7 +63,7 @@ namespace FrbaHotel.ABM_de_Rol
                     this.Dispose();
                 }                //, funcionalidad_elegida.Id_funcionalidad);
 
-                
+                ((RolBajaMod)Globals.VentanaAnterior).updateGrid();
                 this.Dispose();
             }
             else
@@ -71,12 +71,15 @@ namespace FrbaHotel.ABM_de_Rol
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void FormRolAlta_Load(object sender, EventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            base.OnFormClosing(e);
 
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
         }
-        
-
         
     }
 }

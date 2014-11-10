@@ -26,7 +26,7 @@ namespace FrbaHotel.ABM_de_Rol
         {
             InitializeComponent();
             rolSeleccionado = DAORol.obtener(nombreRol);
-            funcionalidadesRol = DAOFuncionalidad.getFuncionalidad(nombreRol);
+            funcionalidadesRol = DAOFuncionalidad.obtenerPorRol(nombreRol);
             funcionalidades = DAOFuncionalidad.obtenerTodas();
             if (rolSeleccionado == null && funcionalidades == null && funcionalidadesRol == null)
             {
@@ -49,9 +49,9 @@ namespace FrbaHotel.ABM_de_Rol
             comboEstado.Items.Add("Activo");
             comboEstado.Items.Add("No Activo");
             if (rolSeleccionado.Estado)
-                comboEstado.Select(0, 1);
+                comboEstado.SelectedIndex = 0;
             else
-                comboEstado.Select(1, 1);
+                comboEstado.SelectedIndex = 1;
 
             //Cargamos las funcionalidades del Rol
             foreach (Funcionalidad func in funcionalidadesRol)
@@ -70,9 +70,9 @@ namespace FrbaHotel.ABM_de_Rol
             funcNueva.matchFuncionalidadWithDescrp(funcionalidades);
 
             removerLista(lista_baja, funcNueva);
-            lista_alta.Add(funcNueva);          
+            lista_alta.Add(funcNueva);
 
-            comboFuncionalidad.Items.Add(funcNueva.Descripcion);
+            listBox.Items.Add(funcNueva.Descripcion);
         }
 
         private void botonQuitar_Click(object sender, EventArgs e)
@@ -109,6 +109,7 @@ namespace FrbaHotel.ABM_de_Rol
                 rolSeleccionado.Estado = false;
             DAORol.guardar(rolSeleccionado);
             DAOFuncionalidad.updateFuncXRol(rolSeleccionado.Nombre, lista_alta, lista_baja);
+            ((RolBajaMod)Globals.VentanaAnterior).updateGrid();
             this.Dispose();
         }
 
@@ -122,6 +123,16 @@ namespace FrbaHotel.ABM_de_Rol
                     return;
                 }
             }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
         }
     }
     
