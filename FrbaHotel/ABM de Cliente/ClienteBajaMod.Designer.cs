@@ -230,12 +230,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(531, 428);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.botonModificar);
             this.Controls.Add(this.botonBaja);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.dataGridCliente);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ClienteBajaMod";

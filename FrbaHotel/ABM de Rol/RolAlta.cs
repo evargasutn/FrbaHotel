@@ -22,7 +22,8 @@ namespace FrbaHotel.ABM_de_Rol
             foreach (Funcionalidad func in funcionalidades)
                 comboFuncionalidades.Items.Add(func.Descripcion);
             comboEstado.Items.Add("Activo");
-            comboEstado.Items.Add("No Activo");            
+            comboEstado.Items.Add("No Activo");
+            comboEstado.SelectedIndex = 0;
         }
         private bool todosCamposCompletos()
         {

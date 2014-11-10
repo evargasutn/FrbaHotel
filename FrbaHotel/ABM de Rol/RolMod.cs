@@ -110,7 +110,7 @@ namespace FrbaHotel.ABM_de_Rol
             DAORol.guardar(rolSeleccionado);
             DAOFuncionalidad.updateFuncXRol(rolSeleccionado.Nombre, lista_alta, lista_baja);
             ((RolBajaMod)Globals.VentanaAnterior).updateGrid();
-            this.Dispose();
+            this.Close();
         }
 
         private void removerLista(List<Funcionalidad> lista, Funcionalidad funcNueva)
