@@ -1673,7 +1673,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHuesped
 	@fecNacimiento	datetime		
 AS
 	IF(@tipoDocu != '' AND @numDocu != -1 AND @nombre != '' AND @apellido != '' AND
-	@mail != '' AND @telefono != -1 AND @direccionCalle != '' AND @direccionNumero != -1 AND)
+	@mail != '' AND @telefono != -1 AND @direccionCalle != '' AND @direccionNumero != -1)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(tipoDocu, numDocu, nombre, apellido,
 				mail, telefono, direccionCalle, direccionNumero, direccionPiso, direccionDepto,
 				localidad, nacionalidad, fecNacimiento)
@@ -1720,7 +1720,8 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHuesped
 	@direccionDepto varchar(50),  --PUEDE SER NULO
 	@fecNacimiento DateTime,
 	@localidad varchar(50),
-	@nacionalidad varchar(255)
+	@nacionalidad varchar(255),
+	@campoBaja bit
 AS
 	IF (@idHuesped != -1 AND 
 		@nombre != '' AND @apellido != '' AND
@@ -1728,7 +1729,7 @@ AS
 		@mail != '' AND @telefono != -1 AND
 		@direccionCalle != '' AND @direccionNumero != -1 AND
 		@fecNacimiento IS NOT NULL AND @localidad != '' AND
-		@nacionalidad != '')
+		@nacionalidad != '' AND @campoBaja IS NOT NULL)
 	BEGIN
 		
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
@@ -1736,7 +1737,7 @@ AS
 				nombre = UPPER(@nombre), apellido = UPPER(@apellido), tipoDocu = UPPER(@tipoDocu), 
 				numDocu = @numDocu, mail = LOWER(@mail), telefono = @telefono, direccionCalle = UPPER(@direccionCalle), direccionNumero = @direccionNumero, 
 				direccionPiso = @direccionPiso, direccionDepto = UPPER(@direccionDepto), fecNacimiento = @fecNacimiento, 
-				localidad = UPPER(@localidad), nacionalidad = UPPER(@nacionalidad)
+				localidad = UPPER(@localidad), nacionalidad = UPPER(@nacionalidad), campoBaja = @campoBaja
 		WHERE idHuesped = @idHuesped
 	END
 GO
