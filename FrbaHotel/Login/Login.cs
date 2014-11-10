@@ -29,6 +29,7 @@ namespace FrbaHotel.Login
                     string passwordHash = DAOUsuario.hashPassword(textContrasenia.Text);
                     if (usuarioALoguear.Password == passwordHash)
                     {
+                        Globals.infoSesion.User = usuarioALoguear;
                         MessageBox.Show("Inicio de sesion exitosa", "Logueo!!");
                         new LoginRequisitos().Show(this);
                     }

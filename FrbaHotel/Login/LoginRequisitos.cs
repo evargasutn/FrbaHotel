@@ -46,27 +46,22 @@ namespace FrbaHotel.Login
                 comboRoles.Items.Add(rol);
                 comboRoles.Enabled=false;
             }
+            
             comboHoteles.ValueMember = "Nombre";
             comboRoles.ValueMember = "Nombre";
             comboHoteles.SelectedIndex = 0;
-            comboRoles.SelectedIndex=0;
-          
-
-
+            comboRoles.SelectedIndex = 0;
         }
 
         private void botonAceptar_Click(object sender, EventArgs e)
         {
-            Hotel hotelSeleccionado = (Hotel)hotelesDeUsuario.Where(x => x.Nombre == comboHoteles.SelectedItem.ToString());
-            Rol rolSeleccionado = (Rol)rolesDeUsuario.Where(x => x.Nombre == comboRoles.SelectedItem.ToString());
+            Hotel hotelSeleccionado = hotelesDeUsuario.Find(x => x.Nombre == comboHoteles.SelectedItem.ToString());
+            Rol rolSeleccionado = rol;
 
             Globals.infoSesion.Hotel =(Hotel) hotelSeleccionado;
-            Globals.infoSesion.Rol=(Rol)rolSeleccionado;
 
-
-
-            if (hotelSeleccionado != null || rolSeleccionado != null)
-                new MainPanel().Show();
+            if (hotelSeleccionado != null && rolSeleccionado != null)
+                new MainPanel().Show(this);
             else
                 MessageBox.Show("Seleccione el hotel y el rol", "Error:Hotel o rol no seleccionados");
         }

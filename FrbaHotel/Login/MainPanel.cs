@@ -23,23 +23,18 @@ namespace FrbaHotel.Login
         {
             InitializeComponent();
             funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rol.Nombre);
-            //foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
-            //    comboFuncionalidades.Items.Add(unFuncs);
-            comboFuncionalidades.DataSource = funcsDelRolDelUser;
+            foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
+                comboFuncionalidades.Items.Add(unFuncs);
             comboFuncionalidades.ValueMember="Descripcion";
-
-            textHotel.Text = hotel.Nombre;
-            textUser.Text = usuario.Usr;
-            textRol.Text = rol.Nombre;
-
+            comboFuncionalidades.SelectedIndex = 0;
         }
         
 
         private void botonAceptar_Click(object sender, EventArgs e)
         {
-            var funcionalidadElegida = comboFuncionalidades.SelectedItem;
+            Funcionalidad funcionalidadElegida = (Funcionalidad)comboFuncionalidades.SelectedItem;
             if (funcionalidadElegida != null)
-                abrirFormulario(funcionalidadElegida.ToString());
+                abrirFormulario(funcionalidadElegida.Descripcion);
             else MessageBox.Show("Seleccione una funcionalidad", "Error no selecciono funcionalidad");
         }
 
