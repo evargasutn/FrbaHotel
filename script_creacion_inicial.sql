@@ -103,6 +103,7 @@ COMMIT;
 		
 		--*/
 
+
 /* 
  *CREACION DE TABLAS
  */
@@ -400,6 +401,110 @@ create table COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL
 	PRIMARY KEY (codHotel, codRegimen)	
 )
 go
+
+
+/***************************************************************************
+*AUXILIAR CORRIGE MAIL
+***************************************************************************/
+IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.corrigeMail', N'FN') IS NOT NULL
+    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.corrigeMail
+GO
+CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.corrigeMail (@s varchar(256)) 
+RETURNS varchar(256)
+AS
+BEGIN
+   IF @s is null
+      RETURN null
+   
+   DECLARE @s2 varchar(256)
+   SET @s2 = ''
+   DECLARE @l int
+   SET @l = len(@s)
+   DECLARE @p int
+   SET @p = 1
+   WHILE @p <= @l 
+   BEGIN
+      DECLARE @c int;
+      SET @c = ascii(substring(@s, @p, 1))
+      set @c = LOWER(@c)
+      
+      --si es espacio todo a la izquierda se descarta
+      if (@c = 32) set @s2 = '';
+      
+	  if @c = ascii('ä') set @c = ascii('a')
+	  if @c = ascii('ë') set @c = ascii('e')
+	  if @c = ascii('ï') set @c = ascii('i')
+	  if @c = ascii('ö') set @c = ascii('o')
+      if @c = ascii('ü') set @c = ascii('u')
+	  if @c = ascii('á') set @c = ascii('a')
+      if @c = ascii('é') set @c = ascii('e')
+	  if @c = ascii('í') set @c = ascii('i')
+	  if @c = ascii('ó') set @c = ascii('o')
+	  if @c = ascii('ú') set @c = ascii('u')
+	  if @c = ascii('à') set @c = ascii('a')
+      if @c = ascii('è') set @c = ascii('e')
+	  if @c = ascii('ì') set @c = ascii('i')
+	  if @c = ascii('ò') set @c = ascii('o')
+	  if @c = ascii('ù') set @c = ascii('u')
+	  if @c = ascii('ñ') set @c = ascii('n')
+
+      if (@c between 48 and 57 or @c = 64 or @c = 45 or @c = 46 
+      or @c = 95 or @c between 65 and 90 or @c between 97 and 122)
+		
+		SET @s2 = @s2 + char(@c)
+      
+      SET @p = @p + 1
+   END
+   IF len(@s2) = 0
+      return null
+   return @s2
+END
+GO
+
+
+-- TRIGGERS
+IF OBJECT_ID ('COMPUMUNDO_HIPER_MEGA_RED.TRcorrigeMail_Hoteles', 'TR') IS NOT NULL
+   DROP TRIGGER COMPUMUNDO_HIPER_MEGA_RED.TRcorrigeMail_Hoteles;
+GO
+CREATE TRIGGER TRcorrigeMail_Hoteles
+ON COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+AFTER INSERT, UPDATE 
+AS 
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES 
+	SET mail = COMPUMUNDO_HIPER_MEGA_RED.corrigeMail(i.mail)
+	FROM inserted i
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = i.codHotel
+	WHERE i.nombreHotel = H.nombreHotel
+GO
+
+IF OBJECT_ID ('COMPUMUNDO_HIPER_MEGA_RED.TRcorrigeMail_Huespedes', 'TR') IS NOT NULL
+   DROP TRIGGER COMPUMUNDO_HIPER_MEGA_RED.TRcorrigeMail_Huespedes;
+GO
+CREATE TRIGGER TRcorrigeMail_Huespedes
+ON COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+AFTER INSERT, UPDATE 
+AS 
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES 
+	SET mail = COMPUMUNDO_HIPER_MEGA_RED.corrigeMail(i.mail)
+	FROM inserted i
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES H ON H.idHuesped = i.idHuesped
+	WHERE i.apellido = H.apellido AND i.nombre = H.nombre AND i.numDocu = H.numDocu
+GO
+
+IF OBJECT_ID ('COMPUMUNDO_HIPER_MEGA_RED.TRcorrigeMail_Usuarios', 'TR') IS NOT NULL
+   DROP TRIGGER COMPUMUNDO_HIPER_MEGA_RED.TRcorrigeMail_Usuarios;
+GO
+CREATE TRIGGER TRcorrigeMail_Usuarios
+ON COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+AFTER INSERT, UPDATE 
+AS 
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS 
+	SET mail = COMPUMUNDO_HIPER_MEGA_RED.corrigeMail(i.mail)
+	FROM inserted i
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U ON U.usr = U.usr
+	WHERE i.nombre = U.nombre AND i.apellido = U.apellido
+GO
+
 
 /** 
  ** MIGRACION
@@ -1616,14 +1721,14 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHuesped
 	@localidad varchar(50),
 	@nacionalidad varchar(255)
 AS
-	IF (@idHuesped IS NOT NULL AND 
-		@nombre IS NOT NULL AND @apellido IS NOT NULL AND
-		@tipoDocu IS NOT NULL AND @numDocu IS NOT NULL AND
-		@mail IS NOT NULL AND @telefono IS NOT NULL AND
-		@direccionCalle IS NOT NULL AND @direccionNumero IS NOT NULL AND
-		@direccionPiso IS NOT NULL AND @direccionDepto IS NOT NULL AND
-		@fecNacimiento IS NOT NULL AND @localidad IS NOT NULL AND
-		@nacionalidad IS NOT NULL)
+	IF (@idHuesped != -1 AND 
+		@nombre != '' AND @apellido != '' AND
+		@tipoDocu != '' AND @numDocu != -1 AND
+		@mail != '' AND @telefono != -1 AND
+		@direccionCalle != '' AND @direccionNumero != -1 AND
+		@direccionPiso != -1 AND @direccionDepto != '' AND
+		@fecNacimiento IS NOT NULL AND @localidad != '' AND
+		@nacionalidad != '')
 	BEGIN
 		
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
@@ -2048,64 +2153,6 @@ AS
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
 		SET descripcion = UPPER(@descripcion), importe = @importe
 		WHERE codConsumible = @codConsumible
-GO
-
-/***************************************************************************
-*AUXILIAR CORRIGE MAIL
-***************************************************************************/
-IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.corrigeMail', N'FN') IS NOT NULL
-    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.corrigeMail
-GO
-CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.corrigeMail (@s varchar(256)) 
-RETURNS varchar(256)
-AS
-BEGIN
-   IF @s is null
-      RETURN null
-   
-   DECLARE @s2 varchar(256)
-   SET @s2 = ''
-   DECLARE @l int
-   SET @l = len(@s)
-   DECLARE @p int
-   SET @p = 1
-   WHILE @p <= @l 
-   BEGIN
-      DECLARE @c int;
-      SET @c = ascii(substring(@s, @p, 1))
-      set @c = LOWER(@c)
-      
-      --si es espacio todo a la izquierda se descarta
-      if (@c = 32) set @s2 = '';
-      
-	  if @c = ascii('ä') set @c = ascii('a')
-	  if @c = ascii('ë') set @c = ascii('e')
-	  if @c = ascii('ï') set @c = ascii('i')
-	  if @c = ascii('ö') set @c = ascii('o')
-      if @c = ascii('ü') set @c = ascii('u')
-	  if @c = ascii('á') set @c = ascii('a')
-      if @c = ascii('é') set @c = ascii('e')
-	  if @c = ascii('í') set @c = ascii('i')
-	  if @c = ascii('ó') set @c = ascii('o')
-	  if @c = ascii('ú') set @c = ascii('u')
-	  if @c = ascii('à') set @c = ascii('a')
-      if @c = ascii('è') set @c = ascii('e')
-	  if @c = ascii('ì') set @c = ascii('i')
-	  if @c = ascii('ò') set @c = ascii('o')
-	  if @c = ascii('ù') set @c = ascii('u')
-	  if @c = ascii('ñ') set @c = ascii('n')
-
-      if (@c between 48 and 57 or @c = 64 or @c = 45 or @c = 46 
-      or @c = 95 or @c between 65 and 90 or @c between 97 and 122)
-		
-		SET @s2 = @s2 + char(@c)
-      
-      SET @p = @p + 1
-   END
-   IF len(@s2) = 0
-      return null
-   return @s2
-END
 GO
 /*****************************************************************************************
 *LISTADO ESTADISTICO
