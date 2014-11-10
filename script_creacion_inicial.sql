@@ -877,6 +877,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateRol
 	@nombreRol	varchar(15),
 	@estado bit
 AS
+	IF(@nombreRol != '')
 	UPDATE COMPUMUNDO_HIPER_MEGA_RED.ROLES
 	SET estado = @estado
 	WHERE nombreRol = @nombreRol
@@ -895,6 +896,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRolUsuario
 	@rol varchar(50),
 	@usr varchar(50)	
 AS
+	IF(@rol != '' AND @usr != '')
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO (nombreRol, usr) 
 	VALUES (UPPER(@rol), @usr)
 GO
@@ -927,6 +929,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.addFuncionalidad
 	@idFuncionalidad numeric(2),
 	@rol varchar(15)	
 AS
+	IF(@idFuncionalidad != -1 AND @rol != '')
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES_X_ROL(idFuncionalidad, nombreRol)
 	VALUES(@idFuncionalidad, UPPER(@rol))
 GO
@@ -1006,7 +1009,6 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getUsuario
 	@unUsr VARCHAR(50)
 AS
-	BEGIN
 	 IF (@unUsr = '')
  		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
  				U.direccionDepto, U.mail, U.telefono, U.password
@@ -1018,7 +1020,6 @@ AS
 		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU ON RU.usr = U.usr
  		WHERE U.usr = @unUsr
-	END
 GO
 
 --/PROCEDIMIENTO INSERTAR USUARIO 
@@ -1044,6 +1045,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertUsuario
 	@direccionDepto varchar(50),
 	@FecNacimiento DateTime
 AS
+	IF(@usr != '' AND @password != '' AND @nombre != '' AND @apellido != '' AND @tipoDocu != '' AND
+		@numDocu != -1 AND @mail != '' AND @telefono != -1 AND @direccionCalle != '' AND @direccionNumero != -1 
+		AND @direccionPiso != -1 AND @direccionDepto != '' AND @FecNacimiento IS NOT NULL)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr, password, nombre, apellido, contador_intentos_login, tipoDocu, numDocu,
 		mail, telefono, direccionCalle, direccionNumero, direccionPiso, direccionDepto, FecNacimiento, campoBaja)
 	VALUES(@usr, @password, UPPER(@nombre), UPPER(@apellido), 0, @tipoDocu, @numDocu, LOWER(@mail), @telefono, UPPER(@direccionCalle), @direccionNumero, 
@@ -1090,12 +1094,12 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateUsuario
 	@fecNacimiento DateTime,
 	@campoBaja bit
 AS
-	IF (@usr IS NOT NULL AND @password IS NOT NULL AND
-		@nombre IS NOT NULL AND @apellido IS NOT NULL AND
-		@tipoDocu IS NOT NULL AND @numDocu IS NOT NULL AND
-		@mail IS NOT NULL AND @telefono IS NOT NULL AND
-		@direccionCalle IS NOT NULL AND @direccionNumero IS NOT NULL AND
-		@direccionPiso IS NOT NULL AND @direccionDepto IS NOT NULL AND
+	IF (@usr != '' AND @password != '' AND
+		@nombre != '' AND @apellido != '' AND
+		@tipoDocu != '' AND @numDocu != -1 AND
+		@mail != '' AND @telefono != -1 AND
+		@direccionCalle != '' AND @direccionNumero != -1 AND
+		@direccionPiso != -1 AND @direccionDepto != '' AND
 		@fecNacimiento IS NOT NULL)
 	BEGIN
 		DECLARE @nueva_clave varchar(50)
@@ -1185,6 +1189,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHabitacion
 	@tipo varchar(50),
 	@descripcion varchar(255)
 AS
+	IF(@codHotel != -1 AND @habitacion != -1 AND @piso != -1 AND @ubicacion != '' AND @tipo != '' AND @descripcion != '')
 	DECLARE @codTipo numeric(8)
 	SELECT @codTipo = tipoCodigo from COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES 
 	WHERE tipoDescripcion = @tipo
@@ -1210,10 +1215,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHabitacion
 	@descripcion varchar(255),
 	@campoBaja bit
 AS
-	IF (@codHotel IS NOT NULL AND @habitacion IS NOT NULL AND
-	@piso IS NOT NULL AND @ubicacion IS NOT NULL AND
-	@tipo IS NOT NULL AND @descripcion IS NOT NULL AND
-	@campoBaja IS NOT NULL) 
+	IF (@codHotel != -1 AND @habitacion != -1 AND
+	@piso != -1 AND @ubicacion != '' AND
+	@tipo != '' AND @descripcion != '' AND @campoBaja != -1) 
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 		SET codHotel = @codHotel,
 			campoBaja = @campoBaja,
@@ -1251,8 +1255,9 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
-	@codigo numeric(8)
-	AS
+@codigo numeric(8)
+AS
+		IF(@codigo != -1)
 		SELECT R.codRegimen FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL R 
 		WHERE R.codHotel = @codigo  
 GO
@@ -1266,17 +1271,15 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimen
-	@codigo numeric(8)
-	AS
-		BEGIN
-		--SI RECIBE -1, MUESTRA TODOS LOS REGIMENES HABILITADOS
-			IF (@codigo = -1)
-				SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
-				WHERE R.estado = 1				
-			ELSE
-				SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
-				WHERE R.codRegimen = @codigo
-		END 
+@codigo numeric(8)
+AS
+	--SI RECIBE -1, MUESTRA TODOS LOS REGIMENES HABILITADOS
+	IF (@codigo = -1)
+		SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
+		WHERE R.estado = 1				
+	ELSE
+		SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
+		WHERE R.codRegimen = @codigo
 GO
 
 --/PROC INSERTREGIMEN 
@@ -1291,11 +1294,10 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRegimen
 	@codigoRegimen numeric(8),
 	@descripcion varchar(255),
 	@precio numeric (18,2)
-	AS
-		BEGIN
-		   INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen, descripcion, precio, estado)
-		   VALUES (@codigoRegimen, UPPER(@descripcion), @precio, 1)
-		END 
+AS
+	IF(@codigoRegimen != -1 AND @descripcion != '' AND @precio != -1)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen, descripcion, precio, estado)
+	VALUES (@codigoRegimen, UPPER(@descripcion), @precio, 1)
 GO
 
 
@@ -1312,14 +1314,13 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateRegimen
 	@descripcion varchar(255),
 	@precio numeric (18,2),
 	@estado bit
-	AS
-		BEGIN
-		   UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
-		   SET  descripcion = UPPER(@descripcion),
-				precio = @precio,
-				estado = @estado
-		   WHERE codRegimen = @codigoRegimen
-		END 
+AS
+   IF(@codigoRegimen != -1 AND @descripcion != '' AND @precio != -1 AND @estado != -1)
+   UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
+   SET  descripcion = UPPER(@descripcion),
+		precio = @precio,
+		estado = @estado
+   WHERE codRegimen = @codigoRegimen
 GO
 
 --/PROC DELETEREGIMEN
@@ -1333,11 +1334,9 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteRegimen
 	@codigoRegimen numeric(8)
 	AS
-		BEGIN
-		   UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
-		   SET  estado = 0
-		   WHERE codRegimen = @codigoRegimen
-		END 
+	   UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
+	   SET  estado = 0
+	   WHERE codRegimen = @codigoRegimen
 GO
 
 --/PROCEDIMIENTO GET HOTEL BY USUARIO 
@@ -1349,14 +1348,15 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelByUsuario
-	@usuario varchar(50)
-	AS
-		SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion,
-			   H.telefono, H.direccionCalle, H.direccionNumero, H.ciudad,
-			   H.pais, H.cantEstrellas, H.recargoEstrella
-		 FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO HU 
-		JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = HU.codHotel 
-		WHERE HU.usr = @usuario  
+@usuario varchar(50)
+AS
+	IF(@usuario != '')
+	SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion,
+		   H.telefono, H.direccionCalle, H.direccionNumero, H.ciudad,
+		   H.pais, H.cantEstrellas, H.recargoEstrella
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO HU 
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = HU.codHotel 
+	WHERE HU.usr = @usuario  
 GO
 
 --/PROCEDIMIENTO GET HOTEL 
@@ -1370,20 +1370,18 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotel
 	@codigo numeric(8)
 	AS
-		BEGIN
-		--SI RECIBE -1, MUESTRA TODOS LOS HOTELES
-			IF (@codigo = -1)
-				SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
-				H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella 
-				FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
-				ORDER BY H.nombreHotel ASC
-			ELSE
-				SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
-				H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella
-				FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
-				WHERE H.codHotel = @codigo
-				ORDER BY H.nombreHotel ASC
-		END 
+	--SI RECIBE -1, MUESTRA TODOS LOS HOTELES
+	IF (@codigo = -1)
+		SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
+		H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella 
+		FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
+		ORDER BY H.nombreHotel ASC
+	ELSE
+		SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
+		H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella
+		FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
+		WHERE H.codHotel = @codigo
+		ORDER BY H.nombreHotel ASC
 GO
 
 --/PROCEDIMIENTO INSERTAR HOTEL 
@@ -1405,6 +1403,8 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotel
 	@cantEstrellas numeric(18,0),
 	@recargoEstrella numeric(18,0)
 AS
+	IF(@nombreHotel != '' AND @mail != '' AND @telefono != -1 AND @direccionCalle != '' AND
+		@direccionNumero != -1 AND @ciudad != '' AND @pais != '' AND @cantEstrellas != -1 AND @recargoEstrella != -1)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES (nombreHotel, mail, fecCreacion, telefono, direccionCalle,
 								direccionNumero, ciudad, pais, cantEstrellas, recargoEstrella)
 	VALUES(UPPER(@nombreHotel), LOWER(@mail), GETDATE(), (CASE WHEN @telefono = -1 THEN NULL ELSE @telefono END), 
@@ -1455,12 +1455,12 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHotel
 	@recargoEstrella	numeric(18),
 	@estado bit
 AS
-	IF (@codHotel IS NOT NULL AND @nombreHotel IS NOT NULL AND
-	@mail IS NOT NULL AND @telefono	IS NOT NULL AND
-	@direccionCalle IS NOT NULL AND	@direccionNumero IS NOT NULL AND
-	@ciudad	IS NOT NULL AND	@pais IS NOT NULL AND
-	@cantEstrellas IS NOT NULL AND	@recargoEstrella IS NOT NULL AND
-	@estado IS NOT NULL) 
+	IF (@codHotel != -1 AND @nombreHotel != '' AND
+	@mail != '' AND @telefono != -1 AND
+	@direccionCalle != '' AND @direccionNumero != -1 AND
+	@ciudad	!= '' AND @pais != '' AND
+	@cantEstrellas != -1 AND @recargoEstrella != -1 AND
+	@estado != -1) 
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
 		SET nombreHotel = UPPER(@nombreHotel),
 			mail = LOWER(@mail),
@@ -1486,6 +1486,7 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHotelUsuario
 	@usr varchar(50), @nombreHotel varchar(200)
 AS
+	IF(@usr != '') 
 	DECLARE @idHotelBuscado numeric(8)
 	SET @idHotelBuscado = (SELECT H.codHotel 
 						   FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H 
@@ -1524,14 +1525,12 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getReserva
 	@codReserva numeric(18)
 	AS
-		BEGIN
-		--SI RECIBE -1, MUESTRA TODOS LAS RESERVAS
-		IF (@codReserva = -1)
-			SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R			
-		ELSE
-			SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R	
-			WHERE R.codReserva = @codReserva
-		END 
+	--SI RECIBE -1, MUESTRA TODOS LAS RESERVAS
+	IF (@codReserva = -1)
+		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R			
+	ELSE
+		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R	
+		WHERE R.codReserva = @codReserva
 GO
 
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.JoinUsrRol', 'P' ) IS NOT NULL 
@@ -1544,9 +1543,8 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.JoinUsrRol
 	@usr varchar(15)
 AS
-	BEGIN
 	 IF (@usr IS NULL OR @usr = '')
- 		SELECT R.nombreRol, R.estado
+		SELECT R.nombreRol, R.estado
 		FROM COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES R
 			ON RU.nombreRol = R.nombreRol
@@ -1556,7 +1554,6 @@ AS
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES R
 			ON RU.nombreRol = R.nombreRol
 		WHERE RU.usr = @usr
-	END
 GO
 
 
@@ -1602,6 +1599,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertReserva
 	@fecHasta datetime,
 	@fecReserva datetime	
 AS
+	IF(@idHuesped != -1 AND @usr != '' AND @habitacion != -1 AND @piso != -1 AND @codHotel != -1 AND
+		@codRegimen != -1 AND @fecDesde IS NOT NULL AND @fecHasta IS NOT NULL AND
+		@fecReserva IS NOT NULL)
 	DECLARE @max_codReservaUltimo bigint
 	
 	--INSERT EN LA TABLA DE RESERVAS
@@ -1625,6 +1625,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva
 	@motivo			varchar,
 	@usr			varchar(50) 
 AS 
+	IF(@codReserva != -1 AND @motivo != '' AND @usr != '')
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA (codReserva, motivo, usr, fecCancelacion)
 	VALUES (@codReserva, @motivo, @usr, GETDATE())
 GO
@@ -1640,14 +1641,12 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHuesped
 	@idHuesped int
 AS
-	BEGIN
 	--SI RECIBE -1, MUESTRA TODOS LOS HUESPEDES
 	IF (@idHuesped = -1)
 		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES H			
 	ELSE
 		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES H	
 		WHERE H.idHuesped = @idHuesped
-	END 
 GO
 
 --/PROC INSERTHUESPED
@@ -1667,12 +1666,14 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHuesped
 	@telefono	numeric(18, 0),
 	@direccionCalle	varchar(100),
 	@direccionNumero	numeric(18, 0),
-	@direccionPiso	numeric(18, 0),
-	@direccionDepto	varchar(50),
+	@direccionPiso	numeric(18, 0), --PUEDE SER NULO
+	@direccionDepto	varchar(50),	--PUEDE SER NULO
 	@localidad	varchar(50),
 	@nacionalidad	varchar(255),
 	@fecNacimiento	datetime		
 AS
+	IF(@tipoDocu != '' AND @numDocu != -1 AND @nombre != '' AND @apellido != '' AND
+	@mail != '' AND @telefono != -1 AND @direccionCalle != '' AND @direccionNumero != -1 AND)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(tipoDocu, numDocu, nombre, apellido,
 				mail, telefono, direccionCalle, direccionNumero, direccionPiso, direccionDepto,
 				localidad, nacionalidad, fecNacimiento)
@@ -1715,8 +1716,8 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHuesped
 	@telefono numeric(12),
 	@direccionCalle varchar(100),
 	@direccionNumero numeric(18,0),
-	@direccionPiso numeric(18,0),
-	@direccionDepto varchar(50),
+	@direccionPiso numeric(18,0), --PUEDE SER NULO
+	@direccionDepto varchar(50),  --PUEDE SER NULO
 	@fecNacimiento DateTime,
 	@localidad varchar(50),
 	@nacionalidad varchar(255)
@@ -1726,7 +1727,6 @@ AS
 		@tipoDocu != '' AND @numDocu != -1 AND
 		@mail != '' AND @telefono != -1 AND
 		@direccionCalle != '' AND @direccionNumero != -1 AND
-		@direccionPiso != -1 AND @direccionDepto != '' AND
 		@fecNacimiento IS NOT NULL AND @localidad != '' AND
 		@nacionalidad != '')
 	BEGIN
@@ -1752,15 +1752,13 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFactura
 	@numeroFactura numeric(18)
 AS
-	BEGIN
 	 IF (@numeroFactura != -1)
- 		SELECT *
- 		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
- 		WHERE F.numeroFactura = @numeroFactura 
+		SELECT *
+		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
+		WHERE F.numeroFactura = @numeroFactura 
 	 ELSE
 		SELECT *
 		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS  
-	END
 GO
 --//PROC GETFACTURA_RESERVA
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getFacturaReserva', 'P' ) IS NOT NULL 
@@ -1773,11 +1771,9 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFacturaReserva
 	@codReserva numeric(18)
 AS
-	BEGIN
-		SELECT *
- 		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
- 		WHERE F.codReserva = @codReserva
-	END
+	SELECT *
+	FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
+	WHERE F.codReserva = @codReserva
 GO
 --//PROC GETFACTURAS_CLIENTE
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getFacturasCliente', 'P' ) IS NOT NULL 
@@ -1790,11 +1786,9 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFacturasCliente
 	@idHuesped int
 AS
-	BEGIN
-		SELECT *
- 		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
- 		WHERE F.idHuesped = @idHuesped
-	END
+	SELECT *
+	FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
+	WHERE F.idHuesped = @idHuesped
 GO
 
 
@@ -1823,7 +1817,6 @@ CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles (@codReserva	numeric(
 RETURNS numeric(18,2)
 AS
 	BEGIN
-	
 	RETURN (SELECT SUM(CE.cantidad*C.importe) 
 			FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 			JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible 
@@ -1918,31 +1911,34 @@ AS
 	DECLARE @nroItem numeric(18)
 	SET @nroItem = 1 
 	
-	--Guardo primero RECARGOS
-	DECLARE @totalRecargos numeric(18,2)
-	SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
-						+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-	VALUES(@numeroFactura, @nroItem, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Régimen')
-	
-	--Guardo los consumibles
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-	SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
-	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
-	JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
-	
-	SET @nroItem = @nroItem + 1
-	--Si la reserva es All Inclusive, agrego un item más detallando que no se considera recargo de consumibles
-	DECLARE @esAllInclusive int
-	SET @esAllInclusive = COMPUMUNDO_HIPER_MEGA_RED.reservaEs_allInclusive(@codReserva)
-	IF(@esAllInclusive > 0)
-		BEGIN	
-			DECLARE @totalConsumiblesDescontar numeric(18,2)
-			SET @totalConsumiblesDescontar = COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(@codReserva)
+	IF(@numeroFactura != -1 AND @codReserva != -1)
+	BEGIN
+		--Guardo primero RECARGOS
+		DECLARE @totalRecargos numeric(18,2)
+		SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
+							+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
+		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+		VALUES(@numeroFactura, @nroItem, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Régimen')
 		
-			INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-			VALUES(@numeroFactura, @nroItem, 1, @totalConsumiblesDescontar, @totalConsumiblesDescontar, 'Descuento por Régimen de Estadía')
-		END
+		--Guardo los consumibles
+		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+		SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
+		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
+		
+		SET @nroItem = @nroItem + 1
+		--Si la reserva es All Inclusive, agrego un item más detallando que no se considera recargo de consumibles
+		DECLARE @esAllInclusive int
+		SET @esAllInclusive = COMPUMUNDO_HIPER_MEGA_RED.reservaEs_allInclusive(@codReserva)
+		IF(@esAllInclusive > 0)
+			BEGIN	
+				DECLARE @totalConsumiblesDescontar numeric(18,2)
+				SET @totalConsumiblesDescontar = COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(@codReserva)
+			
+				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+				VALUES(@numeroFactura, @nroItem, 1, @totalConsumiblesDescontar, @totalConsumiblesDescontar, 'Descuento por Régimen de Estadía')
+			END
+	END
 GO
 
 
@@ -2007,45 +2003,46 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.facturar
 	@tipoPago	varchar(50),
 	@codTarjetaCredito	varchar(19)
 AS
+	IF(@codReserva != -1 AND @tipoPago != '' AND @codTarjetaCredito != '')
 	BEGIN
-	DECLARE @totalConsumibles numeric(18,2)
-	SET @totalConsumibles = COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(@codReserva)
-	
-	DECLARE @recargoEstrella numeric(18)
-	SET @recargoEstrella = COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
+		DECLARE @totalConsumibles numeric(18,2)
+		SET @totalConsumibles = COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(@codReserva)
+		
+		DECLARE @recargoEstrella numeric(18)
+		SET @recargoEstrella = COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
 
-	DECLARE @precioRegimen numeric(3,2)
-	SET @precioRegimen = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen (@codReserva)
-	
-	DECLARE @porcentualHabitacionTipo numeric(2,2)
-	SET @porcentualHabitacionTipo = COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion (@codReserva)
-	
-	DECLARE @totalRegimenHabitacion numeric(18,2)
-	SET @totalRegimenHabitacion = @precioRegimen * @porcentualHabitacionTipo
-	
-	DECLARE @montoTotal numeric(18,2)
-	DECLARE @es_allInclusive int
-	SET @es_allInclusive = COMPUMUNDO_HIPER_MEGA_RED.reservaEs_allInclusive(@codReserva)
+		DECLARE @precioRegimen numeric(3,2)
+		SET @precioRegimen = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen (@codReserva)
+		
+		DECLARE @porcentualHabitacionTipo numeric(2,2)
+		SET @porcentualHabitacionTipo = COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion (@codReserva)
+		
+		DECLARE @totalRegimenHabitacion numeric(18,2)
+		SET @totalRegimenHabitacion = @precioRegimen * @porcentualHabitacionTipo
+		
+		DECLARE @montoTotal numeric(18,2)
+		DECLARE @es_allInclusive int
+		SET @es_allInclusive = COMPUMUNDO_HIPER_MEGA_RED.reservaEs_allInclusive(@codReserva)
 
-	IF(@es_allInclusive > 0)
-		SET @montoTotal = @totalRegimenHabitacion + @recargoEstrella
-	ELSE
-		SET @montoTotal = @totalConsumibles + @totalRegimenHabitacion + @recargoEstrella
-	
-	DECLARE @idHuesped int
-	SET @idHuesped = (SELECT R.idHuesped FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R
-						WHERE R.codReserva = @codReserva)
-	
-	/*INSERTO EN LA TABLA FACTURA*/
-	DECLARE @numeroFactura  numeric(18)
-	SET @numeroFactura = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoNumeroFactura()
-	SET @numeroFactura = @numeroFactura + 1
-	
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura, codReserva, fecha, idHuesped, montoTotal, tipoPago, codTarjetaCredito)
-	VALUES(@numeroFactura,@codReserva, GETDATE(), @idHuesped, @montoTotal, @tipoPago, CASE WHEN @tipoPago LIKE 'Efectivo' THEN '' ELSE @codTarjetaCredito END)
-	
-	--INSERT EN LA TABLA ITEMS_FACTURA
-	EXEC COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura @numeroFactura, @codReserva
+		IF(@es_allInclusive > 0)
+			SET @montoTotal = @totalRegimenHabitacion + @recargoEstrella
+		ELSE
+			SET @montoTotal = @totalConsumibles + @totalRegimenHabitacion + @recargoEstrella
+		
+		DECLARE @idHuesped int
+		SET @idHuesped = (SELECT R.idHuesped FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R
+							WHERE R.codReserva = @codReserva)
+		
+		/*INSERTO EN LA TABLA FACTURA*/
+		DECLARE @numeroFactura  numeric(18)
+		SET @numeroFactura = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoNumeroFactura()
+		SET @numeroFactura = @numeroFactura + 1
+		
+		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura, codReserva, fecha, idHuesped, montoTotal, tipoPago, codTarjetaCredito)
+		VALUES(@numeroFactura,@codReserva, GETDATE(), @idHuesped, @montoTotal, @tipoPago, CASE WHEN @tipoPago LIKE 'Efectivo' THEN '' ELSE @codTarjetaCredito END)
+		
+		--INSERT EN LA TABLA ITEMS_FACTURA
+		EXEC COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura @numeroFactura, @codReserva
 	
 	END
 GO
@@ -2062,6 +2059,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertEstadia
 	@codReserva numeric(18),
 	@usr varchar(50)		
 AS
+	IF(@codReserva != -1 AND @usr != '')
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ESTADIA(codReserva, usrIngreso, fecIngreso)
 	VALUES(@codReserva, @usr, CURRENT_TIMESTAMP)
 GO
@@ -2077,6 +2075,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateEstadia
 	@codReserva numeric(18),
 	@usr varchar(50)		
 AS
+	IF(@codReserva != -1 AND @usr != '')
 	UPDATE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA
 	SET usrEgreso = @usr, fecEgreso = CURRENT_TIMESTAMP
 	WHERE codReserva = @codReserva
@@ -2094,6 +2093,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.agregarConsumible
 	@codReserva numeric(18),
 	@codConsumible numeric(18), @cantidad numeric(3)		
 AS
+	IF(@codConsumible != -1 AND @codReserva != -1 AND @cantidad != -1)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA(codReserva, codConsumible, cantidad)
 	VALUES(@codReserva, @codConsumible, @cantidad)
 GO
@@ -2127,11 +2127,10 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertConsumible
 	@descripcion varchar(255),
 	@importe numeric(18,2)
-	AS
-		BEGIN
-		   INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(descripcion, importe)
-		   VALUES (UPPER(@descripcion), @importe)
-		END 
+AS
+	IF(@descripcion != '' AND @importe != -1)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(descripcion, importe)
+	VALUES (UPPER(@descripcion), @importe)
 GO
 
 --//PROC UPDATECONSUMIBLE
@@ -2147,8 +2146,8 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateConsumible
 	@descripcion varchar(255),
 	@importe numeric(18,2)
 AS
-	IF (@codConsumible IS NOT NULL AND 
-		@descripcion IS NOT NULL AND @importe IS NOT NULL)
+	IF (@codConsumible != -1 AND 
+		@descripcion != '' AND @importe != -1)
 		
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
 		SET descripcion = UPPER(@descripcion), importe = @importe
@@ -2399,4 +2398,3 @@ AS
 	
 	ORDER BY 4 DESC			 
 GO
-
