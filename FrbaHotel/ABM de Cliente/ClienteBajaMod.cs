@@ -80,6 +80,12 @@ namespace FrbaHotel.ABM_de_Cliente
 
         private void botonBaja_Click(object sender, System.EventArgs e)
         {
+            if (dataGridCliente.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un Cliente a dar de baja.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
             int idDelete = (int) dataGridCliente.CurrentRow.Cells["idHuesped"].Value;
             DialogResult dr = MessageBox.Show("Desea dar de Baja al usuario "+idDelete.ToString()+"?",
             "", MessageBoxButtons.YesNo);
@@ -93,9 +99,14 @@ namespace FrbaHotel.ABM_de_Cliente
 
         private void botonModificar_Click(object sender, EventArgs e)
         {
+            if (dataGridCliente.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un Cliente a modificar.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
             int id = (int)dataGridCliente.CurrentRow.Cells["idHuesped"].Value;
-            DialogResult dr = MessageBox.Show("Desea modificar datos del usuario " + id.ToString() + "?",
-            "", MessageBoxButtons.YesNo);
+            DialogResult dr = MessageBox.Show("Desea modificar datos del cliente?","",MessageBoxButtons.YesNo);
             switch (dr)
             {
                 case DialogResult.Yes:
@@ -123,6 +134,15 @@ namespace FrbaHotel.ABM_de_Cliente
             Base.establecerVentanaAnterior(this);
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
+        }
 
     }
 }
