@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
 using System.Windows.Forms;
+using DOM.Dominio;
 
 namespace DOM
 {
@@ -38,6 +39,31 @@ namespace DOM
         {
             return isLogged;
         }
+        #endregion
+
+
+        #region Globales
+
+        public static logueo infoSesion;
+
+
+        public struct logueo
+        {
+            public Usuario User;
+            public Rol Rol;
+            public Hotel Hotel; 
+            
+            public logueo(Usuario a, Rol b,Hotel c)
+            {
+                User = a;
+                Rol = b;
+                Hotel= c;
+            }
+        }
+
+
+
+       
         #endregion
 
         #region Singletons Ventanas

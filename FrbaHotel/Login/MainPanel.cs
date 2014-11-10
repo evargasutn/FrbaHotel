@@ -15,28 +15,24 @@ namespace FrbaHotel.Login
     {
 
         List<Funcionalidad> funcsDelRolDelUser;
-        Usuario usuario;
-        String hotelNombre;
+        Usuario usuario=Globals.infoSesion.User;
+        Hotel hotel=Globals.infoSesion.Hotel;
+        Rol rol=Globals.infoSesion.Rol;
 
-
-
-        public MainPanel(Usuario usuario, String hotelNombre, String rolNombre)
+        public MainPanel()
         {
             InitializeComponent();
-            funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rolNombre);
+            funcsDelRolDelUser = DAOFuncionalidad.getFuncionalidad(rol.Nombre);
             foreach (Funcionalidad unFuncs in funcsDelRolDelUser)
-                listFuncionalidades.Items.Add(unFuncs.Descripcion);
+                comboFuncionalidades.Items.Add(unFuncs);
+            comboFuncionalidades.ValueMember="Descripcion";
 
         }
-        public MainPanel()   ///Para invitados
-        {
-            InitializeComponent();
-            ///cargar list funcionalidades para invitados
-        }
+        
 
         private void botonAceptar_Click(object sender, EventArgs e)
         {
-            var funcionalidadElegida = listFuncionalidades.SelectedItem;
+            var funcionalidadElegida = comboFuncionalidades.SelectedItem;
             if (funcionalidadElegida != null)
                 abrirFormulario(funcionalidadElegida.ToString());
             else MessageBox.Show("Seleccione una funcionalidad", "Error no selecciono funcionalidad");
@@ -79,7 +75,7 @@ namespace FrbaHotel.Login
                     new Generar_Modificar_Reserva.GenerarReserva().Show();
                     break;
                 case "Cancelar Reserva":
-                    new Cancelar_Reserva.CancelarReserva(usuario, hotelNombre).Show();
+                    new Cancelar_Reserva.CancelarReserva(usuario, "ww").Show();
                     break;
 
                 case "Registrar Estadia":
@@ -98,6 +94,27 @@ namespace FrbaHotel.Login
 
             }
 
+        }
+
+        private void MainPanel_Load(object sender, EventArgs e)
+        {
+            textHotel.Enabled = false;
+            textRol.Enabled = false;
+            textUser.Enabled = false;
+            textHotel.Text = hotel.Nombre;
+            textRol.Text = rol.Nombre;
+
+            if (usuario != null)
+                textUser.Text = usuario.Usr;
+            else
+            {
+                textUser.Visible = false;
+                label2.Text = "Invitado";
+                label2.Font = new System.Drawing.Font(label1.Font, FontStyle.Bold); 
+            }
+
+
+        
         }
 
 
