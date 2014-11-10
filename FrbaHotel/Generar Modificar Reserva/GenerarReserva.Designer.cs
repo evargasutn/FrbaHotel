@@ -61,6 +61,7 @@
             // 
             // dateTimeFechaSalida
             // 
+            this.dateTimeFechaSalida.CustomFormat = "ddMMyyyy";
             this.dateTimeFechaSalida.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimeFechaSalida.Location = new System.Drawing.Point(119, 47);
             this.dateTimeFechaSalida.Name = "dateTimeFechaSalida";
@@ -69,6 +70,7 @@
             // 
             // dateTimeFechaEntrada
             // 
+            this.dateTimeFechaEntrada.CustomFormat = "ddMMyyyy";
             this.dateTimeFechaEntrada.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimeFechaEntrada.Location = new System.Drawing.Point(119, 22);
             this.dateTimeFechaEntrada.Name = "dateTimeFechaEntrada";
@@ -177,17 +179,20 @@
             this.button1.TabIndex = 9;
             this.button1.Text = "Ver Disponibilidad de Reserva";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // GenerarReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(320, 321);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.groupBox2);
             this.Name = "GenerarReserva";
             this.Text = "Generar reserva";
+            this.Load += new System.EventHandler(this.GenerarReserva_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
