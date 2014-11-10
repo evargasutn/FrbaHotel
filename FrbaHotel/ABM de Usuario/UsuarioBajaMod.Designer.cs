@@ -1,6 +1,6 @@
 ﻿namespace FrbaHotel.ABM_de_Usuario
 {
-    partial class FormModBajaUser
+    partial class UsuarioBajaMod
     {
         /// <summary>
         /// Required designer variable.

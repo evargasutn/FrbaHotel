@@ -13,7 +13,7 @@ using DOM.Auxiliares;
 
 namespace FrbaHotel.ABM_de_Usuario
 {
-    public partial class FormModUser : Form
+    public partial class UsuarioMod : Form
     {   
         Usuario usuarioMod;
         List<Hotel> hotelesPosibles;
@@ -24,7 +24,7 @@ namespace FrbaHotel.ABM_de_Usuario
         string usuarioPedido;
         
 
-        public FormModUser(string usuario)
+        public UsuarioMod(string usuario)
         {
             InitializeComponent();
 

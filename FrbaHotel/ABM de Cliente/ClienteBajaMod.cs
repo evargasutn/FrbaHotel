@@ -33,7 +33,7 @@ namespace FrbaHotel.ABM_de_Cliente
             if (respuesta != null)
             {
                 dataGridCliente.Columns["idHuesped"].Visible = false;
-                dataGridCliente.Columns["campoBaja"].Visible = false;
+                //dataGridCliente.Columns["campoBaja"].Visible = false;
             }
             dataGridCliente.AutoResizeColumns();
             dataGridCliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -78,25 +78,51 @@ namespace FrbaHotel.ABM_de_Cliente
             return tabla_huesped;
         }
 
-        private void dataGridCliente_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void botonBaja_Click(object sender, System.EventArgs e)
         {
-            if (e.ColumnIndex == Modificar.DisplayIndex) ModificarHuesped(e.RowIndex);
-            if (e.ColumnIndex == Baja.DisplayIndex) BajaHuesped(e.RowIndex);
+            int idDelete = (int) dataGridCliente.CurrentRow.Cells["idHuesped"].Value;
+            DialogResult dr = MessageBox.Show("Desea dar de Baja al usuario "+idDelete.ToString()+"?",
+            "", MessageBoxButtons.YesNo);
+            switch (dr){
+                case DialogResult.Yes: 
+                    BajaHuesped(idDelete); 
+                break;
+                case DialogResult.No: break;
+            }
         }
 
-        private void BajaHuesped(int p)
+        private void botonModificar_Click(object sender, EventArgs e)
         {
-            var rta = MessageBox.Show("¿Dar Baja al Rol?", "Baja de Rol", MessageBoxButtons.YesNo);
-            int id = (int)dataGridCliente["idHuesped", p].Value;
-            if (rta == DialogResult.Yes)
-                DAOHuesped.borrar(id);
+            int id = (int)dataGridCliente.CurrentRow.Cells["idHuesped"].Value;
+            DialogResult dr = MessageBox.Show("Desea modificar datos del usuario " + id.ToString() + "?",
+            "", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    //Nuevo Form que sele pasa el nombre de usuario a Modificar
+                    ModificarHuesped(id);
+                    break;
+                case DialogResult.No: break;
+            }
         }
 
-        private void ModificarHuesped(int p)
+        private void BajaHuesped(int id)
         {
-            int id = (int)dataGridCliente["idHuesped", p].Value;
+            DAOHuesped.borrar(id);
+        }
+
+        private void ModificarHuesped(int id)
+        {
             new ClienteMod(id).Show();
             Base.establecerVentanaAnterior(this);
         }
+
+        private void altaDeClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new ClienteAlta().Show();
+            Base.establecerVentanaAnterior(this);
+        }
+
+
     }
 }

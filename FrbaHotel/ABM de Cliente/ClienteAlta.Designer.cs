@@ -32,6 +32,7 @@
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textPais = new System.Windows.Forms.ComboBox();
             this.dateTimeNacimiento = new System.Windows.Forms.DateTimePicker();
             this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
             this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
@@ -59,7 +60,6 @@
             this.lblTipoDoc = new System.Windows.Forms.Label();
             this.lblApellido = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.textPais = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -118,6 +118,16 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
+            // 
+            // textPais
+            // 
+            this.textPais.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textPais.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.textPais.FormattingEnabled = true;
+            this.textPais.Location = new System.Drawing.Point(138, 288);
+            this.textPais.Name = "textPais";
+            this.textPais.Size = new System.Drawing.Size(139, 21);
+            this.textPais.TabIndex = 41;
             // 
             // dateTimeNacimiento
             // 
@@ -346,18 +356,9 @@
             this.toolTip.InitialDelay = 200;
             this.toolTip.ReshowDelay = 40;
             // 
-            // textPais
-            // 
-            this.textPais.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textPais.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.textPais.FormattingEnabled = true;
-            this.textPais.Location = new System.Drawing.Point(138, 288);
-            this.textPais.Name = "textPais";
-            this.textPais.Size = new System.Drawing.Size(139, 21);
-            this.textPais.TabIndex = 41;
-            // 
             // ClienteAlta
             // 
+            this.AcceptButton = this.botonGuardar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(315, 399);

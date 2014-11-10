@@ -40,7 +40,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 Huesped huesped = new Huesped();
                 huesped.Nombre = textNombre.Text;
                 huesped.Apellido = textApellido.Text;
-                huesped.TipoDocu = comboTipoDoc.SelectedText;
+                huesped.TipoDocu = Documento.string_docu[comboTipoDoc.SelectedIndex];
                 huesped.NroDocu = Int32.Parse(textNumDoc.Text);
                 huesped.Fecha_nacimiento = dateTimeNacimiento.Text;
                 huesped.Mail = textMail.Text;
@@ -171,6 +171,16 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             toolTip.SetToolTip(ventana, "Entrada Invalida");
             toolTip.Show(msj, ventana, 50,10, 5000);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
         }
     }
 }

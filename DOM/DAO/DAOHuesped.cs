@@ -46,9 +46,14 @@ namespace DOM
             string dir_calle = huesped.Direccion.calle_direccion;
             int dir_altura = huesped.Direccion.calle_altura;
             string fecha_nacimiento = huesped.Fecha_nacimiento;
+            string localidad = huesped.Localidad;
+            string nacionalidad = huesped.Nacionalidad;
             int piso = huesped.Direccion.calle_piso;
             string dpto = huesped.Direccion.calle_dpto;
-            return executeProcedure("insertHuesped", nombre, apellido, doc_tipo, doc_num, email, telefono, dir_calle, dir_altura, piso, dpto, fecha_nacimiento);
+            return executeProcedure("insertHuesped", doc_tipo, doc_num,
+                                                    nombre, apellido, email,
+                                                    telefono, dir_calle, dir_altura, piso, dpto,
+                                                    localidad, nacionalidad, fecha_nacimiento);
         }
 
         public static bool borrar(int id)
@@ -72,8 +77,9 @@ namespace DOM
             string fecha_nacimiento = (huesped.Fecha_nacimiento_struct == null) ? huesped.Fecha_nacimiento : cadena_nula;
             int campoBaja = (huesped.Campo_Baja) ? 1 : 0;
             return executeProcedure("updateUsuario", id, nombre, apellido,
-                email, doc_tipo, doc_num, telefono, dir_calle, dir_altura, dir_piso,
-                dir_dpto, fecha_nacimiento, campoBaja);
+                                                    email, doc_tipo, doc_num, telefono,
+                                                    dir_calle, dir_altura, dir_piso, dir_dpto,
+                                                    fecha_nacimiento, campoBaja);
         }
 
         #region Convertir DataTable
