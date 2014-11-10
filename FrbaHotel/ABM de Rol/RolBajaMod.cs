@@ -28,9 +28,7 @@ namespace FrbaHotel.ABM_de_Rol
         private void buttonLimpiar_Click(object sender, EventArgs e)
         {
             //Limpiamos la DataGrid
-            foreach (DataGridViewRow dgvr in dataGridViewRol.Rows)
-                if (dgvr.Selected == true)
-                    dataGridViewRol.Rows.Remove(dgvr);
+            cleanGrid();
             //Limiamos lo demas?
             textRol.Text = "";
             comboFuncionalidad.SelectedItem = null;
@@ -41,7 +39,6 @@ namespace FrbaHotel.ABM_de_Rol
         {
             DataTable respuesta = FiltrarRol(textRol.Text,(string) comboFuncionalidad.SelectedItem, (string) comboEstado.SelectedItem);
             dataGridViewRol.DataSource = respuesta;
-            dataGridViewRol.Columns["estado"].Visible = false;
             dataGridViewRol.AutoResizeColumns();
             dataGridViewRol.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewRol.AutoResizeRows();
@@ -49,7 +46,7 @@ namespace FrbaHotel.ABM_de_Rol
         private DataTable FiltrarRol(string nombreRol, string nombreFuncionalidad, string estado)
         {
             DataTable tabla_rol = DAORol.obtenerTabla();
-            DataTable tabla_func = DAOFuncionalidad.obtenerPorRol(nombreRol);
+            DataTable tabla_func = DAOFuncionalidad.obtenerPorRolTable(nombreRol);
             var final_rol = "";
             var posFiltro = true;
             var filtrosBusqueda = new List<string>();
@@ -95,32 +92,88 @@ namespace FrbaHotel.ABM_de_Rol
             return tabla_rol;
         }
 
-        private void dataGridViewRol_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == Modificar.DisplayIndex) ModificarRol(e.RowIndex);
-            if (e.ColumnIndex == Baja.DisplayIndex) BajaRol(e.RowIndex);
-        }
-
-        private void BajaRol(int p)
-        {
-            var rta = MessageBox.Show("¿Dar Baja al Rol?", "Baja de Rol", MessageBoxButtons.YesNo);
-            string rolAbaja = (string) dataGridViewRol["nombreRol", p].Value;
-            if(rta == DialogResult.Yes)
-                DAORol.borrar(rolAbaja);
-        }
-
-        private void ModificarRol(int p)
-        {
-            string rolElegido = (string)dataGridViewRol["nombreRol", p].Value;
-            new RolMod(rolElegido).Show();
-            Base.establecerVentanaAnterior(this);
-        }
-
         private void altaDeRolToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RolAlta alta = new RolAlta();
             alta.Show();
             Globals.deshabilitarAnterior(this);
+        }
+
+        private void botonModificar_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewRol.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un Rol a modificar.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
+            string nombreRol = dataGridViewRol.CurrentRow.Cells["nombreRol"].Value.ToString();
+            DialogResult dr = MessageBox.Show("Desea modificar datos del Rol " + nombreRol + "?", "", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    //Nuevo Form que sele pasa el nombre de usuario a Modificar
+                    ModificarRol(nombreRol);
+                    break;
+                case DialogResult.No: break;
+            }
+        }
+
+        private void botonBaja_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewRol.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un Rol a dar de baja.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
+            if (!(bool)dataGridViewRol.CurrentRow.Cells["estado"].Value)
+            {
+                MessageBox.Show("Rol ya deshabilitado.",
+                "",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                return;
+            }
+            string nombreRol = dataGridViewRol.CurrentRow.Cells["nombreRol"].Value.ToString();
+            DialogResult dr = MessageBox.Show("Desea dar de Baja al Rol " + nombreRol + "?",
+            "", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    BajaRol(nombreRol);
+                    break;
+                case DialogResult.No: break;
+            }
+        }
+
+        private void BajaRol(string rolAbaja)
+        {
+            DAORol.borrar(rolAbaja);
+            updateGrid();
+        }
+
+        private void ModificarRol(string rolElegido)
+        {
+            new RolMod(rolElegido).Show();
+            Base.establecerVentanaAnterior(this);
+        }
+        public void cleanGrid()
+        {
+            dataGridViewRol.DataSource = null;
+            dataGridViewRol.Update();
+        }
+        public void updateGrid()
+        {
+            buttonBuscar_Click(null, null);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
         }
 
     }

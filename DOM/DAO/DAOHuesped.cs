@@ -76,8 +76,8 @@ namespace DOM
             string dir_dpto = huesped.Direccion.calle_dpto;
             string fecha_nacimiento = (huesped.Fecha_nacimiento_struct == null) ? huesped.Fecha_nacimiento : cadena_nula;
             int campoBaja = (huesped.Campo_Baja) ? 1 : 0;
-            return executeProcedure("updateUsuario", id, nombre, apellido,
-                                                    email, doc_tipo, doc_num, telefono,
+            return executeProcedure("updateHuesped", id, nombre, apellido,
+                                                    doc_tipo, doc_num, email, telefono,
                                                     dir_calle, dir_altura, dir_piso, dir_dpto,
                                                     fecha_nacimiento, campoBaja);
         }
@@ -103,8 +103,8 @@ namespace DOM
                 huesped.Campo_Baja = Convert.ToBoolean(fila["campoBaja"]);
                 //Campos Nulleables
                 huesped.Mail = Convert.ToString(fila["mail"]);
-                huesped.Telefono = (fila["telefono"] as Int32?) ?? 0;
-                huesped.Direccion.calle_piso = (fila["direccionPiso"] as Int32?) ?? -1;
+                huesped.Telefono = Convert.ToInt32(fila["telefono"]);
+                huesped.Direccion.calle_piso = Convert.ToInt32(fila["direccionPiso"]);
                 huesped.Direccion.calle_dpto = Convert.ToString(fila["direccionDepto"]);
 
                 lista.Add(huesped);

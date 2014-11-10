@@ -40,11 +40,11 @@ namespace FrbaHotel.ABM_de_Rol
             this.buttonBuscar = new System.Windows.Forms.Button();
             this.buttonLimpiar = new System.Windows.Forms.Button();
             this.dataGridViewRol = new System.Windows.Forms.DataGridView();
-            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.altaDeRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.titulo = new System.Windows.Forms.Label();
+            this.botonModificar = new System.Windows.Forms.Button();
+            this.botonBaja = new System.Windows.Forms.Button();
             this.groupFiltros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -117,7 +117,7 @@ namespace FrbaHotel.ABM_de_Rol
             // 
             // buttonBuscar
             // 
-            this.buttonBuscar.Location = new System.Drawing.Point(12, 190);
+            this.buttonBuscar.Location = new System.Drawing.Point(288, 190);
             this.buttonBuscar.Name = "buttonBuscar";
             this.buttonBuscar.Size = new System.Drawing.Size(121, 27);
             this.buttonBuscar.TabIndex = 2;
@@ -127,7 +127,7 @@ namespace FrbaHotel.ABM_de_Rol
             // 
             // buttonLimpiar
             // 
-            this.buttonLimpiar.Location = new System.Drawing.Point(288, 190);
+            this.buttonLimpiar.Location = new System.Drawing.Point(12, 190);
             this.buttonLimpiar.Name = "buttonLimpiar";
             this.buttonLimpiar.Size = new System.Drawing.Size(121, 27);
             this.buttonLimpiar.TabIndex = 3;
@@ -145,32 +145,14 @@ namespace FrbaHotel.ABM_de_Rol
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewRol.BackgroundColor = System.Drawing.SystemColors.ControlDark;
             this.dataGridViewRol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewRol.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Baja,
-            this.Modificar});
             this.dataGridViewRol.Location = new System.Drawing.Point(12, 223);
+            this.dataGridViewRol.MultiSelect = false;
             this.dataGridViewRol.Name = "dataGridViewRol";
-            this.dataGridViewRol.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dataGridViewRol.ReadOnly = true;
+            this.dataGridViewRol.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.dataGridViewRol.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridViewRol.Size = new System.Drawing.Size(397, 221);
+            this.dataGridViewRol.Size = new System.Drawing.Size(397, 186);
             this.dataGridViewRol.TabIndex = 4;
-            this.dataGridViewRol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewRol_CellContentClick);
-            // 
-            // Baja
-            // 
-            this.Baja.HeaderText = "";
-            this.Baja.Name = "Baja";
-            this.Baja.Text = "Baja";
-            this.Baja.UseColumnTextForButtonValue = true;
-            this.Baja.Width = 50;
-            // 
-            // Modificar
-            // 
-            this.Modificar.HeaderText = "";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.Text = "Modificar";
-            this.Modificar.UseColumnTextForButtonValue = true;
-            this.Modificar.Width = 50;
             // 
             // menuStrip1
             // 
@@ -202,11 +184,33 @@ namespace FrbaHotel.ABM_de_Rol
             this.titulo.Text = "Modificación/Baja de Roles";
             this.titulo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // botonModificar
+            // 
+            this.botonModificar.Location = new System.Drawing.Point(289, 415);
+            this.botonModificar.Name = "botonModificar";
+            this.botonModificar.Size = new System.Drawing.Size(120, 29);
+            this.botonModificar.TabIndex = 20;
+            this.botonModificar.Text = "Modificar";
+            this.botonModificar.UseVisualStyleBackColor = true;
+            this.botonModificar.Click += new System.EventHandler(this.botonModificar_Click);
+            // 
+            // botonBaja
+            // 
+            this.botonBaja.Location = new System.Drawing.Point(12, 415);
+            this.botonBaja.Name = "botonBaja";
+            this.botonBaja.Size = new System.Drawing.Size(120, 29);
+            this.botonBaja.TabIndex = 19;
+            this.botonBaja.Text = "Baja";
+            this.botonBaja.UseVisualStyleBackColor = true;
+            this.botonBaja.Click += new System.EventHandler(this.botonBaja_Click);
+            // 
             // RolBajaMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(421, 456);
+            this.Controls.Add(this.botonModificar);
+            this.Controls.Add(this.botonBaja);
             this.Controls.Add(this.titulo);
             this.Controls.Add(this.dataGridViewRol);
             this.Controls.Add(this.buttonLimpiar);
@@ -242,7 +246,7 @@ namespace FrbaHotel.ABM_de_Rol
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem altaDeRolToolStripMenuItem;
         private System.Windows.Forms.Label titulo;
-        private System.Windows.Forms.DataGridViewButtonColumn Baja;
-        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
+        private System.Windows.Forms.Button botonModificar;
+        private System.Windows.Forms.Button botonBaja;
     }
 }

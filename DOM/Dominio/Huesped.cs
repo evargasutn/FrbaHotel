@@ -20,7 +20,7 @@ namespace DOM.Dominio
         private string localidad = "''";
         private string nacionalidad = "''";
         private DateTime? fecha_nacimiento = null;
-        private bool campo_baja = true;//Campo Baja
+        private bool campo_baja = false;//Campo Baja false, no esta dado de baja
         #endregion
 
         #region Constructor

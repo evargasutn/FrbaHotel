@@ -159,7 +159,6 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             if(chequearDatos())
             {
-
                 huesped_seleccionado.Nombre = textNombre.Text;
                 huesped_seleccionado.Apellido = textApellido.Text;
                 huesped_seleccionado.TipoDocu = comboTipoDoc.SelectedText;
@@ -184,8 +183,8 @@ namespace FrbaHotel.ABM_de_Cliente
                 {
                     MessageBox.Show("Huesped Modificado Correctamente.", "Modificar Huesped",
                     MessageBoxButtons.OK, MessageBoxIcon.None);
-                    Globals.habilitarAnterior();
-                    this.Dispose();
+                    ((ClienteBajaMod)Globals.VentanaAnterior).updateGrid();
+                    this.Close();
                 }
             }
         }

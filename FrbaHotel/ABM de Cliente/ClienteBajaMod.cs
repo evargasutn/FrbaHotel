@@ -42,9 +42,7 @@ namespace FrbaHotel.ABM_de_Cliente
 
         public void limpiar()
         {
-            foreach (DataGridViewRow dgvr in dataGridCliente.Rows)
-                if (dgvr.Selected == true)
-                    dataGridCliente.Rows.Remove(dgvr);
+            cleanGrid();
             textNombre.Text = "";
             textApellido.Text = "";
             textEmail.Text = "";
@@ -105,6 +103,12 @@ namespace FrbaHotel.ABM_de_Cliente
                 "", MessageBoxButtons.OK);
                 return;
             }
+            if ((bool)dataGridCliente.CurrentRow.Cells["campoBaja"].Value)
+            {
+                MessageBox.Show("Cliente ya deshabilitado.",
+                "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
             int id = (int)dataGridCliente.CurrentRow.Cells["idHuesped"].Value;
             DialogResult dr = MessageBox.Show("Desea modificar datos del cliente?","",MessageBoxButtons.YesNo);
             switch (dr)
@@ -120,6 +124,7 @@ namespace FrbaHotel.ABM_de_Cliente
         private void BajaHuesped(int id)
         {
             DAOHuesped.borrar(id);
+            updateGrid();
         }
 
         private void ModificarHuesped(int id)
@@ -134,6 +139,15 @@ namespace FrbaHotel.ABM_de_Cliente
             Base.establecerVentanaAnterior(this);
         }
 
+        public void cleanGrid()
+        {
+            dataGridCliente.DataSource = null;
+            dataGridCliente.Update();
+        }
+        public void updateGrid()
+        {
+            botonBuscar_Click(null, null);
+        }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             base.OnFormClosing(e);
