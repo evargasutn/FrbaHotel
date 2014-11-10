@@ -461,42 +461,6 @@ GO
 GO
 
 
-/*Migracion de Regimenes no hace falta usar Cursor*/
-/*
---//REGIMENES - MIGRACION DE DATOS USANDO CURSOR PARA GENERAR CODREGIMEN
-	/*Step 1: Declare variables to hold the output from the cursor.*/
-	DECLARE @descripcion as varchar(255);
-	DECLARE @precio as numeric(18,2);
-	DECLARE @codRegimen as numeric(2);
-	SET @codRegimen = '00';
-	
-	/*Step 2: Declare the cursor object*/
-	DECLARE @Cursor_Regimen as CURSOR;
-	
-	/*Step 3: Assign the query to the cursor.*/
-	SET @Cursor_Regimen = CURSOR FOR
-		SELECT DISTINCT Regimen_Descripcion, Regimen_Precio
-		FROM  gd_esquema.Maestra
-		WHERE Regimen_Descripcion IS NOT NULL
-	
-	/*Step 4: Open the cursor.*/
-	OPEN @Cursor_Regimen
-		/*Step 5: Fetch the first row.*/
-		FETCH NEXT FROM @Cursor_Regimen INTO @descripcion, @precio;
-		/*Step 6: Loop until there are no more results. */
-		WHILE @@FETCH_STATUS = 0
-			BEGIN
-				SET @codRegimen = @codRegimen+1;
-				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen, descripcion, precio)
-				VALUES (@codRegimen, @descripcion, @precio)
-			FETCH NEXT FROM @Cursor_Regimen INTO @descripcion, @precio;
-		END
-	/*Step 7: Close the cursor.*/
-	CLOSE @Cursor_Regimen
-	/*Step 7: Deallocate the cursor to free up any memory or open result sets.*/
-	DEALLOCATE @Cursor_Regimen
-GO*/	
-	
 --//REGIMENES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(descripcion, precio)
 	SELECT DISTINCT UPPER(Regimen_Descripcion), Regimen_Precio
@@ -729,22 +693,6 @@ AS
 GO
 
 
-----//Agrega en ITEMS_FACTURA un item para descuento por servicio All Inclusive
---insert into COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA (numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
---select F2.numeroFactura,  COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura(F2.numeroFactura) as numeroItem, 
---	   '1' as Cantidad, 
---	   COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(dr.codReserva) as precioUnitario,
---	   COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(dr.codReserva) as precioTotal,
---	   'Descuento por Régimen de Estadía' as Descripcion
-----from (select distinct F1.numeroFactura, F1.codReserva from COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F1) F2
---from COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F2
---join COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA dr on dr.codReserva = F2.codReserva
---where dr.codRegimen = 4
---group by f2.numeroFactura, dr.codReserva
---order by f2.numeroFactura
---GO
-
-
 --//ITEMS_FACTURA_INVALIDA
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA_INVALIDA(numeroFactura, numeroItem, descripcion, montoUnitario, cantidad, montoTotal)
 	SELECT DISTINCT M.Factura_Nro, ROW_NUMBER() OVER (PARTITION BY M.Factura_Nro ORDER BY M.Factura_Nro) AS Item_Nro, CASE WHEN M.Consumible_Descripcion IS NULL THEN 'Recargos de Categoria Hotel y Regimen' ELSE M.Consumible_Descripcion END, M.Item_Factura_Monto, COUNT(*), (M.Item_Factura_Monto * COUNT(*))
@@ -755,12 +703,6 @@ GO
 			  M.Factura_Fecha > CURRENT_TIMESTAMP
 	GROUP BY M.Factura_Nro, M.Item_Factura_Monto, M.Consumible_Descripcion
 GO
-
-/*
-PRINT 'EL SIGUIENTE QUERY DEMUESTRA LA RELACION FACTURA ITEM_FACTURA'
-SELECT F.numeroFactura, F.codReserva, F.idHuesped, F.montoTotal, F.tipoPago FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F WHERE F.numeroFactura = 2396792
-SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA I WHERE i.numeroFactura = 2396792
-*/
 
 /*
  *PROCEDURES
@@ -775,8 +717,7 @@ SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRol
 	@unRol VARCHAR(15)
-		
-	AS
+AS
 	BEGIN
 	 --SI RECIBE VACIO, MUESTRA TODOS LOS ROLES HABILITADOS
 	 IF (@unRol != '')
@@ -923,6 +864,7 @@ AS
 	END
 GO
 
+--//Trae las funcionalidades asociadas a un rol
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.JoinRolFunc', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.JoinRolFunc
 GO
@@ -1513,9 +1455,9 @@ AS
 GO
 
 
-/******************************************************
+/*************************************************************************************
  *AUXILIAR PARA CODIGO DE RESERVA
- ******************************************************/
+ ************************************************************************************/
 IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.get_ultimoCodigoReserva', N'FN') IS NOT NULL
     DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.get_ultimoCodigoReserva
 GO
@@ -2108,6 +2050,63 @@ AS
 		WHERE codConsumible = @codConsumible
 GO
 
+/***************************************************************************
+*AUXILIAR CORRIGE MAIL
+***************************************************************************/
+IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.corrigeMail', N'FN') IS NOT NULL
+    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.corrigeMail
+GO
+CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.corrigeMail (@s varchar(256)) 
+RETURNS varchar(256)
+AS
+BEGIN
+   IF @s is null
+      RETURN null
+   
+   DECLARE @s2 varchar(256)
+   SET @s2 = ''
+   DECLARE @l int
+   SET @l = len(@s)
+   DECLARE @p int
+   SET @p = 1
+   WHILE @p <= @l 
+   BEGIN
+      DECLARE @c int;
+      SET @c = ascii(substring(@s, @p, 1))
+      set @c = LOWER(@c)
+      
+      --si es espacio todo a la izquierda se descarta
+      if (@c = 32) set @s2 = '';
+      
+	  if @c = ascii('ä') set @c = ascii('a')
+	  if @c = ascii('ë') set @c = ascii('e')
+	  if @c = ascii('ï') set @c = ascii('i')
+	  if @c = ascii('ö') set @c = ascii('o')
+      if @c = ascii('ü') set @c = ascii('u')
+	  if @c = ascii('á') set @c = ascii('a')
+      if @c = ascii('é') set @c = ascii('e')
+	  if @c = ascii('í') set @c = ascii('i')
+	  if @c = ascii('ó') set @c = ascii('o')
+	  if @c = ascii('ú') set @c = ascii('u')
+	  if @c = ascii('à') set @c = ascii('a')
+      if @c = ascii('è') set @c = ascii('e')
+	  if @c = ascii('ì') set @c = ascii('i')
+	  if @c = ascii('ò') set @c = ascii('o')
+	  if @c = ascii('ù') set @c = ascii('u')
+	  if @c = ascii('ñ') set @c = ascii('n')
+
+      if (@c between 48 and 57 or @c = 64 or @c = 45 or @c = 46 
+      or @c = 95 or @c between 65 and 90 or @c between 97 and 122)
+		
+		SET @s2 = @s2 + char(@c)
+      
+      SET @p = @p + 1
+   END
+   IF len(@s2) = 0
+      return null
+   return @s2
+END
+GO
 /*****************************************************************************************
 *LISTADO ESTADISTICO
 *****************************************************************************************/
