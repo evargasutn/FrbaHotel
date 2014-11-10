@@ -883,9 +883,9 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateRol
 	@estado bit
 AS
 	IF(@nombreRol != '')
-	UPDATE COMPUMUNDO_HIPER_MEGA_RED.ROLES
-	SET estado = @estado
-	WHERE nombreRol = @nombreRol
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.ROLES
+		SET estado = @estado
+		WHERE nombreRol = @nombreRol
 GO
 
 
@@ -1053,10 +1053,23 @@ AS
 	IF(@usr != '' AND @password != '' AND @nombre != '' AND @apellido != '' AND @tipoDocu != '' AND
 		@numDocu != -1 AND @mail != '' AND @telefono != -1 AND @direccionCalle != '' AND @direccionNumero != -1 
 		AND @direccionPiso != -1 AND @direccionDepto != '' AND @FecNacimiento IS NOT NULL)
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr, password, nombre, apellido, contador_intentos_login, tipoDocu, numDocu,
-		mail, telefono, direccionCalle, direccionNumero, direccionPiso, direccionDepto, FecNacimiento, campoBaja)
-	VALUES(@usr, @password, UPPER(@nombre), UPPER(@apellido), 0, @tipoDocu, @numDocu, LOWER(@mail), @telefono, UPPER(@direccionCalle), @direccionNumero, 
-			@direccionPiso, UPPER(@direccionDepto), @FecNacimiento, 0)
+		
+		BEGIN TRANSACTION
+		
+		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr, password, nombre, apellido, contador_intentos_login, tipoDocu, numDocu,
+			mail, telefono, direccionCalle, direccionNumero, FecNacimiento, campoBaja)
+		VALUES(@usr, @password, UPPER(@nombre), UPPER(@apellido), 0, @tipoDocu, @numDocu, LOWER(@mail), @telefono, UPPER(@direccionCalle), @direccionNumero, 
+				@FecNacimiento, 0)
+
+		IF(@direccionPiso != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+			SET direccionPiso = @direccionPiso
+			WHERE usr = usr
+		IF(@direccionDepto != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+			SET direccionDepto = @direccionDepto
+			WHERE usr = usr			
+		COMMIT TRANSACTION
 GO
 
 
@@ -1099,39 +1112,78 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateUsuario
 	@fecNacimiento DateTime,
 	@campoBaja bit
 AS
-	IF (@usr != '' AND @password != '' AND
-		@nombre != '' AND @apellido != '' AND
-		@tipoDocu != '' AND @numDocu != -1 AND
-		@mail != '' AND @telefono != -1 AND
-		@direccionCalle != '' AND @direccionNumero != -1 AND
-		@direccionPiso != -1 AND @direccionDepto != '' AND
-		@fecNacimiento IS NOT NULL)
+	IF (@usr != '')
 	BEGIN
-		DECLARE @nueva_clave varchar(50)
-		CREATE TABLE #TEMP_TABLA(
-			temp_usr varchar(50), temp_password varchar(50), temp_primerLog bit
-		)
-		
-		INSERT INTO #TEMP_TABLA SELECT U.usr, U.password, U.primerLog FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.usr = @usr
-		
-		IF (SELECT COUNT(TMP.temp_usr) FROM #TEMP_TABLA TMP WHERE TMP.temp_primerLog = 1) > 0
-			/*SI ES EL PRIMER LOGUEO PUEDE HACER CAMBIO DE PASSWORD*/
-			SET @nueva_clave = @password
-		ELSE
-			/*CONSERVA EL PASSWORD*/
-			SET @nueva_clave = (SELECT TMP.temp_password FROM #TEMP_TABLA TMP)
-		
-		/*ACTUALIZO LOS DATOS Y SETEO BANDERA PRIMER_LOG EN FALSO*/
+		IF(@password != '')
+		BEGIN
+			DECLARE @nueva_clave varchar(50)
+			CREATE TABLE #TEMP_TABLA(
+				temp_usr varchar(50), temp_password varchar(50), temp_primerLog bit
+			)
+			INSERT INTO #TEMP_TABLA SELECT U.usr, U.password, U.primerLog FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.usr = @usr
+			IF (SELECT COUNT(TMP.temp_usr) FROM #TEMP_TABLA TMP WHERE TMP.temp_primerLog = 1) > 0
+				/*SI ES EL PRIMER LOGUEO PUEDE HACER CAMBIO DE PASSWORD*/
+				SET @nueva_clave = @password
+			ELSE
+				/*CONSERVA EL PASSWORD*/
+				SET @nueva_clave = (SELECT TMP.temp_password FROM #TEMP_TABLA TMP)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET password = @nueva_clave
+					WHERE usr = @usr
+			/*DROP TABLA TEMPORAL*/
+			DROP TABLE ##TEMP_TABLA
+		END
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
-		SET 
-				password = @nueva_clave, nombre = UPPER(@nombre), apellido = UPPER(@apellido), tipoDocu = @tipoDocu, 
-				numDocu = @numDocu, mail = LOWER(@mail), telefono = @telefono, direccionCalle = UPPER(@direccionCalle), direccionNumero = @direccionNumero, 
-				direccionPiso = @direccionPiso, direccionDepto = UPPER(@direccionDepto), fecNacimiento = @fecNacimiento, primerLog = 0,
-				campoBaja = @campoBaja
-		WHERE usr = @usr
-		
-		/*DROP TABLA TEMPORAL*/
-		DROP TABLE ##TEMP_TABLA
+			SET primerLog = 0
+				WHERE usr = @usr		
+		IF(@nombre != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET nombre = UPPER(@nombre)
+					WHERE usr = @usr		
+		IF(@apellido != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET apellido = UPPER(@apellido)
+					WHERE usr = @usr	
+		IF(@tipoDocu != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET tipoDocu = @tipoDocu
+					WHERE usr = @usr	
+		IF(@numDocu != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET numDocu = @numDocu
+					WHERE usr = @usr	
+		IF(@mail != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET mail = LOWER(@mail)
+					WHERE usr = @usr	
+		IF(@telefono != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET telefono = @telefono
+					WHERE usr = @usr
+		IF(@direccionCalle != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET direccionCalle = UPPER(@direccionCalle)
+					WHERE usr = @usr	
+		IF(@direccionNumero != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET direccionNumero = @direccionNumero
+					WHERE usr = @usr
+		IF(@direccionPiso != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET direccionPiso = @direccionPiso
+					WHERE usr = @usr
+		IF(@direccionDepto != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET direccionDepto = UPPER(@direccionDepto)
+					WHERE usr = @usr	
+		IF(@fecNacimiento IS NOT NULL)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET fecNacimiento = @fecNacimiento
+					WHERE usr = @usr		
+		IF(@campoBaja != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+				SET campoBaja = @campoBaja
+					WHERE usr = @usr								
 	END
 GO
 
