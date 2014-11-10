@@ -1,4 +1,5 @@
-﻿namespace FrbaHotel.Login
+﻿using DOM;
+namespace FrbaHotel.Login
 {
     partial class LoginRequisitos
     {
@@ -13,6 +14,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+           
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -109,7 +111,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(343, 215);
+            this.ClientSize = new System.Drawing.Size(348, 215);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.botonAceptar);

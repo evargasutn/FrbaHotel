@@ -14,6 +14,18 @@ namespace FrbaHotel.ABM_de_Habitacion
         public HabitacionAlta()
         {
             InitializeComponent();
+           
         }
+
+        public Boolean camposCompletos(){
+            if (textDescripcion.Text == "")
+                return false;
+            else if (textNumero.Text == "")
+                return false;
+            else if (textPiso.Text == "")
+                return false;
+            return true;
+        }
+
     }
 }
