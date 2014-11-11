@@ -19,6 +19,8 @@ namespace FrbaHotel.ABM_de_Habitacion
         public HabitacionAlta()
         {
             InitializeComponent();
+            comboUbicacion.SelectedIndex = 0;
+            comboTipoHab.SelectedIndex = 0;
         }
 
         public Boolean camposCompletos(){
