@@ -19,8 +19,6 @@ namespace FrbaHotel.ABM_de_Habitacion
         public HabitacionAlta()
         {
             InitializeComponent();
-            comboUbicacion.SelectedIndex = 0;
-            comboTipoHab.SelectedIndex = 0;
         }
 
         public Boolean camposCompletos(){
@@ -50,8 +48,9 @@ namespace FrbaHotel.ABM_de_Habitacion
 
         private void HabitacionAlta_Load(object sender, EventArgs e)
         {
-            //////Cargar los comboboxes: comboTipoHab y comboUbicacion
-               
+            comboUbicacion.Items.Add("S");
+            comboUbicacion.Items.Add("N");
+            comboUbicacion.SelectedIndex = 0;           
         }
 
         private void botonGuardar_Click(object sender, EventArgs e)
@@ -61,8 +60,7 @@ namespace FrbaHotel.ABM_de_Habitacion
             {
 
                 Habitacion nuevaHabitacion = new Habitacion();
-                //se debe verificar el numero de la habitacion no este!!!!!!     
-                //¿el codigo de habitacion hace  referencia al Tipo de habitacion??
+               
                 #region SeCompletaCamposDeHabitacion
                 nuevaHabitacion.Id_Habitacion = Convert.ToInt32(textNumero.Text);
                 nuevaHabitacion.CodHotel = hotel.CodHotel;

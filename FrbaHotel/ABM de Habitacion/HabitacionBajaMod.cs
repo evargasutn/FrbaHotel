@@ -14,22 +14,20 @@ namespace FrbaHotel.ABM_de_Habitacion
 {
     public partial class HabitacionBajaMod : Form
     {
-         Hotel hotel = Globals.infoSesion.Hotel;
-         Usuario usuario = Globals.infoSesion.User;
-            
+        Hotel hotel = Globals.infoSesion.Hotel = DAOHotel.obtener(2);
+        Usuario usuario = Globals.infoSesion.User;
+
         public HabitacionBajaMod()
         {
             InitializeComponent();
-      
         }
 
         private void botonBuscar_Click(object sender, EventArgs e)
         {
-            ////////filtrar
 
-            DataTable respuesta = FiltrarHuesped(textPiso.Text,textNumero.Text,comboUbicacion.SelectedIndex);
+            DataTable respuesta = FiltrarHuesped(textPiso.Text, textNumero.Text, comboUbicacion.SelectedIndex);
             dataGridHabitacion.DataSource = respuesta;
-           if (respuesta != null)
+            if (respuesta != null)
             {
                 dataGridHabitacion.Columns["codHotel"].Visible = false;
             }
@@ -38,21 +36,16 @@ namespace FrbaHotel.ABM_de_Habitacion
             dataGridHabitacion.AutoResizeRows();
         }
 
-
-
-
-
-
-        private DataTable FiltrarHuesped(string piso, string nroHabitacion,int tipoUbicacion)
+        private DataTable FiltrarHuesped(string piso, string nroHabitacion, int tipoUbicacion)
         {
-            DataTable tabla_habitacion = DAOHabitacion.obtenerTabla(-1, 2);            
+            DataTable tabla_habitacion = DAOHabitacion.obtenerTabla(-1, hotel.CodHotel);
             var final_rol = "";
             var posFiltro = true;
             var filtrosBusqueda = new List<string>();
             if (nroHabitacion != "") filtrosBusqueda.Add("habitacion = " + nroHabitacion + "");
-            if (piso != "") filtrosBusqueda.Add("piso = " + piso+"" ); 
+            if (piso != "") filtrosBusqueda.Add("piso = " + piso + "");
             if (tipoUbicacion != -1) filtrosBusqueda.Add("ubicacion LIKE '%" + comboUbicacion.Items[tipoUbicacion] + "%'");
-            
+
             foreach (var filtro in filtrosBusqueda)
             {
                 if (!posFiltro)
@@ -74,5 +67,66 @@ namespace FrbaHotel.ABM_de_Habitacion
             comboUbicacion.Items.Add("N");
         }
 
+        private void altaDeHabitaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            new HabitacionAlta().Show();
+        }
+
+        private void botonLimpiar_Click(object sender, EventArgs e)
+        {
+            textNumero.Text = "";
+            textPiso.Text = "";
+            comboUbicacion.SelectedIndex = -1;
+            dataGridHabitacion.DataSource = null;
+            dataGridHabitacion.Update();
+        }
+        
+        /// <summary>
+        /// basicamente aca se da de baja o alta
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dataGridHabitacion_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            int numHabitacion = Convert.ToInt32(dataGridHabitacion.Rows[e.RowIndex].Cells[3].Value);
+
+            if (e.ColumnIndex == 0)
+            {
+
+                ///preguntamos si se quiere dar de Baja
+                DialogResult dr = MessageBox.Show("Desea Modificar la habitacion " + numHabitacion.ToString() + "?",
+            "", MessageBoxButtons.YesNo);
+                switch (dr)
+                {
+                    case DialogResult.Yes:
+                        ///le paso el codigo de la habitacion, en tal caso deberia tener un parametro
+                        ///para poder modificar
+                        new HabitacionMod(numHabitacion).Show(this);
+                        botonBuscar_Click(null, null);
+                        break;
+                    case DialogResult.No: break;
+                }
+
+            }
+            if (e.ColumnIndex == 1)
+            {
+                ///preguntamos si se quiere dar de alta
+                DialogResult dr = MessageBox.Show("Desea dar de Baja a la habitacion " + numHabitacion.ToString() + "?",
+            "", MessageBoxButtons.YesNo);
+                switch (dr)
+                {
+                    case DialogResult.Yes:
+                        DAOHabitacion.borrar(numHabitacion, hotel.CodHotel);
+                        botonBuscar_Click(null, null);
+                        break;
+                    case DialogResult.No: break;
+                }
+            }
+        }
+
     }
+
 }
+

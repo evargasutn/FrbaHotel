@@ -33,8 +33,6 @@
             this.botonBuscar = new System.Windows.Forms.Button();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.dataGridHabitacion = new System.Windows.Forms.DataGridView();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboUbicacion = new System.Windows.Forms.ComboBox();
             this.textPiso = new System.Windows.Forms.TextBox();
@@ -42,6 +40,8 @@
             this.lblUbicacion = new System.Windows.Forms.Label();
             this.lblPiso = new System.Windows.Forms.Label();
             this.lblNumero = new System.Windows.Forms.Label();
+            this.ColumnModificar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ColumnBaja = new System.Windows.Forms.DataGridViewButtonColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridHabitacion)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -62,6 +62,7 @@
             this.altaDeHabitaciónToolStripMenuItem.Name = "altaDeHabitaciónToolStripMenuItem";
             this.altaDeHabitaciónToolStripMenuItem.Size = new System.Drawing.Size(117, 20);
             this.altaDeHabitaciónToolStripMenuItem.Text = "Alta de Habitación";
+            this.altaDeHabitaciónToolStripMenuItem.Click += new System.EventHandler(this.altaDeHabitaciónToolStripMenuItem_Click);
             // 
             // botonBuscar
             // 
@@ -81,6 +82,7 @@
             this.botonLimpiar.TabIndex = 22;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // dataGridHabitacion
             // 
@@ -89,25 +91,14 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridHabitacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridHabitacion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Modificar,
-            this.Baja});
+            this.ColumnModificar,
+            this.ColumnBaja});
             this.dataGridHabitacion.Location = new System.Drawing.Point(12, 161);
             this.dataGridHabitacion.MultiSelect = false;
             this.dataGridHabitacion.Name = "dataGridHabitacion";
-            this.dataGridHabitacion.Size = new System.Drawing.Size(501, 298);
+            this.dataGridHabitacion.Size = new System.Drawing.Size(501, 257);
             this.dataGridHabitacion.TabIndex = 21;
-            // 
-            // Modificar
-            // 
-            this.Modificar.HeaderText = "Modificar";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.Text = "Modificar";
-            // 
-            // Baja
-            // 
-            this.Baja.HeaderText = "Baja";
-            this.Baja.Name = "Baja";
-            this.Baja.Text = "Baja";
+            this.dataGridHabitacion.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridHabitacion_CellContentClick);
             // 
             // groupBox1
             // 
@@ -173,6 +164,20 @@
             this.lblNumero.TabIndex = 5;
             this.lblNumero.Text = "Número de Habitación:";
             // 
+            // ColumnModificar
+            // 
+            this.ColumnModificar.HeaderText = "";
+            this.ColumnModificar.Name = "ColumnModificar";
+            this.ColumnModificar.Text = "Modificar";
+            this.ColumnModificar.UseColumnTextForButtonValue = true;
+            // 
+            // ColumnBaja
+            // 
+            this.ColumnBaja.HeaderText = "";
+            this.ColumnBaja.Name = "ColumnBaja";
+            this.ColumnBaja.Text = "Dar Baja";
+            this.ColumnBaja.UseColumnTextForButtonValue = true;
+            // 
             // HabitacionBajaMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -204,8 +209,6 @@
         private System.Windows.Forms.Button botonBuscar;
         private System.Windows.Forms.Button botonLimpiar;
         private System.Windows.Forms.DataGridView dataGridHabitacion;
-        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
-        private System.Windows.Forms.DataGridViewButtonColumn Baja;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboUbicacion;
         private System.Windows.Forms.TextBox textPiso;
@@ -213,5 +216,7 @@
         private System.Windows.Forms.Label lblUbicacion;
         private System.Windows.Forms.Label lblPiso;
         private System.Windows.Forms.Label lblNumero;
+        private System.Windows.Forms.DataGridViewButtonColumn ColumnModificar;
+        private System.Windows.Forms.DataGridViewButtonColumn ColumnBaja;
     }
 }

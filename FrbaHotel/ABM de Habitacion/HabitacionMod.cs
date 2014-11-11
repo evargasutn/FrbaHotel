@@ -16,11 +16,10 @@ namespace FrbaHotel.ABM_de_Habitacion
 
         Hotel hotel = Globals.infoSesion.Hotel;
 
-        public HabitacionMod()
+        public HabitacionMod(int codHabitacion)
         {
             InitializeComponent();
-            comboUbicacion.SelectedIndex = 0;
-            comboEstado.SelectedIndex = 0;
+           
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
@@ -35,14 +34,24 @@ namespace FrbaHotel.ABM_de_Habitacion
         {
             Habitacion nuevaHabitacion = new Habitacion();
             //falta tipo de codigo
+            
             #region SeCompletaCamposDeHabitacion
             nuevaHabitacion.Id_Habitacion = Convert.ToInt32(textNumero.Text);
             nuevaHabitacion.CodHotel = hotel.CodHotel;
             nuevaHabitacion.Tipo_codigo= 0;
             nuevaHabitacion.Ubicacion = comboUbicacion.SelectedItem.ToString();
             nuevaHabitacion.Descripcion = textDescripcion.Text;
+             nuevaHabitacion.CampoBaja=(comboUbicacion.SelectedItem.ToString()=="Habilitado")?true:false;
             #endregion
             DAOHabitacion.actualizar(nuevaHabitacion);
+        }
+
+        private void HabitacionMod_Load(object sender, EventArgs e)
+        {
+            comboUbicacion.Items.Add("N");
+            comboUbicacion.Items.Add("S");
+            comboEstado.Items.Add("Habilitado");
+            comboEstado.Items.Add("Deshabilitado");
         }
 
 

@@ -175,6 +175,7 @@
             this.Controls.Add(this.groupBox2);
             this.Name = "HabitacionMod";
             this.Text = "Modificar Habitacion";
+            this.Load += new System.EventHandler(this.HabitacionMod_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
