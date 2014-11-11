@@ -6,15 +6,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using DOM;
+using DOM.DAO;
+using DOM.Dominio;
 
 namespace FrbaHotel.ABM_de_Habitacion
 {
     public partial class HabitacionAlta : Form
     {
+        Hotel hotel = Globals.infoSesion.Hotel;
+
         public HabitacionAlta()
         {
             InitializeComponent();
-           
         }
 
         public Boolean camposCompletos(){
@@ -24,7 +28,60 @@ namespace FrbaHotel.ABM_de_Habitacion
                 return false;
             else if (textPiso.Text == "")
                 return false;
+            else if (comboTipoHab.SelectedItem == null)
+                return false;
+            else if (comboUbicacion == null)
+                return false;
             return true;
+        }
+
+        private void botonLimpiar_Click(object sender, EventArgs e)
+        {
+
+            textDescripcion.Text = "";
+            textNumero.Text = "";
+            textPiso.Text = "";
+            comboTipoHab.SelectedItem = null;
+            comboUbicacion.SelectedItem = null;
+
+        }
+
+        private void HabitacionAlta_Load(object sender, EventArgs e)
+        {
+            //////Cargar los comboboxes: comboTipoHab y comboUbicacion
+               
+        }
+
+        private void botonGuardar_Click(object sender, EventArgs e)
+        {
+
+            if (camposCompletos())
+            {
+
+                Habitacion nuevaHabitacion = new Habitacion();
+                //se debe verificar el numero de la habitacion no este!!!!!!     
+                //¿el codigo de habitacion hace  referencia al Tipo de habitacion??
+                #region SeCompletaCamposDeHabitacion
+                nuevaHabitacion.Id_Habitacion = Convert.ToInt32(textNumero.Text);
+                nuevaHabitacion.CodHotel = hotel.CodHotel;
+                nuevaHabitacion.Tipo_codigo = (int)comboTipoHab.SelectedItem;
+                nuevaHabitacion.Piso = Convert.ToInt32(textPiso.Text);
+                nuevaHabitacion.Ubicacion = comboTipoHab.SelectedItem.ToString();
+                nuevaHabitacion.Descripcion = textDescripcion.Text;
+                #endregion
+                DAOHabitacion.insertar(nuevaHabitacion);
+
+            }
+
+            else {
+                MessageBox.Show("Por favor complete los campos correctamente","Error: campos incompletos");
+            }
+
+
+
+
+
+
         }
 
     }

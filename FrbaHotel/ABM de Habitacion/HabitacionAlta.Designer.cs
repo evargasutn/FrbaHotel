@@ -31,6 +31,7 @@
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboTipoHab = new System.Windows.Forms.ComboBox();
             this.comboUbicacion = new System.Windows.Forms.ComboBox();
             this.nota = new System.Windows.Forms.Label();
             this.textDescripcion = new System.Windows.Forms.TextBox();
@@ -41,7 +42,6 @@
             this.lblUbicacion = new System.Windows.Forms.Label();
             this.lblPiso = new System.Windows.Forms.Label();
             this.lblNumero = new System.Windows.Forms.Label();
-            this.comboTipoHab = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +53,7 @@
             this.botonLimpiar.TabIndex = 32;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // botonGuardar
             // 
@@ -62,6 +63,7 @@
             this.botonGuardar.TabIndex = 31;
             this.botonGuardar.Text = "Guardar";
             this.botonGuardar.UseVisualStyleBackColor = true;
+            this.botonGuardar.Click += new System.EventHandler(this.botonGuardar_Click);
             // 
             // groupBox2
             // 
@@ -82,6 +84,14 @@
             this.groupBox2.TabIndex = 30;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
+            // 
+            // comboTipoHab
+            // 
+            this.comboTipoHab.FormattingEnabled = true;
+            this.comboTipoHab.Location = new System.Drawing.Point(138, 104);
+            this.comboTipoHab.Name = "comboTipoHab";
+            this.comboTipoHab.Size = new System.Drawing.Size(141, 21);
+            this.comboTipoHab.TabIndex = 39;
             // 
             // comboUbicacion
             // 
@@ -167,14 +177,6 @@
             this.lblNumero.TabIndex = 3;
             this.lblNumero.Text = "Número de Habitacion*";
             // 
-            // comboTipoHab
-            // 
-            this.comboTipoHab.FormattingEnabled = true;
-            this.comboTipoHab.Location = new System.Drawing.Point(138, 104);
-            this.comboTipoHab.Name = "comboTipoHab";
-            this.comboTipoHab.Size = new System.Drawing.Size(141, 21);
-            this.comboTipoHab.TabIndex = 39;
-            // 
             // HabitacionAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -185,6 +187,7 @@
             this.Controls.Add(this.groupBox2);
             this.Name = "HabitacionAlta";
             this.Text = "Alta de Habitacion";
+            this.Load += new System.EventHandler(this.HabitacionAlta_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
