@@ -56,9 +56,10 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.comboFuncionalidades);
-            this.groupBox1.Location = new System.Drawing.Point(193, 71);
+            this.groupBox1.Controls.Add(this.botonAceptar);
+            this.groupBox1.Location = new System.Drawing.Point(307, 71);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(217, 156);
+            this.groupBox1.Size = new System.Drawing.Size(219, 139);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Funcionalidades";
@@ -73,7 +74,7 @@
             // 
             // botonAceptar
             // 
-            this.botonAceptar.Location = new System.Drawing.Point(135, 238);
+            this.botonAceptar.Location = new System.Drawing.Point(48, 74);
             this.botonAceptar.Name = "botonAceptar";
             this.botonAceptar.Size = new System.Drawing.Size(117, 26);
             this.botonAceptar.TabIndex = 3;
@@ -118,7 +119,7 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(18, 71);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(158, 139);
+            this.groupBox2.Size = new System.Drawing.Size(270, 139);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Info de Sesion";
@@ -127,30 +128,29 @@
             // 
             this.textRol.Location = new System.Drawing.Point(64, 82);
             this.textRol.Name = "textRol";
-            this.textRol.Size = new System.Drawing.Size(71, 20);
+            this.textRol.Size = new System.Drawing.Size(184, 20);
             this.textRol.TabIndex = 9;
             // 
             // textHotel
             // 
             this.textHotel.Location = new System.Drawing.Point(64, 56);
             this.textHotel.Name = "textHotel";
-            this.textHotel.Size = new System.Drawing.Size(71, 20);
+            this.textHotel.Size = new System.Drawing.Size(184, 20);
             this.textHotel.TabIndex = 8;
             // 
             // textUser
             // 
             this.textUser.Location = new System.Drawing.Point(64, 30);
             this.textUser.Name = "textUser";
-            this.textUser.Size = new System.Drawing.Size(71, 20);
+            this.textUser.Size = new System.Drawing.Size(184, 20);
             this.textUser.TabIndex = 7;
             // 
             // MainPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(422, 276);
+            this.ClientSize = new System.Drawing.Size(541, 242);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.botonAceptar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Name = "MainPanel";
