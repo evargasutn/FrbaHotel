@@ -22,44 +22,49 @@ namespace FrbaHotel.Login
         public LoginRequisitos()
         {
             InitializeComponent();
-
-
-
+            
             if (usuario != null)
             {
                 ///Completa combo hoteles
                 hotelesDeUsuario = DAOHotel.obtenerTodos(usuario.Usr);
                 foreach (Hotel unHotel in hotelesDeUsuario)
                     comboHoteles.Items.Add(unHotel);
-
+                
                 ///Completa combo hoteles
                 rolesDeUsuario = DAORol.obtenerTodos(usuario.Usr);
                 foreach (Rol unRol in rolesDeUsuario)
-                    comboRoles.Items.Add(unRol.Nombre.ToString());
+                    comboRoles.Items.Add(unRol);
+                
             }
             else
             {
                 hotelesDeUsuario = DAOHotel.obtenerTodos();
                 foreach (Hotel unHotel in hotelesDeUsuario)
-                    comboHoteles.Items.Add(unHotel.Nombre.ToString());
+                    comboHoteles.Items.Add(unHotel);
+                comboRoles.Items.Add("GUEST");
                 
-                comboRoles.Items.Add(rol);
-                comboRoles.Enabled=false;
+                comboRoles.Enabled = false;
             }
             
             comboHoteles.ValueMember = "Nombre";
             comboRoles.ValueMember = "Nombre";
             comboHoteles.SelectedIndex = 0;
             comboRoles.SelectedIndex = 0;
+            
         }
 
         private void botonAceptar_Click(object sender, EventArgs e)
         {
-            Hotel hotelSeleccionado = hotelesDeUsuario.Find(x => x.Nombre == comboHoteles.SelectedItem.ToString());
-            Rol rolSeleccionado = rol;
+            Hotel hotelSeleccionado = hotelesDeUsuario.Find(x => x.Nombre == ((Hotel)comboHoteles.SelectedItem).Nombre);
+            Rol rolSeleccionado;
+            if (usuario != null)
+                rolSeleccionado = rolesDeUsuario.Find(x => x.Nombre == ((Rol)comboRoles.SelectedItem).Nombre);
+            else
+                rolSeleccionado = rol;
 
-            Globals.infoSesion.Hotel =(Hotel) hotelSeleccionado;
-
+            Globals.infoSesion.Hotel = hotelSeleccionado;
+            Globals.infoSesion.Rol   = rolSeleccionado;
+            
             if (hotelSeleccionado != null && rolSeleccionado != null)
                 new MainPanel().Show(this);
             else
