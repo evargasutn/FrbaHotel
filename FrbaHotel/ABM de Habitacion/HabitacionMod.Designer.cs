@@ -31,16 +31,16 @@
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboEstado = new System.Windows.Forms.ComboBox();
             this.comboUbicacion = new System.Windows.Forms.ComboBox();
             this.textDescripcion = new System.Windows.Forms.TextBox();
             this.lblDescripcion = new System.Windows.Forms.Label();
             this.textPiso = new System.Windows.Forms.TextBox();
             this.textNumero = new System.Windows.Forms.TextBox();
+            this.lblEstado = new System.Windows.Forms.Label();
             this.lblUbicacion = new System.Windows.Forms.Label();
             this.lblPiso = new System.Windows.Forms.Label();
             this.lblNumero = new System.Windows.Forms.Label();
-            this.lblEstado = new System.Windows.Forms.Label();
-            this.comboEstado = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +52,7 @@
             this.botonLimpiar.TabIndex = 35;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // botonGuardar
             // 
@@ -61,6 +62,7 @@
             this.botonGuardar.TabIndex = 34;
             this.botonGuardar.Text = "Guardar";
             this.botonGuardar.UseVisualStyleBackColor = true;
+            this.botonGuardar.Click += new System.EventHandler(this.botonGuardar_Click);
             // 
             // groupBox2
             // 
@@ -80,6 +82,14 @@
             this.groupBox2.TabIndex = 33;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
+            // 
+            // comboEstado
+            // 
+            this.comboEstado.FormattingEnabled = true;
+            this.comboEstado.Location = new System.Drawing.Point(138, 104);
+            this.comboEstado.Name = "comboEstado";
+            this.comboEstado.Size = new System.Drawing.Size(141, 21);
+            this.comboEstado.TabIndex = 39;
             // 
             // comboUbicacion
             // 
@@ -119,6 +129,15 @@
             this.textNumero.Size = new System.Drawing.Size(141, 20);
             this.textNumero.TabIndex = 14;
             // 
+            // lblEstado
+            // 
+            this.lblEstado.AutoSize = true;
+            this.lblEstado.Location = new System.Drawing.Point(6, 107);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(40, 13);
+            this.lblEstado.TabIndex = 9;
+            this.lblEstado.Text = "Estado";
+            // 
             // lblUbicacion
             // 
             this.lblUbicacion.AutoSize = true;
@@ -145,23 +164,6 @@
             this.lblNumero.Size = new System.Drawing.Size(113, 13);
             this.lblNumero.TabIndex = 3;
             this.lblNumero.Text = "Número de Habitacion";
-            // 
-            // lblEstado
-            // 
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(6, 107);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(40, 13);
-            this.lblEstado.TabIndex = 9;
-            this.lblEstado.Text = "Estado";
-            // 
-            // comboEstado
-            // 
-            this.comboEstado.FormattingEnabled = true;
-            this.comboEstado.Location = new System.Drawing.Point(138, 104);
-            this.comboEstado.Name = "comboEstado";
-            this.comboEstado.Size = new System.Drawing.Size(141, 21);
-            this.comboEstado.TabIndex = 39;
             // 
             // HabitacionMod
             // 
