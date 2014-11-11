@@ -32,18 +32,18 @@
             this.altaDeHabitaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.botonBuscar = new System.Windows.Forms.Button();
             this.botonLimpiar = new System.Windows.Forms.Button();
-            this.dataGridUsuario = new System.Windows.Forms.DataGridView();
+            this.dataGridHabitacion = new System.Windows.Forms.DataGridView();
             this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboEstrellas = new System.Windows.Forms.ComboBox();
-            this.textCiudad = new System.Windows.Forms.TextBox();
-            this.textNombre = new System.Windows.Forms.TextBox();
+            this.comboUbicacion = new System.Windows.Forms.ComboBox();
+            this.textPiso = new System.Windows.Forms.TextBox();
+            this.textNumero = new System.Windows.Forms.TextBox();
             this.lblUbicacion = new System.Windows.Forms.Label();
             this.lblPiso = new System.Windows.Forms.Label();
             this.lblNumero = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridHabitacion)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,6 +71,7 @@
             this.botonBuscar.TabIndex = 23;
             this.botonBuscar.Text = "Buscar";
             this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
             // botonLimpiar
             // 
@@ -81,20 +82,20 @@
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
             // 
-            // dataGridUsuario
+            // dataGridHabitacion
             // 
-            this.dataGridUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.dataGridHabitacion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridHabitacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridHabitacion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar,
             this.Baja});
-            this.dataGridUsuario.Location = new System.Drawing.Point(12, 161);
-            this.dataGridUsuario.MultiSelect = false;
-            this.dataGridUsuario.Name = "dataGridUsuario";
-            this.dataGridUsuario.Size = new System.Drawing.Size(501, 298);
-            this.dataGridUsuario.TabIndex = 21;
+            this.dataGridHabitacion.Location = new System.Drawing.Point(12, 161);
+            this.dataGridHabitacion.MultiSelect = false;
+            this.dataGridHabitacion.Name = "dataGridHabitacion";
+            this.dataGridHabitacion.Size = new System.Drawing.Size(501, 298);
+            this.dataGridHabitacion.TabIndex = 21;
             // 
             // Modificar
             // 
@@ -110,9 +111,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.comboEstrellas);
-            this.groupBox1.Controls.Add(this.textCiudad);
-            this.groupBox1.Controls.Add(this.textNombre);
+            this.groupBox1.Controls.Add(this.comboUbicacion);
+            this.groupBox1.Controls.Add(this.textPiso);
+            this.groupBox1.Controls.Add(this.textNumero);
             this.groupBox1.Controls.Add(this.lblUbicacion);
             this.groupBox1.Controls.Add(this.lblPiso);
             this.groupBox1.Controls.Add(this.lblNumero);
@@ -123,27 +124,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Filtros";
             // 
-            // comboEstrellas
+            // comboUbicacion
             // 
-            this.comboEstrellas.FormattingEnabled = true;
-            this.comboEstrellas.Location = new System.Drawing.Point(141, 57);
-            this.comboEstrellas.Name = "comboEstrellas";
-            this.comboEstrellas.Size = new System.Drawing.Size(116, 21);
-            this.comboEstrellas.TabIndex = 11;
+            this.comboUbicacion.FormattingEnabled = true;
+            this.comboUbicacion.Location = new System.Drawing.Point(141, 57);
+            this.comboUbicacion.Name = "comboUbicacion";
+            this.comboUbicacion.Size = new System.Drawing.Size(116, 21);
+            this.comboUbicacion.TabIndex = 11;
             // 
-            // textCiudad
+            // textPiso
             // 
-            this.textCiudad.Location = new System.Drawing.Point(353, 31);
-            this.textCiudad.Name = "textCiudad";
-            this.textCiudad.Size = new System.Drawing.Size(113, 20);
-            this.textCiudad.TabIndex = 10;
+            this.textPiso.Location = new System.Drawing.Point(353, 31);
+            this.textPiso.Name = "textPiso";
+            this.textPiso.Size = new System.Drawing.Size(113, 20);
+            this.textPiso.TabIndex = 10;
             // 
-            // textNombre
+            // textNumero
             // 
-            this.textNombre.Location = new System.Drawing.Point(141, 31);
-            this.textNombre.Name = "textNombre";
-            this.textNombre.Size = new System.Drawing.Size(116, 20);
-            this.textNombre.TabIndex = 9;
+            this.textNumero.Location = new System.Drawing.Point(141, 31);
+            this.textNumero.Name = "textNumero";
+            this.textNumero.Size = new System.Drawing.Size(116, 20);
+            this.textNumero.TabIndex = 9;
             // 
             // lblUbicacion
             // 
@@ -179,15 +180,16 @@
             this.ClientSize = new System.Drawing.Size(525, 471);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
-            this.Controls.Add(this.dataGridUsuario);
+            this.Controls.Add(this.dataGridHabitacion);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "HabitacionBajaMod";
             this.Text = "Modificación/Baja de Habitaciones";
+            this.Load += new System.EventHandler(this.HabitacionBajaMod_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridHabitacion)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -201,13 +203,13 @@
         private System.Windows.Forms.ToolStripMenuItem altaDeHabitaciónToolStripMenuItem;
         private System.Windows.Forms.Button botonBuscar;
         private System.Windows.Forms.Button botonLimpiar;
-        private System.Windows.Forms.DataGridView dataGridUsuario;
+        private System.Windows.Forms.DataGridView dataGridHabitacion;
         private System.Windows.Forms.DataGridViewButtonColumn Modificar;
         private System.Windows.Forms.DataGridViewButtonColumn Baja;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox comboEstrellas;
-        private System.Windows.Forms.TextBox textCiudad;
-        private System.Windows.Forms.TextBox textNombre;
+        private System.Windows.Forms.ComboBox comboUbicacion;
+        private System.Windows.Forms.TextBox textPiso;
+        private System.Windows.Forms.TextBox textNumero;
         private System.Windows.Forms.Label lblUbicacion;
         private System.Windows.Forms.Label lblPiso;
         private System.Windows.Forms.Label lblNumero;
