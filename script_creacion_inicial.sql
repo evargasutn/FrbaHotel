@@ -515,10 +515,7 @@ GO
 	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','ADMINISTRADOR General', 'GEREZ', 'DNI', '24264123', 'Av. Cordoba', '8834', 17-04-1981, 'admin@frbaHoteles.com.ar')
 GO
 
---//HOTELES_X_USUARIO, Administrador
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO(usr,codHotel)
-	VALUES ('admin',10)
-GO
+
 
 --//ROL
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES (nombreRol) 
@@ -585,6 +582,11 @@ YA QUE LA RESERVA MAS ANTIGUA TIENE FECHA 27 DE DICIEMBRE DE 2012*/
 	SELECT DISTINCT UPPER(RTRIM(Hotel_Ciudad)+' '+RTRIM(Hotel_Calle)) AS nombreHotel,UPPER(Hotel_Calle), Hotel_Nro_Calle, UPPER(Hotel_Ciudad), Hotel_CantEstrella, Hotel_Recarga_Estrella, '01/11/2012'
 	FROM  gd_esquema.Maestra
 	WHERE Hotel_Calle IS NOT NULL
+GO
+
+--//HOTELES_X_USUARIO, Administrador
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO(usr,codHotel)
+	VALUES ('admin',10)
 GO
 
 --//TIPO_HABITACIONES
