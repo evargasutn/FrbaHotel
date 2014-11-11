@@ -30,9 +30,7 @@
         {
             this.botonBuscar = new System.Windows.Forms.Button();
             this.botonLimpiar = new System.Windows.Forms.Button();
-            this.dataGridUsuario = new System.Windows.Forms.DataGridView();
-            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridHotel = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboEstrellas = new System.Windows.Forms.ComboBox();
             this.textCiudad = new System.Windows.Forms.TextBox();
@@ -44,7 +42,9 @@
             this.lblEmail = new System.Windows.Forms.Label();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.altaDeHotelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).BeginInit();
+            this.Modificar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Baja = new System.Windows.Forms.DataGridViewButtonColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridHotel)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -57,6 +57,7 @@
             this.botonBuscar.TabIndex = 19;
             this.botonBuscar.Text = "Buscar";
             this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
             // botonLimpiar
             // 
@@ -66,33 +67,23 @@
             this.botonLimpiar.TabIndex = 18;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
-            // dataGridUsuario
+            // dataGridHotel
             // 
-            this.dataGridUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.dataGridHotel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridUsuario.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridUsuario.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridHotel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridHotel.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Modificar,
             this.Baja});
-            this.dataGridUsuario.Location = new System.Drawing.Point(18, 189);
-            this.dataGridUsuario.MultiSelect = false;
-            this.dataGridUsuario.Name = "dataGridUsuario";
-            this.dataGridUsuario.Size = new System.Drawing.Size(501, 263);
-            this.dataGridUsuario.TabIndex = 17;
-            // 
-            // Modificar
-            // 
-            this.Modificar.HeaderText = "Modificar";
-            this.Modificar.Name = "Modificar";
-            this.Modificar.Text = "Modificar";
-            // 
-            // Baja
-            // 
-            this.Baja.HeaderText = "Baja";
-            this.Baja.Name = "Baja";
-            this.Baja.Text = "Baja";
+            this.dataGridHotel.Location = new System.Drawing.Point(18, 189);
+            this.dataGridHotel.MultiSelect = false;
+            this.dataGridHotel.Name = "dataGridHotel";
+            this.dataGridHotel.Size = new System.Drawing.Size(501, 263);
+            this.dataGridHotel.TabIndex = 17;
+            this.dataGridHotel.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridHotel_CellContentClick);
             // 
             // groupBox1
             // 
@@ -192,6 +183,20 @@
             this.altaDeHotelToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
             this.altaDeHotelToolStripMenuItem.Text = "Alta de Hotel";
             // 
+            // Modificar
+            // 
+            this.Modificar.HeaderText = "";
+            this.Modificar.Name = "Modificar";
+            this.Modificar.Text = "Modificar";
+            this.Modificar.UseColumnTextForButtonValue = true;
+            // 
+            // Baja
+            // 
+            this.Baja.HeaderText = "";
+            this.Baja.Name = "Baja";
+            this.Baja.Text = "Baja";
+            this.Baja.UseColumnTextForButtonValue = true;
+            // 
             // HotelBajaMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,13 +204,14 @@
             this.ClientSize = new System.Drawing.Size(536, 459);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
-            this.Controls.Add(this.dataGridUsuario);
+            this.Controls.Add(this.dataGridHotel);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "HotelBajaMod";
             this.Text = "Modificación/Baja de un Hotel";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).EndInit();
+            this.Load += new System.EventHandler(this.HotelBajaMod_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridHotel)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -219,9 +225,7 @@
 
         private System.Windows.Forms.Button botonBuscar;
         private System.Windows.Forms.Button botonLimpiar;
-        private System.Windows.Forms.DataGridView dataGridUsuario;
-        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
-        private System.Windows.Forms.DataGridViewButtonColumn Baja;
+        private System.Windows.Forms.DataGridView dataGridHotel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboEstrellas;
         private System.Windows.Forms.TextBox textCiudad;
@@ -233,5 +237,7 @@
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem altaDeHotelToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewButtonColumn Modificar;
+        private System.Windows.Forms.DataGridViewButtonColumn Baja;
     }
 }
