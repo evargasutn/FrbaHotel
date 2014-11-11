@@ -114,7 +114,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 	password					varchar(256) not null, 
 	nombre						varchar(255) not null,
 	apellido					varchar(255) not null,
-	contador_intentos_login		numeric(1,0) default 0, -- 3 intentos
+	contador_intentos_login		numeric(2) default 0, -- 3 intentos
 	tipoDocu					varchar(50) not null default 'DNI',
 	numDocu						numeric(18,0) not null,
 	mail						varchar(255),
@@ -1019,12 +1019,12 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getUsuario
 AS
 	 IF (@unUsr = '')
  		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
- 				U.direccionDepto, U.mail, U.telefono, U.password
+ 				U.direccionDepto, U.mail, U.telefono, U.password, U.campoBaja
  		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU ON RU.usr = U.usr
 	 ELSE
 		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
-				U.direccionDepto, U.mail, U.telefono, U.password
+				U.direccionDepto, U.mail, U.telefono, U.password, U.campoBaja
 		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU ON RU.usr = U.usr
  		WHERE U.usr = @unUsr
@@ -1190,6 +1190,22 @@ AS
 	END
 GO
 
+--//PROC GETINTENTOSFALLIDOSUSUARIO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getFallidosUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFallidosUsuario
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getFallidosUsuario
+	@usr varchar(50)	
+AS
+	DECLARE @contador_actual numeric(2)
+	SELECT U.contador_intentos_login FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.usr = @usr
+GO
+
+
 --//PROC INTENTOFALLIDOUSUARIO
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.intentoFallidoUsuario', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.intentoFallidoUsuario
@@ -1203,12 +1219,36 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.intentoFallidoUsuario
 AS
 	DECLARE @contador_actual numeric(2)
 	SET @contador_actual = (SELECT U.contador_intentos_login FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U WHERE U.usr = @usr)
+	SET @contador_actual += 1 
+		
 	
-	UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
-	SET contador_intentos_login = (CASE WHEN @contador_actual < 3 THEN contador_intentos_login + 1 ELSE 0 END)
-	WHERE usr = @usr
+	
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS 
+		SET contador_intentos_login = @contador_actual
+		WHERE usr = @usr
+		
+		IF(@contador_actual >= 3)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS 
+		SET campoBaja = 1
+		WHERE usr = @usr	
 GO
 
+
+--//PROC RESETINTENTOS
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.resertIntentosUsuario', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.resertIntentosUsuario
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.resertIntentosUsuario
+	@usr varchar(50)	
+AS
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
+	SET contador_intentos_login = 0, campoBaja = 0
+	WHERE usr = @usr
+GO
 
 --/PROCEDIMIENTO GETHABITACION
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHabitacion', 'P' ) IS NOT NULL 

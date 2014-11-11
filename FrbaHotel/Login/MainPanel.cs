@@ -52,7 +52,7 @@ namespace FrbaHotel.Login
                     break;
 
                 case "ABM de Usuario":
-                    new ABM_de_Usuario.UsuarioAlta().Show();
+                    new ABM_de_Usuario.UsuarioBajaMod().Show();
                     break;
 
                 case "ABM de Huespedes":
@@ -116,6 +116,7 @@ namespace FrbaHotel.Login
 
         
         }
+
 
 
 

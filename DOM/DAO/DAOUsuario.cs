@@ -90,6 +90,11 @@ namespace DOM
             return executeProcedure("intentoFallidoUsuario", usr);
         }
 
+        public static bool getIntentosFallidos(string usr)
+        {
+            return executeProcedure("getIntentosFallidosUsuario", usr);
+        }
+
         public static bool insertarHotelUsuario(string usr, string nombreHotel)
         {
             return executeProcedure("insertHotelUsuario", usr, nombreHotel);
@@ -117,7 +122,7 @@ namespace DOM
                 user.Direccion.calle_direccion = Convert.ToString(fila["direccionCalle"]);
                 user.Direccion.calle_altura = Convert.ToInt32(fila["direccionNumero"]);
                 user.Fecha_nacimiento_struct = Convert.ToDateTime(fila["fecNacimiento"]);
-//                user.CampoBaja = Convert.ToBoolean(fila["campoBaja"]);
+                user.CampoBaja = Convert.ToBoolean(fila["campoBaja"]);
                 //Campos Nulleables
                 user.Mail = Convert.ToString(fila["mail"]);
                 user.Telefono = (fila["telefono"] as Int32?) ?? 0;
