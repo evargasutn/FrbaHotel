@@ -1315,18 +1315,35 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHabitacion
 	@descripcion varchar(255),
 	@campoBaja bit
 AS
-	IF (@codHotel != -1 AND @habitacion != -1 AND
-	@piso != -1 AND @ubicacion != '' AND
-	@tipo != '' AND @descripcion != '' AND @campoBaja != -1) 
+	IF(@habitacion != -1)
+	BEGIN
+
+		IF (@codHotel != -1)
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
-		SET codHotel = @codHotel,
-			campoBaja = @campoBaja,
-			piso = @piso,
-			tipoCodigo = @tipo,
-			ubicacion = UPPER(@ubicacion),
-			descripcion = UPPER(@descripcion)
-			
-		WHERE habitacion= @habitacion
+			SET codHotel = @codHotel
+				WHERE habitacion = @habitacion
+
+		IF(@piso != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
+			SET piso = @piso
+				WHERE habitacion= @habitacion
+		IF (@ubicacion != '')
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES	
+			SET ubicacion = UPPER(@ubicacion)
+				WHERE habitacion= @habitacion
+		IF (@tipo != '')
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
+			SET tipoCodigo = @tipo
+				WHERE habitacion= @habitacion
+		IF (@descripcion != '')		
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
+			SET descripcion = UPPER(@descripcion)
+				WHERE habitacion= @habitacion
+		IF (@campoBaja != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
+			SET campoBaja = @campoBaja
+				WHERE habitacion= @habitacion
+	END
 GO
 
 --//PROC DELETEHABITACION
@@ -1415,12 +1432,21 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateRegimen
 	@precio numeric (18,2),
 	@estado bit
 AS
-   IF(@codigoRegimen != -1 AND @descripcion != '' AND @precio != -1 AND @estado != -1)
-   UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
-   SET  descripcion = UPPER(@descripcion),
-		precio = @precio,
-		estado = @estado
-   WHERE codRegimen = @codigoRegimen
+	IF(@codigoRegimen != -1)
+	BEGIN
+		IF(@descripcion != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
+				SET descripcion = UPPER(@descripcion)
+					WHERE codRegimen = @codigoRegimen
+		IF(@precio != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
+				SET precio = @precio
+					WHERE codRegimen = @codigoRegimen
+		IF(@estado != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
+				SET estado = @estado
+					WHERE codRegimen = @codigoRegimen
+	END
 GO
 
 --/PROC DELETEREGIMEN
@@ -1555,24 +1581,49 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHotel
 	@recargoEstrella	numeric(18),
 	@estado bit
 AS
-	IF (@codHotel != -1 AND @nombreHotel != '' AND
-	@mail != '' AND @telefono != -1 AND
-	@direccionCalle != '' AND @direccionNumero != -1 AND
-	@ciudad	!= '' AND @pais != '' AND
-	@cantEstrellas != -1 AND @recargoEstrella != -1 AND
-	@estado != -1) 
-		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
-		SET nombreHotel = UPPER(@nombreHotel),
-			mail = LOWER(@mail),
-			telefono = @telefono,
-			direccionCalle = UPPER(@direccionCalle),
-			@direccionNumero = @direccionNumero,
-			ciudad = UPPER(@ciudad),
-			pais = UPPER(@pais),
-			cantEstrellas = @cantEstrellas,
-			recargoEstrella = @recargoEstrella,
-			campoBaja = @estado
-		WHERE codHotel= @codHotel
+	IF (@codHotel != -1)
+	BEGIN
+		IF(@nombreHotel != '') 
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET nombreHotel = UPPER(@nombreHotel)
+					WHERE codHotel= @codHotel
+		IF(@mail != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET mail = LOWER(@mail)
+					WHERE codHotel= @codHotel
+		IF(@telefono != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET telefono = @telefono
+					WHERE codHotel= @codHotel
+		IF(@direccionCalle != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET direccionCalle = UPPER(@direccionCalle)
+					WHERE codHotel= @codHotel
+		IF(@direccionNumero != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET @direccionNumero = @direccionNumero
+					WHERE codHotel= @codHotel
+		IF(@ciudad	!= '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET ciudad = UPPER(@ciudad)
+					WHERE codHotel= @codHotel
+		IF(@pais != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET pais = UPPER(@pais)
+					WHERE codHotel= @codHotel
+		IF(@cantEstrellas != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET cantEstrellas = @cantEstrellas
+					WHERE codHotel= @codHotel
+		IF(@recargoEstrella != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET recargoEstrella = @recargoEstrella
+					WHERE codHotel= @codHotel
+		IF(@estado != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
+				SET campoBaja = @estado
+					WHERE codHotel= @codHotel
+	END		
 GO
 
 --//PROC INSERTHOTELUSUARIO
@@ -1823,22 +1874,62 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHuesped
 	@nacionalidad varchar(255),
 	@campoBaja bit
 AS
-	IF (@idHuesped != -1 AND 
-		@nombre != '' AND @apellido != '' AND
-		@tipoDocu != '' AND @numDocu != -1 AND
-		@mail != '' AND @telefono != -1 AND
-		@direccionCalle != '' AND @direccionNumero != -1 AND
-		@fecNacimiento IS NOT NULL AND @localidad != '' AND
-		@nacionalidad != '' AND @campoBaja IS NOT NULL)
+	IF (@idHuesped != -1)
 	BEGIN
-		
+		IF(@nombre != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET nombre = UPPER(@nombre)
+					WHERE idHuesped = @idHuesped
+		IF(@apellido != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET apellido = UPPER(@apellido)   	
+					WHERE idHuesped = @idHuesped
+		IF(@tipoDocu != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET tipoDocu = UPPER(@tipoDocu)
+					WHERE idHuesped = @idHuesped
+		IF(@numDocu != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET numDocu = @numDocu
+					WHERE idHuesped = @idHuesped
+		IF(@mail != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET mail = LOWER(@mail)
+					WHERE idHuesped = @idHuesped
+		IF(@telefono != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET telefono = @telefono
+					WHERE idHuesped = @idHuesped
+		IF(@direccionCalle != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET direccionCalle = UPPER(@direccionCalle)
+					WHERE idHuesped = @idHuesped
+		IF(@direccionNumero != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET direccionNumero = @direccionNumero
+					WHERE idHuesped = @idHuesped
+		IF(@fecNacimiento IS NOT NULL)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET  fecNacimiento = @fecNacimiento
+					WHERE idHuesped = @idHuesped
+		IF(@localidad != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET localidad = UPPER(@localidad)
+					WHERE idHuesped = @idHuesped
+		IF(@nacionalidad != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET nacionalidad = UPPER(@nacionalidad)
+					WHERE idHuesped = @idHuesped
+		IF(@campoBaja IS NOT NULL)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+				SET campoBaja = @campoBaja
+					WHERE idHuesped = @idHuesped
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
-		SET 
-				nombre = UPPER(@nombre), apellido = UPPER(@apellido), tipoDocu = UPPER(@tipoDocu), 
-				numDocu = @numDocu, mail = LOWER(@mail), telefono = @telefono, direccionCalle = UPPER(@direccionCalle), direccionNumero = @direccionNumero, 
-				direccionPiso = @direccionPiso, direccionDepto = UPPER(@direccionDepto), fecNacimiento = @fecNacimiento, 
-				localidad = UPPER(@localidad), nacionalidad = UPPER(@nacionalidad), campoBaja = @campoBaja
-		WHERE idHuesped = @idHuesped
+			SET direccionPiso = @direccionPiso
+				WHERE idHuesped = @idHuesped
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+			SET direccionDepto = UPPER(@direccionDepto) 
+				WHERE idHuesped = @idHuesped
 	END
 GO
 
@@ -2176,10 +2267,16 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateEstadia
 	@codReserva numeric(18),
 	@usr varchar(50)		
 AS
-	IF(@codReserva != -1 AND @usr != '')
-	UPDATE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA
-	SET usrEgreso = @usr, fecEgreso = CURRENT_TIMESTAMP
-	WHERE codReserva = @codReserva
+	IF(@codReserva != -1)
+	BEGIN
+		IF(@usr != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA
+				SET usrEgreso = @usr 
+					WHERE codReserva = @codReserva
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA
+			SET fecEgreso = CURRENT_TIMESTAMP
+				WHERE codReserva = @codReserva
+	END
 GO
 
 --/PROC AGREGAR CONSUMIBLE A UNA ESTADIA
@@ -2247,12 +2344,17 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateConsumible
 	@descripcion varchar(255),
 	@importe numeric(18,2)
 AS
-	IF (@codConsumible != -1 AND 
-		@descripcion != '' AND @importe != -1)
-		
-		UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
-		SET descripcion = UPPER(@descripcion), importe = @importe
-		WHERE codConsumible = @codConsumible
+	IF (@codConsumible != -1)
+	BEGIN
+		IF(@descripcion != '')
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
+				SET descripcion = UPPER(@descripcion)
+					WHERE codConsumible = @codConsumible
+		IF(@importe != -1)
+			UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
+				SET importe = @importe
+					WHERE codConsumible = @codConsumible
+	END
 GO
 /*****************************************************************************************
 *LISTADO ESTADISTICO
