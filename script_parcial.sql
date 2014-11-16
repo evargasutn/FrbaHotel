@@ -112,8 +112,9 @@ GO
 
 CREATE TABLE competencia.rel_pais_pregunta
 (
-	idPais			int				PRIMARY KEY,
-	idPregunta		int				PRIMARY KEY,
+	idPais			int,
+	idPregunta		int				
+	PRIMARY KEY(idPais,idPregunta)
 )
 GO
 
@@ -136,8 +137,8 @@ ALTER TABLE competencia.logs WITH CHECK ADD CONSTRAINT [FK_LOG_RESPUESTA] FOREIG
 ALTER TABLE competencia.logs WITH CHECK ADD CONSTRAINT [FK_LOG_JUGADOR] FOREIGN KEY(jugador) REFERENCES competencia.jugadores (idJugador)
 ALTER TABLE competencia.logs WITH CHECK ADD CONSTRAINT [FK_LOG_COMPETICION] FOREIGN KEY(competicion) REFERENCES competencia.competiciones (idCompeticion)
 
-ALTER TABLE competencia.rel_pais_pregunta  WITH CHECK ADD CONSTRAINT [FK_PAIS] FOREIGN KEY(idPais) REFERENCES competencia.paises(idPais)
-ALTER TABLE competencia.rel_pais_pregunta  WITH CHECK ADD CONSTRAINT [FK_PREGUNTA] FOREIGN KEY(idPregunta) REFERENCES competencia.preguntas(idPregunta)
+ALTER TABLE competencia.rel_pais_pregunta  WITH CHECK ADD CONSTRAINT [FK_REL_PAIS] FOREIGN KEY(idPais) REFERENCES competencia.paises(idPais)
+ALTER TABLE competencia.rel_pais_pregunta  WITH CHECK ADD CONSTRAINT [FK_REL_PREGUNTA] FOREIGN KEY(idPregunta) REFERENCES competencia.preguntas(idPregunta)
 
 --Trigger para calcular los porcentajes de las respuestas   
 IF OBJECT_ID ('competencia.actualizarPorcentaje', 'TR') IS NOT NULL
