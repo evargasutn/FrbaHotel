@@ -48,7 +48,7 @@ namespace FrbaHotel.Login
             {
 
                 case "ABM de Rol":
-                    new ABM_de_Rol.RolAlta().Show();
+                    new ABM_de_Rol.RolBajaMod().Show();
                     break;
 
                 case "ABM de Usuario":
@@ -56,19 +56,19 @@ namespace FrbaHotel.Login
                     break;
 
                 case "ABM de Huespedes":
-                    new ABM_de_Cliente.ClienteAlta().Show();
+                    new ABM_de_Cliente.ClienteBajaMod().Show();
                     break;
 
                 case "ABM de Hotel":
-                    new ABM_de_Hotel.HotelAlta().Show();
+                    new ABM_de_Hotel.HotelBajaMod().Show();
                     break;
 
                 case "ABM de Habitacion":
-                    new ABM_de_Habitacion.HabitacionAlta().Show();
+                    new ABM_de_Habitacion.HabitacionBajaMod().Show();
                     break;
 
                 case "ABM de Regimen":
-                    new ABM_de_Regimen.RegimenAlta().Show();
+                    new ABM_de_Regimen.RegimenBajaMod().Show();
                     break;
 
                 case "Generar o Modificar una Reserva":
