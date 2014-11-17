@@ -91,8 +91,8 @@ namespace FrbaHotel.Login
                 case "Listado Estadistico":
                     new Listado_Estadistico.ListadoEstadistico().Show() ;
                     break;
-
             }
+            Globals.deshabilitarAnterior(this);
 
         }
 
