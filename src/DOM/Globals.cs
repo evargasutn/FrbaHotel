@@ -68,7 +68,7 @@ namespace DOM
 
         #region Singletons Ventanas
         private static Form ventanaAnterior;
-
+        private static List<Form> listaVentanas = new List<Form>();
         public static Form VentanaAnterior
         {
             get { return ventanaAnterior; }
@@ -77,13 +77,19 @@ namespace DOM
 
         public static void deshabilitarAnterior(Form vent)
         {
-            ventanaAnterior = vent;
-            vent.Enabled = false;
+            vent.Visible = false;
+            listaVentanas.Add(vent);
         }
 
         public static void habilitarAnterior()
         {
-            ventanaAnterior.Enabled = true;
+            int pos = listaVentanas.Count;
+            if (pos > 0)
+            {
+                ventanaAnterior = listaVentanas[pos - 1];
+                listaVentanas.RemoveAt(pos - 1);
+                ventanaAnterior.Visible = true;
+            }
         }
 
         #endregion

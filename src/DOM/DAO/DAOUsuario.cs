@@ -109,29 +109,32 @@ namespace DOM
         public static List<Usuario> transductor(DataTable tabla)
         {
             List<Usuario> lista = new List<Usuario>();
-            foreach(DataRow fila in tabla.Rows)
+            if (tabla != null)
             {
-                //Transcribir
-                Usuario user = new Usuario();
-                user.Usr = Convert.ToString(fila["usr"]);
-                user.Password = Convert.ToString(fila["password"]);
-                user.Nombre = Convert.ToString(fila["nombre"]);
-                user.Apellido = Convert.ToString(fila["apellido"]);
-                user.TipoDocu = Convert.ToString(fila["tipoDocu"]);
-                user.NroDocu = Convert.ToInt32(fila["numDocu"]);
-                user.Direccion.calle_direccion = Convert.ToString(fila["direccionCalle"]);
-                user.Direccion.calle_altura = Convert.ToInt32(fila["direccionNumero"]);
-                user.Fecha_nacimiento_struct = Convert.ToDateTime(fila["fecNacimiento"]);
-                user.CampoBaja = Convert.ToBoolean(fila["campoBaja"]);
-                //Campos Nulleables
-                user.Mail = Convert.ToString(fila["mail"]);
-                user.Telefono = (fila["telefono"] as Int32?) ?? 0;
-                user.Direccion.calle_piso = (fila["direccionPiso"] as Int32?) ?? -1;
-                user.Direccion.calle_dpto = Convert.ToString(fila["direccionDepto"]);
+                foreach (DataRow fila in tabla.Rows)
+                {
+                    //Transcribir
+                    Usuario user = new Usuario();
+                    user.Usr = Convert.ToString(fila["usr"]);
+                    user.Password = Convert.ToString(fila["password"]);
+                    user.Nombre = Convert.ToString(fila["nombre"]);
+                    user.Apellido = Convert.ToString(fila["apellido"]);
+                    user.TipoDocu = Convert.ToString(fila["tipoDocu"]);
+                    user.NroDocu = Convert.ToInt32(fila["numDocu"]);
+                    user.Direccion.calle_direccion = Convert.ToString(fila["direccionCalle"]);
+                    user.Direccion.calle_altura = Convert.ToInt32(fila["direccionNumero"]);
+                    user.Fecha_nacimiento_struct = Convert.ToDateTime(fila["fecNacimiento"]);
+                    user.CampoBaja = Convert.ToBoolean(fila["campoBaja"]);
+                    //Campos Nulleables
+                    user.Mail = Convert.ToString(fila["mail"]);
+                    user.Telefono = (fila["telefono"] as Int32?) ?? 0;
+                    user.Direccion.calle_piso = (fila["direccionPiso"] as Int32?) ?? -1;
+                    user.Direccion.calle_dpto = Convert.ToString(fila["direccionDepto"]);
 
-                //Falta traer las listas de hoteles y roles
+                    //Falta traer las listas de hoteles y roles
 
-                lista.Add(user);
+                    lista.Add(user);
+                }
             }
             return lista;
         }

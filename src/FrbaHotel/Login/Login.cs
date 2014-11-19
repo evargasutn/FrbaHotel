@@ -22,7 +22,7 @@ namespace FrbaHotel.Login
         private void botonIniciarSesion_Click(object sender, EventArgs e)
         {
             if (textUsuario.Text == "" || textContrasenia.Text == "")
-                MessageBox.Show("Complete los campos", "Error:Campos incompletos");
+                MessageBox.Show("Complete los campos", "Campos incompletos");
             else
             {
                 Usuario usuarioALoguear = DAOUsuario.obtener(textUsuario.Text);
@@ -34,8 +34,10 @@ namespace FrbaHotel.Login
                         if (usuarioALoguear.CampoBaja == false)
                         
                         Globals.infoSesion.User = usuarioALoguear;
-                        MessageBox.Show("Inicio de sesion exitosa", "Logueo!!");
-                        new LoginRequisitos().Show(this);
+                        //MessageBox.Show("Inicio de sesion exitosa", "FrbaHotel!!");
+                        new LoginRequisitos().Show();
+                        textContrasenia.Text = "";
+                        Globals.deshabilitarAnterior(this);
                     }
 
                     if (usuarioALoguear.estoyInhabilitado() == true)
@@ -44,26 +46,34 @@ namespace FrbaHotel.Login
                     
                     if (usuarioALoguear.Password != passwordHash)
                     {
-                        DAOUsuario.registrarIntentoFallido(usuarioALoguear.Usr);    
-                        MessageBox.Show("Error:usuario o contraseña incorrecto");
-                        MessageBox.Show("Tuvo que haber contado fallo");
+                        DAOUsuario.registrarIntentoFallido(usuarioALoguear.Usr);
+                        MessageBox.Show("Contraseña incorrecta. Intente nuevamente.");
+                        //MessageBox.Show("Tuvo que haber contado fallo");
                     }
                     
                 }
                 else
-                    MessageBox.Show("Error: debe completar el campo usuario");
+                    MessageBox.Show("Usuario incorrecto. Intente nuevamente.");
             }
         }
 
         private void botonInvitado_Click(object sender, EventArgs e)
         {
             Globals.infoSesion.Rol = DAORol.obtener("GUEST");
-            new LoginRequisitos().Show(this);
+            new LoginRequisitos().Show();
+            textContrasenia.Text = "";
+            textUsuario.Text = "";
+            Globals.deshabilitarAnterior(this);
         }
 
-        private void Login_Load(object sender, EventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            base.OnFormClosing(e);
 
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Application.Exit();
         }
     }
 }

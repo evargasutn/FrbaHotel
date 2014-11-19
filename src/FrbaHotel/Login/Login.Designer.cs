@@ -41,6 +41,7 @@ namespace FrbaHotel.Login
             // 
             this.textContrasenia.Location = new System.Drawing.Point(132, 58);
             this.textContrasenia.Name = "textContrasenia";
+            this.textContrasenia.PasswordChar = '●';
             this.textContrasenia.Size = new System.Drawing.Size(108, 20);
             this.textContrasenia.TabIndex = 11;
             // 
@@ -71,6 +72,7 @@ namespace FrbaHotel.Login
             // 
             // botonInvitado
             // 
+            this.botonInvitado.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.botonInvitado.Location = new System.Drawing.Point(145, 107);
             this.botonInvitado.Name = "botonInvitado";
             this.botonInvitado.Size = new System.Drawing.Size(95, 31);
@@ -81,6 +83,7 @@ namespace FrbaHotel.Login
             // 
             // botonIniciarSesion
             // 
+            this.botonIniciarSesion.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.botonIniciarSesion.Location = new System.Drawing.Point(12, 107);
             this.botonIniciarSesion.Name = "botonIniciarSesion";
             this.botonIniciarSesion.Size = new System.Drawing.Size(105, 31);
@@ -91,6 +94,7 @@ namespace FrbaHotel.Login
             // 
             // Login
             // 
+            this.AcceptButton = this.botonIniciarSesion;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(253, 163);
@@ -101,8 +105,8 @@ namespace FrbaHotel.Login
             this.Controls.Add(this.botonInvitado);
             this.Controls.Add(this.botonIniciarSesion);
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
-            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

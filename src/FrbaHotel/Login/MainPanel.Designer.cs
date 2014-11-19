@@ -39,6 +39,7 @@
             this.textRol = new System.Windows.Forms.TextBox();
             this.textHotel = new System.Windows.Forms.TextBox();
             this.textUser = new System.Windows.Forms.TextBox();
+            this.buttonCerrarSesion = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -145,11 +146,22 @@
             this.textUser.Size = new System.Drawing.Size(184, 20);
             this.textUser.TabIndex = 7;
             // 
+            // buttonCerrarSesion
+            // 
+            this.buttonCerrarSesion.Location = new System.Drawing.Point(371, 216);
+            this.buttonCerrarSesion.Name = "buttonCerrarSesion";
+            this.buttonCerrarSesion.Size = new System.Drawing.Size(155, 26);
+            this.buttonCerrarSesion.TabIndex = 8;
+            this.buttonCerrarSesion.Text = "Cerrar Sesion";
+            this.buttonCerrarSesion.UseVisualStyleBackColor = true;
+            this.buttonCerrarSesion.Click += new System.EventHandler(this.buttonCerrarSesion_Click);
+            // 
             // MainPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(541, 242);
+            this.ClientSize = new System.Drawing.Size(535, 250);
+            this.Controls.Add(this.buttonCerrarSesion);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
@@ -177,6 +189,7 @@
         private System.Windows.Forms.TextBox textHotel;
         private System.Windows.Forms.TextBox textUser;
         private System.Windows.Forms.ComboBox comboFuncionalidades;
+        private System.Windows.Forms.Button buttonCerrarSesion;
 
 
     }

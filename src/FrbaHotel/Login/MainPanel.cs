@@ -112,13 +112,24 @@ namespace FrbaHotel.Login
                 label2.Text = "Invitado";
                 label2.Font = new System.Drawing.Font(label1.Font, FontStyle.Bold); 
             }
-
-
-        
         }
 
+        private void buttonCerrarSesion_Click(object sender, EventArgs e)
+        {
+            Globals.habilitarAnterior();
+            Globals.VentanaAnterior.Dispose();
+            Globals.habilitarAnterior(); //Porque vuelve al login, no a los requisitos
+            this.Dispose();
+        }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
 
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
+            // Confirm user wants to close
+            Application.Exit();
+        }
     }
 }

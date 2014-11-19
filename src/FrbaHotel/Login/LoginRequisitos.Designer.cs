@@ -116,6 +116,7 @@ namespace FrbaHotel.Login
             this.Controls.Add(this.label1);
             this.Controls.Add(this.botonAceptar);
             this.Name = "LoginRequisitos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginRequisitos";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

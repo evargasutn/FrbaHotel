@@ -64,12 +64,25 @@ namespace FrbaHotel.Login
 
             Globals.infoSesion.Hotel = hotelSeleccionado;
             Globals.infoSesion.Rol   = rolSeleccionado;
-            
+
             if (hotelSeleccionado != null && rolSeleccionado != null)
+            {
                 new MainPanel().Show(this);
+                Globals.deshabilitarAnterior(this);
+            }
             else
                 MessageBox.Show("Seleccione el hotel y el rol", "Error:Hotel o rol no seleccionados");
         }
 
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
+        }
     }
 }
