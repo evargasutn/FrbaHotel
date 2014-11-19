@@ -42,10 +42,11 @@ namespace FrbaHotel.ABM_de_Usuario
             {
                 if (Equals(textPassword1.Text, textPassword2.Text)){
                     completarEstructuraUserNuevo();
-                    if (DAOUsuario.insertar(userNuevo))
-                        MessageBox.Show("Alta de Usuario correcta");
-                    else
+                    if (!DAOUsuario.insertar(userNuevo))
+                    {
                         MessageBox.Show("Alta de Usuario erronea");
+                        return;
+                    }
 
                     //Guarda los distintos Roles asignados al Usuario
                     foreach (var item in listRol.SelectedItems)
@@ -53,12 +54,15 @@ namespace FrbaHotel.ABM_de_Usuario
                     
                     //Guarda los distintos Hoteles asignados al Usuario
                     DAOUsuario.insertarHotelUsuario(userNuevo.Usr, listHotel.SelectedItem.ToString());
+                    
+                    MessageBox.Show("Alta de Usuario correcta");
+                    this.Close();
                 }
                 else
-                    MessageBox.Show("Vuelva a ingresar el password","Error:Password no identicos");
+                    MessageBox.Show("Vuelva a ingresar el password","Passwords no coinciden");
             }
             else
-                MessageBox.Show("Asegurese de ingresar los campos obligatorios", "Error:campos incompletos");
+                MessageBox.Show("Asegurese de ingresar los campos obligatorios", "Campos incompletos");
         }
 
         public void completarEstructuraUserNuevo()
@@ -129,6 +133,16 @@ namespace FrbaHotel.ABM_de_Usuario
             {
                 listHotel.SetItemChecked(itemHotel, false);
             }
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
         }
     }
 }

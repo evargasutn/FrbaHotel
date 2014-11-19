@@ -50,9 +50,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(16, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(250, 36);
+            this.label1.Size = new System.Drawing.Size(403, 18);
             this.label1.TabIndex = 1;
-            this.label1.Text = " Seleccione la funcionalidad a la\r\n que quiere acceder.";
+            this.label1.Text = " Seleccione la funcionalidad a la que quiere acceder.";
             // 
             // groupBox1
             // 
@@ -158,6 +158,7 @@
             // 
             // MainPanel
             // 
+            this.AcceptButton = this.botonAceptar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(535, 250);
@@ -166,7 +167,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Name = "MainPanel";
-            this.Text = "MainPanel";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Menú Principal";
             this.Load += new System.EventHandler(this.MainPanel_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

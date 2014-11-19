@@ -61,8 +61,8 @@ namespace FrbaHotel.ABM_de_Usuario
                     dataGridUsuario.Columns[item].Visible = false;
              }
 
+            dataGridUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridUsuario.AutoResizeColumns();
-            dataGridUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridUsuario.AutoResizeRows();
         }
 
@@ -93,12 +93,21 @@ namespace FrbaHotel.ABM_de_Usuario
             //Devuelve la tabla filtradra 
             return tabla_usuario;
         }
-            
 
+        public void cleanGrid()
+        {
+            dataGridUsuario.DataSource = null;
+            dataGridUsuario.Update();
+        }
+        public void updateGrid()
+        {
+            botonBuscar_Click(null, null);
+        }
+           
         private void btnAltaUsuario_Click(object sender, EventArgs e)
         {
-            UsuarioAlta usrAlta = new UsuarioAlta();
-            usrAlta.Show(this);
+            new UsuarioAlta().Show(this);
+            Globals.deshabilitarAnterior(this);
         }
 
         private void botonBaja_Click(object sender, System.EventArgs e)
@@ -122,13 +131,22 @@ namespace FrbaHotel.ABM_de_Usuario
             switch (dr)
             {
                 case DialogResult.Yes:
-                    //Nuevo Form que sele pasa el nombre de usuario a Modificar
-                    UsuarioMod usrMod = new UsuarioMod(usrModif);
-                    usrMod.Show(this);
+                    //Nuevo Form que se le pasa el nombre de usuario a Modificar
+                    new UsuarioMod(usrModif).Show(this);
+                    Globals.deshabilitarAnterior(this);
                     break;
                 case DialogResult.No: break;
             }
         }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
+        }
     }
 }

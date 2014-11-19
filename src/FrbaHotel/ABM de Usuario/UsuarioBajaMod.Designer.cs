@@ -41,11 +41,13 @@
             this.Elegir = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonBuscar = new System.Windows.Forms.Button();
-            this.btnAltaUsuario = new System.Windows.Forms.Button();
             this.botonBaja = new System.Windows.Forms.Button();
             this.botonModificar = new System.Windows.Forms.Button();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.btnAltaUsuario = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblRol
@@ -132,6 +134,10 @@
             // 
             // dataGridUsuario
             // 
+            this.dataGridUsuario.AllowUserToAddRows = false;
+            this.dataGridUsuario.AllowUserToDeleteRows = false;
+            this.dataGridUsuario.AllowUserToResizeColumns = false;
+            this.dataGridUsuario.AllowUserToResizeRows = false;
             this.dataGridUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -142,6 +148,7 @@
             this.dataGridUsuario.Location = new System.Drawing.Point(12, 180);
             this.dataGridUsuario.MultiSelect = false;
             this.dataGridUsuario.Name = "dataGridUsuario";
+            this.dataGridUsuario.ReadOnly = true;
             this.dataGridUsuario.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             this.dataGridUsuario.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridUsuario.Size = new System.Drawing.Size(400, 205);
@@ -176,21 +183,9 @@
             this.botonBuscar.UseVisualStyleBackColor = true;
             this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
-            // btnAltaUsuario
-            // 
-            this.btnAltaUsuario.AutoSize = true;
-            this.btnAltaUsuario.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnAltaUsuario.Location = new System.Drawing.Point(12, 2);
-            this.btnAltaUsuario.Name = "btnAltaUsuario";
-            this.btnAltaUsuario.Size = new System.Drawing.Size(54, 23);
-            this.btnAltaUsuario.TabIndex = 12;
-            this.btnAltaUsuario.Text = "Agregar";
-            this.btnAltaUsuario.UseVisualStyleBackColor = true;
-            this.btnAltaUsuario.Click += new System.EventHandler(this.btnAltaUsuario_Click);
-            // 
             // botonBaja
             // 
-            this.botonBaja.Location = new System.Drawing.Point(65, 397);
+            this.botonBaja.Location = new System.Drawing.Point(12, 391);
             this.botonBaja.Name = "botonBaja";
             this.botonBaja.Size = new System.Drawing.Size(120, 29);
             this.botonBaja.TabIndex = 13;
@@ -200,7 +195,7 @@
             // 
             // botonModificar
             // 
-            this.botonModificar.Location = new System.Drawing.Point(233, 397);
+            this.botonModificar.Location = new System.Drawing.Point(291, 391);
             this.botonModificar.Name = "botonModificar";
             this.botonModificar.Size = new System.Drawing.Size(120, 29);
             this.botonModificar.TabIndex = 14;
@@ -208,24 +203,43 @@
             this.botonModificar.UseVisualStyleBackColor = true;
             this.botonModificar.Click += new System.EventHandler(this.botonModificar_Click);
             // 
-            // FormModBajaUser
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAltaUsuario});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(423, 24);
+            this.menuStrip1.TabIndex = 15;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // btnAltaUsuario
+            // 
+            this.btnAltaUsuario.Name = "btnAltaUsuario";
+            this.btnAltaUsuario.Size = new System.Drawing.Size(99, 20);
+            this.btnAltaUsuario.Text = "Alta de Usuario";
+            this.btnAltaUsuario.Click += new System.EventHandler(this.btnAltaUsuario_Click);
+            // 
+            // UsuarioBajaMod
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 432);
+            this.ClientSize = new System.Drawing.Size(423, 428);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.botonModificar);
             this.Controls.Add(this.botonBaja);
-            this.Controls.Add(this.btnAltaUsuario);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.dataGridUsuario);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FormModBajaUser";
-            this.Text = "Modificacion/Baja de Usuarios";
+            this.Name = "UsuarioBajaMod";
+            this.Text = "Gestión de Usuarios";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUsuario)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,9 +259,10 @@
         private System.Windows.Forms.DataGridView dataGridUsuario;
         private System.Windows.Forms.Button botonLimpiar;
         private System.Windows.Forms.Button botonBuscar;
-        private System.Windows.Forms.Button btnAltaUsuario;
         private System.Windows.Forms.Button botonBaja;
         private System.Windows.Forms.Button botonModificar;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Elegir;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem btnAltaUsuario;
     }
 }

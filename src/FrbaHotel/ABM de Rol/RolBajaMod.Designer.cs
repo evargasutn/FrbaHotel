@@ -14,7 +14,6 @@ namespace FrbaHotel.ABM_de_Rol
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            Globals.habilitarAnterior();
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -220,7 +219,8 @@ namespace FrbaHotel.ABM_de_Rol
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RolBajaMod";
-            this.Text = "Gestion de Roles";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Gestión de Roles";
             this.groupFiltros.ResumeLayout(false);
             this.groupFiltros.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).EndInit();

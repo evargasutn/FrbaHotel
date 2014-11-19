@@ -39,8 +39,8 @@ namespace FrbaHotel.ABM_de_Rol
         {
             DataTable respuesta = FiltrarRol(textRol.Text,(string) comboFuncionalidad.SelectedItem, (string) comboEstado.SelectedItem);
             dataGridViewRol.DataSource = respuesta;
-            dataGridViewRol.AutoResizeColumns();
             dataGridViewRol.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewRol.AutoResizeColumns();
             dataGridViewRol.AutoResizeRows();
         }
         private DataTable FiltrarRol(string nombreRol, string nombreFuncionalidad, string estado)
@@ -154,7 +154,7 @@ namespace FrbaHotel.ABM_de_Rol
         private void ModificarRol(string rolElegido)
         {
             new RolMod(rolElegido).Show();
-            Base.establecerVentanaAnterior(this);
+            Globals.deshabilitarAnterior(this);
         }
         public void cleanGrid()
         {

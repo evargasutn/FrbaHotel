@@ -78,6 +78,7 @@ namespace DOM
         public static void deshabilitarAnterior(Form vent)
         {
             vent.Visible = false;
+            ventanaAnterior = vent;
             listaVentanas.Add(vent);
         }
 

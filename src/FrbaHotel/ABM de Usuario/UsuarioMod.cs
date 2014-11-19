@@ -117,6 +117,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
                     //Fin de Update de Usuario
                     MessageBox.Show("Update de Usuario correcta");
+                    this.Close();
                 }
                 else
                     MessageBox.Show("Vuelva a ingresar el password", "Error:Password no identicos");
@@ -167,6 +168,16 @@ namespace FrbaHotel.ABM_de_Usuario
             else if (listHotel.SelectedItems == null)
                 return false;
             return true;
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
         }
     }
 }

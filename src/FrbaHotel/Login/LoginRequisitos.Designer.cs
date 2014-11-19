@@ -42,9 +42,9 @@ namespace FrbaHotel.Login
             // 
             // botonAceptar
             // 
-            this.botonAceptar.Location = new System.Drawing.Point(110, 162);
+            this.botonAceptar.Location = new System.Drawing.Point(110, 153);
             this.botonAceptar.Name = "botonAceptar";
-            this.botonAceptar.Size = new System.Drawing.Size(97, 29);
+            this.botonAceptar.Size = new System.Drawing.Size(159, 29);
             this.botonAceptar.TabIndex = 6;
             this.botonAceptar.Text = "Aceptar";
             this.botonAceptar.UseVisualStyleBackColor = true;
@@ -53,7 +53,7 @@ namespace FrbaHotel.Login
             // comboRoles
             // 
             this.comboRoles.FormattingEnabled = true;
-            this.comboRoles.Location = new System.Drawing.Point(63, 57);
+            this.comboRoles.Location = new System.Drawing.Point(105, 58);
             this.comboRoles.Name = "comboRoles";
             this.comboRoles.Size = new System.Drawing.Size(159, 21);
             this.comboRoles.TabIndex = 1;
@@ -71,7 +71,7 @@ namespace FrbaHotel.Login
             // comboHoteles
             // 
             this.comboHoteles.FormattingEnabled = true;
-            this.comboHoteles.Location = new System.Drawing.Point(63, 18);
+            this.comboHoteles.Location = new System.Drawing.Point(105, 19);
             this.comboHoteles.Name = "comboHoteles";
             this.comboHoteles.Size = new System.Drawing.Size(159, 21);
             this.comboHoteles.TabIndex = 0;
@@ -79,7 +79,7 @@ namespace FrbaHotel.Login
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 21);
+            this.label2.Location = new System.Drawing.Point(64, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
             this.label2.TabIndex = 10;
@@ -88,7 +88,7 @@ namespace FrbaHotel.Login
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 60);
+            this.label3.Location = new System.Drawing.Point(64, 61);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(26, 13);
             this.label3.TabIndex = 11;
@@ -100,18 +100,17 @@ namespace FrbaHotel.Login
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.comboRoles);
             this.groupBox1.Controls.Add(this.comboHoteles);
-            this.groupBox1.Location = new System.Drawing.Point(36, 51);
+            this.groupBox1.Location = new System.Drawing.Point(5, 51);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(244, 96);
+            this.groupBox1.Size = new System.Drawing.Size(335, 96);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "HotelXRol";
             // 
             // LoginRequisitos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 215);
+            this.ClientSize = new System.Drawing.Size(348, 196);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.botonAceptar);

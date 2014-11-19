@@ -15,9 +15,9 @@ namespace FrbaHotel.Login
     {
 
         List<Funcionalidad> funcsDelRolDelUser;
-        Usuario usuario=Globals.infoSesion.User;
-        Hotel hotel=Globals.infoSesion.Hotel;
-        Rol rol=Globals.infoSesion.Rol;
+        Usuario usuario = Globals.infoSesion.User;
+        Hotel hotel = Globals.infoSesion.Hotel;
+        Rol rol = Globals.infoSesion.Rol;
 
         public MainPanel()
         {
