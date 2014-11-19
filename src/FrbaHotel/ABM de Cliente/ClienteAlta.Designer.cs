@@ -367,6 +367,7 @@
             this.Controls.Add(this.groupBox2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ClienteAlta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de un Cliente";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

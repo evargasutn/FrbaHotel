@@ -240,6 +240,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ClienteBajaMod";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Modificacion/Baja de un Cliente";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).EndInit();
             this.groupBox1.ResumeLayout(false);

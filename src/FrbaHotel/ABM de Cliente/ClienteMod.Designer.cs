@@ -32,6 +32,11 @@
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
+            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
+            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
+            this.textNumDoc = new System.Windows.Forms.MaskedTextBox();
+            this.textPais = new System.Windows.Forms.ComboBox();
             this.textLocalidad = new System.Windows.Forms.TextBox();
             this.lblLocalidad = new System.Windows.Forms.Label();
             this.textDirDpto = new System.Windows.Forms.TextBox();
@@ -53,11 +58,6 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.lblTipoDoc = new System.Windows.Forms.Label();
             this.lblApellido = new System.Windows.Forms.Label();
-            this.textPais = new System.Windows.Forms.ComboBox();
-            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
-            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
-            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
-            this.textNumDoc = new System.Windows.Forms.MaskedTextBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -116,6 +116,49 @@
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
+            // 
+            // textDirPiso
+            // 
+            this.textDirPiso.Location = new System.Drawing.Point(157, 235);
+            this.textDirPiso.Mask = "99";
+            this.textDirPiso.Name = "textDirPiso";
+            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
+            this.textDirPiso.TabIndex = 43;
+            // 
+            // textDirAltura
+            // 
+            this.textDirAltura.Location = new System.Drawing.Point(50, 235);
+            this.textDirAltura.Mask = "99999";
+            this.textDirAltura.Name = "textDirAltura";
+            this.textDirAltura.Size = new System.Drawing.Size(66, 20);
+            this.textDirAltura.TabIndex = 42;
+            this.textDirAltura.ValidatingType = typeof(int);
+            // 
+            // textTelefono
+            // 
+            this.textTelefono.Location = new System.Drawing.Point(138, 183);
+            this.textTelefono.Mask = "9999999999";
+            this.textTelefono.Name = "textTelefono";
+            this.textTelefono.Size = new System.Drawing.Size(141, 20);
+            this.textTelefono.TabIndex = 41;
+            // 
+            // textNumDoc
+            // 
+            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
+            this.textNumDoc.Mask = "999999999";
+            this.textNumDoc.Name = "textNumDoc";
+            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
+            this.textNumDoc.TabIndex = 40;
+            // 
+            // textPais
+            // 
+            this.textPais.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.textPais.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.textPais.FormattingEnabled = true;
+            this.textPais.Location = new System.Drawing.Point(138, 287);
+            this.textPais.Name = "textPais";
+            this.textPais.Size = new System.Drawing.Size(141, 21);
+            this.textPais.TabIndex = 36;
             // 
             // textLocalidad
             // 
@@ -296,49 +339,6 @@
             this.lblApellido.TabIndex = 4;
             this.lblApellido.Text = "Apellido";
             // 
-            // textPais
-            // 
-            this.textPais.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.textPais.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.textPais.FormattingEnabled = true;
-            this.textPais.Location = new System.Drawing.Point(138, 287);
-            this.textPais.Name = "textPais";
-            this.textPais.Size = new System.Drawing.Size(141, 21);
-            this.textPais.TabIndex = 36;
-            // 
-            // textDirPiso
-            // 
-            this.textDirPiso.Location = new System.Drawing.Point(157, 235);
-            this.textDirPiso.Mask = "99";
-            this.textDirPiso.Name = "textDirPiso";
-            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
-            this.textDirPiso.TabIndex = 43;
-            // 
-            // textDirAltura
-            // 
-            this.textDirAltura.Location = new System.Drawing.Point(50, 235);
-            this.textDirAltura.Mask = "99999";
-            this.textDirAltura.Name = "textDirAltura";
-            this.textDirAltura.Size = new System.Drawing.Size(66, 20);
-            this.textDirAltura.TabIndex = 42;
-            this.textDirAltura.ValidatingType = typeof(int);
-            // 
-            // textTelefono
-            // 
-            this.textTelefono.Location = new System.Drawing.Point(138, 183);
-            this.textTelefono.Mask = "9999999999";
-            this.textTelefono.Name = "textTelefono";
-            this.textTelefono.Size = new System.Drawing.Size(141, 20);
-            this.textTelefono.TabIndex = 41;
-            // 
-            // textNumDoc
-            // 
-            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
-            this.textNumDoc.Mask = "999999999";
-            this.textNumDoc.Name = "textNumDoc";
-            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
-            this.textNumDoc.TabIndex = 40;
-            // 
             // ClienteMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -348,6 +348,7 @@
             this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.groupBox2);
             this.Name = "ClienteMod";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Modificar un Cliente";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
