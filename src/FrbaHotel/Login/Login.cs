@@ -48,6 +48,7 @@ namespace FrbaHotel.Login
                     {
                         DAOUsuario.registrarIntentoFallido(usuarioALoguear.Usr);
                         MessageBox.Show("Contraseña incorrecta. Intente nuevamente.");
+                        textContrasenia.Text = "";
                         //MessageBox.Show("Tuvo que haber contado fallo");
                     }
                     

@@ -35,8 +35,8 @@ namespace FrbaHotel.ABM_de_Cliente
                 dataGridCliente.Columns["idHuesped"].Visible = false;
                 //dataGridCliente.Columns["campoBaja"].Visible = false;
             }
+            dataGridCliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridCliente.AutoResizeColumns();
-            dataGridCliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridCliente.AutoResizeRows();
         }
 
@@ -130,13 +130,13 @@ namespace FrbaHotel.ABM_de_Cliente
         private void ModificarHuesped(int id)
         {
             new ClienteMod(id).Show();
-            Base.establecerVentanaAnterior(this);
+            Globals.deshabilitarAnterior(this);
         }
 
         private void altaDeClienteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             new ClienteAlta().Show();
-            Base.establecerVentanaAnterior(this);
+            Globals.deshabilitarAnterior(this);
         }
 
         public void cleanGrid()

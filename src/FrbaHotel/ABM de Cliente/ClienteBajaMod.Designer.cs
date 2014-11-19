@@ -83,8 +83,9 @@
             this.dataGridCliente.Location = new System.Drawing.Point(12, 189);
             this.dataGridCliente.MultiSelect = false;
             this.dataGridCliente.Name = "dataGridCliente";
-            this.dataGridCliente.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.dataGridCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridCliente.ReadOnly = true;
+            this.dataGridCliente.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.dataGridCliente.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridCliente.Size = new System.Drawing.Size(501, 192);
             this.dataGridCliente.TabIndex = 13;
             // 
