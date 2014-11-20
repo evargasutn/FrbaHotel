@@ -19,7 +19,6 @@ namespace FrbaHotel.ABM_de_Cliente
         public ClienteMod(int idHuesped)
         {
             InitializeComponent();
-            limpiar();
             huesped_seleccionado = DAOHuesped.obtener(idHuesped);
             if (huesped_seleccionado == null)
             {
@@ -32,7 +31,6 @@ namespace FrbaHotel.ABM_de_Cliente
                 comboTipoDoc.Items.Add(tipo);
             foreach (string pais in Globals.paises)
                 textPais.Items.Add(pais);
-            cargarDatos();
         }
 
         private void cargarDatos()
@@ -41,7 +39,8 @@ namespace FrbaHotel.ABM_de_Cliente
             textApellido.Text = huesped_seleccionado.Apellido;
             comboTipoDoc.SelectedIndex = (int)huesped_seleccionado.TipoDocu_enum;
             textNumDoc.Text = huesped_seleccionado.NroDocu.ToString();
-            dateTimeNacimiento.Text = huesped_seleccionado.Fecha_nacimiento_struct.Value.ToShortDateString();
+            dateTimeNacimiento.Value = huesped_seleccionado.Fecha_nacimiento_struct.Value;
+            dateTimeNacimiento.Update();
             textMail.Text = huesped_seleccionado.Mail;
             textTelefono.Text = huesped_seleccionado.Telefono.ToString();
             textDirCalle.Text = huesped_seleccionado.Direccion.calle_direccion;
@@ -197,6 +196,11 @@ namespace FrbaHotel.ABM_de_Cliente
 
             // Confirm user wants to close
             Globals.habilitarAnterior();
+        }
+
+        private void ClienteMod_Load(object sender, EventArgs e)
+        {
+            cargarDatos();
         }
     }
 }
