@@ -104,6 +104,7 @@ namespace FrbaHotel.Login
             this.Controls.Add(this.lblUsuario);
             this.Controls.Add(this.botonInvitado);
             this.Controls.Add(this.botonIniciarSesion);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";

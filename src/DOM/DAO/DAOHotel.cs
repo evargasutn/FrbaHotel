@@ -6,6 +6,7 @@ using System.Net.Mail;
 using FrbaHotel.DOM;
 using System.Data;
 using DOM.Dominio;
+using DOM.Auxiliares;
 
 namespace DOM
 {
@@ -58,10 +59,12 @@ namespace DOM
             return executeProcedure("insertHotel", codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas);
         }
 
-        public static bool borrar(int codHotel, DateTime fecha_inicio, DateTime fecha_fin,string motivo)
+        public static bool borrar(Inhabilitacion inhab/*int codHotel, DateTime fecha_inicio, DateTime fecha_fin,string motivo*/)
         {
-            string inicio = fecha_inicio.ToString("yyyyMMdd");
-            string fin = fecha_fin.ToString("yyyyMMdd");
+            string codHotel = inhab.Hotel.ToString();
+            string motivo = inhab.Motivo;
+            string inicio = inhab.Fecha_Inicio;
+            string fin = inhab.Fecha_Fin;
             return executeProcedure("deleteHotel", codHotel, inicio, fin, motivo);
         }
 

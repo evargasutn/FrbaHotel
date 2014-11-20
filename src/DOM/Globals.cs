@@ -41,7 +41,6 @@ namespace DOM
         }
         #endregion
 
-
         #region Globales
 
         public static logueo infoSesion;

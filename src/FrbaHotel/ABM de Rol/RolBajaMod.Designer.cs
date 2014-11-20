@@ -149,7 +149,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.dataGridViewRol.Name = "dataGridViewRol";
             this.dataGridViewRol.ReadOnly = true;
             this.dataGridViewRol.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dataGridViewRol.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dataGridViewRol.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewRol.Size = new System.Drawing.Size(397, 186);
             this.dataGridViewRol.TabIndex = 4;
             // 
@@ -216,7 +216,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.Controls.Add(this.buttonBuscar);
             this.Controls.Add(this.groupFiltros);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "RolBajaMod";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -228,8 +228,10 @@
             // 
             // ClienteBajaMod
             // 
+            this.AcceptButton = this.botonBuscar;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.botonLimpiar;
             this.ClientSize = new System.Drawing.Size(531, 428);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.botonModificar);
@@ -238,10 +240,11 @@
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.dataGridCliente);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ClienteBajaMod";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Modificacion/Baja de un Cliente";
+            this.Text = "Gestión de Clientes";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridCliente)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

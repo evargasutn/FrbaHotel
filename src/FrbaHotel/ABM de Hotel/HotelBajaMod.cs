@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using DOM;
 using DOM.DAO;
 using DOM.Dominio;
+using DOM.Auxiliares;
 namespace FrbaHotel.ABM_de_Hotel
 {
     public partial class HotelBajaMod : Form
@@ -16,10 +17,18 @@ namespace FrbaHotel.ABM_de_Hotel
         Hotel hotel = Globals.infoSesion.Hotel;
         Usuario usuario = Globals.infoSesion.User;
 
-
         public HotelBajaMod()
         {
             InitializeComponent();
+        }
+        
+        private void HotelBajaMod_Load(object sender, EventArgs e)
+        {
+            comboEstrellas.Items.Add(1);
+            comboEstrellas.Items.Add(2);
+            comboEstrellas.Items.Add(3);
+            comboEstrellas.Items.Add(4);
+            comboEstrellas.Items.Add(5);
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
@@ -30,15 +39,10 @@ namespace FrbaHotel.ABM_de_Hotel
             comboEstrellas.SelectedIndex = -1;
             dataGridHotel.DataSource = null;
             dataGridHotel.Update();
-
-
-
-
         }
 
         private void botonBuscar_Click(object sender, EventArgs e)
         {
-
             DataTable respuesta = FiltrarHotel(textNombre.Text, textPais.Text, textCiudad.Text, comboEstrellas.SelectedIndex);
             dataGridHotel.DataSource = respuesta;
             if (respuesta != null)
@@ -47,12 +51,49 @@ namespace FrbaHotel.ABM_de_Hotel
                 dataGridHotel.Columns["mail"].Visible = false;
                 dataGridHotel.Columns["codHotel"].Visible = false;
             }
+            dataGridHotel.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridHotel.AutoResizeColumns();
-            dataGridHotel.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridHotel.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridHotel.AutoResizeRows();
         }
 
+        private void botonBaja_Click(object sender, EventArgs e)
+        {
+            if (dataGridHotel.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un Hotel a Inhabilitar.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
+            int codHotel = Int32.Parse(dataGridHotel.CurrentRow.Cells["codHotel"].Value.ToString());
+            
+            //Chequear que pueda inhabilitarse :P
+
+            //TODO: Armar Inhabilitacion bitches!!
+            new NuevaInhabilitacion(codHotel).Show();
+            Globals.deshabilitarAnterior(this);
+
+        }
+
+        private void botonModificar_Click(object sender, EventArgs e)
+        {
+            if (dataGridHotel.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un Hotel a modificar.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
+            int codHotel = Int32.Parse(dataGridHotel.CurrentRow.Cells["codHotel"].Value.ToString());
+            string nombreHotel = dataGridHotel.CurrentRow.Cells["nombreHotel"].Value.ToString();
+            DialogResult dr = MessageBox.Show("Desea modificar el Hotel " + nombreHotel + "?", "", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    //Nuevo Form que sele pasa el nombre de usuario a Modificar
+                    ModificarHotel(codHotel);
+                    break;
+                case DialogResult.No: break;
+            }
+        }
 
         private DataTable FiltrarHotel(string nombre, string pais, string ciudad,int tipoEstrella)
         {
@@ -82,55 +123,42 @@ namespace FrbaHotel.ABM_de_Hotel
             return tabla_habitacion;
         }
 
-        private void HotelBajaMod_Load(object sender, EventArgs e)
+        private void BajaHotel(Inhabilitacion bajaInhab)
         {
-            comboEstrellas.Items.Add(1);
-            comboEstrellas.Items.Add(2);
-            comboEstrellas.Items.Add(3);
-            comboEstrellas.Items.Add(4);
-            comboEstrellas.Items.Add(5);
+            DAOHotel.borrar(bajaInhab);
+            updateGrid();
         }
 
-        private void dataGridHotel_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ModificarHotel(int hotelElegido)
         {
+            new HotelMod(hotelElegido).Show();
+            Globals.deshabilitarAnterior(this);
+        }   
 
-            string nombreHotel = dataGridHotel.Rows[e.RowIndex].Cells[3].Value.ToString();
-            if (e.ColumnIndex == 0)
-            {
-
-                ///preguntamos si se quiere dar de Baja
-                DialogResult dr = MessageBox.Show("Desea Modificar el hotel " + nombreHotel.ToString() + "?",
-            "", MessageBoxButtons.YesNo);
-                switch (dr)
-                {
-                    case DialogResult.Yes:
-                        ///le paso el codigo de la habitacion, en tal caso deberia tener un parametro
-                        ///para poder modificar
-                        new HotelMod().Show(this);
-                        botonBuscar_Click(null, null);
-                        break;
-                    case DialogResult.No: break;
-                }
-
-            }
-            if (e.ColumnIndex == 1)
-            {
-                ///preguntamos si se quiere dar de alta
-                DialogResult dr = MessageBox.Show("Desea dar de Baja al hotel " + nombreHotel.ToString() + "?",
-            "", MessageBoxButtons.YesNo);
-                switch (dr)
-                {
-                    case DialogResult.Yes:
-                        
-                        botonBuscar_Click(null, null);
-                        break;
-                    case DialogResult.No: break;
-                }
-            }
-
-
-
+        private void altaDeHotelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new HotelAlta().Show();
+            Globals.deshabilitarAnterior(this);
         }
 
+        public void cleanGrid()
+        {
+            dataGridHotel.DataSource = null;
+            dataGridHotel.Update();
+        }
+        public void updateGrid()
+        {
+            botonBuscar_Click(null, null);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
+        }
     }
 }
