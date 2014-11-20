@@ -14,10 +14,11 @@ namespace FrbaHotel.ABM_de_Hotel
     public partial class NuevaInhabilitacion : Form
     {
         int hotel;
-        public NuevaInhabilitacion(int codHotel)
+        public NuevaInhabilitacion(int codHotel, string nombreHotel)
         {
             InitializeComponent();
             hotel = codHotel;
+            textHotel.Text = nombreHotel;
         }
 
         private void NuevaInhabilitacion_Load(object sender, EventArgs e)
@@ -43,17 +44,38 @@ namespace FrbaHotel.ABM_de_Hotel
 
         private void botonGuardar_Click(object sender, EventArgs e)
         {
+            if (dateTimeInicio.Value.CompareTo(dateTimeFin.Value) >= 0)
+            {
+                MessageBox.Show("Rango de Fechas inválido. Intente nuevamente.",
+                "Error Grave", MessageBoxButtons.OK);
+                return;
+            }
             Inhabilitacion inhab = new Inhabilitacion();
 
-            inhab.Hotel = hotel;
-            inhab.Fecha_Inicio_struct = dateTimeInicio.Value;
-            inhab.Fecha_Fin_struct = dateTimeFin.Value;
-            inhab.Motivo = (textMotivo.Text != null) ? textMotivo.Text : "";
+            int respuesta = DAOHotel.estaVacio(hotel, dateTimeInicio.Value, dateTimeFin.Value);
+            if (respuesta > 0)
+            {
+                inhab.Hotel = hotel;
+                inhab.Fecha_Inicio_struct = dateTimeInicio.Value;
+                inhab.Fecha_Fin_struct = dateTimeFin.Value;
+                inhab.Motivo = (textMotivo.Text != null) ? textMotivo.Text : "";
 
-            DAOHotel.borrar(inhab);
+                DAOHotel.borrar(inhab);
 
-            ((HotelBajaMod)Globals.VentanaAnterior).updateGrid();
-            this.Close();
+                ((HotelBajaMod)Globals.VentanaAnterior).updateGrid();
+                this.Close();
+            }
+            else
+            {
+                if (respuesta == -1)
+                {
+                    MessageBox.Show("Error al conectar con la Base de Datos.",
+                    "Error Grave", MessageBoxButtons.OK);
+                    return;
+                }
+                MessageBox.Show("Hotel con reservas o huespedes alojados para esas fechas. No es posible dar la baja.",
+                "", MessageBoxButtons.OK);
+            }            
         }
     }
 }

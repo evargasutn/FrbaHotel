@@ -82,10 +82,12 @@ namespace DOM
             return executeProcedure("updateHotel", codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas);
         }
 
-        public static int estaVacio(int codHotel)
+        public static int estaVacio(int codHotel, DateTime inicio, DateTime fin)
         {
+            string fecha_inicio = inicio.ToString("yyyyMMdd");
+            string fecha_fin = fin.ToString("yyyyMMdd");
             //Retorna 1 si esta vacio, 0 si no
-            return executeProcedureWithReturnValue("hotelEstaVacio", codHotel);
+            return executeProcedureWithReturnValue("hotelEstaVacio", codHotel, fecha_inicio, fecha_fin);
         }
 
         #region Convertir DataTable

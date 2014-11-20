@@ -2601,3 +2601,35 @@ AS
 	
 	ORDER BY 4 DESC			 
 GO
+
+--Procedure Auxiliar para chequear si el hotel se puede dar de baja
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.hotelEstaVacio', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.hotelEstaVacio
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.hotelEstaVacio
+@hotel	int,
+@inicio datetime,
+@fin	datetime
+AS
+BEGIN
+	DECLARE @Cantidad int
+	
+	SET @Cantidad = (	SELECT COUNT(*) 
+						FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA r
+						WHERE r.codHotel = @hotel
+						AND EXISTS (SELECT * 
+									FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS reserva
+									WHERE R.codReserva = reserva.codReserva
+									AND ((reserva.fecDesde BETWEEN @inicio AND @fin)
+									OR reserva.fecHasta BETWEEN @inicio AND @fin)))
+	IF(@Cantidad > 0)
+		RETURN 0
+	ELSE
+		RETURN 1	
+	
+END
+GO
