@@ -67,11 +67,21 @@ namespace FrbaHotel.ABM_de_Hotel
             int codHotel = Int32.Parse(dataGridHotel.CurrentRow.Cells["codHotel"].Value.ToString());
             
             //Chequear que pueda inhabilitarse :P
-
-            //TODO: Armar Inhabilitacion bitches!!
-            new NuevaInhabilitacion(codHotel).Show();
-            Globals.deshabilitarAnterior(this);
-
+            int respuesta = DAOHotel.estaVacio(codHotel);
+            if (respuesta > 0)
+            {
+                new NuevaInhabilitacion(codHotel).Show();
+                Globals.deshabilitarAnterior(this);
+            }
+            else
+                if (respuesta == -1)
+                {
+                    MessageBox.Show("Error al conectar con la Base de Datos.",
+                    "Error Grave", MessageBoxButtons.OK);
+                    return;
+                }
+                MessageBox.Show("Hotel con reservas o huespedes alojados. No es posible dar la baja.",
+                "", MessageBoxButtons.OK);
         }
 
         private void botonModificar_Click(object sender, EventArgs e)

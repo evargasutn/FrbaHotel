@@ -82,6 +82,12 @@ namespace DOM
             return executeProcedure("updateHotel", codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas);
         }
 
+        public static int estaVacio(int codHotel)
+        {
+            //Retorna 1 si esta vacio, 0 si no
+            return executeProcedureWithReturnValue("hotelEstaVacio", codHotel);
+        }
+
         #region Convertir DataTable
 
         private static List<Hotel> tranductor(DataTable dataTable)

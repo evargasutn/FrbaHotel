@@ -48,6 +48,7 @@
             this.botonGuardar.TabIndex = 0;
             this.botonGuardar.Text = "Guardar";
             this.botonGuardar.UseVisualStyleBackColor = true;
+            this.botonGuardar.Click += new System.EventHandler(this.botonGuardar_Click);
             // 
             // botonVolver
             // 
@@ -146,6 +147,7 @@
             this.Name = "NuevaInhabilitacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nueva Inhabilitación";
+            this.Load += new System.EventHandler(this.NuevaInhabilitacion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
