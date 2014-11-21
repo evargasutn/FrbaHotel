@@ -35,15 +35,12 @@ namespace DOM.DAO
 
         public static DataTable obtenerTablaByHotel(int codHotel)
         {
-            return retrieveDataTable("getRegimenbyHotel", codHotel);
+            return retrieveDataTable("getRegimenByHotel", codHotel);
         }
 
-        public static Regimen obtenerByHotel(int codHotel)
+        public static List<Regimen> obtenerByHotel(int codHotel)
         {
-            List<Regimen> lista = transductor(obtenerTablaByHotel(codHotel));
-            if (lista.Count == 0)
-                return null;
-            return lista[0];
+            return transductor(obtenerTablaByHotel(codHotel));
         }
 
         public static bool borrar(int codRegimen)
@@ -52,6 +49,15 @@ namespace DOM.DAO
         }
 
         public static bool insertar(Regimen regimen)
+        {
+            int codRegimen = regimen.CodRegimen;
+            string descripcion = regimen.Descripcion;
+            double precio = regimen.Precio;
+            int campoBaja = (regimen.Estado) ? 1 : 0;
+            return executeProcedure("insertRegimen", codRegimen, descripcion, precio, campoBaja);
+        }
+
+        public static bool actualizar(Regimen regimen)
         {
             int codRegimen = regimen.CodRegimen;
             string descripcion = regimen.Descripcion;

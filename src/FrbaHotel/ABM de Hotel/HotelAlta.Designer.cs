@@ -275,6 +275,7 @@
             this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.groupBox2);
             this.Name = "HotelAlta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de un Hotel";
             this.Load += new System.EventHandler(this.HotelAlta_Load);
             this.groupBox2.ResumeLayout(false);

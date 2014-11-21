@@ -98,7 +98,7 @@ namespace DOM
         public static int posPais(string pais)
         {
             for (int i = 0; i < paises.Length; i++)
-                if (paises[i].ToUpper().CompareTo(pais) == 0)
+                if (paises[i].ToUpper().CompareTo(pais.ToUpper()) == 0)
                     return i;
             return -1;
         }

@@ -1375,8 +1375,11 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
 @codigo numeric(8)
 AS
 		IF(@codigo != -1)
-		SELECT R.codRegimen FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL R 
-		WHERE R.codHotel = @codigo  
+		SELECT reg.codRegimen, reg.descripcion, reg.estado, reg.precio
+		FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES reg 
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL hotel
+		ON reg.codRegimen = hotel.codRegimen
+		WHERE hotel.codHotel = @codigo
 GO
 
 --/PROCEDIMIENTO GET REGIMEN 

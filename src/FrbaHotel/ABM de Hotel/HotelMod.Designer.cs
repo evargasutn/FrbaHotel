@@ -28,17 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboPais = new System.Windows.Forms.ComboBox();
+            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
+            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
+            this.comboEstrellas = new System.Windows.Forms.ComboBox();
             this.listaRegimenes = new System.Windows.Forms.CheckedListBox();
             this.lblRegimen = new System.Windows.Forms.Label();
             this.textCiudad = new System.Windows.Forms.TextBox();
             this.lblCiudad = new System.Windows.Forms.Label();
             this.lblEstrellas = new System.Windows.Forms.Label();
-            this.textDirAltura = new System.Windows.Forms.TextBox();
             this.lblDirAltura = new System.Windows.Forms.Label();
-            this.textPais = new System.Windows.Forms.TextBox();
             this.textDirCalle = new System.Windows.Forms.TextBox();
-            this.textTelefono = new System.Windows.Forms.TextBox();
             this.textMail = new System.Windows.Forms.TextBox();
             this.textNombre = new System.Windows.Forms.TextBox();
             this.lblPais = new System.Windows.Forms.Label();
@@ -48,23 +50,23 @@
             this.lblNombre = new System.Windows.Forms.Label();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
-            this.comboEstrellas = new System.Windows.Forms.ComboBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.comboPais);
+            this.groupBox2.Controls.Add(this.textDirAltura);
+            this.groupBox2.Controls.Add(this.textTelefono);
             this.groupBox2.Controls.Add(this.comboEstrellas);
             this.groupBox2.Controls.Add(this.listaRegimenes);
             this.groupBox2.Controls.Add(this.lblRegimen);
             this.groupBox2.Controls.Add(this.textCiudad);
             this.groupBox2.Controls.Add(this.lblCiudad);
             this.groupBox2.Controls.Add(this.lblEstrellas);
-            this.groupBox2.Controls.Add(this.textDirAltura);
             this.groupBox2.Controls.Add(this.lblDirAltura);
-            this.groupBox2.Controls.Add(this.textPais);
             this.groupBox2.Controls.Add(this.textDirCalle);
-            this.groupBox2.Controls.Add(this.textTelefono);
             this.groupBox2.Controls.Add(this.textMail);
             this.groupBox2.Controls.Add(this.textNombre);
             this.groupBox2.Controls.Add(this.lblPais);
@@ -79,10 +81,44 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
             // 
+            // comboPais
+            // 
+            this.comboPais.FormattingEnabled = true;
+            this.comboPais.Location = new System.Drawing.Point(138, 208);
+            this.comboPais.Name = "comboPais";
+            this.comboPais.Size = new System.Drawing.Size(141, 21);
+            this.comboPais.TabIndex = 41;
+            // 
+            // textDirAltura
+            // 
+            this.textDirAltura.Location = new System.Drawing.Point(138, 129);
+            this.textDirAltura.Mask = "99999";
+            this.textDirAltura.Name = "textDirAltura";
+            this.textDirAltura.Size = new System.Drawing.Size(141, 20);
+            this.textDirAltura.TabIndex = 40;
+            this.textDirAltura.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirAltura_MaskInputRejected);
+            // 
+            // textTelefono
+            // 
+            this.textTelefono.Location = new System.Drawing.Point(138, 77);
+            this.textTelefono.Mask = "999999999";
+            this.textTelefono.Name = "textTelefono";
+            this.textTelefono.Size = new System.Drawing.Size(141, 20);
+            this.textTelefono.TabIndex = 39;
+            this.textTelefono.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textTelefono_MaskInputRejected);
+            // 
+            // comboEstrellas
+            // 
+            this.comboEstrellas.FormattingEnabled = true;
+            this.comboEstrellas.Location = new System.Drawing.Point(138, 155);
+            this.comboEstrellas.Name = "comboEstrellas";
+            this.comboEstrellas.Size = new System.Drawing.Size(141, 21);
+            this.comboEstrellas.TabIndex = 38;
+            // 
             // listaRegimenes
             // 
             this.listaRegimenes.FormattingEnabled = true;
-            this.listaRegimenes.Location = new System.Drawing.Point(138, 234);
+            this.listaRegimenes.Location = new System.Drawing.Point(138, 235);
             this.listaRegimenes.Name = "listaRegimenes";
             this.listaRegimenes.Size = new System.Drawing.Size(141, 94);
             this.listaRegimenes.TabIndex = 37;
@@ -90,7 +126,7 @@
             // lblRegimen
             // 
             this.lblRegimen.AutoSize = true;
-            this.lblRegimen.Location = new System.Drawing.Point(6, 234);
+            this.lblRegimen.Location = new System.Drawing.Point(6, 235);
             this.lblRegimen.Name = "lblRegimen";
             this.lblRegimen.Size = new System.Drawing.Size(63, 13);
             this.lblRegimen.TabIndex = 36;
@@ -121,13 +157,6 @@
             this.lblEstrellas.TabIndex = 29;
             this.lblEstrellas.Text = "Cantidad de Estrellas";
             // 
-            // textDirAltura
-            // 
-            this.textDirAltura.Location = new System.Drawing.Point(138, 129);
-            this.textDirAltura.Name = "textDirAltura";
-            this.textDirAltura.Size = new System.Drawing.Size(141, 20);
-            this.textDirAltura.TabIndex = 28;
-            // 
             // lblDirAltura
             // 
             this.lblDirAltura.AutoSize = true;
@@ -137,26 +166,12 @@
             this.lblDirAltura.TabIndex = 27;
             this.lblDirAltura.Text = "Altura";
             // 
-            // textPais
-            // 
-            this.textPais.Location = new System.Drawing.Point(138, 208);
-            this.textPais.Name = "textPais";
-            this.textPais.Size = new System.Drawing.Size(141, 20);
-            this.textPais.TabIndex = 23;
-            // 
             // textDirCalle
             // 
             this.textDirCalle.Location = new System.Drawing.Point(138, 103);
             this.textDirCalle.Name = "textDirCalle";
             this.textDirCalle.Size = new System.Drawing.Size(141, 20);
             this.textDirCalle.TabIndex = 19;
-            // 
-            // textTelefono
-            // 
-            this.textTelefono.Location = new System.Drawing.Point(138, 77);
-            this.textTelefono.Name = "textTelefono";
-            this.textTelefono.Size = new System.Drawing.Size(141, 20);
-            this.textTelefono.TabIndex = 18;
             // 
             // textMail
             // 
@@ -225,6 +240,7 @@
             this.botonLimpiar.TabIndex = 31;
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
+            this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
             // 
             // botonGuardar
             // 
@@ -234,14 +250,7 @@
             this.botonGuardar.TabIndex = 30;
             this.botonGuardar.Text = "Guardar";
             this.botonGuardar.UseVisualStyleBackColor = true;
-            // 
-            // comboEstrellas
-            // 
-            this.comboEstrellas.FormattingEnabled = true;
-            this.comboEstrellas.Location = new System.Drawing.Point(138, 155);
-            this.comboEstrellas.Name = "comboEstrellas";
-            this.comboEstrellas.Size = new System.Drawing.Size(139, 21);
-            this.comboEstrellas.TabIndex = 38;
+            this.botonGuardar.Click += new System.EventHandler(this.botonGuardar_Click);
             // 
             // HotelMod
             // 
@@ -252,7 +261,9 @@
             this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.groupBox2);
             this.Name = "HotelMod";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Modificar un Hotel";
+            this.Load += new System.EventHandler(this.HotelMod_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -267,11 +278,8 @@
         private System.Windows.Forms.TextBox textCiudad;
         private System.Windows.Forms.Label lblCiudad;
         private System.Windows.Forms.Label lblEstrellas;
-        private System.Windows.Forms.TextBox textDirAltura;
         private System.Windows.Forms.Label lblDirAltura;
-        private System.Windows.Forms.TextBox textPais;
         private System.Windows.Forms.TextBox textDirCalle;
-        private System.Windows.Forms.TextBox textTelefono;
         private System.Windows.Forms.TextBox textMail;
         private System.Windows.Forms.TextBox textNombre;
         private System.Windows.Forms.Label lblPais;
@@ -282,5 +290,9 @@
         private System.Windows.Forms.Button botonLimpiar;
         private System.Windows.Forms.Button botonGuardar;
         private System.Windows.Forms.ComboBox comboEstrellas;
+        private System.Windows.Forms.MaskedTextBox textTelefono;
+        private System.Windows.Forms.MaskedTextBox textDirAltura;
+        private System.Windows.Forms.ComboBox comboPais;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

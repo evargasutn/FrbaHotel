@@ -126,7 +126,6 @@ namespace FrbaHotel.ABM_de_Hotel
             comboPais.SelectedIndex = -1;
             for (int item = 0; item < listaRegimenes.Items.Count; item++)
                 listaRegimenes.SetItemChecked(item, false);
-
         }
 
         private void botonGuardar_Click(object sender, EventArgs e)
