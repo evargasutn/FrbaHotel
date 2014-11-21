@@ -9,6 +9,16 @@ namespace DOM.Auxiliares
     {
         public int TipoCodigo;
         public string Descripcion;
-        //public string Porcentual;
-    }
+        public int Porcentual;
+
+        public static int getCodeByDescription(string descripcion, List<Tipo_Habitacion> lista)
+        {
+            foreach (Tipo_Habitacion tipo in lista)
+            {
+                if (tipo.Descripcion.CompareTo(descripcion) == 0)
+                    return tipo.TipoCodigo;
+            }
+            return -1;
+        }
+    } 
 }

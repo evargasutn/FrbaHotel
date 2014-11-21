@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -41,6 +42,7 @@
             this.lblUbicacion = new System.Windows.Forms.Label();
             this.lblPiso = new System.Windows.Forms.Label();
             this.lblNumero = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -197,5 +199,6 @@
         private System.Windows.Forms.Label lblNumero;
         private System.Windows.Forms.ComboBox comboEstado;
         private System.Windows.Forms.Label lblEstado;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

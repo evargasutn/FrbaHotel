@@ -1265,10 +1265,30 @@ AS
 	BEGIN
 			IF (@habitacion = -1)
 				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
-				WHERE H.campoBaja = 0 AND H.codHotel = @codHotel				
+				WHERE H.codHotel = @codHotel				
 			ELSE
 				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
 				WHERE H.habitacion = @habitacion AND H.codHotel = @codHotel				
+	END
+GO
+
+--/PROCEDIMIENTO GETTIPOHABITACION
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getTipoHabitacion', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getTipoHabitacion
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getTipoHabitacion
+	@tipoHabitacion numeric(18)
+AS
+	BEGIN
+			IF (@tipoHabitacion = -1)
+				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES H
+			ELSE
+				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+				WHERE H.tipoCodigo = @tipoHabitacion			
 	END
 GO
 
@@ -1286,16 +1306,13 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertHabitacion
 	@habitacion numeric(4),
 	@piso numeric(2),
 	@ubicacion varchar(255),
-	@tipo varchar(50),
+	@tipo numeric(18),
 	@descripcion varchar(255)
 AS
-	IF(@codHotel != -1 AND @habitacion != -1 AND @piso != -1 AND @ubicacion != '' AND @tipo != '' AND @descripcion != '')
-	DECLARE @codTipo numeric(8)
-	SELECT @codTipo = tipoCodigo from COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES 
-	WHERE tipoDescripcion = @tipo
+	IF(@codHotel != -1 AND @habitacion != -1 AND @piso != -1 AND @ubicacion != '' AND @tipo != -1 AND @descripcion != '')
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES (codHotel, habitacion, piso, ubicacion, tipoCodigo,
 		descripcion, campoBaja)
-VALUES(@codHotel, @habitacion, @piso, UPPER(@ubicacion), @codTipo, UPPER(@descripcion), 0)
+VALUES(@codHotel, @habitacion, @piso, UPPER(@ubicacion), @tipo, UPPER(@descripcion), 0)
 GO
 
 --//PROC UPDATEHABITACION
@@ -1311,7 +1328,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHabitacion
 	@habitacion numeric(4),
 	@piso numeric(2),
 	@ubicacion varchar(255),
-	@tipo varchar(50),
+	@tipo numeric(18),
 	@descripcion varchar(255),
 	@campoBaja bit
 AS
@@ -1331,7 +1348,7 @@ AS
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES	
 			SET ubicacion = UPPER(@ubicacion)
 				WHERE habitacion= @habitacion
-		IF (@tipo != '')
+		IF (@tipo != -1)
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 			SET tipoCodigo = @tipo
 				WHERE habitacion= @habitacion

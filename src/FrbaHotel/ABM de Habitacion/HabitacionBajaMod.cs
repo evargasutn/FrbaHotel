@@ -22,6 +22,12 @@ namespace FrbaHotel.ABM_de_Habitacion
             InitializeComponent();
         }
 
+        private void HabitacionBajaMod_Load(object sender, EventArgs e)
+        {
+            comboUbicacion.Items.Add("S");
+            comboUbicacion.Items.Add("N");
+        }
+
         private void botonBuscar_Click(object sender, EventArgs e)
         {
 
@@ -31,8 +37,8 @@ namespace FrbaHotel.ABM_de_Habitacion
             {
                 dataGridHabitacion.Columns["codHotel"].Visible = false;
             }
+            dataGridHabitacion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridHabitacion.AutoResizeColumns();
-            dataGridHabitacion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridHabitacion.AutoResizeRows();
         }
 
@@ -61,69 +67,100 @@ namespace FrbaHotel.ABM_de_Habitacion
             return tabla_habitacion;
         }
 
-        private void HabitacionBajaMod_Load(object sender, EventArgs e)
-        {
-            comboUbicacion.Items.Add("S");
-            comboUbicacion.Items.Add("N");
-        }
-
-        private void altaDeHabitaciónToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            new HabitacionAlta().Show();
-        }
-
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
             textNumero.Text = "";
             textPiso.Text = "";
             comboUbicacion.SelectedIndex = -1;
+            cleanGrid();
+        }
+
+        private void botonModificar_Click(object sender, EventArgs e)
+        {
+            if (dataGridHabitacion.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un Habitacion a modificar.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
+
+            int numHab = Convert.ToInt32(dataGridHabitacion.CurrentRow.Cells["habitacion"].Value);
+
+            DialogResult dr = MessageBox.Show("Desea modificar datos de la habitacion?", "", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    //Nuevo Form que sele pasa el nombre de usuario a Modificar
+                    ModificarHabitacion(numHab);
+                    break;
+                case DialogResult.No: break;
+            }
+
+        }
+
+        private void botonBaja_Click(object sender, EventArgs e)
+        {
+            if (dataGridHabitacion.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione una Habitacion a dar de baja.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
+            if ((bool)dataGridHabitacion.CurrentRow.Cells["campoBaja"].Value)
+            {
+                MessageBox.Show("Habitacion ya deshabilitada.",
+                "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            int codHab = (int)dataGridHabitacion.CurrentRow.Cells["habitacion"].Value;
+
+            DialogResult dr = MessageBox.Show("Desea dar de Baja a la habitacion " + codHab.ToString() + "?",
+            "", MessageBoxButtons.YesNo);
+            switch (dr)
+            {
+                case DialogResult.Yes:
+                    BajaHabitacion(codHab);
+                    break;
+                case DialogResult.No: break;
+            }
+        }
+
+        private void BajaHabitacion(int habitacion)
+        {
+            DAOHabitacion.borrar(habitacion, Globals.infoSesion.Hotel.CodHotel);
+            updateGrid();
+        }
+
+        private void ModificarHabitacion(int habitacion)
+        {
+            new HabitacionMod(habitacion).Show();
+            Globals.deshabilitarAnterior(this);
+        }
+
+        private void altaDeHabitaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new HabitacionAlta().Show();
+            Globals.deshabilitarAnterior(this);
+        }
+
+        public void cleanGrid()
+        {
             dataGridHabitacion.DataSource = null;
             dataGridHabitacion.Update();
         }
-        
-        /// <summary>
-        /// basicamente aca se da de baja o alta
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dataGridHabitacion_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        public void updateGrid()
         {
+            botonBuscar_Click(null, null);
+        }
 
-            int numHabitacion = Convert.ToInt32(dataGridHabitacion.Rows[e.RowIndex].Cells[3].Value);
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
 
-            if (e.ColumnIndex == 0)
-            {
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
-                ///preguntamos si se quiere dar de Baja
-                DialogResult dr = MessageBox.Show("Desea Modificar la habitacion " + numHabitacion.ToString() + "?",
-            "", MessageBoxButtons.YesNo);
-                switch (dr)
-                {
-                    case DialogResult.Yes:
-                        ///le paso el codigo de la habitacion, en tal caso deberia tener un parametro
-                        ///para poder modificar
-                        new HabitacionMod(numHabitacion).Show(this);
-                        botonBuscar_Click(null, null);
-                        break;
-                    case DialogResult.No: break;
-                }
-
-            }
-            if (e.ColumnIndex == 1)
-            {
-                ///preguntamos si se quiere dar de alta
-                DialogResult dr = MessageBox.Show("Desea dar de Baja a la habitacion " + numHabitacion.ToString() + "?",
-            "", MessageBoxButtons.YesNo);
-                switch (dr)
-                {
-                    case DialogResult.Yes:
-                        DAOHabitacion.borrar(numHabitacion, hotel.CodHotel);
-                        botonBuscar_Click(null, null);
-                        break;
-                    case DialogResult.No: break;
-                }
-            }
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
         }
 
     }

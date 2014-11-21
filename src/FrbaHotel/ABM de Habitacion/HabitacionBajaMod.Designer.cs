@@ -40,8 +40,8 @@
             this.lblUbicacion = new System.Windows.Forms.Label();
             this.lblPiso = new System.Windows.Forms.Label();
             this.lblNumero = new System.Windows.Forms.Label();
-            this.ColumnModificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ColumnBaja = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.botonModificar = new System.Windows.Forms.Button();
+            this.botonBaja = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridHabitacion)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -86,19 +86,21 @@
             // 
             // dataGridHabitacion
             // 
+            this.dataGridHabitacion.AllowUserToAddRows = false;
+            this.dataGridHabitacion.AllowUserToDeleteRows = false;
+            this.dataGridHabitacion.AllowUserToResizeColumns = false;
+            this.dataGridHabitacion.AllowUserToResizeRows = false;
             this.dataGridHabitacion.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridHabitacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridHabitacion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnModificar,
-            this.ColumnBaja});
             this.dataGridHabitacion.Location = new System.Drawing.Point(12, 161);
             this.dataGridHabitacion.MultiSelect = false;
             this.dataGridHabitacion.Name = "dataGridHabitacion";
+            this.dataGridHabitacion.ReadOnly = true;
+            this.dataGridHabitacion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridHabitacion.Size = new System.Drawing.Size(501, 257);
             this.dataGridHabitacion.TabIndex = 21;
-            this.dataGridHabitacion.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridHabitacion_CellContentClick);
             // 
             // groupBox1
             // 
@@ -164,25 +166,33 @@
             this.lblNumero.TabIndex = 5;
             this.lblNumero.Text = "Número de Habitación:";
             // 
-            // ColumnModificar
+            // botonModificar
             // 
-            this.ColumnModificar.HeaderText = "";
-            this.ColumnModificar.Name = "ColumnModificar";
-            this.ColumnModificar.Text = "Modificar";
-            this.ColumnModificar.UseColumnTextForButtonValue = true;
+            this.botonModificar.Location = new System.Drawing.Point(390, 430);
+            this.botonModificar.Name = "botonModificar";
+            this.botonModificar.Size = new System.Drawing.Size(120, 29);
+            this.botonModificar.TabIndex = 25;
+            this.botonModificar.Text = "Modificar";
+            this.botonModificar.UseVisualStyleBackColor = true;
+            this.botonModificar.Click += new System.EventHandler(this.botonModificar_Click);
             // 
-            // ColumnBaja
+            // botonBaja
             // 
-            this.ColumnBaja.HeaderText = "";
-            this.ColumnBaja.Name = "ColumnBaja";
-            this.ColumnBaja.Text = "Dar Baja";
-            this.ColumnBaja.UseColumnTextForButtonValue = true;
+            this.botonBaja.Location = new System.Drawing.Point(12, 430);
+            this.botonBaja.Name = "botonBaja";
+            this.botonBaja.Size = new System.Drawing.Size(120, 29);
+            this.botonBaja.TabIndex = 24;
+            this.botonBaja.Text = "Baja";
+            this.botonBaja.UseVisualStyleBackColor = true;
+            this.botonBaja.Click += new System.EventHandler(this.botonBaja_Click);
             // 
             // HabitacionBajaMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(525, 471);
+            this.Controls.Add(this.botonModificar);
+            this.Controls.Add(this.botonBaja);
             this.Controls.Add(this.botonBuscar);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.dataGridHabitacion);
@@ -190,7 +200,8 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "HabitacionBajaMod";
-            this.Text = "Modificación/Baja de Habitaciones";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Gestión de Habitaciones";
             this.Load += new System.EventHandler(this.HabitacionBajaMod_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -216,7 +227,7 @@
         private System.Windows.Forms.Label lblUbicacion;
         private System.Windows.Forms.Label lblPiso;
         private System.Windows.Forms.Label lblNumero;
-        private System.Windows.Forms.DataGridViewButtonColumn ColumnModificar;
-        private System.Windows.Forms.DataGridViewButtonColumn ColumnBaja;
+        private System.Windows.Forms.Button botonModificar;
+        private System.Windows.Forms.Button botonBaja;
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using FrbaHotel.DOM;
 using System.Data;
 using DOM.Dominio;
+using DOM.Auxiliares;
 
 namespace DOM
 {
@@ -33,6 +34,23 @@ namespace DOM
             return lista[0];
         }
 
+        #region Tipo Habitacion
+        public static DataTable obtenerTipoTabla(int tipoCodigo)
+        {
+            return retrieveDataTable("getTipoHabitacion", tipoCodigo);
+        }
+
+        public static List<Tipo_Habitacion> obtenerTipoTodos()
+        {
+            return transductor_tipo(obtenerTipoTabla(entero_nulo));
+        }
+
+        public static List<Tipo_Habitacion> obtenerTipo(int tipoCodigo)
+        {
+            return transductor_tipo(obtenerTipoTabla(tipoCodigo));
+        }
+        #endregion
+
         public static bool insertar(Habitacion habitacion)
         {
             int codHotel = habitacion.CodHotel;
@@ -41,12 +59,12 @@ namespace DOM
             string ubicacion = habitacion.Ubicacion;
             int tipoCodigo = habitacion.Tipo_codigo;
             string descripcion = habitacion.Descripcion;
-            return executeProcedure("insertHabitacion", id, piso, ubicacion, tipoCodigo, codHotel, descripcion);
+            return executeProcedure("insertHabitacion", codHotel, id, piso, ubicacion, tipoCodigo, descripcion);
         }
 
         public static bool borrar(int habitacion, int codHotel)
         {
-            return executeProcedure("deleteHabitacion", habitacion, codHotel);
+            return executeProcedure("deleteHabitacion", codHotel, habitacion);
         }
 
         public static bool actualizar(Habitacion habitacion)
@@ -57,7 +75,7 @@ namespace DOM
             string ubicacion = habitacion.Ubicacion;
             int tipoCodigo = habitacion.Tipo_codigo;
             string descripcion = habitacion.Descripcion;
-            return executeProcedure("updateHabitacion", habitacion, piso, ubicacion, tipoCodigo, codHotel, descripcion);
+            return executeProcedure("updateHabitacion", codHotel, habitacion, piso, ubicacion, tipoCodigo, descripcion);
         }
 
         #region Convertir DataTable
@@ -78,6 +96,24 @@ namespace DOM
                     habitacion.CampoBaja = Convert.ToBoolean(fila["campoBaja"]);
                     //Transcribir
                     lista.Add(habitacion);
+                }
+            }
+            return lista;
+        }
+
+        public static List<Tipo_Habitacion> transductor_tipo(DataTable dt)
+        {
+            List<Tipo_Habitacion> lista = new List<Tipo_Habitacion>();
+            if (dt != null)
+            {
+                foreach (DataRow fila in dt.Rows)
+                {
+                    Tipo_Habitacion tipo = new Tipo_Habitacion();
+                    tipo.TipoCodigo = Convert.ToInt32(fila["tipoCodigo"]);
+                    tipo.Descripcion = Convert.ToString(fila["tipoDescripcion"]);
+                    tipo.Porcentual = Convert.ToInt32(fila["tipoPorcentual"]);
+                    //Transcribir
+                    lista.Add(tipo);
                 }
             }
             return lista;

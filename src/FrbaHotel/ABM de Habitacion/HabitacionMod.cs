@@ -13,13 +13,11 @@ namespace FrbaHotel.ABM_de_Habitacion
 {
     public partial class HabitacionMod : Form
     {
-
         Hotel hotel = Globals.infoSesion.Hotel;
 
         public HabitacionMod(int codHabitacion)
         {
             InitializeComponent();
-           
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
@@ -27,14 +25,12 @@ namespace FrbaHotel.ABM_de_Habitacion
             textDescripcion.Text = "";
             textNumero.Text = "";
             textPiso.Text = "";
-            
         }
 
         private void botonGuardar_Click(object sender, EventArgs e)
         {
             Habitacion nuevaHabitacion = new Habitacion();
             //falta tipo de codigo
-            
             #region SeCompletaCamposDeHabitacion
             nuevaHabitacion.Id_Habitacion = Convert.ToInt32(textNumero.Text);
             nuevaHabitacion.CodHotel = hotel.CodHotel;
@@ -54,10 +50,21 @@ namespace FrbaHotel.ABM_de_Habitacion
             comboEstado.Items.Add("Deshabilitado");
         }
 
+        private void showToolTip(string msj, Control ventana, Point pos)
+        {
+            toolTip.Hide(ventana);
+            toolTip.SetToolTip(ventana, "Entrada Invalida");
+            toolTip.Show(msj, ventana, 50, 10, 5000);
+        }
 
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
 
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
-
-
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
+        }
     }
 }
