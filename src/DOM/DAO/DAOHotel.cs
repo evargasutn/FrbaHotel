@@ -35,6 +35,19 @@ namespace DOM
             return lista[0];
         }
 
+        public static DataTable obtenerTabla(string nombreHotel)
+        {
+            return retrieveDataTable("getHotelByName", nombreHotel);
+        }
+
+        public static Hotel obtener(string nombreHotel)
+        {
+            List<Hotel> lista = tranductor(obtenerTabla(nombreHotel));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
+        }
+
         public static DataTable obtenerByUsr(string usr)
         {
             return retrieveDataTable("getHotelByUsuario", usr);
@@ -47,7 +60,6 @@ namespace DOM
 
         public static bool insertar(Hotel hotel)
         {
-            int codHotel = hotel.CodHotel;
             string nombre = hotel.Nombre;
             string mail = hotel.Mail;
             int telefono = hotel.Telefono;
@@ -56,10 +68,11 @@ namespace DOM
             string ciudad = hotel.Ciudad;
             string pais = hotel.Pais;
             int estrellas = hotel.Estrellas;
-            return executeProcedure("insertHotel", codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas);
+            int recargo = hotel.Recargo;
+            return executeProcedure("insertHotel", nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas, recargo);
         }
 
-        public static bool borrar(Inhabilitacion inhab/*int codHotel, DateTime fecha_inicio, DateTime fecha_fin,string motivo*/)
+        public static bool borrar(Inhabilitacion inhab)
         {
             string codHotel = inhab.Hotel.ToString();
             string motivo = inhab.Motivo;
@@ -79,7 +92,8 @@ namespace DOM
             string ciudad = hotel.Ciudad;
             string pais = hotel.Pais;
             int estrellas = hotel.Estrellas;
-            return executeProcedure("updateHotel", codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas);
+            int recargo = hotel.Recargo;
+            return executeProcedure("updateHotel", codHotel, nombre, mail, telefono, dir_calle, dir_numero, ciudad, pais, estrellas, recargo);
         }
 
         public static int estaVacio(int codHotel, DateTime inicio, DateTime fin)

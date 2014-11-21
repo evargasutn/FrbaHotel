@@ -19,7 +19,15 @@ namespace DOM.Dominio
         private string ciudad = "''";
         private string pais = "''";
         private int estrellas = -1;
+        private int recargo = -1;
+        #endregion
 
+        #region Recargos
+        private int recargo_1 = 5;
+        private int recargo_2 = 10;
+        private int recargo_3 = 15;
+        private int recargo_4 = 30;
+        private int recargo_5 = 40;
         #endregion
 
         #region Propiedades
@@ -86,10 +94,42 @@ namespace DOM.Dominio
         public int Estrellas
         {
             get { return estrellas; }
-            set { estrellas = value; }
+            set
+            {
+                estrellas = value;
+                setearRecargo(value);
+            }
+        }
+        public int Recargo
+        {
+            get { return recargo; }
         }
 
         #endregion
 
+        #region Auxiliares
+        private void setearRecargo(int estrellas)
+        {
+            switch (estrellas)
+            {
+                case 1:
+                    recargo = recargo_1;
+                    break;
+                case 2:
+                    recargo = recargo_2;
+                    break;
+                case 3:
+                    recargo = recargo_3;
+                    break;
+                case 4:
+                    recargo = recargo_4;
+                    break;
+                case 5:
+                    recargo = recargo_5;
+                    break;
+            }
+        }
+
+        #endregion
     }
 }

@@ -8,7 +8,7 @@ using DOM.Dominio;
 
 namespace DOM.DAO
 {
-    class DAORegimen : SqlConnector
+    public class DAORegimen : SqlConnector
     {
         public static DataTable obtenerTabla()
         {
@@ -46,14 +46,6 @@ namespace DOM.DAO
             return lista[0];
         }
 
-        //public static bool insertar(Regimen regimen)
-        //{
-        //    int codRegimen = regimen.CodRegimen;
-        //    string descripcion = regimen.Descripcion;
-        //    double precio = regimen.Precio;
-        //    return executeProcedure("insertRegimen", codRegimen, descripcion, precio);
-        //}
-
         public static bool borrar(int codRegimen)
         {
             return executeProcedure("deteleRegimen", codRegimen);
@@ -66,6 +58,17 @@ namespace DOM.DAO
             double precio = regimen.Precio;
             int campoBaja = (regimen.Estado) ? 1 : 0;
             return executeProcedure("insertRegimen", codRegimen, descripcion, precio, campoBaja);
+        }
+
+        //Relacion de muchos a muchos
+        public static bool insertarPorHotel(int codRegimen, int codHotel)
+        {
+            return executeProcedure("insertRegimenXHotel", codRegimen, codHotel);
+        }
+
+        public static bool quitarPorHotel(int codRegimen, int codHotel)
+        {
+            return executeProcedure("deleteRegimenXHotel", codRegimen, codHotel);
         }
 
         #region Convertidor de DataTable
