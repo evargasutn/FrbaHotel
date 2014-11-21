@@ -214,7 +214,7 @@ go
 create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES
 (
 	codHotel		numeric(8) identity(1,1) PRIMARY KEY,
-	nombreHotel		varchar(400) not null,
+	nombreHotel		varchar(400) not null unique,
 	mail			varchar(50) default '',
 	fecCreacion		datetime not null,
 	telefono		numeric(20) not null default '11111111',
@@ -1392,10 +1392,10 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimen
 AS
 	--SI RECIBE -1, MUESTRA TODOS LOS REGIMENES HABILITADOS
 	IF (@codigo = -1)
-		SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
+		SELECT R.codRegimen, R.descripcion, R.precio, R.estado FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
 		WHERE R.estado = 1				
 	ELSE
-		SELECT R.codRegimen, R.descripcion, R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
+		SELECT R.codRegimen, R.descripcion, R.precio, R.estado FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
 		WHERE R.codRegimen = @codigo
 GO
 
@@ -1465,6 +1465,40 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteRegimen
 	   WHERE codRegimen = @codigoRegimen
 GO
 
+--/PROC INSERTREGIMENxHOTEL
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertRegimenXHotel', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRegimenXHotel
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRegimenXHotel
+	@codigoRegimen numeric(8),
+	@codHotel numeric(8)
+AS
+	IF(@codigoRegimen != -1 AND @codHotel != -1)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL(codRegimen, codHotel)
+	VALUES (@codigoRegimen, @codHotel)
+GO
+
+--/PROC DELETEREGIMENxHOTEL
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteRegimenXHotel', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteRegimenXHotel
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteRegimenXHotel
+	@codigoRegimen numeric(8),
+	@codHotel numeric(8)
+AS
+	IF(@codigoRegimen != -1 AND @codHotel != -1)
+	DELETE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL
+	WHERE codRegimen = @codigoRegimen AND codHotel = @codHotel
+GO
+
 --/PROCEDIMIENTO GET HOTEL BY USUARIO 
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHotelByUsuario', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelByUsuario
@@ -1507,6 +1541,31 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotel
 		H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella
 		FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
 		WHERE H.codHotel = @codigo
+		ORDER BY H.nombreHotel ASC
+GO
+
+--/PROCEDIMIENTO GET HOTEL BY NAME 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHotelByName', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelByName
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHotelByName
+	@nombre varchar(400)
+	AS
+	--SI RECIBE '', MUESTRA TODOS LOS HOTELES
+	IF (@nombre = '')
+		SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
+		H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella 
+		FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
+		ORDER BY H.nombreHotel ASC
+	ELSE
+		SELECT H.codHotel, H.nombreHotel, H.mail, H.fecCreacion, H.telefono, H.direccionCalle,
+		H.direccionNumero, H.ciudad, H.pais, H.cantEstrellas, H.recargoEstrella
+		FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
+		WHERE H.nombreHotel = @nombre
 		ORDER BY H.nombreHotel ASC
 GO
 
