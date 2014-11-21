@@ -40,6 +40,10 @@ namespace FrbaHotel.ABM_de_Usuario
             this.textPassword1 = new System.Windows.Forms.TextBox();
             this.textUsername = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
+            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
+            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
+            this.textNumDoc = new System.Windows.Forms.MaskedTextBox();
             this.listHotel = new System.Windows.Forms.CheckedListBox();
             this.nota = new System.Windows.Forms.Label();
             this.textDirDpto = new System.Windows.Forms.TextBox();
@@ -64,11 +68,7 @@ namespace FrbaHotel.ABM_de_Usuario
             this.lblRol = new System.Windows.Forms.Label();
             this.lblPassword1 = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
-            this.textNumDoc = new System.Windows.Forms.MaskedTextBox();
-            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
-            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -186,6 +186,42 @@ namespace FrbaHotel.ABM_de_Usuario
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
+            // 
+            // textTelefono
+            // 
+            this.textTelefono.Location = new System.Drawing.Point(138, 235);
+            this.textTelefono.Mask = "9999999999";
+            this.textTelefono.Name = "textTelefono";
+            this.textTelefono.Size = new System.Drawing.Size(141, 20);
+            this.textTelefono.TabIndex = 38;
+            this.textTelefono.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textTelefono_MaskInputRejected);
+            // 
+            // textDirPiso
+            // 
+            this.textDirPiso.Location = new System.Drawing.Point(157, 209);
+            this.textDirPiso.Mask = "99";
+            this.textDirPiso.Name = "textDirPiso";
+            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
+            this.textDirPiso.TabIndex = 37;
+            this.textDirPiso.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirPiso_MaskInputRejected);
+            // 
+            // textDirAltura
+            // 
+            this.textDirAltura.Location = new System.Drawing.Point(50, 209);
+            this.textDirAltura.Mask = "99999";
+            this.textDirAltura.Name = "textDirAltura";
+            this.textDirAltura.Size = new System.Drawing.Size(68, 20);
+            this.textDirAltura.TabIndex = 36;
+            this.textDirAltura.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirAltura_MaskInputRejected);
+            // 
+            // textNumDoc
+            // 
+            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
+            this.textNumDoc.Mask = "999999999";
+            this.textNumDoc.Name = "textNumDoc";
+            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
+            this.textNumDoc.TabIndex = 35;
+            this.textNumDoc.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNumDoc_MaskInputRejected);
             // 
             // listHotel
             // 
@@ -400,48 +436,13 @@ namespace FrbaHotel.ABM_de_Usuario
             this.lblUsername.TabIndex = 0;
             this.lblUsername.Text = "Username*";
             // 
-            // textNumDoc
-            // 
-            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
-            this.textNumDoc.Mask = "999999999";
-            this.textNumDoc.Name = "textNumDoc";
-            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
-            this.textNumDoc.TabIndex = 35;
-            this.textNumDoc.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNumDoc_MaskInputRejected);
-            // 
-            // textDirAltura
-            // 
-            this.textDirAltura.Location = new System.Drawing.Point(50, 209);
-            this.textDirAltura.Mask = "99999";
-            this.textDirAltura.Name = "textDirAltura";
-            this.textDirAltura.Size = new System.Drawing.Size(68, 20);
-            this.textDirAltura.TabIndex = 36;
-            this.textDirAltura.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirAltura_MaskInputRejected);
-            // 
-            // textDirPiso
-            // 
-            this.textDirPiso.Location = new System.Drawing.Point(157, 209);
-            this.textDirPiso.Mask = "99";
-            this.textDirPiso.Name = "textDirPiso";
-            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
-            this.textDirPiso.TabIndex = 37;
-            this.textDirPiso.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirPiso_MaskInputRejected);
-            // 
-            // textTelefono
-            // 
-            this.textTelefono.Location = new System.Drawing.Point(138, 235);
-            this.textTelefono.Mask = "9999999999";
-            this.textTelefono.Name = "textTelefono";
-            this.textTelefono.Size = new System.Drawing.Size(141, 20);
-            this.textTelefono.TabIndex = 38;
-            this.textTelefono.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textTelefono_MaskInputRejected);
-            // 
             // UsuarioAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 381);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "UsuarioAlta";
             this.Text = "Alta de Usuario";
             this.groupBox1.ResumeLayout(false);

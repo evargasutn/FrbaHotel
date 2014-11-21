@@ -32,6 +32,8 @@
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textPiso = new System.Windows.Forms.MaskedTextBox();
+            this.textNumero = new System.Windows.Forms.MaskedTextBox();
             this.comboTipoHab = new System.Windows.Forms.ComboBox();
             this.comboUbicacion = new System.Windows.Forms.ComboBox();
             this.nota = new System.Windows.Forms.Label();
@@ -42,8 +44,6 @@
             this.lblPiso = new System.Windows.Forms.Label();
             this.lblNumero = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.textNumero = new System.Windows.Forms.MaskedTextBox();
-            this.textPiso = new System.Windows.Forms.MaskedTextBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,6 +86,24 @@
             this.groupBox2.TabIndex = 30;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
+            // 
+            // textPiso
+            // 
+            this.textPiso.Location = new System.Drawing.Point(147, 51);
+            this.textPiso.Mask = "99";
+            this.textPiso.Name = "textPiso";
+            this.textPiso.Size = new System.Drawing.Size(69, 20);
+            this.textPiso.TabIndex = 41;
+            this.textPiso.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textPiso_MaskInputRejected);
+            // 
+            // textNumero
+            // 
+            this.textNumero.Location = new System.Drawing.Point(147, 25);
+            this.textNumero.Mask = "9999";
+            this.textNumero.Name = "textNumero";
+            this.textNumero.Size = new System.Drawing.Size(69, 20);
+            this.textNumero.TabIndex = 40;
+            this.textNumero.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNumero_MaskInputRejected);
             // 
             // comboTipoHab
             // 
@@ -166,24 +184,6 @@
             this.lblNumero.TabIndex = 3;
             this.lblNumero.Text = "Número de Habitacion*";
             // 
-            // textNumero
-            // 
-            this.textNumero.Location = new System.Drawing.Point(147, 25);
-            this.textNumero.Mask = "9999";
-            this.textNumero.Name = "textNumero";
-            this.textNumero.Size = new System.Drawing.Size(69, 20);
-            this.textNumero.TabIndex = 40;
-            this.textNumero.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNumero_MaskInputRejected);
-            // 
-            // textPiso
-            // 
-            this.textPiso.Location = new System.Drawing.Point(147, 51);
-            this.textPiso.Mask = "99";
-            this.textPiso.Name = "textPiso";
-            this.textPiso.Size = new System.Drawing.Size(69, 20);
-            this.textPiso.TabIndex = 41;
-            this.textPiso.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textPiso_MaskInputRejected);
-            // 
             // HabitacionAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -192,6 +192,7 @@
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.groupBox2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "HabitacionAlta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de Habitacion";

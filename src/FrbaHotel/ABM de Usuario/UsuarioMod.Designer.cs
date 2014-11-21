@@ -38,6 +38,11 @@
             this.textPassword1 = new System.Windows.Forms.TextBox();
             this.textUsername = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
+            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
+            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
+            this.textDirCalle = new System.Windows.Forms.TextBox();
+            this.textNumDoc = new System.Windows.Forms.MaskedTextBox();
             this.listHotel = new System.Windows.Forms.CheckedListBox();
             this.textDirDpto = new System.Windows.Forms.TextBox();
             this.lblDirDpto = new System.Windows.Forms.Label();
@@ -62,11 +67,6 @@
             this.lblUsername = new System.Windows.Forms.Label();
             this.checkBoxBajaUsr = new System.Windows.Forms.CheckBox();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.textNumDoc = new System.Windows.Forms.MaskedTextBox();
-            this.textDirCalle = new System.Windows.Forms.TextBox();
-            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
-            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
-            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -182,6 +182,49 @@
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos identificatorios";
+            // 
+            // textTelefono
+            // 
+            this.textTelefono.Location = new System.Drawing.Point(139, 235);
+            this.textTelefono.Mask = "9999999999";
+            this.textTelefono.Name = "textTelefono";
+            this.textTelefono.Size = new System.Drawing.Size(140, 20);
+            this.textTelefono.TabIndex = 41;
+            this.textTelefono.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textTelefono_MaskInputRejected);
+            // 
+            // textDirPiso
+            // 
+            this.textDirPiso.Location = new System.Drawing.Point(157, 209);
+            this.textDirPiso.Mask = "99";
+            this.textDirPiso.Name = "textDirPiso";
+            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
+            this.textDirPiso.TabIndex = 40;
+            this.textDirPiso.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirPiso_MaskInputRejected);
+            // 
+            // textDirAltura
+            // 
+            this.textDirAltura.Location = new System.Drawing.Point(46, 209);
+            this.textDirAltura.Mask = "99999";
+            this.textDirAltura.Name = "textDirAltura";
+            this.textDirAltura.Size = new System.Drawing.Size(72, 20);
+            this.textDirAltura.TabIndex = 39;
+            this.textDirAltura.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirAltura_MaskInputRejected);
+            // 
+            // textDirCalle
+            // 
+            this.textDirCalle.Location = new System.Drawing.Point(138, 183);
+            this.textDirCalle.Name = "textDirCalle";
+            this.textDirCalle.Size = new System.Drawing.Size(141, 20);
+            this.textDirCalle.TabIndex = 38;
+            // 
+            // textNumDoc
+            // 
+            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
+            this.textNumDoc.Mask = "999999999";
+            this.textNumDoc.Name = "textNumDoc";
+            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
+            this.textNumDoc.TabIndex = 36;
+            this.textNumDoc.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNumDoc_MaskInputRejected);
             // 
             // listHotel
             // 
@@ -389,49 +432,6 @@
             this.checkBoxBajaUsr.Text = "MarcaBaja";
             this.checkBoxBajaUsr.UseVisualStyleBackColor = true;
             // 
-            // textNumDoc
-            // 
-            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
-            this.textNumDoc.Mask = "999999999";
-            this.textNumDoc.Name = "textNumDoc";
-            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
-            this.textNumDoc.TabIndex = 36;
-            this.textNumDoc.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNumDoc_MaskInputRejected);
-            // 
-            // textDirCalle
-            // 
-            this.textDirCalle.Location = new System.Drawing.Point(138, 183);
-            this.textDirCalle.Name = "textDirCalle";
-            this.textDirCalle.Size = new System.Drawing.Size(141, 20);
-            this.textDirCalle.TabIndex = 38;
-            // 
-            // textDirAltura
-            // 
-            this.textDirAltura.Location = new System.Drawing.Point(46, 209);
-            this.textDirAltura.Mask = "99999";
-            this.textDirAltura.Name = "textDirAltura";
-            this.textDirAltura.Size = new System.Drawing.Size(72, 20);
-            this.textDirAltura.TabIndex = 39;
-            this.textDirAltura.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirAltura_MaskInputRejected);
-            // 
-            // textDirPiso
-            // 
-            this.textDirPiso.Location = new System.Drawing.Point(157, 209);
-            this.textDirPiso.Mask = "99";
-            this.textDirPiso.Name = "textDirPiso";
-            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
-            this.textDirPiso.TabIndex = 40;
-            this.textDirPiso.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirPiso_MaskInputRejected);
-            // 
-            // textTelefono
-            // 
-            this.textTelefono.Location = new System.Drawing.Point(139, 235);
-            this.textTelefono.Mask = "9999999999";
-            this.textTelefono.Name = "textTelefono";
-            this.textTelefono.Size = new System.Drawing.Size(140, 20);
-            this.textTelefono.TabIndex = 41;
-            this.textTelefono.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textTelefono_MaskInputRejected);
-            // 
             // UsuarioMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,6 +439,7 @@
             this.ClientSize = new System.Drawing.Size(441, 395);
             this.Controls.Add(this.checkBoxBajaUsr);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "UsuarioMod";
             this.Text = "Modificar Usuario";
             this.groupBox1.ResumeLayout(false);

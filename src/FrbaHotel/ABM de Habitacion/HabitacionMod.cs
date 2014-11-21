@@ -14,17 +14,40 @@ namespace FrbaHotel.ABM_de_Habitacion
     public partial class HabitacionMod : Form
     {
         Hotel hotel = Globals.infoSesion.Hotel;
-
+        Habitacion habitacion;
         public HabitacionMod(int codHabitacion)
         {
             InitializeComponent();
+            habitacion = DAOHabitacion.obtener(codHabitacion, hotel.CodHotel);
+        }
+
+        private void HabitacionMod_Load(object sender, EventArgs e)
+        {
+
+            comboUbicacion.Items.Add("N");
+            comboUbicacion.Items.Add("S");
+            comboEstado.Items.Add("Habilitado");
+            comboEstado.Items.Add("Deshabilitado");
+        }
+
+        private void limpiarDatos()
+        {
+            textNumero.Text = habitacion.Id_Habitacion.ToString();
+            textPiso.Text = habitacion.Piso.ToString();
+            textDescripcion.Text = habitacion.Descripcion;
+
+            //Combo Estado
+
+            //Seleccionar Tipo
+
+            //Seleccionar Ubicacion
+
+            
         }
 
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
-            textDescripcion.Text = "";
-            textNumero.Text = "";
-            textPiso.Text = "";
+            limpiarDatos();
         }
 
         private void botonGuardar_Click(object sender, EventArgs e)
@@ -38,16 +61,18 @@ namespace FrbaHotel.ABM_de_Habitacion
             nuevaHabitacion.Ubicacion = comboUbicacion.SelectedItem.ToString();
             nuevaHabitacion.Descripcion = textDescripcion.Text;
              nuevaHabitacion.CampoBaja=(comboUbicacion.SelectedItem.ToString()=="Habilitado")?true:false;
-            #endregion
+            #endregion //QUE ASCO DE CODIGO!! QUIEN FUE EL HDP JAJAJA - TOMAS 21/11
             DAOHabitacion.actualizar(nuevaHabitacion);
         }
 
-        private void HabitacionMod_Load(object sender, EventArgs e)
+        private void textNumero_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {
-            comboUbicacion.Items.Add("N");
-            comboUbicacion.Items.Add("S");
-            comboEstado.Items.Add("Habilitado");
-            comboEstado.Items.Add("Deshabilitado");
+            showToolTip("Ingrese solo números.", textNumero, textNumero.Location);
+        }
+
+        private void textPiso_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese solo números.", textPiso, textPiso.Location);
         }
 
         private void showToolTip(string msj, Control ventana, Point pos)

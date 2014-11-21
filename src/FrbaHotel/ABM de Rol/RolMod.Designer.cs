@@ -168,6 +168,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.labelEstado);
             this.Controls.Add(this.labelRol);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "RolMod";
             this.Text = "Modificar Rol";
             this.panel1.ResumeLayout(false);

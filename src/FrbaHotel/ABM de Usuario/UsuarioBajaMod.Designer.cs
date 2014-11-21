@@ -233,6 +233,7 @@
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.dataGridUsuario);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "UsuarioBajaMod";
             this.Text = "Gestión de Usuarios";
             this.groupBox1.ResumeLayout(false);

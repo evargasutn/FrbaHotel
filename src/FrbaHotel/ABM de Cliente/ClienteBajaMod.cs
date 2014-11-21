@@ -84,6 +84,12 @@ namespace FrbaHotel.ABM_de_Cliente
                 "", MessageBoxButtons.OK);
                 return;
             }
+            if ((bool)dataGridCliente.CurrentRow.Cells["campoBaja"].Value)
+            {
+                MessageBox.Show("Cliente ya deshabilitado.",
+                "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
             int idDelete = (int) dataGridCliente.CurrentRow.Cells["idHuesped"].Value;
             DialogResult dr = MessageBox.Show("Desea dar de Baja al usuario "+idDelete.ToString()+"?",
             "", MessageBoxButtons.YesNo);
@@ -101,12 +107,6 @@ namespace FrbaHotel.ABM_de_Cliente
             {
                 MessageBox.Show("Seleccione un Cliente a modificar.",
                 "", MessageBoxButtons.OK);
-                return;
-            }
-            if ((bool)dataGridCliente.CurrentRow.Cells["campoBaja"].Value)
-            {
-                MessageBox.Show("Cliente ya deshabilitado.",
-                "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             int id = (int)dataGridCliente.CurrentRow.Cells["idHuesped"].Value;

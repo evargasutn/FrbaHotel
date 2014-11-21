@@ -112,6 +112,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.Controls.Add(this.labelEstado);
             this.Controls.Add(this.labelFuncionalidad);
             this.Controls.Add(this.labelRol);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "RolAlta";
             this.Text = "Alta de Rol";
             this.ResumeLayout(false);
