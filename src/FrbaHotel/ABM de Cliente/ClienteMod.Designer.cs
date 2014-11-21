@@ -124,6 +124,7 @@
             this.textDirPiso.Name = "textDirPiso";
             this.textDirPiso.Size = new System.Drawing.Size(41, 20);
             this.textDirPiso.TabIndex = 43;
+            this.textDirPiso.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirPiso_MaskInputRejected);
             // 
             // textDirAltura
             // 
@@ -133,6 +134,7 @@
             this.textDirAltura.Size = new System.Drawing.Size(66, 20);
             this.textDirAltura.TabIndex = 42;
             this.textDirAltura.ValidatingType = typeof(int);
+            this.textDirAltura.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirAltura_MaskInputRejected);
             // 
             // textTelefono
             // 

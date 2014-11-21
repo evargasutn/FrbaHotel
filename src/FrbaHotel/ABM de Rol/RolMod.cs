@@ -102,12 +102,19 @@ namespace FrbaHotel.ABM_de_Rol
 
         private void botonGuardar_Click(object sender, EventArgs e)
         {
-            rolSeleccionado.Nombre = (string)textRol.Text;
+            rolSeleccionado.Nombre = textRol.Text;
             if ((string)comboEstado.SelectedItem == "Activo")
                 rolSeleccionado.Estado = true;
             else
                 rolSeleccionado.Estado = false;
-            DAORol.guardar(rolSeleccionado);
+            
+            if (DAORol.guardar(rolSeleccionado))
+            {
+                toolTip.Hide(textRol);
+                toolTip.SetToolTip(textRol, "Entrada Invalida");
+                toolTip.Show("Ingrese un nombre de Rol Válido.", textRol, 50, 10, 5000);
+                return;
+            }
             DAOFuncionalidad.updateFuncXRol(rolSeleccionado.Nombre, lista_alta, lista_baja);
             ((RolBajaMod)Globals.VentanaAnterior).updateGrid();
             this.Close();

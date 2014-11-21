@@ -29,6 +29,7 @@ namespace FrbaHotel.ABM_de_Rol
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelRol = new System.Windows.Forms.Label();
             this.labelFuncionalidad = new System.Windows.Forms.Label();
             this.labelEstado = new System.Windows.Forms.Label();
@@ -36,6 +37,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.comboFuncionalidades = new System.Windows.Forms.ComboBox();
             this.textRol = new System.Windows.Forms.TextBox();
             this.comboEstado = new System.Windows.Forms.ComboBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // labelRol
@@ -98,7 +100,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.comboEstado.Size = new System.Drawing.Size(130, 21);
             this.comboEstado.TabIndex = 8;
             // 
-            // FormRolAlta
+            // RolAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -110,7 +112,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.Controls.Add(this.labelEstado);
             this.Controls.Add(this.labelFuncionalidad);
             this.Controls.Add(this.labelRol);
-            this.Name = "FormRolAlta";
+            this.Name = "RolAlta";
             this.Text = "Alta de Rol";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -126,5 +128,6 @@ namespace FrbaHotel.ABM_de_Rol
         private System.Windows.Forms.ComboBox comboFuncionalidades;
         private System.Windows.Forms.TextBox textRol;
         private System.Windows.Forms.ComboBox comboEstado;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

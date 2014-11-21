@@ -86,14 +86,15 @@ namespace FrbaHotel.Login
                     new Registrar_Consumible.RegistrarConsumibles().Show();
                     break;
 
-                /*Falta ABM facturar*/
+                case "Facturar Estadia":
+                    new ABM_de_Facturas.FacturasList().Show();
+                    break;
 
                 case "Listado Estadistico":
                     new Listado_Estadistico.ListadoEstadistico().Show() ;
                     break;
             }
             Globals.deshabilitarAnterior(this);
-
         }
 
         private void MainPanel_Load(object sender, EventArgs e)

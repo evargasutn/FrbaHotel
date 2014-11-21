@@ -144,6 +144,7 @@ namespace FrbaHotel.ABM_de_Cliente
         
         private void showToolTip(string msj, Control ventana, Point pos)
         {
+            toolTip.Hide(ventana);
             toolTip.SetToolTip(ventana, "Entrada Invalida");
             toolTip.Show(msj, ventana, 50, 10, 5000);
         }
@@ -202,5 +203,26 @@ namespace FrbaHotel.ABM_de_Cliente
         {
             cargarDatos();
         }
+
+        private void textTelefono_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese solamente numeros.", textTelefono, textTelefono.Location);
+        }
+
+        private void textNumDoc_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese solamente numeros.", textNumDoc, textNumDoc.Location);
+        }
+
+        private void textDirAltura_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese solamente numeros.", textDirAltura, textDirAltura.Location);
+        }
+
+        private void textDirPiso_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese solamente numeros.", textDirPiso, textDirPiso.Location);
+        }
+
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.listRol = new System.Windows.Forms.CheckedListBox();
             this.textPassword2 = new System.Windows.Forms.TextBox();
@@ -38,19 +39,13 @@
             this.textUsername = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listHotel = new System.Windows.Forms.CheckedListBox();
-            this.nota = new System.Windows.Forms.Label();
             this.textDirDpto = new System.Windows.Forms.TextBox();
-            this.textDirPiso = new System.Windows.Forms.TextBox();
             this.lblDirDpto = new System.Windows.Forms.Label();
             this.lblDirPiso = new System.Windows.Forms.Label();
-            this.textDirAltura = new System.Windows.Forms.TextBox();
             this.lblDirAltura = new System.Windows.Forms.Label();
             this.dateTimeNacimiento = new System.Windows.Forms.DateTimePicker();
             this.comboTipoDoc = new System.Windows.Forms.ComboBox();
-            this.textDirCalle = new System.Windows.Forms.TextBox();
-            this.textTelefono = new System.Windows.Forms.TextBox();
             this.textMail = new System.Windows.Forms.TextBox();
-            this.textNumDoc = new System.Windows.Forms.TextBox();
             this.textApellido = new System.Windows.Forms.TextBox();
             this.textNombre = new System.Windows.Forms.TextBox();
             this.lblHotel = new System.Windows.Forms.Label();
@@ -66,6 +61,12 @@
             this.lblPassword1 = new System.Windows.Forms.Label();
             this.lblUsername = new System.Windows.Forms.Label();
             this.checkBoxBajaUsr = new System.Windows.Forms.CheckBox();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.textNumDoc = new System.Windows.Forms.MaskedTextBox();
+            this.textDirCalle = new System.Windows.Forms.TextBox();
+            this.textDirAltura = new System.Windows.Forms.MaskedTextBox();
+            this.textDirPiso = new System.Windows.Forms.MaskedTextBox();
+            this.textTelefono = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -111,9 +112,9 @@
             this.lblPassword2.AutoSize = true;
             this.lblPassword2.Location = new System.Drawing.Point(4, 97);
             this.lblPassword2.Name = "lblPassword2";
-            this.lblPassword2.Size = new System.Drawing.Size(104, 13);
+            this.lblPassword2.Size = new System.Drawing.Size(100, 13);
             this.lblPassword2.TabIndex = 27;
-            this.lblPassword2.Text = "Confirmar Password*";
+            this.lblPassword2.Text = "Confirmar Password";
             // 
             // botonLimpiar
             // 
@@ -151,20 +152,19 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listHotel);
-            this.groupBox2.Controls.Add(this.nota);
-            this.groupBox2.Controls.Add(this.textDirDpto);
+            this.groupBox2.Controls.Add(this.textTelefono);
             this.groupBox2.Controls.Add(this.textDirPiso);
+            this.groupBox2.Controls.Add(this.textDirAltura);
+            this.groupBox2.Controls.Add(this.textDirCalle);
+            this.groupBox2.Controls.Add(this.textNumDoc);
+            this.groupBox2.Controls.Add(this.listHotel);
+            this.groupBox2.Controls.Add(this.textDirDpto);
             this.groupBox2.Controls.Add(this.lblDirDpto);
             this.groupBox2.Controls.Add(this.lblDirPiso);
-            this.groupBox2.Controls.Add(this.textDirAltura);
             this.groupBox2.Controls.Add(this.lblDirAltura);
             this.groupBox2.Controls.Add(this.dateTimeNacimiento);
             this.groupBox2.Controls.Add(this.comboTipoDoc);
-            this.groupBox2.Controls.Add(this.textDirCalle);
-            this.groupBox2.Controls.Add(this.textTelefono);
             this.groupBox2.Controls.Add(this.textMail);
-            this.groupBox2.Controls.Add(this.textNumDoc);
             this.groupBox2.Controls.Add(this.textApellido);
             this.groupBox2.Controls.Add(this.textNombre);
             this.groupBox2.Controls.Add(this.lblHotel);
@@ -186,20 +186,10 @@
             // listHotel
             // 
             this.listHotel.FormattingEnabled = true;
-            this.listHotel.Location = new System.Drawing.Point(140, 267);
+            this.listHotel.Location = new System.Drawing.Point(138, 267);
             this.listHotel.Name = "listHotel";
-            this.listHotel.Size = new System.Drawing.Size(138, 49);
+            this.listHotel.Size = new System.Drawing.Size(141, 49);
             this.listHotel.TabIndex = 35;
-            // 
-            // nota
-            // 
-            this.nota.AutoSize = true;
-            this.nota.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nota.Location = new System.Drawing.Point(6, 297);
-            this.nota.Name = "nota";
-            this.nota.Size = new System.Drawing.Size(127, 13);
-            this.nota.TabIndex = 34;
-            this.nota.Text = "*Campos Obligatorios";
             // 
             // textDirDpto
             // 
@@ -207,13 +197,6 @@
             this.textDirDpto.Name = "textDirDpto";
             this.textDirDpto.Size = new System.Drawing.Size(39, 20);
             this.textDirDpto.TabIndex = 32;
-            // 
-            // textDirPiso
-            // 
-            this.textDirPiso.Location = new System.Drawing.Point(157, 209);
-            this.textDirPiso.Name = "textDirPiso";
-            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
-            this.textDirPiso.TabIndex = 31;
             // 
             // lblDirDpto
             // 
@@ -233,21 +216,14 @@
             this.lblDirPiso.TabIndex = 29;
             this.lblDirPiso.Text = "Piso";
             // 
-            // textDirAltura
-            // 
-            this.textDirAltura.Location = new System.Drawing.Point(46, 209);
-            this.textDirAltura.Name = "textDirAltura";
-            this.textDirAltura.Size = new System.Drawing.Size(72, 20);
-            this.textDirAltura.TabIndex = 28;
-            // 
             // lblDirAltura
             // 
             this.lblDirAltura.AutoSize = true;
             this.lblDirAltura.Location = new System.Drawing.Point(6, 212);
             this.lblDirAltura.Name = "lblDirAltura";
-            this.lblDirAltura.Size = new System.Drawing.Size(38, 13);
+            this.lblDirAltura.Size = new System.Drawing.Size(34, 13);
             this.lblDirAltura.TabIndex = 27;
-            this.lblDirAltura.Text = "Altura*";
+            this.lblDirAltura.Text = "Altura";
             // 
             // dateTimeNacimiento
             // 
@@ -274,33 +250,12 @@
             this.comboTipoDoc.Size = new System.Drawing.Size(141, 21);
             this.comboTipoDoc.TabIndex = 25;
             // 
-            // textDirCalle
-            // 
-            this.textDirCalle.Location = new System.Drawing.Point(138, 183);
-            this.textDirCalle.Name = "textDirCalle";
-            this.textDirCalle.Size = new System.Drawing.Size(141, 20);
-            this.textDirCalle.TabIndex = 19;
-            // 
-            // textTelefono
-            // 
-            this.textTelefono.Location = new System.Drawing.Point(138, 235);
-            this.textTelefono.Name = "textTelefono";
-            this.textTelefono.Size = new System.Drawing.Size(141, 20);
-            this.textTelefono.TabIndex = 18;
-            // 
             // textMail
             // 
             this.textMail.Location = new System.Drawing.Point(138, 157);
             this.textMail.Name = "textMail";
             this.textMail.Size = new System.Drawing.Size(141, 20);
             this.textMail.TabIndex = 17;
-            // 
-            // textNumDoc
-            // 
-            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
-            this.textNumDoc.Name = "textNumDoc";
-            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
-            this.textNumDoc.TabIndex = 16;
             // 
             // textApellido
             // 
@@ -321,108 +276,108 @@
             this.lblHotel.AutoSize = true;
             this.lblHotel.Location = new System.Drawing.Point(6, 264);
             this.lblHotel.Name = "lblHotel";
-            this.lblHotel.Size = new System.Drawing.Size(36, 13);
+            this.lblHotel.Size = new System.Drawing.Size(32, 13);
             this.lblHotel.TabIndex = 11;
-            this.lblHotel.Text = "Hotel*";
+            this.lblHotel.Text = "Hotel";
             // 
             // lblNacimiento
             // 
             this.lblNacimiento.AutoSize = true;
-            this.lblNacimiento.Location = new System.Drawing.Point(6, 137);
+            this.lblNacimiento.Location = new System.Drawing.Point(6, 133);
             this.lblNacimiento.Name = "lblNacimiento";
-            this.lblNacimiento.Size = new System.Drawing.Size(110, 13);
+            this.lblNacimiento.Size = new System.Drawing.Size(106, 13);
             this.lblNacimiento.TabIndex = 10;
-            this.lblNacimiento.Text = "Fecha de Nacimento*";
+            this.lblNacimiento.Text = "Fecha de Nacimento";
             // 
             // lblDirCalle
             // 
             this.lblDirCalle.AutoSize = true;
             this.lblDirCalle.Location = new System.Drawing.Point(6, 186);
             this.lblDirCalle.Name = "lblDirCalle";
-            this.lblDirCalle.Size = new System.Drawing.Size(34, 13);
+            this.lblDirCalle.Size = new System.Drawing.Size(30, 13);
             this.lblDirCalle.TabIndex = 9;
-            this.lblDirCalle.Text = "Calle*";
+            this.lblDirCalle.Text = "Calle";
             // 
             // lblTelefono
             // 
             this.lblTelefono.AutoSize = true;
             this.lblTelefono.Location = new System.Drawing.Point(6, 238);
             this.lblTelefono.Name = "lblTelefono";
-            this.lblTelefono.Size = new System.Drawing.Size(53, 13);
+            this.lblTelefono.Size = new System.Drawing.Size(49, 13);
             this.lblTelefono.TabIndex = 8;
-            this.lblTelefono.Text = "Télefono*";
+            this.lblTelefono.Text = "Télefono";
             // 
             // lblMail
             // 
             this.lblMail.AutoSize = true;
             this.lblMail.Location = new System.Drawing.Point(6, 160);
             this.lblMail.Name = "lblMail";
-            this.lblMail.Size = new System.Drawing.Size(30, 13);
+            this.lblMail.Size = new System.Drawing.Size(26, 13);
             this.lblMail.TabIndex = 7;
-            this.lblMail.Text = "Mail*";
+            this.lblMail.Text = "Mail";
             // 
             // lblNumDoc
             // 
             this.lblNumDoc.AutoSize = true;
             this.lblNumDoc.Location = new System.Drawing.Point(6, 108);
             this.lblNumDoc.Name = "lblNumDoc";
-            this.lblNumDoc.Size = new System.Drawing.Size(121, 13);
+            this.lblNumDoc.Size = new System.Drawing.Size(117, 13);
             this.lblNumDoc.TabIndex = 6;
-            this.lblNumDoc.Text = "Numero de Documento*";
+            this.lblNumDoc.Text = "Numero de Documento";
             // 
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
             this.lblNombre.Location = new System.Drawing.Point(6, 29);
             this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(48, 13);
+            this.lblNombre.Size = new System.Drawing.Size(44, 13);
             this.lblNombre.TabIndex = 3;
-            this.lblNombre.Text = "Nombre*";
+            this.lblNombre.Text = "Nombre";
             // 
             // lblTipoDoc
             // 
             this.lblTipoDoc.AutoSize = true;
             this.lblTipoDoc.Location = new System.Drawing.Point(6, 81);
             this.lblTipoDoc.Name = "lblTipoDoc";
-            this.lblTipoDoc.Size = new System.Drawing.Size(105, 13);
+            this.lblTipoDoc.Size = new System.Drawing.Size(101, 13);
             this.lblTipoDoc.TabIndex = 5;
-            this.lblTipoDoc.Text = "Tipo de Documento*";
+            this.lblTipoDoc.Text = "Tipo de Documento";
             // 
             // lblApellido
             // 
             this.lblApellido.AutoSize = true;
             this.lblApellido.Location = new System.Drawing.Point(6, 55);
             this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(48, 13);
+            this.lblApellido.Size = new System.Drawing.Size(44, 13);
             this.lblApellido.TabIndex = 4;
-            this.lblApellido.Text = "Apellido*";
+            this.lblApellido.Text = "Apellido";
             // 
             // lblRol
             // 
             this.lblRol.AutoSize = true;
             this.lblRol.Location = new System.Drawing.Point(6, 136);
             this.lblRol.Name = "lblRol";
-            this.lblRol.Size = new System.Drawing.Size(27, 13);
+            this.lblRol.Size = new System.Drawing.Size(23, 13);
             this.lblRol.TabIndex = 2;
-            this.lblRol.Text = "Rol*";
+            this.lblRol.Text = "Rol";
             // 
             // lblPassword1
             // 
             this.lblPassword1.AutoSize = true;
             this.lblPassword1.Location = new System.Drawing.Point(6, 58);
             this.lblPassword1.Name = "lblPassword1";
-            this.lblPassword1.Size = new System.Drawing.Size(57, 13);
+            this.lblPassword1.Size = new System.Drawing.Size(53, 13);
             this.lblPassword1.TabIndex = 1;
-            this.lblPassword1.Text = "Password*";
+            this.lblPassword1.Text = "Password";
             // 
             // lblUsername
             // 
             this.lblUsername.AutoSize = true;
             this.lblUsername.Location = new System.Drawing.Point(6, 19);
             this.lblUsername.Name = "lblUsername";
-            this.lblUsername.Size = new System.Drawing.Size(59, 13);
+            this.lblUsername.Size = new System.Drawing.Size(55, 13);
             this.lblUsername.TabIndex = 0;
-            this.lblUsername.Text = "Username*";
+            this.lblUsername.Text = "Username";
             // 
             // checkBoxBajaUsr
             // 
@@ -434,14 +389,57 @@
             this.checkBoxBajaUsr.Text = "MarcaBaja";
             this.checkBoxBajaUsr.UseVisualStyleBackColor = true;
             // 
-            // FormModUser
+            // textNumDoc
+            // 
+            this.textNumDoc.Location = new System.Drawing.Point(138, 105);
+            this.textNumDoc.Mask = "999999999";
+            this.textNumDoc.Name = "textNumDoc";
+            this.textNumDoc.Size = new System.Drawing.Size(141, 20);
+            this.textNumDoc.TabIndex = 36;
+            this.textNumDoc.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNumDoc_MaskInputRejected);
+            // 
+            // textDirCalle
+            // 
+            this.textDirCalle.Location = new System.Drawing.Point(138, 183);
+            this.textDirCalle.Name = "textDirCalle";
+            this.textDirCalle.Size = new System.Drawing.Size(141, 20);
+            this.textDirCalle.TabIndex = 38;
+            // 
+            // textDirAltura
+            // 
+            this.textDirAltura.Location = new System.Drawing.Point(46, 209);
+            this.textDirAltura.Mask = "99999";
+            this.textDirAltura.Name = "textDirAltura";
+            this.textDirAltura.Size = new System.Drawing.Size(72, 20);
+            this.textDirAltura.TabIndex = 39;
+            this.textDirAltura.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirAltura_MaskInputRejected);
+            // 
+            // textDirPiso
+            // 
+            this.textDirPiso.Location = new System.Drawing.Point(157, 209);
+            this.textDirPiso.Mask = "99";
+            this.textDirPiso.Name = "textDirPiso";
+            this.textDirPiso.Size = new System.Drawing.Size(41, 20);
+            this.textDirPiso.TabIndex = 40;
+            this.textDirPiso.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textDirPiso_MaskInputRejected);
+            // 
+            // textTelefono
+            // 
+            this.textTelefono.Location = new System.Drawing.Point(139, 235);
+            this.textTelefono.Mask = "9999999999";
+            this.textTelefono.Name = "textTelefono";
+            this.textTelefono.Size = new System.Drawing.Size(140, 20);
+            this.textTelefono.TabIndex = 41;
+            this.textTelefono.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textTelefono_MaskInputRejected);
+            // 
+            // UsuarioMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(441, 395);
             this.Controls.Add(this.checkBoxBajaUsr);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FormModUser";
+            this.Name = "UsuarioMod";
             this.Text = "Modificar Usuario";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -463,17 +461,12 @@
         private System.Windows.Forms.TextBox textUsername;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textDirDpto;
-        private System.Windows.Forms.TextBox textDirPiso;
         private System.Windows.Forms.Label lblDirDpto;
         private System.Windows.Forms.Label lblDirPiso;
-        private System.Windows.Forms.TextBox textDirAltura;
         private System.Windows.Forms.Label lblDirAltura;
         private System.Windows.Forms.DateTimePicker dateTimeNacimiento;
         private System.Windows.Forms.ComboBox comboTipoDoc;
-        private System.Windows.Forms.TextBox textDirCalle;
-        private System.Windows.Forms.TextBox textTelefono;
         private System.Windows.Forms.TextBox textMail;
-        private System.Windows.Forms.TextBox textNumDoc;
         private System.Windows.Forms.TextBox textApellido;
         private System.Windows.Forms.TextBox textNombre;
         private System.Windows.Forms.Label lblHotel;
@@ -489,9 +482,14 @@
         private System.Windows.Forms.Label lblPassword1;
         private System.Windows.Forms.Label lblUsername;
         private System.Windows.Forms.CheckedListBox listRol;
-        private System.Windows.Forms.Label nota;
         private System.Windows.Forms.CheckedListBox listHotel;
         private System.Windows.Forms.CheckBox checkBoxBajaUsr;
+        private System.Windows.Forms.MaskedTextBox textNumDoc;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.MaskedTextBox textDirAltura;
+        private System.Windows.Forms.TextBox textDirCalle;
+        private System.Windows.Forms.MaskedTextBox textTelefono;
+        private System.Windows.Forms.MaskedTextBox textDirPiso;
 
 
     }

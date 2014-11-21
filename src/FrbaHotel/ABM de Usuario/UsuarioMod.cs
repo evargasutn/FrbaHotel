@@ -10,6 +10,7 @@ using DOM;
 using DOM.DAO;
 using DOM.Dominio;
 using DOM.Auxiliares;
+using System.Net.Mail;
 
 namespace FrbaHotel.ABM_de_Usuario
 {
@@ -148,25 +149,77 @@ namespace FrbaHotel.ABM_de_Usuario
         private Boolean camposCompletos()
         {
             if (textUsername.Text == "")
+            {
+                showToolTip("Ingrese un usuario válido.", textUsername, textUsername.Location);
                 return false;
+            }
             else if (textNombre.Text == "")
+            {
+                showToolTip("Ingrese un nombre.", textNombre, textNombre.Location);
                 return false;
+            }
             else if (textApellido.Text == "")
+            {
+                showToolTip("Ingrese un apellido.", textApellido, textApellido.Location);
                 return false;
+            }
             else if (textPassword1.Text == "")
+            {
+                showToolTip("Ingrese un password.", textPassword1, textPassword1.Location);
                 return false;
+            }
+            else if (comboTipoDoc.SelectedIndex == -1)
+            {
+                showToolTip("Seleccione un Tipo de documento.", comboTipoDoc, comboTipoDoc.Location);
+                return false;
+            }
             else if (textNumDoc.Text == "")
+            {
+                showToolTip("Ingrese un Documento.", textNumDoc, textNumDoc.Location);
                 return false;
-            else if (textDirCalle.Text == "")
+            }
+            else if (textMail.Text == "")
+            {
+                showToolTip("Ingrese un email.", textMail, textMail.Location);
                 return false;
+            }
+            else
+            {
+                try
+                {
+                    new MailAddress(textMail.Text);
+                }
+                catch
+                {
+                    showToolTip("Ingrese un email válido.", textMail, textMail.Location);
+                    return false;
+                }
+            }
+            if (textDirCalle.Text == "")
+            {
+                showToolTip("Ingrese una Direccion válida.", textDirCalle, textDirCalle.Location);
+                return false;
+            }
             else if (textDirAltura.Text == "")
+            {
+                showToolTip("Ingrese una Direccion válida.", textDirAltura, textDirAltura.Location);
                 return false;
+            }
             else if (dateTimeNacimiento.Text == "")
+            {
+                showToolTip("Ingrese una fecha de Nacimiento.", dateTimeNacimiento, dateTimeNacimiento.Location);
                 return false;
+            }
             else if (listRol.SelectedItems == null)
+            {
+                showToolTip("Seleccione al menos un Rol.", listRol, listRol.Location);
                 return false;
+            }
             else if (listHotel.SelectedItems == null)
+            {
+                showToolTip("Seleccione al menos un Hotel.", listHotel, listHotel.Location);
                 return false;
+            }
             return true;
         }
 
@@ -178,6 +231,33 @@ namespace FrbaHotel.ABM_de_Usuario
 
             // Confirm user wants to close
             Globals.habilitarAnterior();
+        }
+
+        private void textNumDoc_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese solamente numeros.", textNumDoc, textNumDoc.Location);
+        }
+
+        private void textDirAltura_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese solamente numeros.", textDirAltura, textDirAltura.Location);
+        }
+
+        private void textDirPiso_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese solamente numeros.", textDirPiso, textDirPiso.Location);
+        }
+
+        private void textTelefono_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese solamente numeros.", textTelefono, textTelefono.Location);
+        }
+
+        private void showToolTip(string msj, Control ventana, Point pos)
+        {
+            toolTip.Hide(ventana);
+            toolTip.SetToolTip(ventana, "Entrada Invalida");
+            toolTip.Show(msj, ventana, 50, 10, 5000);
         }
     }
 }

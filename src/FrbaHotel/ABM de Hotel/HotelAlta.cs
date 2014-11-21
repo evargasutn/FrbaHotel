@@ -161,6 +161,7 @@ namespace FrbaHotel.ABM_de_Hotel
 
         private void showToolTip(string msj, Control ventana, Point pos)
         {
+            toolTip.Hide(ventana);
             toolTip.SetToolTip(ventana, "Entrada Invalida");
             toolTip.Show(msj, ventana, 50, 10, 5000);
         }

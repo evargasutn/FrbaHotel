@@ -29,6 +29,7 @@ namespace FrbaHotel.ABM_de_Rol
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.comboEstado = new System.Windows.Forms.ComboBox();
             this.textRol = new System.Windows.Forms.TextBox();
             this.comboFuncionalidad = new System.Windows.Forms.ComboBox();
@@ -41,6 +42,7 @@ namespace FrbaHotel.ABM_de_Rol
             this.botonAgregar = new System.Windows.Forms.Button();
             this.botonQuitar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -189,6 +191,7 @@ namespace FrbaHotel.ABM_de_Rol
         private System.Windows.Forms.Button botonAgregar;
         private System.Windows.Forms.Button botonQuitar;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ToolTip toolTip;
 
     }
 }

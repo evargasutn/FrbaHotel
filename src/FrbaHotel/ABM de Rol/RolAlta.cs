@@ -28,11 +28,20 @@ namespace FrbaHotel.ABM_de_Rol
         private bool todosCamposCompletos()
         {
             if (textRol.Text == "")
+            {
+                showToolTip("Ingrese un nombre.", textRol, textRol.Location);
                 return false;
-            if (comboEstado.SelectedItem == null)
+            }
+            if (comboEstado.SelectedIndex == -1)
+            {
+                showToolTip("Seleccione un estado.", comboEstado, comboEstado.Location);
                 return false;
-            if (comboFuncionalidades.SelectedItem == null)
+            }
+            if (comboFuncionalidades.SelectedIndex == -1)
+            {
+                showToolTip("Seleccione una funcionalidad", comboFuncionalidades, comboFuncionalidades.Location);
                 return false;
+            }
             return true;
         }
 
@@ -67,9 +76,13 @@ namespace FrbaHotel.ABM_de_Rol
                 ((RolBajaMod)Globals.VentanaAnterior).updateGrid();
                 this.Dispose();
             }
-            else
-                MessageBox.Show("Complete todos los campos", "Error al crear Nuevo Rol",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void showToolTip(string msj, Control ventana, Point pos)
+        {
+            toolTip.Hide(ventana);
+            toolTip.SetToolTip(ventana, "Entrada Invalida");
+            toolTip.Show(msj, ventana, 50, 10, 5000);
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
