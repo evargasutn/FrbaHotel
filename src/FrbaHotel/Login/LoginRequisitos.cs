@@ -23,7 +23,7 @@ namespace FrbaHotel.Login
         {
             InitializeComponent();
             
-            if (usuario != null)
+            if (usuario.Usr != "GUEST")
             {
                 ///Completa combo hoteles
                 hotelesDeUsuario = DAOHotel.obtenerTodos(usuario.Usr);
@@ -57,7 +57,7 @@ namespace FrbaHotel.Login
         {
             Hotel hotelSeleccionado = hotelesDeUsuario.Find(x => x.Nombre == ((Hotel)comboHoteles.SelectedItem).Nombre);
             Rol rolSeleccionado;
-            if (usuario != null)
+            if (usuario.Usr != "GUEST")
                 rolSeleccionado = rolesDeUsuario.Find(x => x.Nombre == ((Rol)comboRoles.SelectedItem).Nombre);
             else
                 rolSeleccionado = rol;

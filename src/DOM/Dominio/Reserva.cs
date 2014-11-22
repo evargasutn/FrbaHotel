@@ -79,6 +79,7 @@ namespace DOM.Dominio
 
         //No es para datos, solo de transicion cuando sea necesaria
         public List<Detalle_Reserva> detalles_reserva = new List<Detalle_Reserva>();
+        public Tipo_Habitacion tipo_habitacion;
         public int cantHabitaciones = 0;
     }
 

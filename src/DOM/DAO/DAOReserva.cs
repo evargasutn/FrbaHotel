@@ -58,7 +58,8 @@ namespace DOM
             string fecDesde = reserva.Fecha_Inicio;
             string fecHasta = reserva.Fecha_Fin;
             string fecReserva = reserva.Fecha_Reserva;
-            return executeProcedure("insertReserva", idHuesped, usr, fecDesde, fecHasta, fecReserva);
+            int regimen = reserva.CodigoRegimen;
+            return executeProcedure("insertReserva", idHuesped, usr, regimen, fecDesde, fecHasta, fecReserva);
         }
         public static bool agregarHabitacion(Detalle_Reserva detalle)
         {
@@ -67,6 +68,18 @@ namespace DOM
             int habitacion = detalle.Habitacion;
             return executeProcedure("insertDetalleReserva", codReserva, codHotel, habitacion);
         }
+
+        public static DataTable habitacionDisponiblesTabla(int codHotel, string fechaDesde, string fechaHasta)
+        {
+            return retrieveDataTable("existenHab", codHotel ,fechaDesde, fechaHasta);
+        }
+        public static List<Habitacion> habitacionDisponibles(int codHotel, string fechaDesde, string fechaHasta)
+        {
+            return DAOHabitacion.transductor(habitacionDisponiblesTabla(codHotel, fechaDesde, fechaHasta));
+        }
+
+
+
 
         #region Transductores
         public static List<Reserva> transductor(DataTable dt)
