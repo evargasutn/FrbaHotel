@@ -565,7 +565,9 @@ GO
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre, apellido, tipoDocu, numDocu, direccionCalle, direccionNumero, FecNacimiento, mail) 
 	VALUES 	('admin','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','ADMINISTRADOR General', 'GEREZ', 'DNI', '24264123', 'Av. Cordoba', '8834', 17-04-1981, 'admin@frbaHoteles.com.ar')
 GO
-
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr,password, nombre, apellido, tipoDocu, numDocu, direccionCalle, direccionNumero, FecNacimiento, mail) 
+	VALUES 	('GUEST','e6b87050bfcb8143fcb8db0170a4dc9ed00d904ddd3e2a4ad1b1e8dc0fdc9be7','Invitado', 'Invitado', 'DNI', '37608533', 'Av. Cordoba', '8834', 17-04-1981, 'admin@frbaHoteles.com.ar')
+GO
 
 
 --//ROL
@@ -579,7 +581,9 @@ GO
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO (nombreRol, usr) 
 	VALUES ('ADMINISTRADOR','admin')
 GO
-
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO (nombreRol, usr) 
+	VALUES ('GUEST','GUEST')
+GO
 --//FUNCIONALIDADES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.FUNCIONALIDADES (idFuncionalidad, descripcion) 
 	VALUES 	('1','ABM de Rol'), 
