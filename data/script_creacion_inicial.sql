@@ -1441,23 +1441,46 @@ AS
 	WHERE habitacion= @habitacion AND codHotel = @codHotel
 GO
 
---/PROCEDIMIENTO GET REGIMEN BY HOTEL 
-IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel', 'P' ) IS NOT NULL 
-		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
+
+/*********************************************************************************
+ *AUXILIAR PARA BUSCAR DISPONIBILIDAD DE HABITACIONES EN RAGO DE FECHAS
+ *********************************************************************************/
+ 
+--/FUNCION HABITACIONES RESERVADAS
+IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas', N'FN') IS NOT NULL
+    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas
+GO
+CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas
+(@codHotel numeric(8), @fechaDesde datetime, @fechaHasta datetime)
+RETURNS TABLE AS RETURN
+	SELECT H.habitacion
+	FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H ON H.habitacion = DR.habitacion
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R ON R.codReserva = DR.codReserva
+	WHERE DR.codHotel = @codHotel AND
+		  H.campoBaja = 0 AND
+		  R.fecDesde BETWEEN @fechaDesde AND @fechaHasta AND
+		  R.fecHasta BETWEEN @fechaDesde AND @fechaHasta
+GO
+
+--//PROC HABITACIOINES DISPONIBLES
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.habitacionesDisponibles', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.habitacionesDisponibles
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_NULLS ON
 GO
-CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
-@codigo numeric(8)
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.habitacionesDisponibles
+	@codHotel numeric(8),
+	@fechaDesde datetime,
+	@fechaHasta datetime
 AS
-		IF(@codigo != -1)
-		SELECT reg.codRegimen, reg.descripcion, reg.estado, reg.precio
-		FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES reg 
-		JOIN COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL hotel
-		ON reg.codRegimen = hotel.codRegimen
-		WHERE hotel.codHotel = @codigo
+	SELECT *
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+	WHERE codHotel = @codHotel AND
+		  campoBaja = 0 AND
+		  habitacion NOT IN (COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas(@codHotel, @fechaDesde, @fechaHasta))
 GO
 
 --/PROCEDIMIENTO GET REGIMEN 
