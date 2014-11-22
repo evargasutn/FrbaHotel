@@ -1883,28 +1883,41 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertReserva
 	@idHuesped int,
 	@usr varchar(50), 
-	@habitacion numeric(4), 
-	@piso numeric(2), 
-	@codHotel numeric(8), 
 	@codRegimen numeric(8), 
 	@fecDesde datetime, 
 	@fecHasta datetime,
 	@fecReserva datetime	
 AS
-	IF(@idHuesped != -1 AND @usr != '' AND @habitacion != -1 AND @piso != -1 AND @codHotel != -1 AND
+	IF(@idHuesped != -1 AND @usr != '' AND
 		@codRegimen != -1 AND @fecDesde IS NOT NULL AND @fecHasta IS NOT NULL AND
 		@fecReserva IS NOT NULL)
 	DECLARE @max_codReservaUltimo bigint
 	
 	--INSERT EN LA TABLA DE RESERVAS
 	SET @max_codReservaUltimo = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoCodigoReserva()
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva,idHuesped, estado,usr, fecDesde, fecHasta, fecReserva)
-	VALUES(@max_codReservaUltimo + 1, @idHuesped, '1',@usr, @fecDesde, @fecHasta, @fecReserva)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva,idHuesped, estado, usr, codRegimen, fecDesde, fecHasta, fecReserva)
+	VALUES(@max_codReservaUltimo + 1, @idHuesped, '1',@usr, @codRegimen, @fecDesde, @fecHasta, @fecReserva)
+GO
+
+--/PROC AGREGARDETALLERESERVA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertDetalleReserva', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertDetalleReserva
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertDetalleReserva
+	@codReserva int,
+	@codHotel numeric(8),
+	@habitacion numeric(4) 
+AS
+	IF(@codReserva != -1 AND @codHotel != '' AND
+		@habitacion != -1)
 	
-	--INSERT EN LA TABLA DE DETALLES_RESERVA
-	SET @max_codReservaUltimo = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoCodigoReserva()
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion, piso)
-	VALUES (@codHotel, @max_codReservaUltimo, @habitacion, @piso)
+	--INSERT EN LA TABLA DE DETALLE_RESERVAS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codReserva,codHotel, habitacion)
+	VALUES(@codReserva, @codHotel,@habitacion)
 GO
 
 --/PROC UPDATERESERVA
