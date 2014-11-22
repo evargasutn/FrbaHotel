@@ -20,6 +20,9 @@ COMMIT;
 
 -- DROP TABLAS
 --/*	
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA;
+		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA;
 		
@@ -29,11 +32,27 @@ COMMIT;
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL;
 		
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA;
+		
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA;
+						
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA;
+		
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.FACTURAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.FACTURAS;
+			
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ESTADIA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA;
+	
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.RESERVAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS;
+		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.REGIMENES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES;
 				
-		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO;
@@ -50,35 +69,20 @@ COMMIT;
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.HOTELES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.HOTELES;
 		
-		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA;
-		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA_INVALIDA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA_INVALIDA;
-				
-		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA_INVALIDA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA_INVALIDA;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES;
-		
-		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.FACTURAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.FACTURAS;
-				
+						
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.FACTURAS_INVALIDAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.FACTURAS_INVALIDAS;
 		
-		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ESTADIA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA;
-		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ESTADIA_INVALIDA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA_INVALIDA;
-		
-		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.RESERVAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS;
 
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS;
@@ -179,14 +183,32 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 )
 go
 
+create table COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
+(
+	codRegimen		numeric(8) identity(1,1) PRIMARY KEY,
+	descripcion		varchar(255) not null,
+	precio			numeric(18, 2) not null,
+	estado			bit	not null default 1
+)
+go
+
+create table COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA
+(
+	codEstadoReserva int PRIMARY KEY,
+	descripcion varchar(255),
+)
+go
+
 create table COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
 (
 	codReserva	numeric(18) PRIMARY KEY,
 	idHuesped	int FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES(idHuesped),
+	codRegimen	numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen),
 	usr			varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
 	fecDesde	datetime,
 	fecHasta	datetime,
-	fecReserva	datetime
+	fecReserva	datetime,
+	estado		int FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA(codEstadoReserva),
 )
 go
 
@@ -197,7 +219,8 @@ create table COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS
 	usr			varchar(50),
 	fecDesde	datetime,
 	fecHasta	datetime,
-	fecReserva	datetime
+	fecReserva	datetime,
+	estado		int FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA(codEstadoReserva),
 )
 go
 
@@ -207,6 +230,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA
 	motivo			varchar(255) not null,
 	fecCancelacion	datetime not null,
 	usr				varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
+	estado			int FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA(codEstadoReserva),
 	PRIMARY KEY (codReserva)
 )
 go
@@ -225,16 +249,6 @@ create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES
 	cantEstrellas	numeric(18,0) not null,
 	recargoEstrella numeric(18,0) not null,
 	campoBaja		bit not null default 0
-)
-go
-
-
-create table COMPUMUNDO_HIPER_MEGA_RED.REGIMENES
-(
-	codRegimen		numeric(8) identity(1,1) PRIMARY KEY,
-	descripcion		varchar(255) not null,
-	precio			numeric(18, 2) not null,
-	estado			bit	not null default 1
 )
 go
 
@@ -268,7 +282,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
 	codHotel	numeric(8) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
 	habitacion	numeric(4) not null,
 	piso		numeric(2) not null,
-	codRegimen	numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen),
+	
 )
 go
 ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA ADD CONSTRAINT PK_Detalles_Reserva PRIMARY KEY(codReserva, codHotel, habitacion, piso);
@@ -604,6 +618,15 @@ GO
 			('GUEST','8')
 GO
 
+--//ESTADOS QUE PUEDE TENER UNA RESERVA
+INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA(codEstadoReserva, descripcion)
+VALUES	('1','Reserva correcta'),
+		('2','Reserva modificada'),
+		('3','Reserva cancelada por Recepción'),
+		('4','Reserva cancelada por Cliente'),
+		('5','Reserva cancelada por No-Show'),
+		('6','Reserva efectivizada')
+GO
 
 --//REGIMENES
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(descripcion, precio)
@@ -657,12 +680,14 @@ GO
  * Y QUE FUERON REALIZADAS EL MISMO DÍA QUE DE SU INICIO.
  */
 	
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva, idHuesped, usr, fecDesde, fecHasta, fecReserva)
-	SELECT DISTINCT M.Reserva_Codigo , HUES.idHuesped, 'admin', M.Reserva_Fecha_Inicio, M.Reserva_Fecha_Inicio + M.Reserva_Cant_Noches, M.Reserva_Fecha_Inicio - 5
-	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva, idHuesped, codRegimen, estado, usr, fecDesde, fecHasta, fecReserva)
+	SELECT DISTINCT M.Reserva_Codigo , HUES.idHuesped, R.codRegimen, CASE M.Factura_Nro WHEN NULL THEN '1' ELSE '6' END ,'admin', M.Reserva_Fecha_Inicio, M.Reserva_Fecha_Inicio + M.Reserva_Cant_Noches, M.Reserva_Fecha_Inicio - 5
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R, gd_esquema.Maestra M
 	WHERE M.Cliente_Pasaporte_Nro = HUES.numDocu AND
 		  M.Cliente_Apellido = HUES.apellido AND
 		  M.Cliente_Nombre = HUES.nombre AND
+		  R.descripcion = M.Regimen_Descripcion AND
+		  R.precio = M.Regimen_Precio AND
 		  M.Reserva_Fecha_Inicio <= CURRENT_TIMESTAMP
 GO
 
@@ -671,8 +696,8 @@ GO
  * Y QUE FUERON REALIZADAS EL MISMO DÍA QUE DE SU INICIO.
  */
 	
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS(codReserva, idHuesped, usr, fecDesde, fecHasta, fecReserva)
-	SELECT DISTINCT M.Reserva_Codigo , HUES.idHuesped, 'admin', M.Reserva_Fecha_Inicio, M.Reserva_Fecha_Inicio + M.Reserva_Cant_Noches, M.Reserva_Fecha_Inicio - 5
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS(codReserva, idHuesped, estado, usr, fecDesde, fecHasta, fecReserva)
+	SELECT DISTINCT M.Reserva_Codigo , HUES.idHuesped, '5','admin', M.Reserva_Fecha_Inicio, M.Reserva_Fecha_Inicio + M.Reserva_Cant_Noches, M.Reserva_Fecha_Inicio - 5
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES HUES, gd_esquema.Maestra M
 	WHERE M.Cliente_Pasaporte_Nro = HUES.numDocu AND
 		  M.Cliente_Apellido = HUES.apellido AND
@@ -762,15 +787,13 @@ GO
 GO
 
 --//DETALLES_RESERVA
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, codRegimen, habitacion, piso)
-	SELECT DISTINCT H.codHotel, M.Reserva_Codigo, R.codRegimen, M.Habitacion_Numero, M.Habitacion_Piso
-	FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H, COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R, gd_esquema.Maestra M
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion, piso)
+	SELECT DISTINCT H.codHotel, M.Reserva_Codigo, M.Habitacion_Numero, M.Habitacion_Piso
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H, gd_esquema.Maestra M
 	WHERE H.direccionCalle = M.Hotel_Calle AND 
 		  H.direccionNumero = M.Hotel_Nro_Calle AND 
 		  H.ciudad = M.Hotel_Ciudad AND 
 		  H.direccionCalle IS NOT NULL AND
-		  R.descripcion = M.Regimen_Descripcion AND
-		  R.precio = M.Regimen_Precio AND
 		  M.Reserva_Fecha_Inicio <= CURRENT_TIMESTAMP
 	ORDER BY H.codHotel
 GO
@@ -1871,14 +1894,74 @@ AS
 	
 	--INSERT EN LA TABLA DE RESERVAS
 	SET @max_codReservaUltimo = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoCodigoReserva()
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva,idHuesped, usr, fecDesde, fecHasta, fecReserva)
-	VALUES(@max_codReservaUltimo + 1, @idHuesped, @usr, @fecDesde, @fecHasta, @fecReserva)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva,idHuesped, estado,usr, fecDesde, fecHasta, fecReserva)
+	VALUES(@max_codReservaUltimo + 1, @idHuesped, '1',@usr, @fecDesde, @fecHasta, @fecReserva)
 	
 	--INSERT EN LA TABLA DE DETALLES_RESERVA
 	SET @max_codReservaUltimo = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoCodigoReserva()
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion, piso, codRegimen)
-	VALUES (@codHotel, @max_codReservaUltimo, @habitacion, @piso, @codRegimen)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion, piso)
+	VALUES (@codHotel, @max_codReservaUltimo, @habitacion, @piso)
 GO
+
+--/PROC UPDATERESERVA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateReserva', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateReserva
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateReserva
+	@codReserva numeric(18),
+	@usr varchar(50),
+	@estado int,
+	@fecInicio		DATETIME,
+	@fecFin			DATETIME,
+	@fechaReserva	DATETIME,
+	@codRegimen		numeric(8),
+	@codHotel		numeric(18),
+	@habitacion		numeric(4),
+	@piso			numeric(2)	
+AS
+	IF(@codReserva != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
+		SET estado = @estado
+		WHERE codReserva = @codReserva
+	IF(@codRegimen != -1 AND @codReserva != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
+		SET codRegimen = @codRegimen
+		WHERE codReserva = @codReserva
+	IF(@usr != '' AND @codReserva != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
+		SET usr = @usr
+		WHERE codReserva = @codReserva
+	IF(@fecInicio IS NOT NULL AND @codReserva != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
+		SET fecDesde = @fecInicio
+		WHERE codReserva = @codReserva
+	IF(@fecFin IS NOT NULL AND @codReserva != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
+		SET fecHasta = @fecFin
+		WHERE codReserva = @codReserva
+	IF(@fechaReserva IS NOT NULL AND @codReserva != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
+		SET fecReserva = @fechaReserva
+		WHERE codReserva = @codReserva
+	IF(@codHotel != -1 AND @codReserva != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
+		SET codHotel = @codHotel
+		WHERE codReserva = @codReserva
+	IF(@piso != -1 AND @codReserva != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
+		SET piso = @piso
+		WHERE codReserva = @codReserva
+	IF(@habitacion != -1 AND @codReserva != -1)
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
+		SET habitacion = @habitacion
+		WHERE codReserva = @codReserva
+GO
+
+
 
 --//PROC CANCELARRESERVA
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva', 'P' ) IS NOT NULL 
@@ -1888,11 +1971,12 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva
 	--Toma la fecha del sistema al momento de agregar una cancelacion
 	@codReserva		numeric,
 	@motivo			varchar,
-	@usr			varchar(50) 
+	@usr			varchar(50),
+	@estado			int 
 AS 
-	IF(@codReserva != -1 AND @motivo != '' AND @usr != '')
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA (codReserva, motivo, usr, fecCancelacion)
-	VALUES (@codReserva, @motivo, @usr, GETDATE())
+	IF(@codReserva != -1 AND @motivo != '' AND @usr != '' AND @estado != -1)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA (codReserva, motivo, usr, estado,fecCancelacion)
+	VALUES (@codReserva, @motivo, @usr, @estado,GETDATE())
 GO
 
 --/PROC GETHUESPED 
@@ -2110,7 +2194,8 @@ AS
 	BEGIN
 	DECLARE @resultado int
 	SET @resultado = (SELECT COUNT(*) FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
-						WHERE DR.codReserva = @codReserva AND DR.codRegimen = 4)
+						JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R ON R.codReserva = DR.codReserva
+						WHERE DR.codReserva = @codReserva AND R.codRegimen = 4)
 	
 	RETURN @resultado				
 	END	
@@ -2154,9 +2239,9 @@ RETURNS numeric(3,2)
 AS
 	BEGIN	
 		DECLARE @precioRegimen numeric(18,2)
-		SET @precioRegimen = (SELECT R.precio FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
-							 JOIN COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R ON R.codRegimen= DR.codRegimen
-							 WHERE DR.codReserva = @codReserva)
+		SET @precioRegimen = (SELECT REG.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES REG
+							 JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS RES ON RES.codRegimen = REG.codRegimen
+							 WHERE RES.codReserva = @codReserva)
 		RETURN @precioRegimen
 	END
 GO
@@ -2258,12 +2343,12 @@ GO
 	
 	/*Step 3: Assign the query to the cursor.*/
 	SET @Cursor_allInclusive = CURSOR FOR
-		SELECT DISTINCT F.numeroFactura,  dr.codReserva
+		SELECT DISTINCT F.numeroFactura,  R.codReserva
 		FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F
-		JOIN COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA dr on dr.codReserva = F.codReserva
-		WHERE dr.codRegimen = 4
-		GROUP BY F.numeroFactura, dr.codReserva
-		ORDER BY F.numeroFactura, dr.codReserva
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R ON R.codReserva = F.codReserva
+		WHERE R.codRegimen = 4
+		GROUP BY F.numeroFactura, R.codReserva
+		ORDER BY F.numeroFactura, R.codReserva
 	
 	/*Step 4: Open the cursor.*/
 	OPEN @Cursor_allInclusive
