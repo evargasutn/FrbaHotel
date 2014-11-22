@@ -9,7 +9,8 @@ namespace DOM.Auxiliares
     {
         public int TipoCodigo;
         public string Descripcion;
-        public int Porcentual;
+        public double Porcentual;
+        public int CantPersonas;
 
         public static int getCodeByDescription(string descripcion, List<Tipo_Habitacion> lista)
         {

@@ -17,7 +17,7 @@ namespace FrbaHotel.Login
 
         List<Hotel> hotelesDeUsuario;
         List<Rol> rolesDeUsuario;
-        Usuario usuario=Globals.infoSesion.User;
+        Usuario usuario = Globals.infoSesion.User;
         Rol rol = Globals.infoSesion.Rol;
         public LoginRequisitos()
         {
@@ -82,6 +82,8 @@ namespace FrbaHotel.Login
             if (e.CloseReason == CloseReason.WindowsShutDown) return;
 
             // Confirm user wants to close
+            Globals.infoSesion.User = null;
+            Globals.infoSesion.Rol = null;
             Globals.habilitarAnterior();
         }
     }

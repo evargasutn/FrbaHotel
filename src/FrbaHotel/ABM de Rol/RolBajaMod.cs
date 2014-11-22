@@ -39,7 +39,7 @@ namespace FrbaHotel.ABM_de_Rol
         {
             DataTable respuesta = FiltrarRol(textRol.Text,(string) comboFuncionalidad.SelectedItem, (string) comboEstado.SelectedItem);
             dataGridViewRol.DataSource = respuesta;
-            dataGridViewRol.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewRol.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewRol.AutoResizeColumns();
             dataGridViewRol.AutoResizeRows();
         }

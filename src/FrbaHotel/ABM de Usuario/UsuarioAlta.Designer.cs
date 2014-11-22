@@ -444,6 +444,7 @@ namespace FrbaHotel.ABM_de_Usuario
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "UsuarioAlta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de Usuario";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

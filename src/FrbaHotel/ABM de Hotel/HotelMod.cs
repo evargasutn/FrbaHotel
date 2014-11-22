@@ -169,7 +169,7 @@ namespace FrbaHotel.ABM_de_Hotel
             }
             if (comboPais.SelectedIndex < 0)
             {
-                showToolTip("Ingrese una pais.", comboPais, comboPais.Location);
+                showToolTip("Ingrese un pais.", comboPais, comboPais.Location);
                 return false;
             }
             if (listaRegimenes.SelectedItems == null)

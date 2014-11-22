@@ -242,6 +242,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES
 (
 	tipoCodigo		numeric(18, 0) PRIMARY KEY,
 	tipoDescripcion	varchar(50) not null,
+	tipoCantidad	numeric(1), --Cantidad de Personas que admite el tipo
 	tipoPorcentual	numeric(5,2) not null
 )
 go
@@ -463,6 +464,31 @@ GO
 
 
 -- TRIGGERS
+IF OBJECT_ID ('COMPUMUNDO_HIPER_MEGA_RED.TRtipoHabPersonas', 'TR') IS NOT NULL
+   DROP TRIGGER COMPUMUNDO_HIPER_MEGA_RED.TRtipoHabPersonas;
+GO
+CREATE TRIGGER TRtipoHabPersonas
+ON COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES
+AFTER INSERT, UPDATE 
+AS 
+	DECLARE @cantidad numeric(1)
+	DECLARE @tipoIngresado varchar(50)
+	SET @tipoIngresado = (SELECT TOP 1 tipoDescripcion FROM inserted i);
+	
+	SET @cantidad= (CASE @tipoIngresado
+					WHEN 'BASE SIMPLE' THEN 1
+					WHEN 'BASE DOBLE' THEN 2
+					WHEN 'BASE TRIPLE' THEN 3
+					WHEN 'BASE CUADRUPLE' THEN 4
+					WHEN 'KING' THEN 5
+					END)
+	
+	UPDATE COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES 
+	SET tipoCantidad = @cantidad	
+	FROM inserted i
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES H ON H.tipoCodigo = i.tipoCodigo
+	WHERE i.tipoDescripcion = H.tipoDescripcion
+GO
 IF OBJECT_ID ('COMPUMUNDO_HIPER_MEGA_RED.TRcorrigeMail_Hoteles', 'TR') IS NOT NULL
    DROP TRIGGER COMPUMUNDO_HIPER_MEGA_RED.TRcorrigeMail_Hoteles;
 GO
@@ -1287,7 +1313,7 @@ AS
 			IF (@tipoHabitacion = -1)
 				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES H
 			ELSE
-				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES H
 				WHERE H.tipoCodigo = @tipoHabitacion			
 	END
 GO

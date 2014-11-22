@@ -83,6 +83,8 @@
             // 
             // comboPais
             // 
+            this.comboPais.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.comboPais.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.comboPais.FormattingEnabled = true;
             this.comboPais.Location = new System.Drawing.Point(138, 208);
             this.comboPais.Name = "comboPais";

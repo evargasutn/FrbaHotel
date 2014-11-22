@@ -45,9 +45,12 @@ namespace DOM
             return transductor_tipo(obtenerTipoTabla(entero_nulo));
         }
 
-        public static List<Tipo_Habitacion> obtenerTipo(int tipoCodigo)
+        public static Tipo_Habitacion obtenerTipo(int tipoCodigo)
         {
-            return transductor_tipo(obtenerTipoTabla(tipoCodigo));
+            List<Tipo_Habitacion> lista = transductor_tipo(obtenerTipoTabla(tipoCodigo));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
         }
         #endregion
 
@@ -113,7 +116,8 @@ namespace DOM
                     Tipo_Habitacion tipo = new Tipo_Habitacion();
                     tipo.TipoCodigo = Convert.ToInt32(fila["tipoCodigo"]);
                     tipo.Descripcion = Convert.ToString(fila["tipoDescripcion"]);
-                    tipo.Porcentual = Convert.ToInt32(fila["tipoPorcentual"]);
+                    tipo.Porcentual = Convert.ToDouble(fila["tipoPorcentual"]);
+                    tipo.CantPersonas = Convert.ToInt32(fila["tipoCantidad"]);
                     //Transcribir
                     lista.Add(tipo);
                 }

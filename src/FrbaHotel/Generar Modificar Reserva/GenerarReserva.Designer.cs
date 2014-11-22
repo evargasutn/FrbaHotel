@@ -39,6 +39,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.comboBoxTipoRegimen = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelTipoHabitacion = new System.Windows.Forms.Label();
+            this.comboTipoHab = new System.Windows.Forms.ComboBox();
             this.textCantHuespedes = new System.Windows.Forms.MaskedTextBox();
             this.textFecha = new System.Windows.Forms.DateTimePicker();
             this.nota = new System.Windows.Forms.Label();
@@ -108,7 +110,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 143);
+            this.label4.Location = new System.Drawing.Point(14, 170);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(123, 13);
             this.label4.TabIndex = 3;
@@ -117,7 +119,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(16, 169);
+            this.label5.Location = new System.Drawing.Point(14, 196);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(87, 13);
             this.label5.TabIndex = 5;
@@ -126,13 +128,15 @@
             // comboBoxTipoRegimen
             // 
             this.comboBoxTipoRegimen.FormattingEnabled = true;
-            this.comboBoxTipoRegimen.Location = new System.Drawing.Point(161, 166);
+            this.comboBoxTipoRegimen.Location = new System.Drawing.Point(161, 193);
             this.comboBoxTipoRegimen.Name = "comboBoxTipoRegimen";
             this.comboBoxTipoRegimen.Size = new System.Drawing.Size(114, 21);
             this.comboBoxTipoRegimen.TabIndex = 6;
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.labelTipoHabitacion);
+            this.groupBox2.Controls.Add(this.comboTipoHab);
             this.groupBox2.Controls.Add(this.textCantHuespedes);
             this.groupBox2.Controls.Add(this.textFecha);
             this.groupBox2.Controls.Add(this.nota);
@@ -143,14 +147,31 @@
             this.groupBox2.Controls.Add(this.groupBox1);
             this.groupBox2.Location = new System.Drawing.Point(21, 25);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(287, 223);
+            this.groupBox2.Size = new System.Drawing.Size(287, 245);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datos de Reserva";
             // 
+            // labelTipoHabitacion
+            // 
+            this.labelTipoHabitacion.AutoSize = true;
+            this.labelTipoHabitacion.Location = new System.Drawing.Point(14, 143);
+            this.labelTipoHabitacion.Name = "labelTipoHabitacion";
+            this.labelTipoHabitacion.Size = new System.Drawing.Size(101, 13);
+            this.labelTipoHabitacion.TabIndex = 38;
+            this.labelTipoHabitacion.Text = "Tipo de Habitación*";
+            // 
+            // comboTipoHab
+            // 
+            this.comboTipoHab.FormattingEnabled = true;
+            this.comboTipoHab.Location = new System.Drawing.Point(161, 140);
+            this.comboTipoHab.Name = "comboTipoHab";
+            this.comboTipoHab.Size = new System.Drawing.Size(114, 21);
+            this.comboTipoHab.TabIndex = 37;
+            // 
             // textCantHuespedes
             // 
-            this.textCantHuespedes.Location = new System.Drawing.Point(161, 140);
+            this.textCantHuespedes.Location = new System.Drawing.Point(161, 167);
             this.textCantHuespedes.Mask = "99";
             this.textCantHuespedes.Name = "textCantHuespedes";
             this.textCantHuespedes.Size = new System.Drawing.Size(114, 20);
@@ -170,7 +191,7 @@
             // 
             this.nota.AutoSize = true;
             this.nota.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nota.Location = new System.Drawing.Point(16, 197);
+            this.nota.Location = new System.Drawing.Point(14, 219);
             this.nota.Name = "nota";
             this.nota.Size = new System.Drawing.Size(127, 13);
             this.nota.TabIndex = 34;
@@ -178,7 +199,7 @@
             // 
             // buttonLimpiar
             // 
-            this.buttonLimpiar.Location = new System.Drawing.Point(21, 254);
+            this.buttonLimpiar.Location = new System.Drawing.Point(21, 276);
             this.buttonLimpiar.Name = "buttonLimpiar";
             this.buttonLimpiar.Size = new System.Drawing.Size(123, 45);
             this.buttonLimpiar.TabIndex = 8;
@@ -188,7 +209,7 @@
             // 
             // botonReservar
             // 
-            this.botonReservar.Location = new System.Drawing.Point(166, 254);
+            this.botonReservar.Location = new System.Drawing.Point(166, 276);
             this.botonReservar.Name = "botonReservar";
             this.botonReservar.Size = new System.Drawing.Size(142, 45);
             this.botonReservar.TabIndex = 9;
@@ -200,7 +221,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(320, 309);
+            this.ClientSize = new System.Drawing.Size(320, 334);
             this.Controls.Add(this.botonReservar);
             this.Controls.Add(this.buttonLimpiar);
             this.Controls.Add(this.groupBox2);
@@ -236,5 +257,7 @@
         private System.Windows.Forms.DateTimePicker textFecha;
         private System.Windows.Forms.MaskedTextBox textCantHuespedes;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ComboBox comboTipoHab;
+        private System.Windows.Forms.Label labelTipoHabitacion;
     }
 }

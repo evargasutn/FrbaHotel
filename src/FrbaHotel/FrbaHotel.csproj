@@ -201,11 +201,11 @@
     <Compile Include="Generar Modificar Reserva\ConfirmarReserva.Designer.cs">
       <DependentUpon>ConfirmarReserva.cs</DependentUpon>
     </Compile>
-    <Compile Include="Generar Modificar Reserva\RegistroBasico.cs">
+    <Compile Include="Generar Modificar Reserva\ListarRegimenes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Generar Modificar Reserva\RegistroBasico.Designer.cs">
-      <DependentUpon>RegistroBasico.cs</DependentUpon>
+    <Compile Include="Generar Modificar Reserva\ListarRegimenes.Designer.cs">
+      <DependentUpon>ListarRegimenes.cs</DependentUpon>
     </Compile>
     <Compile Include="Listado Estadistico\ListadoEstadistico.cs">
       <SubType>Form</SubType>
@@ -302,11 +302,11 @@
     <EmbeddedResource Include="Generar Modificar Reserva\ConfirmarReserva.resx">
       <DependentUpon>ConfirmarReserva.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Generar Modificar Reserva\RegistroBasico.resx">
-      <DependentUpon>RegistroBasico.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Generar Modificar Reserva\GenerarReserva.resx">
       <DependentUpon>GenerarReserva.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Modificar Reserva\ListarRegimenes.resx">
+      <DependentUpon>ListarRegimenes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listado Estadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>
