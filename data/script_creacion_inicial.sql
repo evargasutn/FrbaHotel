@@ -20,8 +20,6 @@ COMMIT;
 
 -- DROP TABLAS
 --/*	
-		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA;
@@ -49,6 +47,9 @@ COMMIT;
 	
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.RESERVAS') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS;
+		
+		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.REGIMENES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES;
@@ -220,7 +221,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS
 	fecDesde	datetime,
 	fecHasta	datetime,
 	fecReserva	datetime,
-	estado		int FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA(codEstadoReserva),
+	estado		int,
 )
 go
 
@@ -281,12 +282,10 @@ create table COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
 	codReserva	numeric(18) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
 	codHotel	numeric(8) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
 	habitacion	numeric(4) not null,
-	piso		numeric(2) not null,
 	
 )
 go
-ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA ADD CONSTRAINT PK_Detalles_Reserva PRIMARY KEY(codReserva, codHotel, habitacion, piso);
---ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA ADD CONSTRAINT FK_Detalles_Reserva FOREIGN KEY (habitacion,piso) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES(habitacion,piso);
+ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA ADD CONSTRAINT PK_Detalles_Reserva PRIMARY KEY(codReserva, codHotel, habitacion);
 
 create table COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVAINVALIDA
 (
@@ -791,8 +790,8 @@ GO
 GO
 
 --//DETALLES_RESERVA
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion, piso)
-	SELECT DISTINCT H.codHotel, M.Reserva_Codigo, M.Habitacion_Numero, M.Habitacion_Piso
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion)
+	SELECT DISTINCT H.codHotel, M.Reserva_Codigo, M.Habitacion_Numero
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HOTELES H, gd_esquema.Maestra M
 	WHERE H.direccionCalle = M.Hotel_Calle AND 
 		  H.direccionNumero = M.Hotel_Nro_Calle AND 
@@ -1884,14 +1883,13 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertReserva
 	@idHuesped int,
 	@usr varchar(50), 
 	@habitacion numeric(4), 
-	@piso numeric(2), 
 	@codHotel numeric(8), 
 	@codRegimen numeric(8), 
 	@fecDesde datetime, 
 	@fecHasta datetime,
 	@fecReserva datetime	
 AS
-	IF(@idHuesped != -1 AND @usr != '' AND @habitacion != -1 AND @piso != -1 AND @codHotel != -1 AND
+	IF(@idHuesped != -1 AND @usr != '' AND @habitacion != -1 AND @codHotel != -1 AND
 		@codRegimen != -1 AND @fecDesde IS NOT NULL AND @fecHasta IS NOT NULL AND
 		@fecReserva IS NOT NULL)
 	DECLARE @max_codReservaUltimo bigint
@@ -1903,8 +1901,8 @@ AS
 	
 	--INSERT EN LA TABLA DE DETALLES_RESERVA
 	SET @max_codReservaUltimo = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoCodigoReserva()
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion, piso)
-	VALUES (@codHotel, @max_codReservaUltimo, @habitacion, @piso)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion)
+	VALUES (@codHotel, @max_codReservaUltimo, @habitacion)
 GO
 
 --/PROC UPDATERESERVA
@@ -1924,8 +1922,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateReserva
 	@fechaReserva	DATETIME,
 	@codRegimen		numeric(8),
 	@codHotel		numeric(18),
-	@habitacion		numeric(4),
-	@piso			numeric(2)	
+	@habitacion		numeric(4)
 AS
 	IF(@codReserva != -1)
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
@@ -1954,10 +1951,6 @@ AS
 	IF(@codHotel != -1 AND @codReserva != -1)
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
 		SET codHotel = @codHotel
-		WHERE codReserva = @codReserva
-	IF(@piso != -1 AND @codReserva != -1)
-		UPDATE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
-		SET piso = @piso
 		WHERE codReserva = @codReserva
 	IF(@habitacion != -1 AND @codReserva != -1)
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
