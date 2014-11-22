@@ -473,8 +473,8 @@ AFTER INSERT, UPDATE
 AS 
     SET NOCOUNT ON
     SET XACT_ABORT ON
-
-    DECLARE @tipoDescripcion	UNIQUEIDENTIFIER    
+	
+    DECLARE @tipoDescripcion	varchar(50)    
 	DECLARE @cantidad numeric(1)
 	
     DECLARE cur CURSOR FORWARD_ONLY READ_ONLY LOCAL FOR
