@@ -60,7 +60,8 @@ namespace FrbaHotel.Login
 
         private void botonInvitado_Click(object sender, EventArgs e)
         {
-            Globals.infoSesion.Rol = DAORol.obtener("GUEST");
+            Globals.infoSesion.User = DAOUsuario.obtener("GUEST");
+            Globals.infoSesion.Rol = DAORol.obtenerTodos(Globals.infoSesion.User.Usr)[0];
             new LoginRequisitos().Show();
             textContrasenia.Text = "";
             textUsuario.Text = "";

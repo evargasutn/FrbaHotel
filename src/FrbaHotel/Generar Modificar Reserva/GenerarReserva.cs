@@ -65,8 +65,42 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 regimen_elegido = lista_regimenes[comboBoxTipoRegimen.SelectedIndex];
 
                 //Reservar con los datos validados
+                int cantHuespedes = Int32.Parse(textCantHuespedes.Text);
+                Tipo_Habitacion tipo_seleccionado = DAOHabitacion.obtenerTipo(Tipo_Habitacion.getCodeByDescription(comboTipoHab.SelectedItem.ToString(), tipos_habitacion));
+                if (tipo_seleccionado.CantPersonas < cantHuespedes)
+                {
+                    int cantHabitaciones =
+                        ((cantHuespedes % tipo_seleccionado.CantPersonas) == 0) ? (cantHuespedes / tipo_seleccionado.CantPersonas)
+                        : ((cantHuespedes / tipo_seleccionado.CantPersonas) + 1);
 
+                    DialogResult dr = MessageBox.Show("Se reservarán " + cantHabitaciones.ToString() + " habitaciones. Desea continuar?",
+                    "", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+                            reservar(cantHabitaciones);
+                            break;
+                        case DialogResult.No:
+                            break;
+                    }
+                }
+                else
+                    reservar(1);
             }
+        }
+
+        private void reservar(int cantHab)
+        {
+            Reserva reserva = new Reserva();
+            reserva.CodigoRegimen = regimen_elegido.CodRegimen;
+            reserva.Fecha_Inicio_struct = dateTimeEntrada.Value;
+            reserva.Fecha_Fin_struct = dateTimeSalida.Value;
+            reserva.Fecha_Reserva_struct = Globals.getFechaSistema();
+            reserva.Usr = Globals.infoSesion.User.Usr;
+            reserva.cantHabitaciones = cantHab;
+
+            new ConfirmarReserva(reserva).Show();
+            Globals.deshabilitarAnterior(this);
         }
 
         private bool chequearDatos()
@@ -99,13 +133,6 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             if (textCantHuespedes.Text == "")
             {
                 showToolTip("Ingrese la cantidad de huéspedes de la reserva.", textCantHuespedes, textCantHuespedes.Location);
-                return false;
-            }
-            int cantHuespedes = Int32.Parse(textCantHuespedes.Text);
-            Tipo_Habitacion tipo_seleccionado = DAOHabitacion.obtenerTipo(Tipo_Habitacion.getCodeByDescription(comboTipoHab.SelectedItem.ToString(),tipos_habitacion));
-            if (tipo_seleccionado.CantPersonas < cantHuespedes)
-            {
-                showToolTip("La cantidad ingresada excede la cantidad admitida por el tipo de habitación.", textCantHuespedes, textCantHuespedes.Location);
                 return false;
             }
             return true;

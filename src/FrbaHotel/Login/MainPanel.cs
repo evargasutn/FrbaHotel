@@ -72,7 +72,7 @@ namespace FrbaHotel.Login
                     break;
 
                 case "Generar o Modificar una Reserva":
-                    new Generar_Modificar_Reserva.GenerarReserva().Show();
+                    new Generar_Modificar_Reserva.MainReservas().Show();
                     break;
                 case "Cancelar Reserva":
                     new Cancelar_Reserva.CancelarReserva(usuario, "ww").Show();

@@ -11,17 +11,13 @@ using DOM;
 
 namespace FrbaHotel.Generar_Modificar_Reserva
 {
-    public partial class ConfirmarReserva : Form
+    public partial class ModificarReserva : Form
     {
-        public ConfirmarReserva(Reserva reserva)
+        public ModificarReserva(Reserva reserva)
         {
             InitializeComponent();
         }
 
-        private void ConfirmarReserva_Load(object sender, EventArgs e)
-        {
-
-        } 
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
@@ -31,9 +27,6 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
             // Confirm user wants to close
             Globals.habilitarAnterior();
-            //Globals.VentanaAnterior.Dispose();
-            //Globals.habilitarAnterior();
         }
-     
     }
 }

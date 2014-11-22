@@ -207,6 +207,18 @@
     <Compile Include="Generar Modificar Reserva\ListarRegimenes.Designer.cs">
       <DependentUpon>ListarRegimenes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Generar Modificar Reserva\MainReservas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Modificar Reserva\MainReservas.Designer.cs">
+      <DependentUpon>MainReservas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Generar Modificar Reserva\ModificarReserva.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Generar Modificar Reserva\ModificarReserva.Designer.cs">
+      <DependentUpon>ModificarReserva.cs</DependentUpon>
+    </Compile>
     <Compile Include="Listado Estadistico\ListadoEstadistico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -307,6 +319,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Generar Modificar Reserva\ListarRegimenes.resx">
       <DependentUpon>ListarRegimenes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Modificar Reserva\MainReservas.resx">
+      <DependentUpon>MainReservas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Generar Modificar Reserva\ModificarReserva.resx">
+      <DependentUpon>ModificarReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Listado Estadistico\ListadoEstadistico.resx">
       <DependentUpon>ListadoEstadistico.cs</DependentUpon>

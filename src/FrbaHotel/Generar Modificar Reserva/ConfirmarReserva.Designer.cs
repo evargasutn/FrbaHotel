@@ -202,8 +202,11 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textCostoReserva);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "ConfirmarReserva";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Confirmacion de reserva";
+            this.Load += new System.EventHandler(this.ConfirmarReserva_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
