@@ -52,8 +52,7 @@ COMMIT;
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.ESTADOS_RESERVA;
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.REGIMENES') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
-		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES;
-				
+		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.REGIMENES;				
 		
 		IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = object_id('COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO') AND  OBJECTPROPERTY(id, 'IsUserTable') = 1)
 		DROP TABLE COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO;
@@ -1447,7 +1446,7 @@ GO
  *********************************************************************************/
  
 --/FUNCION HABITACIONES RESERVADAS
-IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas', N'FN') IS NOT NULL
+IF OBJECT_ID(N'COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas', N'FN') IS NOT NULL
     DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas
 GO
 CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas
@@ -1887,7 +1886,7 @@ AS
 		DECLARE @max_cod_tblReservaInvalida bigint
 		SET @max_cod_tblReservaInvalida = (SELECT MAX(RI.codReserva) FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS RI)
 
-		RETURN (CASE WHEN @max_cod_tblReserva > @max_cod_tblReservaInvalida 
+		RETURN (CASE WHEN @max	_cod_tblReserva > @max_cod_tblReservaInvalida 
 					  THEN @max_cod_tblReserva
 					  ELSE @max_cod_tblReservaInvalida
 				 END) 
@@ -2030,6 +2029,25 @@ AS
 	ELSE
 		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES H	
 		WHERE H.idHuesped = @idHuesped
+GO
+
+--/PROC GETHUESPEDESPECIFICO
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHuespedEspecifico', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHuespedEspecifico
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHuespedEspecifico
+	@tipoDocu varchar(50),
+	@numDocu numeric(18),
+	@mail varchar(255)
+AS
+	SELECT *
+	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
+	WHERE tipoDocu = @tipoDocu AND numDocu = @numDocu
+	AND mail = @mail
 GO
 
 --/PROC INSERTHUESPED
