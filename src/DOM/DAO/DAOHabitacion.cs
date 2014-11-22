@@ -75,7 +75,8 @@ namespace DOM
             string ubicacion = habitacion.Ubicacion;
             int tipoCodigo = habitacion.Tipo_codigo;
             string descripcion = habitacion.Descripcion;
-            return executeProcedure("updateHabitacion", codHotel, habitacion, piso, ubicacion, tipoCodigo, descripcion);
+            bool campoBaja = habitacion.CampoBaja;
+            return executeProcedure("updateHabitacion", codHotel, id, piso, ubicacion, tipoCodigo, descripcion, campoBaja);
         }
 
         #region Convertir DataTable
@@ -91,8 +92,9 @@ namespace DOM
                     habitacion.CodHotel = Convert.ToInt32(fila["codHotel"]);
                     habitacion.Id_Habitacion = Convert.ToInt32(fila["habitacion"]);
                     habitacion.Piso = Convert.ToInt32(fila["piso"]);
-                    habitacion.Tipo_codigo = Convert.ToInt32(fila["tipo_codigo"]);
-                    habitacion.Descripcion = Convert.ToString(fila["ubicacion"]);
+                    habitacion.Tipo_codigo = Convert.ToInt32(fila["tipoCodigo"]);
+                    habitacion.Ubicacion = Convert.ToString(fila["ubicacion"]);
+                    habitacion.Descripcion = Convert.ToString(fila["descripcion"]);
                     habitacion.CampoBaja = Convert.ToBoolean(fila["campoBaja"]);
                     //Transcribir
                     lista.Add(habitacion);

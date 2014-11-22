@@ -260,6 +260,7 @@
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.groupBox2);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "HotelMod";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Modificar un Hotel";

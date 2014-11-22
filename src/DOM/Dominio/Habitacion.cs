@@ -15,7 +15,7 @@ namespace DOM.Dominio
         private string ubicacion = "''";
         private int tipo_codigo = -1;
         private string descripcion = "''";
-        private bool campoBaja = true;
+        private bool campoBaja = false;
         #endregion
 
         #region Getters&Setters
