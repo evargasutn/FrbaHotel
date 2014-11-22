@@ -14,7 +14,6 @@ namespace DOM.Dominio
         private DateTime fecha_egreso;
         private Usuario usr_egreso_estadia;
         private Factura factura;
-        private List<EstadiaXConsumible> consumibles = new List<EstadiaXConsumible>();
         #endregion
 
         #region Setters&Getters

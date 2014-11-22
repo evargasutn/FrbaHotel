@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Auxiliares\Direccion.cs" />
     <Compile Include="Auxiliares\Documento.cs" />
-    <Compile Include="Auxiliares\EstadiaXConsumible.cs" />
     <Compile Include="Auxiliares\Estado_Reservas.cs" />
     <Compile Include="Auxiliares\Inhabilitacion.cs" />
     <Compile Include="Auxiliares\PasswordEncoding.cs" />
