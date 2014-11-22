@@ -78,19 +78,20 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     switch (dr)
                     {
                         case DialogResult.Yes:
-                            reservar(cantHabitaciones);
+                            reservar(cantHabitaciones, tipo_seleccionado);
                             break;
                         case DialogResult.No:
                             break;
                     }
                 }
                 else
-                    reservar(1);
+                    reservar(1, tipo_seleccionado);
             }
         }
 
-        private void reservar(int cantHab)
+        private void reservar(int cantHab, Tipo_Habitacion tipo_seleccionado)
         {
+            
             Reserva reserva = new Reserva();
             reserva.CodigoRegimen = regimen_elegido.CodRegimen;
             reserva.Fecha_Inicio_struct = dateTimeEntrada.Value;
@@ -98,7 +99,16 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             reserva.Fecha_Reserva_struct = Globals.getFechaSistema();
             reserva.Usr = Globals.infoSesion.User.Usr;
             reserva.cantHabitaciones = cantHab;
+            reserva.tipo_habitacion = tipo_seleccionado;
+            List<Habitacion> habitaciones_disponibles;
+            habitaciones_disponibles = DAOReserva.habitacionDisponibles(Globals.infoSesion.Hotel.CodHotel, reserva.Fecha_Inicio, reserva.Fecha_Fin);
 
+            if (habitaciones_disponibles.Count < cantHab)
+            {
+                DialogResult dr = MessageBox.Show("No existen suficientes habitaciones disponibles para efectuar la reserva.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
             new ConfirmarReserva(reserva).Show();
             Globals.deshabilitarAnterior(this);
         }

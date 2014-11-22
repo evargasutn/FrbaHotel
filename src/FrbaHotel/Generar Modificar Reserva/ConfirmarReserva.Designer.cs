@@ -31,8 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textCostoReserva = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridClientes = new System.Windows.Forms.DataGridView();
             this.textMail = new System.Windows.Forms.TextBox();
             this.comboTipoDoc = new System.Windows.Forms.ComboBox();
             this.textNroDoc = new System.Windows.Forms.TextBox();
@@ -43,9 +42,9 @@
             this.buttonRegistrarCliente = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.botonBuscar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,7 +68,9 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.botonBuscar);
+            this.groupBox1.Controls.Add(this.dataGridClientes);
+            this.groupBox1.Controls.Add(this.buttonRegistrarCliente);
             this.groupBox1.Controls.Add(this.textMail);
             this.groupBox1.Controls.Add(this.comboTipoDoc);
             this.groupBox1.Controls.Add(this.textNroDoc);
@@ -78,29 +79,19 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(15, 115);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(532, 289);
+            this.groupBox1.Size = new System.Drawing.Size(532, 283);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente registrado";
             // 
-            // groupBox2
+            // dataGridClientes
             // 
-            this.groupBox2.Controls.Add(this.dataGridView1);
-            this.groupBox2.Location = new System.Drawing.Point(10, 106);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(516, 171);
-            this.groupBox2.TabIndex = 7;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Clientes";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(8, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.dataGridView1.Size = new System.Drawing.Size(502, 140);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridClientes.Location = new System.Drawing.Point(6, 95);
+            this.dataGridClientes.Name = "dataGridClientes";
+            this.dataGridClientes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dataGridClientes.Size = new System.Drawing.Size(510, 140);
+            this.dataGridClientes.TabIndex = 0;
             // 
             // textMail
             // 
@@ -153,21 +144,23 @@
             // 
             // botonConfirmar
             // 
-            this.botonConfirmar.Location = new System.Drawing.Point(125, 410);
+            this.botonConfirmar.Location = new System.Drawing.Point(15, 404);
             this.botonConfirmar.Name = "botonConfirmar";
-            this.botonConfirmar.Size = new System.Drawing.Size(117, 33);
+            this.botonConfirmar.Size = new System.Drawing.Size(516, 33);
             this.botonConfirmar.TabIndex = 3;
             this.botonConfirmar.Text = "Confirmar reserva";
             this.botonConfirmar.UseVisualStyleBackColor = true;
+            this.botonConfirmar.Click += new System.EventHandler(this.botonConfirmar_Click);
             // 
             // buttonRegistrarCliente
             // 
-            this.buttonRegistrarCliente.Location = new System.Drawing.Point(294, 410);
+            this.buttonRegistrarCliente.Location = new System.Drawing.Point(332, 19);
             this.buttonRegistrarCliente.Name = "buttonRegistrarCliente";
-            this.buttonRegistrarCliente.Size = new System.Drawing.Size(137, 33);
+            this.buttonRegistrarCliente.Size = new System.Drawing.Size(184, 66);
             this.buttonRegistrarCliente.TabIndex = 4;
             this.buttonRegistrarCliente.Text = "Registrar nuevo cliente";
             this.buttonRegistrarCliente.UseVisualStyleBackColor = true;
+            this.buttonRegistrarCliente.Click += new System.EventHandler(this.buttonRegistrarCliente_Click);
             // 
             // label5
             // 
@@ -191,13 +184,22 @@
             this.panel1.Size = new System.Drawing.Size(516, 38);
             this.panel1.TabIndex = 6;
             // 
+            // botonBuscar
+            // 
+            this.botonBuscar.Location = new System.Drawing.Point(399, 241);
+            this.botonBuscar.Name = "botonBuscar";
+            this.botonBuscar.Size = new System.Drawing.Size(117, 33);
+            this.botonBuscar.TabIndex = 7;
+            this.botonBuscar.Text = "Buscar";
+            this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
+            // 
             // ConfirmarReserva
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(552, 447);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.buttonRegistrarCliente);
             this.Controls.Add(this.botonConfirmar);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textCostoReserva);
@@ -209,8 +211,7 @@
             this.Load += new System.EventHandler(this.ConfirmarReserva_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -226,8 +227,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridClientes;
         private System.Windows.Forms.TextBox textMail;
         private System.Windows.Forms.ComboBox comboTipoDoc;
         private System.Windows.Forms.TextBox textNroDoc;
@@ -235,5 +235,6 @@
         private System.Windows.Forms.Button buttonRegistrarCliente;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button botonBuscar;
     }
 }
