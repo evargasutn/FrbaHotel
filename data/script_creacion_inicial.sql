@@ -1447,13 +1447,16 @@ GO
  *********************************************************************************/
  
 --/FUNCION HABITACIONES RESERVADAS
-IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas', N'FN') IS NOT NULL
+IF object_id('COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas', 'TF') IS NOT NULL
     DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas
 GO
-CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas
-(@codHotel numeric(8), @fechaDesde datetime, @fechaHasta datetime)
-RETURNS TABLE AS RETURN
-	SELECT H.habitacion
+CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas(@codHotel numeric(8), @fechaDesde datetime, @fechaHasta datetime)
+RETURNS @T_HABITACIONESRESERVADAS TABLE(habitacion numeric(4)) 
+AS 
+BEGIN
+	DECLARE @habitacion numeric(4)
+	
+	SELECT @habitacion = H.habitacion
 	FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H ON H.habitacion = DR.habitacion
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R ON R.codReserva = DR.codReserva
@@ -1461,6 +1464,9 @@ RETURNS TABLE AS RETURN
 		  H.campoBaja = 0 AND
 		  R.fecDesde BETWEEN @fechaDesde AND @fechaHasta AND
 		  R.fecHasta BETWEEN @fechaDesde AND @fechaHasta
+		  
+	RETURN
+END
 GO
 
 --//PROC HABITACIOINES DISPONIBLES
@@ -1480,7 +1486,7 @@ AS
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
 	WHERE codHotel = @codHotel AND
 		  campoBaja = 0 AND
-		  habitacion NOT IN (COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas(@codHotel, @fechaDesde, @fechaHasta))
+		  habitacion NOT IN (SELECT HR.habitacion FROM COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas(@codHotel, @fechaDesde, @fechaHasta) HR)
 GO
 
 --/PROCEDIMIENTO GET REGIMEN 
