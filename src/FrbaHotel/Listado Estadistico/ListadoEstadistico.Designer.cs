@@ -35,15 +35,15 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.botonMostrarListado = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.comboTipoDeListado = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dataGridReportes = new System.Windows.Forms.DataGridView();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridReportes)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -102,6 +102,7 @@
             this.botonMostrarListado.TabIndex = 2;
             this.botonMostrarListado.Text = "Mostrar listado";
             this.botonMostrarListado.UseVisualStyleBackColor = true;
+            this.botonMostrarListado.Click += new System.EventHandler(this.botonMostrarListado_Click);
             // 
             // groupBox2
             // 
@@ -115,6 +116,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Año y trimestre";
             // 
+            // comboTipoDeListado
+            // 
+            this.comboTipoDeListado.FormattingEnabled = true;
+            this.comboTipoDeListado.Location = new System.Drawing.Point(72, 23);
+            this.comboTipoDeListado.Name = "comboTipoDeListado";
+            this.comboTipoDeListado.Size = new System.Drawing.Size(276, 21);
+            this.comboTipoDeListado.TabIndex = 5;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -124,17 +133,9 @@
             this.label4.TabIndex = 0;
             this.label4.Text = "Listado*";
             // 
-            // comboTipoDeListado
-            // 
-            this.comboTipoDeListado.FormattingEnabled = true;
-            this.comboTipoDeListado.Location = new System.Drawing.Point(72, 23);
-            this.comboTipoDeListado.Name = "comboTipoDeListado";
-            this.comboTipoDeListado.Size = new System.Drawing.Size(276, 21);
-            this.comboTipoDeListado.TabIndex = 5;
-            // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.dataGridView1);
+            this.groupBox3.Controls.Add(this.dataGridReportes);
             this.groupBox3.Location = new System.Drawing.Point(20, 147);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(500, 186);
@@ -142,13 +143,13 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Listado Top5";
             // 
-            // dataGridView1
+            // dataGridReportes
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(480, 156);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridReportes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridReportes.Location = new System.Drawing.Point(12, 19);
+            this.dataGridReportes.Name = "dataGridReportes";
+            this.dataGridReportes.Size = new System.Drawing.Size(480, 156);
+            this.dataGridReportes.TabIndex = 0;
             // 
             // label3
             // 
@@ -176,7 +177,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridReportes)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,7 +195,7 @@
         private System.Windows.Forms.ComboBox comboTipoDeListado;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dataGridReportes;
         private System.Windows.Forms.Label label3;
 
     }
