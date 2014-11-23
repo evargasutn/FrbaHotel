@@ -2694,7 +2694,7 @@ AS
 						   WHEN 4 | 5 THEN 12
 						END )
 						
-	SELECT TOP 5 (DR.codHotel) AS codHotel, H.nombreHotel, COUNT(H.codHotel) AS Cancelaciones 
+	SELECT TOP 5 (DR.codHotel) AS "Codigo Hotel", H.nombreHotel AS Nombre, COUNT(H.codHotel) AS Cancelaciones 
 	FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
 	
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA C ON C.codReserva = DR.codReserva
@@ -2743,7 +2743,7 @@ AS
 						   WHEN 4 | 5 THEN 12
 						END )
 						
-	SELECT TOP 5 (DR.codHotel) AS codHotel, H.nombreHotel, SUM(CE.cantidad) AS Cantidad_Consumibles_Facturados 
+	SELECT TOP 5 (DR.codHotel) AS "Codigo Hotel", H.nombreHotel AS Nombre, SUM(CE.cantidad) AS "Cantidad Consumibles Facturados" 
 					FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 	
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR ON DR.codReserva = CE.codReserva
@@ -2792,9 +2792,9 @@ AS
 						   WHEN 4 | 5 THEN 12
 						END )
 	
-	SELECT DISTINCT TOP 5 (DR.habitacion) AS Habitacion, DR.codHotel, H.nombreHotel, 
-						  SUM(DATEDIFF(day,E.fecIngreso,E.fecEgreso))  AS Cantidad_Dias_Ocupado,
-						  COUNT(DR.Habitacion) as Veces_Ocupado
+	SELECT DISTINCT TOP 5 (DR.habitacion) AS Habitacion, DR.codHotel AS "Codigo Hotel", H.nombreHotel AS Hotel, 
+						  SUM(DATEDIFF(day,E.fecIngreso,E.fecEgreso))  AS "Cantidad Dias Ocupado",
+						  COUNT(DR.Habitacion) as "Veces Ocupado"
 	FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
 	
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E ON E.codReserva = DR.codReserva
@@ -2843,8 +2843,8 @@ AS
 						   WHEN 4 | 5 THEN 12
 				    END )
 				    
-	SELECT DISTINCT TOP 5 (HUES.idHuesped) AS idHuesped, HUES.Apellido, HUES.Nombre,
-						SUM(CASE WHEN ITEMS.descripcion LIKE 'Recargos%' THEN ITEMS.montoTotal / 10 ELSE ITEMS.montoTotal / 5  END)  AS Puntos_Acumulados
+	SELECT DISTINCT TOP 5 (HUES.idHuesped) AS "ID Huesped", HUES.Apellido, HUES.Nombre,
+						SUM(CASE WHEN ITEMS.descripcion LIKE 'Recargos%' THEN ITEMS.montoTotal / 10 ELSE ITEMS.montoTotal / 5  END)  AS "Puntos Acumulados"
 					 FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS
 		
 	 JOIN COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F ON F.numeroFactura = ITEMS.numeroFactura
