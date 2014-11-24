@@ -25,8 +25,6 @@ namespace DOM
         #region Rol_X_Funcionalidad
         public static DataTable obtenerPorRolTable(string nombreRol)
         {
-            if (nombreRol == "")
-                nombreRol = "''";
             return retrieveDataTable("JoinRolFunc", nombreRol);
         }
         public static List<Funcionalidad> obtenerPorRol(string nombreRol)
