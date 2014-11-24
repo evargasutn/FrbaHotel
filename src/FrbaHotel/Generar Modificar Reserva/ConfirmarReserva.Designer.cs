@@ -28,21 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.textCostoReserva = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textNroDoc = new System.Windows.Forms.MaskedTextBox();
+            this.botonBuscar = new System.Windows.Forms.Button();
             this.dataGridClientes = new System.Windows.Forms.DataGridView();
+            this.buttonRegistrarCliente = new System.Windows.Forms.Button();
             this.textMail = new System.Windows.Forms.TextBox();
             this.comboTipoDoc = new System.Windows.Forms.ComboBox();
-            this.textNroDoc = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.botonConfirmar = new System.Windows.Forms.Button();
-            this.buttonRegistrarCliente = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.botonBuscar = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
             this.panel1.SuspendLayout();
@@ -68,12 +70,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textNroDoc);
             this.groupBox1.Controls.Add(this.botonBuscar);
             this.groupBox1.Controls.Add(this.dataGridClientes);
             this.groupBox1.Controls.Add(this.buttonRegistrarCliente);
             this.groupBox1.Controls.Add(this.textMail);
             this.groupBox1.Controls.Add(this.comboTipoDoc);
-            this.groupBox1.Controls.Add(this.textNroDoc);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
@@ -84,14 +86,49 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cliente registrado";
             // 
+            // textNroDoc
+            // 
+            this.textNroDoc.Location = new System.Drawing.Point(128, 45);
+            this.textNroDoc.Mask = "99999999999999999";
+            this.textNroDoc.Name = "textNroDoc";
+            this.textNroDoc.Size = new System.Drawing.Size(137, 20);
+            this.textNroDoc.TabIndex = 8;
+            this.textNroDoc.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNroDoc_MaskInputRejected);
+            // 
+            // botonBuscar
+            // 
+            this.botonBuscar.Location = new System.Drawing.Point(399, 241);
+            this.botonBuscar.Name = "botonBuscar";
+            this.botonBuscar.Size = new System.Drawing.Size(117, 33);
+            this.botonBuscar.TabIndex = 7;
+            this.botonBuscar.Text = "Buscar";
+            this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
+            // 
             // dataGridClientes
             // 
+            this.dataGridClientes.AllowUserToAddRows = false;
+            this.dataGridClientes.AllowUserToDeleteRows = false;
+            this.dataGridClientes.AllowUserToResizeColumns = false;
+            this.dataGridClientes.AllowUserToResizeRows = false;
             this.dataGridClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridClientes.Location = new System.Drawing.Point(6, 95);
+            this.dataGridClientes.MultiSelect = false;
             this.dataGridClientes.Name = "dataGridClientes";
-            this.dataGridClientes.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.dataGridClientes.ReadOnly = true;
+            this.dataGridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridClientes.Size = new System.Drawing.Size(510, 140);
             this.dataGridClientes.TabIndex = 0;
+            // 
+            // buttonRegistrarCliente
+            // 
+            this.buttonRegistrarCliente.Location = new System.Drawing.Point(332, 19);
+            this.buttonRegistrarCliente.Name = "buttonRegistrarCliente";
+            this.buttonRegistrarCliente.Size = new System.Drawing.Size(184, 66);
+            this.buttonRegistrarCliente.TabIndex = 4;
+            this.buttonRegistrarCliente.Text = "Registrar nuevo cliente";
+            this.buttonRegistrarCliente.UseVisualStyleBackColor = true;
+            this.buttonRegistrarCliente.Click += new System.EventHandler(this.buttonRegistrarCliente_Click);
             // 
             // textMail
             // 
@@ -107,13 +144,6 @@
             this.comboTipoDoc.Name = "comboTipoDoc";
             this.comboTipoDoc.Size = new System.Drawing.Size(137, 21);
             this.comboTipoDoc.TabIndex = 5;
-            // 
-            // textNroDoc
-            // 
-            this.textNroDoc.Location = new System.Drawing.Point(128, 45);
-            this.textNroDoc.Name = "textNroDoc";
-            this.textNroDoc.Size = new System.Drawing.Size(138, 20);
-            this.textNroDoc.TabIndex = 4;
             // 
             // label4
             // 
@@ -152,16 +182,6 @@
             this.botonConfirmar.UseVisualStyleBackColor = true;
             this.botonConfirmar.Click += new System.EventHandler(this.botonConfirmar_Click);
             // 
-            // buttonRegistrarCliente
-            // 
-            this.buttonRegistrarCliente.Location = new System.Drawing.Point(332, 19);
-            this.buttonRegistrarCliente.Name = "buttonRegistrarCliente";
-            this.buttonRegistrarCliente.Size = new System.Drawing.Size(184, 66);
-            this.buttonRegistrarCliente.TabIndex = 4;
-            this.buttonRegistrarCliente.Text = "Registrar nuevo cliente";
-            this.buttonRegistrarCliente.UseVisualStyleBackColor = true;
-            this.buttonRegistrarCliente.Click += new System.EventHandler(this.buttonRegistrarCliente_Click);
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -183,16 +203,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(516, 38);
             this.panel1.TabIndex = 6;
-            // 
-            // botonBuscar
-            // 
-            this.botonBuscar.Location = new System.Drawing.Point(399, 241);
-            this.botonBuscar.Name = "botonBuscar";
-            this.botonBuscar.Size = new System.Drawing.Size(117, 33);
-            this.botonBuscar.TabIndex = 7;
-            this.botonBuscar.Text = "Buscar";
-            this.botonBuscar.UseVisualStyleBackColor = true;
-            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
             // ConfirmarReserva
             // 
@@ -230,11 +240,12 @@
         private System.Windows.Forms.DataGridView dataGridClientes;
         private System.Windows.Forms.TextBox textMail;
         private System.Windows.Forms.ComboBox comboTipoDoc;
-        private System.Windows.Forms.TextBox textNroDoc;
         private System.Windows.Forms.Button botonConfirmar;
         private System.Windows.Forms.Button buttonRegistrarCliente;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button botonBuscar;
+        private System.Windows.Forms.MaskedTextBox textNroDoc;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

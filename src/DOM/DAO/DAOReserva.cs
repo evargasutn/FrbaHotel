@@ -34,6 +34,25 @@ namespace DOM
                 return null;
             return lista[0];
         }
+
+        public static DataTable obtenerTabla(Reserva reserva)
+        {
+            int huesped = reserva.Huesped;
+            int codRegimen = reserva.CodigoRegimen;
+            string usr = reserva.Usr;
+            string fecDesde = reserva.Fecha_Inicio;
+            string fecHasta = reserva.Fecha_Fin;
+            string fecReserva = reserva.Fecha_Reserva;
+            return retrieveDataTable("getReservaByData", huesped,codRegimen,usr,fecDesde,fecHasta,fecReserva);
+        }
+
+        public static Reserva obtener(Reserva reserva_sinCodigo)
+        {
+            List<Reserva> lista = transductor(obtenerTabla(reserva_sinCodigo));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
+        }
         #endregion
 
         #region obtener Detalle_Reserva
@@ -71,7 +90,7 @@ namespace DOM
 
         public static DataTable habitacionDisponiblesTabla(int codHotel, string fechaDesde, string fechaHasta)
         {
-            return retrieveDataTable("existenHab", codHotel ,fechaDesde, fechaHasta);
+            return retrieveDataTable("habitacionesDisponibles", codHotel, fechaDesde, fechaHasta);
         }
         public static List<Habitacion> habitacionDisponibles(int codHotel, string fechaDesde, string fechaHasta)
         {

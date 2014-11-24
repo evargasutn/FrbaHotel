@@ -109,6 +109,14 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 "", MessageBoxButtons.OK);
                 return;
             }
+            for (int i = 0; i < cantHab; i++)
+            {
+                Detalle_Reserva det = new Detalle_Reserva();
+                det.CodigoHotel = Globals.infoSesion.Hotel.CodHotel;
+                det.Habitacion = habitaciones_disponibles[i].Id_Habitacion;
+                reserva.detalles_reserva.Add(det);
+            }
+
             new ConfirmarReserva(reserva).Show();
             Globals.deshabilitarAnterior(this);
         }

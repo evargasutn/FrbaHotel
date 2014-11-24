@@ -35,6 +35,19 @@ namespace DOM
             return lista[0];
         }
 
+        public static DataTable obtenerTabla(string tipo_doc, int nroDoc, string email)
+        {
+            return retrieveDataTable("getHuespedEspecifico", tipo_doc, nroDoc, email);
+        }
+
+        public static Huesped obtener(string tipo_doc, int nroDoc, string email)
+        {
+            List<Huesped> lista = transductor(obtenerTabla(tipo_doc, nroDoc, email));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
+        }
+
         public static bool insertar(Huesped huesped)
         {
             string nombre = huesped.Nombre;

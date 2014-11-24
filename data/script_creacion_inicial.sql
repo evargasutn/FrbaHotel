@@ -1508,6 +1508,24 @@ AS
 		WHERE R.codRegimen = @codigo
 GO
 
+--/PROCEDIMIENTO GET REGIMEN POR HOTEL
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimenByHotel
+@codigo numeric(8)
+AS
+	IF (@codigo != -1)
+		SELECT R.codRegimen, R.descripcion, R.precio, R.estado 
+		FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.REGIMENES_X_HOTEL H
+		ON H.codRegimen = R.codRegimen
+		WHERE H.codHotel = @codigo
+GO
 --/PROC INSERTREGIMEN 
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertRegimen', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRegimen
@@ -1852,6 +1870,33 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getReserva
 		WHERE R.codReserva = @codReserva
 GO
 
+--/PROC GETRESERVA BY DATA 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getReservaByData', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getReservaByData
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getReservaByData
+	@idHuesped int,
+	@codRegimen numeric(8),
+	@usr varchar(50),
+	@fecDesde datetime,
+	@fecHasta datetime,
+	@fecReserva datetime
+	
+	AS
+	SELECT *
+	FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
+	WHERE	idHuesped = @idHuesped AND codRegimen = @codRegimen
+	AND		usr = @usr AND fecDesde = @fecDesde
+	AND		fecHasta = @fecHasta AND fecReserva = @fecReserva
+	ORDER BY fecReserva DESC
+GO
+
+
+
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.JoinUsrRol', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.JoinUsrRol
 GO
@@ -1892,7 +1937,7 @@ AS
 		DECLARE @max_cod_tblReservaInvalida bigint
 		SET @max_cod_tblReservaInvalida = (SELECT MAX(RI.codReserva) FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVASINVALIDAS RI)
 
-		RETURN (CASE WHEN @max	_cod_tblReserva > @max_cod_tblReservaInvalida 
+		RETURN (CASE WHEN @max_cod_tblReserva > @max_cod_tblReservaInvalida 
 					  THEN @max_cod_tblReserva
 					  ELSE @max_cod_tblReservaInvalida
 				 END) 
@@ -1939,7 +1984,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertDetalleReserva
 	@codHotel numeric(8),
 	@habitacion numeric(4) 
 AS
-	IF(@codReserva != -1 AND @codHotel != '' AND
+	IF(@codReserva != -1 AND @codHotel != -1 AND
 		@habitacion != -1)
 	
 	--INSERT EN LA TABLA DE DETALLE_RESERVAS
@@ -2053,7 +2098,7 @@ AS
 	SELECT *
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HUESPEDES
 	WHERE tipoDocu = @tipoDocu AND numDocu = @numDocu
-	AND mail = @mail
+	AND UPPER(mail) = UPPER(@mail)
 GO
 
 --/PROC INSERTHUESPED

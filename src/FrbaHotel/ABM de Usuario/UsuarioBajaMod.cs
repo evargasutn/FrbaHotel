@@ -45,7 +45,7 @@ namespace FrbaHotel.ABM_de_Usuario
             if (String.IsNullOrEmpty(textUsuario.Text) && String.IsNullOrEmpty(textNombre.Text) &&
                 String.IsNullOrEmpty(textApellido.Text) && String.IsNullOrEmpty((string)(comboListRol.SelectedItem)))
             {
-                dataGridUsuario.DataSource = DAOUsuario.obtenerTabla("");
+                dataGridUsuario.DataSource = DAOUsuario.obtenerTabla();
                 //Solo muestra las primeras 6 columnas de la tabla resultante
                 for (int item = 6; item < dataGridUsuario.ColumnCount; item++)
                     dataGridUsuario.Columns[item].Visible = false; 

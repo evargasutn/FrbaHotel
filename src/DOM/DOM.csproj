@@ -57,6 +57,7 @@
     <Compile Include="DAO\DAOCancelacionReserva.cs" />
     <Compile Include="DAO\DAOFactura.cs" />
     <Compile Include="DAO\DAORegimen.cs" />
+    <Compile Include="DAO\DAOReportes.cs" />
     <Compile Include="Dominio\CancelacionReserva.cs" />
     <Compile Include="Dominio\Factura.cs" />
     <Compile Include="Dominio\ItemsFactura.cs" />

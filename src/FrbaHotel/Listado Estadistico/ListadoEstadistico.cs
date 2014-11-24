@@ -24,8 +24,6 @@ namespace FrbaHotel.Listado_Estadistico
 
         }
 
-
-
         public void inicializarFuentes()
         {
             tiposDeListados = new List<string>();
@@ -72,6 +70,16 @@ namespace FrbaHotel.Listado_Estadistico
         private void botonMostrarListado_Click(object sender, EventArgs e)
         {
             reporte(comboTipoDeListado.SelectedValue.ToString(), Int32.Parse(comboTrimestre.SelectedValue.ToString()), Int32.Parse(dateTimeAnioEstadistica.Value.Year.ToString()));
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (e.CloseReason == CloseReason.WindowsShutDown) return;
+
+            // Confirm user wants to close
+            Globals.habilitarAnterior();
         }
 
     }
