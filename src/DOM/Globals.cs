@@ -4,6 +4,7 @@ using System.Text;
 using System.Configuration;
 using System.Windows.Forms;
 using DOM.Dominio;
+using DOM.DAO;
 
 namespace DOM
 {
@@ -60,8 +61,12 @@ namespace DOM
             }
         }
 
+        public static double obtenerPrecio(int codRegimen, int cantPersonas)
+        {
+            Regimen reg = DAORegimen.obtener(codRegimen);
 
-
+            return (reg.Precio * cantPersonas) + Globals.infoSesion.Hotel.Recargo;
+        }   
        
         #endregion
 

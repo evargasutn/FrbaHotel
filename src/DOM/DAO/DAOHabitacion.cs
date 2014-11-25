@@ -52,6 +52,32 @@ namespace DOM
                 return null;
             return lista[0];
         }
+
+        public static DataTable obtenerTipoReservaTabla(int codReserva)
+        {
+            return retrieveDataTable("getTipoHabitacionByReserva", codReserva);
+        }
+
+        public static Tipo_Habitacion obtenerTipoByReserva(int codReserva)
+        {
+            List<Tipo_Habitacion> lista = transductor_tipo(obtenerTipoReservaTabla(codReserva));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
+        }
+
+        public static int obtenerCantHabitacionesByReserva(int codReserva)
+        {
+            DataTable tabla = obtenerTipoReservaTabla(codReserva);
+            if(tabla != null)
+            {
+                int cant = tabla.Rows.Count;
+                int peso_hab = Convert.ToInt32(tabla.Rows[0]["tipoCantidad"]);
+                return cant * peso_hab;
+            }
+            return 0;
+        }
+
         #endregion
 
         public static bool insertar(Habitacion habitacion)

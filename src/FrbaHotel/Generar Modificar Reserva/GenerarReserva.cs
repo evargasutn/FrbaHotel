@@ -101,9 +101,9 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             reserva.cantHabitaciones = cantHab;
             reserva.tipo_habitacion = tipo_seleccionado;
             List<Habitacion> habitaciones_disponibles;
-            habitaciones_disponibles = DAOReserva.habitacionDisponibles(Globals.infoSesion.Hotel.CodHotel, reserva.Fecha_Inicio, reserva.Fecha_Fin);
+            habitaciones_disponibles = DAOReserva.habitacionDisponibles(Globals.infoSesion.Hotel.CodHotel,tipo_seleccionado.TipoCodigo, reserva.Fecha_Inicio, reserva.Fecha_Fin);
 
-            if (habitaciones_disponibles.Count < cantHab)
+            if (habitaciones_disponibles.Count <= cantHab)
             {
                 DialogResult dr = MessageBox.Show("No existen suficientes habitaciones disponibles para efectuar la reserva.",
                 "", MessageBoxButtons.OK);

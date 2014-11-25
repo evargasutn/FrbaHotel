@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelNroReserva = new System.Windows.Forms.Label();
             this.textNroReserva = new System.Windows.Forms.TextBox();
             this.dateTimeInicio = new System.Windows.Forms.DateTimePicker();
             this.dateTimeFin = new System.Windows.Forms.DateTimePicker();
             this.comboTipoHab = new System.Windows.Forms.ComboBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.textCant = new System.Windows.Forms.MaskedTextBox();
             this.comboTipoRegimen = new System.Windows.Forms.ComboBox();
             this.labelFechaDesde = new System.Windows.Forms.Label();
             this.labelFechaHasta = new System.Windows.Forms.Label();
@@ -48,6 +49,7 @@
             this.botonDisponibilidad = new System.Windows.Forms.Button();
             this.botonModificar = new System.Windows.Forms.Button();
             this.botonLimpiar = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,6 +77,7 @@
             this.dateTimeInicio.Name = "dateTimeInicio";
             this.dateTimeInicio.Size = new System.Drawing.Size(100, 20);
             this.dateTimeInicio.TabIndex = 3;
+            this.dateTimeInicio.ValueChanged += new System.EventHandler(this.dateTimeInicio_ValueChanged);
             // 
             // dateTimeFin
             // 
@@ -83,6 +86,7 @@
             this.dateTimeFin.Name = "dateTimeFin";
             this.dateTimeFin.Size = new System.Drawing.Size(100, 20);
             this.dateTimeFin.TabIndex = 4;
+            this.dateTimeFin.ValueChanged += new System.EventHandler(this.dateTimeFin_ValueChanged);
             // 
             // comboTipoHab
             // 
@@ -91,14 +95,17 @@
             this.comboTipoHab.Name = "comboTipoHab";
             this.comboTipoHab.Size = new System.Drawing.Size(100, 21);
             this.comboTipoHab.TabIndex = 5;
+            this.comboTipoHab.SelectedIndexChanged += new System.EventHandler(this.comboTipoHab_SelectedIndexChanged);
             // 
-            // maskedTextBox1
+            // textCant
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(172, 104);
-            this.maskedTextBox1.Mask = "99";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(41, 20);
-            this.maskedTextBox1.TabIndex = 6;
+            this.textCant.Location = new System.Drawing.Point(172, 104);
+            this.textCant.Mask = "99";
+            this.textCant.Name = "textCant";
+            this.textCant.Size = new System.Drawing.Size(41, 20);
+            this.textCant.TabIndex = 6;
+            this.textCant.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textCant_MaskInputRejected);
+            this.textCant.TextChanged += new System.EventHandler(this.textCant_TextChanged);
             // 
             // comboTipoRegimen
             // 
@@ -107,6 +114,7 @@
             this.comboTipoRegimen.Name = "comboTipoRegimen";
             this.comboTipoRegimen.Size = new System.Drawing.Size(100, 21);
             this.comboTipoRegimen.TabIndex = 7;
+            this.comboTipoRegimen.SelectedIndexChanged += new System.EventHandler(this.comboTipoRegimen_SelectedIndexChanged);
             // 
             // labelFechaDesde
             // 
@@ -198,7 +206,7 @@
             this.groupBox1.Controls.Add(this.labelFechaHasta);
             this.groupBox1.Controls.Add(this.labelFechaDesde);
             this.groupBox1.Controls.Add(this.comboTipoRegimen);
-            this.groupBox1.Controls.Add(this.maskedTextBox1);
+            this.groupBox1.Controls.Add(this.textCant);
             this.groupBox1.Controls.Add(this.comboTipoHab);
             this.groupBox1.Controls.Add(this.dateTimeFin);
             this.groupBox1.Controls.Add(this.dateTimeInicio);
@@ -270,7 +278,7 @@
         private System.Windows.Forms.DateTimePicker dateTimeInicio;
         private System.Windows.Forms.DateTimePicker dateTimeFin;
         private System.Windows.Forms.ComboBox comboTipoHab;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.MaskedTextBox textCant;
         private System.Windows.Forms.ComboBox comboTipoRegimen;
         private System.Windows.Forms.Label labelFechaDesde;
         private System.Windows.Forms.Label labelFechaHasta;
@@ -285,5 +293,6 @@
         private System.Windows.Forms.Button botonDisponibilidad;
         private System.Windows.Forms.Button botonModificar;
         private System.Windows.Forms.Button botonLimpiar;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }

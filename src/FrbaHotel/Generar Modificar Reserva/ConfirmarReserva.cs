@@ -27,7 +27,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             foreach (string tipo in Documento.string_docu)
                 comboTipoDoc.Items.Add(tipo);
-            double precio = obtenerPrecio(datos_Reserva.CodigoRegimen, datos_Reserva.tipo_habitacion.CantPersonas);
+            int cantPersonas = datos_Reserva.tipo_habitacion.CantPersonas* datos_Reserva.cantHabitaciones;
+            double precio = Globals.obtenerPrecio(datos_Reserva.CodigoRegimen, cantPersonas);
             textCostoReserva.Text = precio.ToString();
         } 
 
@@ -115,14 +116,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 }
             }
             return true;
-        }
-        
-        private double obtenerPrecio(int codRegimen, int cantPersonas)
-        {
-            Regimen reg = DAORegimen.obtener(codRegimen);
-            
-            return (reg.Precio*cantPersonas)+Globals.infoSesion.Hotel.Recargo;
-        }      
+        }   
 
         private void textNroDoc_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
         {

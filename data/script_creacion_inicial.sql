@@ -1354,6 +1354,25 @@ AS
 	END
 GO
 
+--/PROCEDIMIENTO GET TIPO HABITACION POR RESERVA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getTipoHabitacionByReserva', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getTipoHabitacionByReserva
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getTipoHabitacionByReserva
+	@codReserva numeric(18)
+AS
+	SELECT tipo.tipoCodigo, tipo.tipoDescripcion, tipo.tipoCantidad, tipo.tipoPorcentual
+	FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA res
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES hab
+	ON res.habitacion = hab.habitacion AND res.codHotel = hab.codHotel
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES tipo
+	ON tipo.tipoCodigo = hab.tipoCodigo
+	WHERE res.codReserva = @codReserva
+GO
 
 --/PROCEDIMIENTO INSERTAR HABITACION
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertHabitacion', 'P' ) IS NOT NULL 
@@ -1477,7 +1496,8 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.habitacionesDisponibles
-	@codHotel numeric(8),
+	@codHotel	numeric(8),
+	@tipoHab	numeric(18),
 	@fechaDesde datetime,
 	@fechaHasta datetime
 AS
@@ -1485,6 +1505,7 @@ AS
 	FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
 	WHERE codHotel = @codHotel AND
 		  campoBaja = 0 AND
+		  tipoCodigo = @tipoHab AND
 		  habitacion NOT IN (SELECT HR.habitacion FROM COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas(@codHotel, @fechaDesde, @fechaHasta) HR)
 GO
 

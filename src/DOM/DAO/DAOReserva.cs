@@ -53,9 +53,14 @@ namespace DOM
                 return null;
             return lista[0];
         }
+
+        public static List<EstadoReservas> obtenerEstadosReservas()
+        {
+            return (transductor_estado(retrieveDataTable("obtenerEstadoReserva", cadena_nula)));
+        }
         #endregion
 
-        #region obtener Detalle_Reserva
+        #region obtener_Detalle_Reserva
         public static DataTable obtenerDetalleTabla(int codReserva)
         {
             return retrieveDataTable("getReserva", codReserva);
@@ -63,12 +68,13 @@ namespace DOM
 
         public static Detalle_Reserva obtenerDetalleTodos(int codReserva)
         {
-            List<Detalle_Reserva> lista = transductor_detalle(obtenerTabla(codReserva));
+            List<Detalle_Reserva> lista = transductor_detalle(obtenerDetalleTabla(codReserva));
             if (lista.Count == 0)
                 return null;
             return lista[0];
         }
         #endregion
+
 
         public static bool agregar(Reserva reserva)
         {
@@ -88,16 +94,24 @@ namespace DOM
             return executeProcedure("insertDetalleReserva", codReserva, codHotel, habitacion);
         }
 
-        public static DataTable habitacionDisponiblesTabla(int codHotel, string fechaDesde, string fechaHasta)
+        public static bool actualizar(Reserva reserva)
         {
-            return retrieveDataTable("habitacionesDisponibles", codHotel, fechaDesde, fechaHasta);
-        }
-        public static List<Habitacion> habitacionDisponibles(int codHotel, string fechaDesde, string fechaHasta)
-        {
-            return DAOHabitacion.transductor(habitacionDisponiblesTabla(codHotel, fechaDesde, fechaHasta));
+            throw new NotImplementedException();
         }
 
+        public static bool quitarHabitacion(Detalle_Reserva detalle)
+        {
+            throw new NotImplementedException();
+        }
 
+        public static DataTable habitacionDisponiblesTabla(int codHotel, int tipoHab, string fechaDesde, string fechaHasta)
+        {
+            return retrieveDataTable("habitacionesDisponibles", codHotel, tipoHab, fechaDesde, fechaHasta);
+        }
+        public static List<Habitacion> habitacionDisponibles(int codHotel,int tipoHab, string fechaDesde, string fechaHasta)
+        {
+            return DAOHabitacion.transductor(habitacionDisponiblesTabla(codHotel,tipoHab, fechaDesde, fechaHasta));
+        }
 
 
         #region Transductores
@@ -134,6 +148,23 @@ namespace DOM
                     detalle.Habitacion = Convert.ToInt32(fila["habitacion"]);
                     //Transcribir
                     lista.Add(detalle);
+                }
+            }
+            return lista;
+        }
+
+        public static List<EstadoReservas> transductor_estado(DataTable dt)
+        {
+            List<EstadoReservas> lista = new List<EstadoReservas>();
+            if (dt != null)
+            {
+                foreach (DataRow fila in dt.Rows)
+                {
+                    EstadoReservas estado = new EstadoReservas();
+                    estado.codEstado = Convert.ToInt32(fila["codEstadoReserva"]);
+                    estado.descripcion = Convert.ToString(fila["descripcion"]);
+                    //Transcribir
+                    lista.Add(estado);
                 }
             }
             return lista;
