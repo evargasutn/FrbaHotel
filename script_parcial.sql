@@ -35,7 +35,7 @@ COMMIT;
 CREATE TABLE competencia.paises
 (
 	idPais			int				IDENTITY(1,1) PRIMARY KEY,
-	detalle			nvarchar(100),
+	detalle			nvarchar(100)	UNIQUE,
 )
 GO
 
@@ -95,7 +95,7 @@ CREATE TABLE competencia.respuestas
 	letra			char,
 	detalle			nvarchar(100),
 	esCorrecta		bit				NOT NULL,
-	porcentaje		int,
+	porcentaje		int				DEFAULT 0 ,
 )
 GO
 
@@ -210,29 +210,6 @@ AS
     CLOSE cur
     DEALLOCATE cur
 GO
-
---Funcion para obtener si el jugador participo en una competencia dada
---IF object_id(N'competencia.participoEnCompetencia', N'FN') IS NOT NULL
---    DROP FUNCTION competencia.participoEnCompetencia
---GO
---CREATE FUNCTION competencia.participoEnCompetencia (@jugador int, @competencia int) 
---RETURNS int
---AS
---BEGIN
---	IF((SELECT COUNT(*) FROM competiciones c WHERE c.idCompeticion = @competencia AND c.jugador1 = @jugador) > 0) 
---		RETURN 1
---	IF((SELECT COUNT(*) FROM competiciones c WHERE c.idCompeticion = @competencia AND c.jugador2 = @jugador) > 0) 
---		RETURN 2
---	IF((SELECT COUNT(*) FROM competiciones c WHERE c.idCompeticion = @competencia AND c.jugador3 = @jugador) > 0) 
---		RETURN 3				
---	IF((SELECT COUNT(*) FROM competiciones c WHERE c.idCompeticion = @competencia AND c.jugador4 = @jugador) > 0) 
---		RETURN 4
---	IF((SELECT COUNT(*) FROM competiciones c WHERE c.idCompeticion = @competencia AND c.jugador5 = @jugador) > 0) 
---		RETURN 5
---	RETURN 0
---END
---GO
-
 
 IF object_id(N'competencia.participoEnCompetencia', N'FN') IS NOT NULL
     DROP FUNCTION competencia.participoEnCompetencia
@@ -421,10 +398,10 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE competencia.insertCategoria
-	@categoria int, @detalle varchar(255)		
+	@detalle varchar(255)		
 AS
-	INSERT INTO competencia.categoria(idCategoria, detalle)
-	VALUES (@categoria, @detalle)
+	INSERT INTO competencia.categoria(detalle)
+	VALUES (@detalle)
 GO
 
 -- Insert nivel
@@ -436,10 +413,10 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE competencia.insertNivel
-	@nivel int, @detalle varchar(255)		
+	@detalle varchar(255)		
 AS
-	INSERT INTO competencia.niveles(idNivel, detalle)
-	VALUES (@nivel, @detalle)
+	INSERT INTO competencia.niveles(detalle)
+	VALUES (@detalle)
 GO
 
 -- Insert respuesta
@@ -451,10 +428,10 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE competencia.insertRespuesta
-	@respuesta int, @letra char(1), @correcta bit	
+	@pregunta int, @letra char(1), @detalle nvarchar(100), @correcta bit	
 AS
-	INSERT INTO competencia.respuestas(idRespuesta, letra, esCorrecta)
-	VALUES (@respuesta, @letra, @correcta)
+	INSERT INTO competencia.respuestas(pregunta, letra, detalle, esCorrecta)
+	VALUES (@pregunta, @letra,@detalle, @correcta)
 GO
 
 -- Insert pregunta
@@ -466,11 +443,11 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE competencia.insertPregunta
-	@pregunta int, @detalle varchar(255), @categoria int, @nivel int, 
+	 @detalle varchar(255), @categoria int, @nivel int, 
 	@fechaInicio datetime, @fechaFin datetime
 AS
-	INSERT INTO competencia.preguntas(idPregunta, detalle, categoria, nivel,fechaInicio, fechaFin)
-	VALUES (@pregunta, @detalle, @categoria, @nivel, @fechaInicio, @fechaFin)
+	INSERT INTO competencia.preguntas(detalle, categoria, nivel,fechaInicio, fechaFin)
+	VALUES (@detalle, @categoria, @nivel, @fechaInicio, @fechaFin)
 GO
 
 
