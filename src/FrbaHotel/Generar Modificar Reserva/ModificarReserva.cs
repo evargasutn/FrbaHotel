@@ -75,7 +75,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     comboTipoRegimen.SelectedIndex = i;
             cantPersonas_originales = DAOHabitacion.obtenerCantHabitacionesByReserva(reserva_elegida.CodigoReserva);
             textCant.Text = cantPersonas_originales.ToString();
-            textPrecio.Text = Globals.obtenerPrecio(regimen_elegido.CodRegimen, cantPersonas_originales).ToString();
+            textPrecio.Text = Globals.obtenerPrecio(regimen_elegido.CodRegimen, cantPersonas_originales,
+                Globals.infoSesion.Hotel.Recargo).ToString();
             datos_alterados = false;
             hab_confirmadas = false;
         }
@@ -99,24 +100,25 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 nueva_reserva.Fecha_Fin_struct = dateTimeFin.Value;
                 nueva_reserva.tipo_habitacion = tipos_habitacion[comboTipoHab.SelectedIndex];
                 nueva_reserva.CodigoRegimen = lista_regimenes[comboTipoRegimen.SelectedIndex].CodRegimen;
-                int cantHab = Int32.Parse(textCant.Text);
+                int cantPersonas = Int32.Parse(textCant.Text);
                 //Si se mantiene el tipo de habitacion, entonces solo tenemos que agregar o retirar habitaciones, que no sean las originales
                 if (tipo_elegido.TipoCodigo == nueva_reserva.tipo_habitacion.TipoCodigo)
-                    cantHab = cantHab - cantPersonas_originales;                
-
+                    cantPersonas = cantPersonas - cantPersonas_originales;                
+                
                 List<Habitacion> habitaciones_disponibles;
                 habitaciones_disponibles = DAOReserva.habitacionDisponibles(Globals.infoSesion.Hotel.CodHotel,
                     nueva_reserva.tipo_habitacion.TipoCodigo,
                     nueva_reserva.Fecha_Inicio, nueva_reserva.Fecha_Fin);
-
-                if (habitaciones_disponibles.Count <= cantHab)
+                int cantAreservar = cantPersonas / nueva_reserva.tipo_habitacion.CantPersonas;
+                if (habitaciones_disponibles.Count < cantAreservar)
                 {
                     MessageBox.Show("No existen suficientes habitaciones disponibles para efectuar la reserva.",
                     "", MessageBoxButtons.OK);
                     return;
                 }
-                //Si es que faltan habitaciones
-                for (int i = 0; i < cantHab; i++)
+
+                //Si es que faltan habitaciones (Tanto se mantenga o no el tipo de habitacion)
+                for (int i = 0; i < cantAreservar; i++)
                 {
                     Detalle_Reserva det = new Detalle_Reserva();
                     det.CodigoHotel = Globals.infoSesion.Hotel.CodHotel;
@@ -124,8 +126,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     det.Habitacion = habitaciones_disponibles[i].Id_Habitacion;
                     nueva_reserva.detalles_reserva.Add(det);
                 }
-                //Si es que sobran habitaciones
-                for (int i = 0; i < -cantHab; i++)
+                //Si es que sobran habitaciones (Si el tipo de habitacion se cambia, el numero es negativo y no cicla y queda vacio)
+                for (int i = 0; i < -cantAreservar; i++)
                 {
                     Detalle_Reserva det = new Detalle_Reserva();
                     det.CodigoHotel = Globals.infoSesion.Hotel.CodHotel;
@@ -133,7 +135,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                     det.Habitacion = habitaciones_disponibles[i].Id_Habitacion;
                     detallesAremover.Add(det);
                 }
-                textPrecio.Text = Globals.obtenerPrecio(nueva_reserva.CodigoRegimen, cantHab + cantPersonas_originales).ToString();
+                textPrecio.Text = Globals.obtenerPrecio(nueva_reserva.CodigoRegimen, cantPersonas + cantPersonas_originales,
+                    Globals.infoSesion.Hotel.Recargo).ToString();
                 //Simamos la cantPersonas_originales para obtener la cantidad total de personas ingresadas y no tener que levantar todo de nuevo
                 MessageBox.Show("Hay disponibilidad para modificar la reserva.",
                 "", MessageBoxButtons.OK);
@@ -182,7 +185,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
 
         private void botonModificar_Click(object sender, EventArgs e)
         {
-            if(datos_alterados)
+            if(!datos_alterados)
             {
                 showToolTip("Primero chequee disponibilidad ya que se modificaron los datos.", botonModificar, botonModificar.Location);
                 return;
@@ -196,7 +199,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                         nueva_reserva.Estado = estado.codEstado;
 
                 //Actualizamos la reserva
-                if (!DAOReserva.actualizar(nueva_reserva))//Falta hacerlo en el DAO
+                if (!DAOReserva.actualizar(nueva_reserva))
                 {
                     MessageBox.Show("Error al modificar la reserva.",
                     "", MessageBoxButtons.OK);
@@ -206,7 +209,7 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 {
                     if (detallesAremover.Count != 0)
                         foreach (Detalle_Reserva detalle in detallesAremover)
-                            DAOReserva.quitarHabitacion(detalle); //Falta hacerlo en el DAO
+                            DAOReserva.quitarHabitacion(detalle);
                     else
                         foreach (Detalle_Reserva detalle in nueva_reserva.detalles_reserva)
                             DAOReserva.agregarHabitacion(detalle);
@@ -214,13 +217,14 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 else
                 {
                     //Quitar TODOS los detalles_Reservas ya existentes
+                    DAOReserva.quitarTodasHabitaciones(nueva_reserva.CodigoReserva);
+
                     //Agregar los nuevos de nueva_reserva
+                    foreach (Detalle_Reserva detalle in nueva_reserva.detalles_reserva)
+                        DAOReserva.agregarHabitacion(detalle);
                 }
                 MessageBox.Show("Reserva modificada Correctamente.",
                     "", MessageBoxButtons.OK);
-
-                Globals.habilitarAnterior();
-                Globals.VentanaAnterior.Dispose();
                 this.Close();
 
             }

@@ -61,11 +61,11 @@ namespace DOM
             }
         }
 
-        public static double obtenerPrecio(int codRegimen, int cantPersonas)
+        public static double obtenerPrecio(int codRegimen, int cantPersonas, int recargo)
         {
             Regimen reg = DAORegimen.obtener(codRegimen);
 
-            return (reg.Precio * cantPersonas) + Globals.infoSesion.Hotel.Recargo;
+            return (reg.Precio * cantPersonas) + recargo;
         }   
        
         #endregion

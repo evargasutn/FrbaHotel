@@ -2013,6 +2013,47 @@ AS
 	VALUES(@codReserva, @codHotel,@habitacion)
 GO
 
+--/PROC BORRARDETALLERESERVA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteDetalleReserva', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteDetalleReserva
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteDetalleReserva
+	@codReserva int,
+	@codHotel numeric(8),
+	@habitacion numeric(4) 
+AS
+	IF(@codReserva != -1 AND @codHotel != -1 AND
+		@habitacion != -1)
+	
+	--DELETE EN LA TABLA DE DETALLE_RESERVAS
+	DELETE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
+	WHERE	codReserva = @codReserva
+	AND		codHotel = @codHotel
+	AND		habitacion = @habitacion
+GO
+
+--/PROC BORRARTODOS LOS DETALLES DE RESERVA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteAllDetalleDeReserva', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteAllDetalleDeReserva
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteAllDetalleDeReserva
+	@codReserva int
+AS
+	IF(@codReserva != -1)
+	
+	--DELETE EN LA TABLA DE DETALLE_RESERVAS
+	DELETE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
+	WHERE	codReserva = @codReserva
+GO
+
 --/PROC UPDATERESERVA
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateReserva', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateReserva
@@ -2028,9 +2069,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateReserva
 	@fecInicio		DATETIME,
 	@fecFin			DATETIME,
 	@fechaReserva	DATETIME,
-	@codRegimen		numeric(8),
-	@codHotel		numeric(18),
-	@habitacion		numeric(4)
+	@codRegimen		numeric(8)
 AS
 	IF(@codReserva != -1)
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
@@ -2056,17 +2095,7 @@ AS
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.RESERVAS
 		SET fecReserva = @fechaReserva
 		WHERE codReserva = @codReserva
-	IF(@codHotel != -1 AND @codReserva != -1)
-		UPDATE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
-		SET codHotel = @codHotel
-		WHERE codReserva = @codReserva
-	IF(@habitacion != -1 AND @codReserva != -1)
-		UPDATE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
-		SET habitacion = @habitacion
-		WHERE codReserva = @codReserva
 GO
-
-
 
 --//PROC CANCELARRESERVA
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva', 'P' ) IS NOT NULL 

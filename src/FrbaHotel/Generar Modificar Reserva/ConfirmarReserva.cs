@@ -27,8 +27,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
         {
             foreach (string tipo in Documento.string_docu)
                 comboTipoDoc.Items.Add(tipo);
-            int cantPersonas = datos_Reserva.tipo_habitacion.CantPersonas* datos_Reserva.cantHabitaciones;
-            double precio = Globals.obtenerPrecio(datos_Reserva.CodigoRegimen, cantPersonas);
+            int cantPersonas = datos_Reserva.tipo_habitacion.CantPersonas * datos_Reserva.cantHabitaciones;
+            double precio = Globals.obtenerPrecio(datos_Reserva.CodigoRegimen, cantPersonas, Globals.infoSesion.Hotel.Recargo);
             textCostoReserva.Text = precio.ToString();
         } 
 

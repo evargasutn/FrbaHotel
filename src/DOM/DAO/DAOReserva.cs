@@ -96,12 +96,27 @@ namespace DOM
 
         public static bool actualizar(Reserva reserva)
         {
-            throw new NotImplementedException();
+            int codReserva = reserva.CodigoReserva;
+            string usr = reserva.Usr;
+            int estado = reserva.Estado;
+            string fecInicio = reserva.Fecha_Inicio;
+            string fecFin = reserva.Fecha_Fin;
+            string fecReserva = reserva.Fecha_Reserva;
+            int codRegimen = reserva.CodigoRegimen;
+            return executeProcedure("updateReserva", codReserva, usr, estado, fecInicio, fecFin, fecReserva, codRegimen);
         }
 
         public static bool quitarHabitacion(Detalle_Reserva detalle)
         {
-            throw new NotImplementedException();
+            int codReserva = detalle.CodigoReserva;
+            int codHotel = detalle.CodigoHotel;
+            int hab = detalle.Habitacion;
+            return executeProcedure("deleteDetalleReserva", codReserva, codHotel, hab);
+        }
+
+        public static bool quitarTodasHabitaciones(int codReserva)
+        {
+            return executeProcedure("deleteAllDetalleDeReserva", codReserva);
         }
 
         public static DataTable habitacionDisponiblesTabla(int codHotel, int tipoHab, string fechaDesde, string fechaHasta)
