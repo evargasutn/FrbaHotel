@@ -52,8 +52,8 @@ CREATE TABLE competencia.jugadores
 	nombre			nvarchar(100)	UNIQUE NOT NULL,
 	pais			int				NOT NULL,
 	nick			nvarchar(100),
-	totalJugados	int,
-	totalGanados	int,
+	totalJugados	int				DEFAULT 0,
+	totalGanados	int				DEFAULT 0,	
 	fechaAlta		datetime		NOT NULL,
 )
 GO
@@ -151,7 +151,7 @@ AS
     SET NOCOUNT ON
     SET XACT_ABORT ON
 
-    DECLARE @pregunta	UNIQUEIDENTIFIER
+    DECLARE @pregunta	int
 	DECLARE @total		int
     DECLARE @cantRespA	int
     DECLARE @cantRespB	int
@@ -168,7 +168,7 @@ AS
 		SET @cantRespA = (	SELECT COUNT(*) 
 							FROM logs l
 							JOIN respuestas r
-							ON r.idRespuesta = l.respuesta
+							ON r.idRespuesta = l.respuesta 
 							WHERE r.pregunta = @pregunta AND r.letra = 'A')
 		SET @cantRespB = (	SELECT COUNT(*) 
 							FROM logs l
@@ -188,22 +188,29 @@ AS
 											
 		SET @total = @cantRespA + @cantRespB + @cantRespC + @cantRespD
 		
-		UPDATE respuestas
-		SET porcentaje = @cantRespA * 100 / @total
-		WHERE pregunta = @pregunta AND letra = 'A'				
+		IF(@total != 0)
+		BEGIN
+			SET @cantRespA =  @cantRespA * 100 / @total
+			SET @cantRespB =  @cantRespB * 100 / @total
+			SET @cantRespC =  @cantRespC * 100 / @total
+			SET @cantRespD =  @cantRespD * 100 / @total
+			
+			UPDATE respuestas
+			SET porcentaje = @cantRespA
+			WHERE pregunta = @pregunta AND letra = 'A'				
 
-		UPDATE respuestas
-		SET porcentaje = @cantRespB * 100 / @total
-		WHERE pregunta = @pregunta AND letra = 'B'	
-		
-		UPDATE respuestas
-		SET porcentaje = @cantRespC * 100 / @total
-		WHERE pregunta = @pregunta AND letra = 'C'	
-		
-		UPDATE respuestas
-		SET porcentaje = @cantRespD * 100 / @total
-		WHERE pregunta = @pregunta AND letra = 'D'
-					
+			UPDATE respuestas
+			SET porcentaje = @cantRespB
+			WHERE pregunta = @pregunta AND letra = 'B'	
+			
+			UPDATE respuestas
+			SET porcentaje = @cantRespC
+			WHERE pregunta = @pregunta AND letra = 'C'	
+			
+			UPDATE respuestas
+			SET porcentaje = @cantRespD
+			WHERE pregunta = @pregunta AND letra = 'D'
+		END			
         FETCH NEXT FROM cur INTO @pregunta
     END
 
@@ -268,7 +275,7 @@ AS
     SET NOCOUNT ON
     SET XACT_ABORT ON
 
-    DECLARE @jugador	UNIQUEIDENTIFIER
+    DECLARE @jugador	int
 	DECLARE @jugados	int
     DECLARE @ganados	int
     
@@ -361,24 +368,20 @@ CREATE TRIGGER chequearPaisPregunta
 ON competencia.logs
 FOR INSERT, UPDATE 
 AS  
-	IF((SELECT rel.idPais 
+	IF((SELECT COUNT(rel.idPais) 
 		FROM inserted i
 		JOIN competencia.preguntas preg
 		ON i.pregunta = preg.idPregunta
 		JOIN competencia.rel_pais_pregunta rel
-		ON preg.idPregunta = rel.idPregunta) IS NOT NULL)
+		ON preg.idPregunta = rel.idPregunta) > 0)
 	BEGIN
 		IF((SELECT COUNT(*) 
 			FROM inserted i
-			JOIN (	SELECT preg.idPregunta, rel.idPais
-					FROM competencia.preguntas preg
-					JOIN competencia.rel_pais_pregunta rel
-					ON rel.idPregunta = preg.idPregunta
-					GROUP BY preg.idPregunta, rel.idPais) AS paisPreg
-			ON paisPreg.idPregunta = i.pregunta
+			JOIN competencia.rel_pais_pregunta rel
+			ON i.pregunta = rel.idPregunta
 			JOIN competencia.jugadores j
 			ON i.jugador = j.idJugador
-			WHERE j.pais = paisPreg.idPais) = 0)
+			WHERE j.pais = rel.idPais) = 0)
 		BEGIN
 			ROLLBACK
 			RAISERROR ('Pregunta no disponible para el pais del jugador.', -- Message text.
@@ -450,4 +453,35 @@ AS
 	VALUES (@detalle, @categoria, @nivel, @fechaInicio, @fechaFin)
 GO
 
+-- Insert Jugador
+IF OBJECT_ID ( 'competencia.insertJugador', 'P' ) IS NOT NULL 
+		DROP PROCEDURE competencia.insertJugador
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE competencia.insertJugador
+	 @nombre nvarchar(100), @nick nvarchar(100), @pais int
+AS
+	INSERT INTO competencia.jugadores(nombre, nick, pais, fechaAlta)
+	VALUES (@nombre, @nick, @pais, GETDATE())
+GO
 
+-- Insert Log
+IF OBJECT_ID ( 'competencia.insertLog', 'P' ) IS NOT NULL 
+		DROP PROCEDURE competencia.insertLog
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE competencia.insertLog
+	 @pregunta int,
+	 @respuesta int,
+	 @jugador int,
+	 @competicion int
+AS
+	INSERT INTO competencia.logs(pregunta, respuesta, jugador, competicion, fechaHora)
+	VALUES (@pregunta, @respuesta, @jugador, @competicion, GETDATE())
+GO

@@ -40,7 +40,7 @@ EXEC competencia.insertNivel 'Experto'
 --Insert Preguntas
 EXEC competencia.insertPregunta '¿Cual fue el primer Presidente Argentino?',1,2, '20141125', '20141130'
 EXEC competencia.insertPregunta '¿Con qué pais limita el Principado de Mónaco?',2,3, '20141124', '20141126'
-EXEC competencia.insertPregunta '¿Cuantos Mundiales fue semifinalista la selección de Paises Bajos?',3,4, '20141125', '20141127'
+EXEC competencia.insertPregunta '¿Cuantos Mundiales de Futbol fue semifinalista la selección de Paises Bajos?',3,4, '20141125', '20141127'
 
 --Insert Paises X Preguntas
 INSERT competencia.rel_pais_pregunta (idPais, idPregunta)
@@ -64,8 +64,27 @@ EXEC competencia.insertRespuesta 1, 'B', 'Manuel Belgrano', 0
 EXEC competencia.insertRespuesta 1, 'C', 'Bernardino Rivadavia', 1
 EXEC competencia.insertRespuesta 1, 'D', 'Domingo Faustino Sarmiento', 0
 
+EXEC competencia.insertRespuesta 2, 'A', 'Italia', 0
+EXEC competencia.insertRespuesta 2, 'B', 'Francia', 1
+EXEC competencia.insertRespuesta 2, 'C', 'Suiza', 0
+EXEC competencia.insertRespuesta 2, 'D', 'Belgica', 0
+
+EXEC competencia.insertRespuesta 2, 'A', '5', 0
+EXEC competencia.insertRespuesta 2, 'B', '3', 0
+EXEC competencia.insertRespuesta 2, 'C', '1', 0
+EXEC competencia.insertRespuesta 2, 'D', '2', 1
+
 --Insert Jugadores
+EXEC competencia.insertJugador 'Nicolas', 'nico', 1
+EXEC competencia.insertJugador 'Tabare', 'el lungo', 6
+EXEC competencia.insertJugador 'Dominique', 'miki', 2
+EXEC competencia.insertJugador 'Carlos', 'charlie', 1
+EXEC competencia.insertJugador 'Gabriela', 'gabi', 1
+EXEC competencia.insertJugador 'Alessandro', 'ale', 3
 
 --Insert Competiciones
+EXEC competencia.insertCompeticion 1
+EXEC competencia.agregarJugadorCompeticion 3, 1
 
 --Insert Logs
+EXEC competencia.insertLog 1, 2, 1, 1
