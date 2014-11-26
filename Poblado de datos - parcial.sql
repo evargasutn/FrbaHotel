@@ -85,6 +85,11 @@ EXEC competencia.insertJugador 'Alessandro', 'ale', 3
 --Insert Competiciones
 EXEC competencia.insertCompeticion 1
 EXEC competencia.agregarJugadorCompeticion 3, 1
+EXEC competencia.agregarJugadorCompeticion 4, 1
+EXEC competencia.agregarJugadorCompeticion 5, 1
 
 --Insert Logs
 EXEC competencia.insertLog 1, 2, 1, 1
+EXEC competencia.insertLog 1, 1, 3, 1
+EXEC competencia.insertLog 1, 1, 4, 1
+EXEC competencia.insertLog 1, 3, 4, 1
