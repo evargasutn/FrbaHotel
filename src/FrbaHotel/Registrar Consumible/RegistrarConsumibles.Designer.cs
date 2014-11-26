@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridConsumibleXEstadia = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -38,6 +39,7 @@
             this.textEstadia = new System.Windows.Forms.MaskedTextBox();
             this.textCantidad = new System.Windows.Forms.MaskedTextBox();
             this.labelCant = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibleXEstadia)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -83,6 +85,7 @@
             this.botonRegistrar.TabIndex = 7;
             this.botonRegistrar.Text = "Registrar";
             this.botonRegistrar.UseVisualStyleBackColor = true;
+            this.botonRegistrar.Click += new System.EventHandler(this.botonRegistrar_Click);
             // 
             // dataGridConsumibles
             // 
@@ -109,6 +112,7 @@
             this.botonBuscar.TabIndex = 4;
             this.botonBuscar.Text = "Mostrar Consumibles";
             this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
             // textEstadia
             // 
@@ -117,6 +121,7 @@
             this.textEstadia.Name = "textEstadia";
             this.textEstadia.Size = new System.Drawing.Size(100, 20);
             this.textEstadia.TabIndex = 5;
+            this.textEstadia.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textEstadia_MaskInputRejected);
             // 
             // textCantidad
             // 
@@ -125,6 +130,7 @@
             this.textCantidad.Name = "textCantidad";
             this.textCantidad.Size = new System.Drawing.Size(43, 20);
             this.textCantidad.TabIndex = 8;
+            this.textCantidad.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textCantidad_MaskInputRejected);
             // 
             // labelCant
             // 
@@ -145,8 +151,11 @@
             this.Controls.Add(this.botonRegistrar);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "RegistrarConsumibles";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Registrar consumibles";
+            this.Load += new System.EventHandler(this.RegistrarConsumibles_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibleXEstadia)).EndInit();
@@ -169,5 +178,6 @@
         private System.Windows.Forms.Label labelEstadia;
         private System.Windows.Forms.MaskedTextBox textCantidad;
         private System.Windows.Forms.Label labelCant;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
