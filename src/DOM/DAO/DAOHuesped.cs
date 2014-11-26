@@ -116,9 +116,12 @@ namespace DOM
                 huesped.Campo_Baja = Convert.ToBoolean(fila["campoBaja"]);
                 //Campos Nulleables
                 huesped.Mail = Convert.ToString(fila["mail"]);
-                huesped.Telefono = (fila["telefono"] != DBNull.Value)? Convert.ToInt32(fila["telefono"]) : 0;
-                huesped.Direccion.calle_piso = Convert.ToInt32(fila["direccionPiso"]);
-                huesped.Direccion.calle_dpto = Convert.ToString(fila["direccionDepto"]);
+                if (!(fila["telefono"] is DBNull))
+                    huesped.Telefono = Convert.ToInt32(fila["telefono"]);
+                if (!(fila["direccionPiso"] is DBNull))
+                    huesped.Direccion.calle_piso = Convert.ToInt32(fila["direccionPiso"]);
+                if (!(fila["direccionDepto"] is DBNull))
+                    huesped.Direccion.calle_dpto = Convert.ToString(fila["direccionDepto"]);
 
                 lista.Add(huesped);
             }

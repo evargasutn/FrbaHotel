@@ -118,6 +118,7 @@ namespace FrbaHotel.ABM_de_Usuario
 
                     //Fin de Update de Usuario
                     MessageBox.Show("Update de Usuario correcta");
+                    ((UsuarioBajaMod)Globals.VentanaAnterior).updateGrid();
                     this.Close();
                 }
                 else

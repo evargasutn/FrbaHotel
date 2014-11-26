@@ -1080,15 +1080,11 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getUsuario
 	@unUsr VARCHAR(50)
 AS
 	 IF (@unUsr = '')
- 		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
- 				U.direccionDepto, U.mail, U.telefono, U.password, U.campoBaja
+ 		SELECT *
  		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
-		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU ON RU.usr = U.usr
 	 ELSE
-		SELECT U.usr, RU.nombreRol, U.nombre, U.apellido, U.FecNacimiento, U.tipoDocu, U.numDocu,U.direccionCalle, U.direccionNumero, U.direccionPiso, 
-				U.direccionDepto, U.mail, U.telefono, U.password, U.campoBaja
+		SELECT *
 		FROM COMPUMUNDO_HIPER_MEGA_RED.USUARIOS U
-		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU ON RU.usr = U.usr
  		WHERE U.usr = @unUsr
 GO
 
@@ -1102,7 +1098,7 @@ SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertUsuario
 	@usr varchar(50),
-	@password varchar(50), 
+	@password varchar(256), 
 	@nombre varchar(255),
 	@apellido varchar(255),
 	@tipoDocu varchar(50),
@@ -1163,7 +1159,7 @@ SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateUsuario
 	@usr varchar(50),
-	@password varchar(50), 
+	@password varchar(256), 
 	@nombre varchar(255),
 	@apellido varchar(255),
 	@tipoDocu varchar(50),
@@ -1506,7 +1502,10 @@ AS
 	WHERE codHotel = @codHotel AND
 		  campoBaja = 0 AND
 		  tipoCodigo = @tipoHab AND
-		  habitacion NOT IN (SELECT HR.habitacion FROM COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas(@codHotel, @fechaDesde, @fechaHasta) HR)
+		  habitacion NOT IN (SELECT HR.habitacion FROM COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas(@codHotel, @fechaDesde, @fechaHasta) HR) AND
+		  codHotel NOT IN (SELECT hotel FROM COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES I
+							WHERE @fechaDesde BETWEEN I.fecInicio AND I.fecFin 
+							OR @fechaHasta BETWEEN I.fecInicio AND I.fecFin )
 GO
 
 --/PROCEDIMIENTO GET REGIMEN 
@@ -1785,8 +1784,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHotel
 	@ciudad	varchar(100),
 	@pais	varchar(50),
 	@cantEstrellas	numeric(18),
-	@recargoEstrella	numeric(18),
-	@estado bit
+	@recargoEstrella	numeric(18)
 AS
 	IF (@codHotel != -1)
 	BEGIN
@@ -1825,10 +1823,6 @@ AS
 		IF(@recargoEstrella != -1)
 			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
 				SET recargoEstrella = @recargoEstrella
-					WHERE codHotel= @codHotel
-		IF(@estado != -1)
-			UPDATE COMPUMUNDO_HIPER_MEGA_RED.HOTELES
-				SET campoBaja = @estado
 					WHERE codHotel= @codHotel
 	END		
 GO

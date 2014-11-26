@@ -62,7 +62,7 @@ namespace FrbaHotel.ABM_de_Cliente
                 {
                     MessageBox.Show("Cliente Creado Correctamente.", "Nuevo Cliente",
                     MessageBoxButtons.OK, MessageBoxIcon.None);
-                    ((ClienteBajaMod)Globals.VentanaAnterior).updateGrid();
+                    //((ClienteBajaMod)Globals.VentanaAnterior).updateGrid();
                     this.Close();
                 }
             }

@@ -11,14 +11,14 @@ namespace DOM
 {
     public class DAOHabitacion : SqlConnector
     {
-        public static DataTable obtenerTabla()
+        public static DataTable obtenerTabla(int codHotel)
         {
-            return retrieveDataTable("getHabitacion", entero_nulo, entero_nulo);
+            return retrieveDataTable("getHabitacion", entero_nulo, codHotel);
         }
-        
-        public static List<Habitacion> obtenerTodos()
+
+        public static List<Habitacion> obtenerTodos(int codHotel)
         {
-            return transductor(obtenerTabla());
+            return transductor(obtenerTabla(codHotel));
         }
 
         public static DataTable obtenerTabla(int habitacion, int codHotel)

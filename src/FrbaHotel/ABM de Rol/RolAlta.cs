@@ -72,9 +72,10 @@ namespace FrbaHotel.ABM_de_Rol
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
                     this.Dispose();
                 }                //, funcionalidad_elegida.Id_funcionalidad);
-
+                MessageBox.Show("Rol " + textRol.Text + " creado satisfactoriamente.", "Alta Rol",
+                MessageBoxButtons.OK);
                 ((RolBajaMod)Globals.VentanaAnterior).updateGrid();
-                this.Dispose();
+                this.Close();
             }
         }
 

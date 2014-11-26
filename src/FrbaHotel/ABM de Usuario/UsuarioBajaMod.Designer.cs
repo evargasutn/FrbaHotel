@@ -235,6 +235,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "UsuarioBajaMod";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Gestión de Usuarios";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

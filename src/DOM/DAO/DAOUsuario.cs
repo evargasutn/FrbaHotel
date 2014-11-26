@@ -127,8 +127,10 @@ namespace DOM
                     user.CampoBaja = Convert.ToBoolean(fila["campoBaja"]);
                     //Campos Nulleables
                     user.Mail = Convert.ToString(fila["mail"]);
-                    user.Telefono = (fila["telefono"] as Int32?) ?? 0;
-                    user.Direccion.calle_piso = (fila["direccionPiso"] as Int32?) ?? -1;
+                    if(!(fila["telefono"] is DBNull))
+                        user.Telefono = Convert.ToInt32(fila["telefono"]);
+                    if (!(fila["direccionPiso"] is DBNull))
+                        user.Direccion.calle_piso = Convert.ToInt32(fila["direccionPiso"]);
                     user.Direccion.calle_dpto = Convert.ToString(fila["direccionDepto"]);
 
                     //Falta traer las listas de hoteles y roles

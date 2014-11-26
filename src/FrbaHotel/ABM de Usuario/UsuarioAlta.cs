@@ -50,13 +50,15 @@ namespace FrbaHotel.ABM_de_Usuario
                     }
 
                     //Guarda los distintos Roles asignados al Usuario
-                    foreach (var item in listRol.SelectedItems)
+                    foreach (var item in listRol.CheckedItems)
                         DAORol.insertarRolUsuario(item.ToString(), userNuevo.Usr);
                     
                     //Guarda los distintos Hoteles asignados al Usuario
-                    DAOUsuario.insertarHotelUsuario(userNuevo.Usr, listHotel.SelectedItem.ToString());
+                    foreach(var item in listHotel.CheckedItems)
+                        DAOUsuario.insertarHotelUsuario(userNuevo.Usr, item.ToString());
                     
                     MessageBox.Show("Alta de Usuario correcta");
+                    ((UsuarioBajaMod)Globals.VentanaAnterior).updateGrid();
                     this.Close();
                 }
                 else
@@ -78,7 +80,7 @@ namespace FrbaHotel.ABM_de_Usuario
             userNuevo.Direccion.calle_altura = Convert.ToInt32(textDirAltura.Text);
             userNuevo.Direccion.calle_piso = textDirPiso.Text != "" ? Convert.ToInt32(textDirPiso.Text) : 0;
             userNuevo.Direccion.calle_dpto = textDirDpto.Text != "" ? textDirDpto.Text : "";
-            userNuevo.Fecha_nacimiento = Convert.ToString(dateTimeNacimiento.Value);
+            userNuevo.Fecha_nacimiento_struct = dateTimeNacimiento.Value;
             userNuevo.CampoBaja = false;
         }
 

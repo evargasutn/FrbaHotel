@@ -108,7 +108,7 @@ namespace FrbaHotel.ABM_de_Rol
             else
                 rolSeleccionado.Estado = false;
             
-            if (DAORol.guardar(rolSeleccionado))
+            if (!DAORol.guardar(rolSeleccionado))
             {
                 toolTip.Hide(textRol);
                 toolTip.SetToolTip(textRol, "Entrada Invalida");
@@ -116,6 +116,9 @@ namespace FrbaHotel.ABM_de_Rol
                 return;
             }
             DAOFuncionalidad.updateFuncXRol(rolSeleccionado.Nombre, lista_alta, lista_baja);
+            MessageBox.Show("Rol modificado satisfactoriamente.", "Modificar Rol",
+                MessageBoxButtons.OK);
+
             ((RolBajaMod)Globals.VentanaAnterior).updateGrid();
             this.Close();
         }

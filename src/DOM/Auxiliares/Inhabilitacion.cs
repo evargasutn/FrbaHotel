@@ -29,8 +29,8 @@ namespace DOM.Auxiliares
 
         public DateTime? Fecha_Inicio_struct
         {
-            get { return fecha_fin; }
-            set { fecha_fin = value; }
+            get { return fecha_inicio; }
+            set { fecha_inicio = value; }
         }
 
         public string Fecha_Fin
@@ -41,8 +41,8 @@ namespace DOM.Auxiliares
 
         public DateTime? Fecha_Fin_struct
         {
-            get { return fecha_inicio; }
-            set { fecha_inicio = value; }
+            get { return fecha_fin; }
+            set { fecha_fin = value; }
         }
         public string Motivo
         {

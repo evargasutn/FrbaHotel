@@ -43,7 +43,6 @@ namespace FrbaHotel.Login
 
         private void abrirFormulario(string unaFuncionalidad)
         {
-
             switch (unaFuncionalidad)
             {
 

@@ -46,9 +46,9 @@ namespace FrbaHotel.ABM_de_Usuario
                 String.IsNullOrEmpty(textApellido.Text) && String.IsNullOrEmpty((string)(comboListRol.SelectedItem)))
             {
                 dataGridUsuario.DataSource = DAOUsuario.obtenerTabla();
-                //Solo muestra las primeras 6 columnas de la tabla resultante
-                for (int item = 6; item < dataGridUsuario.ColumnCount; item++)
-                    dataGridUsuario.Columns[item].Visible = false; 
+                dataGridUsuario.Columns["password"].Visible = false;
+                dataGridUsuario.Columns["contador_intentos_login"].Visible = false;
+                dataGridUsuario.Columns["primerLog"].Visible = false;
             }
             else
             {
@@ -117,7 +117,8 @@ namespace FrbaHotel.ABM_de_Usuario
             "", MessageBoxButtons.YesNo);
             switch (dr){
                 case DialogResult.Yes: 
-                DAOUsuario.borrar(usrDelete); 
+                DAOUsuario.borrar(usrDelete);
+                updateGrid();
                 break;
                 case DialogResult.No: break;
             }

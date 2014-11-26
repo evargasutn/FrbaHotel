@@ -14,7 +14,7 @@ namespace FrbaHotel.ABM_de_Habitacion
 {
     public partial class HabitacionBajaMod : Form
     {
-        Hotel hotel = Globals.infoSesion.Hotel = DAOHotel.obtener(2);
+        Hotel hotel = Globals.infoSesion.Hotel;// = DAOHotel.obtener(2);
         Usuario usuario = Globals.infoSesion.User;
 
         public HabitacionBajaMod()
@@ -44,7 +44,7 @@ namespace FrbaHotel.ABM_de_Habitacion
 
         private DataTable FiltrarHuesped(string piso, string nroHabitacion, int tipoUbicacion)
         {
-            DataTable tabla_habitacion = DAOHabitacion.obtenerTabla(-1, hotel.CodHotel);
+            DataTable tabla_habitacion = DAOHabitacion.obtenerTabla(hotel.CodHotel);
             var final_rol = "";
             var posFiltro = true;
             var filtrosBusqueda = new List<string>();
@@ -112,7 +112,7 @@ namespace FrbaHotel.ABM_de_Habitacion
                 "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            int codHab = (int)dataGridHabitacion.CurrentRow.Cells["habitacion"].Value;
+            int codHab = Convert.ToInt32(dataGridHabitacion.CurrentRow.Cells["habitacion"].Value);
 
             DialogResult dr = MessageBox.Show("Desea dar de Baja a la habitacion " + codHab.ToString() + "?",
             "", MessageBoxButtons.YesNo);
