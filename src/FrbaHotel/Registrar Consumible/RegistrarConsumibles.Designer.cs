@@ -29,207 +29,129 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.botonBuscar = new System.Windows.Forms.Button();
-            this.textCodigo = new System.Windows.Forms.TextBox();
-            this.textDescripcion = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridConsumibles = new System.Windows.Forms.DataGridView();
-            this.AgregarConsumible = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.label3 = new System.Windows.Forms.Label();
             this.dataGridConsumibleXEstadia = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.botonRegistrar = new System.Windows.Forms.Button();
-            this.ColumnaModificar = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ColumnaEliminar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.dataGridConsumibles = new System.Windows.Forms.DataGridView();
+            this.labelEstadia = new System.Windows.Forms.Label();
+            this.botonBuscar = new System.Windows.Forms.Button();
+            this.textEstadia = new System.Windows.Forms.MaskedTextBox();
+            this.textCantidad = new System.Windows.Forms.MaskedTextBox();
+            this.labelCant = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibleXEstadia)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.groupBox2);
+            this.groupBox1.Controls.Add(this.textEstadia);
+            this.groupBox1.Controls.Add(this.botonBuscar);
+            this.groupBox1.Controls.Add(this.labelEstadia);
             this.groupBox1.Controls.Add(this.dataGridConsumibles);
-            this.groupBox1.Location = new System.Drawing.Point(50, 28);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(532, 233);
+            this.groupBox1.Size = new System.Drawing.Size(501, 184);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Consumibles";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(360, 74);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(139, 20);
-            this.textBox1.TabIndex = 4;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(301, 77);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(53, 13);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "Cantidad*";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(8, 77);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(266, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Previo agregado de un consumible indique la cantidad.";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.botonBuscar);
-            this.groupBox2.Controls.Add(this.textCodigo);
-            this.groupBox2.Controls.Add(this.textDescripcion);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(25, 19);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(480, 45);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Filtros";
-            // 
-            // botonBuscar
-            // 
-            this.botonBuscar.Location = new System.Drawing.Point(386, 15);
-            this.botonBuscar.Name = "botonBuscar";
-            this.botonBuscar.Size = new System.Drawing.Size(80, 19);
-            this.botonBuscar.TabIndex = 4;
-            this.botonBuscar.Text = "Buscar";
-            this.botonBuscar.UseVisualStyleBackColor = true;
-            // 
-            // textCodigo
-            // 
-            this.textCodigo.Location = new System.Drawing.Point(255, 15);
-            this.textCodigo.Name = "textCodigo";
-            this.textCodigo.Size = new System.Drawing.Size(108, 20);
-            this.textCodigo.TabIndex = 3;
-            // 
-            // textDescripcion
-            // 
-            this.textDescripcion.Location = new System.Drawing.Point(75, 15);
-            this.textDescripcion.Name = "textDescripcion";
-            this.textDescripcion.Size = new System.Drawing.Size(108, 20);
-            this.textDescripcion.TabIndex = 2;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(209, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Código";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(63, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Descripción";
-            // 
-            // dataGridConsumibles
-            // 
-            this.dataGridConsumibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridConsumibles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.AgregarConsumible});
-            this.dataGridConsumibles.Location = new System.Drawing.Point(6, 100);
-            this.dataGridConsumibles.Name = "dataGridConsumibles";
-            this.dataGridConsumibles.Size = new System.Drawing.Size(517, 127);
-            this.dataGridConsumibles.TabIndex = 0;
-            // 
-            // AgregarConsumible
-            // 
-            this.AgregarConsumible.HeaderText = "Agregar";
-            this.AgregarConsumible.Name = "AgregarConsumible";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(271, 16);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Registrar los consumibles por estadia";
+            this.groupBox1.Text = "Estadia";
             // 
             // dataGridConsumibleXEstadia
             // 
             this.dataGridConsumibleXEstadia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridConsumibleXEstadia.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnaModificar,
-            this.ColumnaEliminar});
-            this.dataGridConsumibleXEstadia.Location = new System.Drawing.Point(6, 19);
+            this.dataGridConsumibleXEstadia.Location = new System.Drawing.Point(9, 18);
             this.dataGridConsumibleXEstadia.Name = "dataGridConsumibleXEstadia";
-            this.dataGridConsumibleXEstadia.Size = new System.Drawing.Size(517, 127);
+            this.dataGridConsumibleXEstadia.Size = new System.Drawing.Size(486, 127);
             this.dataGridConsumibleXEstadia.TabIndex = 5;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.dataGridConsumibleXEstadia);
-            this.groupBox3.Location = new System.Drawing.Point(50, 267);
+            this.groupBox3.Location = new System.Drawing.Point(12, 233);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(532, 151);
+            this.groupBox3.Size = new System.Drawing.Size(501, 151);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Consumibles a registrar por la estadia";
+            this.groupBox3.Text = "Consumibles";
             // 
             // botonRegistrar
             // 
-            this.botonRegistrar.Location = new System.Drawing.Point(230, 424);
+            this.botonRegistrar.Location = new System.Drawing.Point(364, 199);
             this.botonRegistrar.Name = "botonRegistrar";
             this.botonRegistrar.Size = new System.Drawing.Size(149, 28);
             this.botonRegistrar.TabIndex = 7;
             this.botonRegistrar.Text = "Registrar";
             this.botonRegistrar.UseVisualStyleBackColor = true;
             // 
-            // ColumnaModificar
+            // dataGridConsumibles
             // 
-            this.ColumnaModificar.HeaderText = "Modificar cantidad";
-            this.ColumnaModificar.Name = "ColumnaModificar";
+            this.dataGridConsumibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridConsumibles.Location = new System.Drawing.Point(6, 44);
+            this.dataGridConsumibles.Name = "dataGridConsumibles";
+            this.dataGridConsumibles.Size = new System.Drawing.Size(489, 127);
+            this.dataGridConsumibles.TabIndex = 0;
             // 
-            // ColumnaEliminar
+            // labelEstadia
             // 
-            this.ColumnaEliminar.HeaderText = "Eliminar";
-            this.ColumnaEliminar.Name = "ColumnaEliminar";
+            this.labelEstadia.AutoSize = true;
+            this.labelEstadia.Location = new System.Drawing.Point(46, 22);
+            this.labelEstadia.Name = "labelEstadia";
+            this.labelEstadia.Size = new System.Drawing.Size(78, 13);
+            this.labelEstadia.TabIndex = 1;
+            this.labelEstadia.Text = "Código Estadia";
+            // 
+            // botonBuscar
+            // 
+            this.botonBuscar.Location = new System.Drawing.Point(236, 18);
+            this.botonBuscar.Name = "botonBuscar";
+            this.botonBuscar.Size = new System.Drawing.Size(184, 20);
+            this.botonBuscar.TabIndex = 4;
+            this.botonBuscar.Text = "Mostrar Consumibles";
+            this.botonBuscar.UseVisualStyleBackColor = true;
+            // 
+            // textEstadia
+            // 
+            this.textEstadia.Location = new System.Drawing.Point(130, 18);
+            this.textEstadia.Mask = "9999999999999999";
+            this.textEstadia.Name = "textEstadia";
+            this.textEstadia.Size = new System.Drawing.Size(100, 20);
+            this.textEstadia.TabIndex = 5;
+            // 
+            // textCantidad
+            // 
+            this.textCantidad.Location = new System.Drawing.Point(315, 204);
+            this.textCantidad.Mask = "999999";
+            this.textCantidad.Name = "textCantidad";
+            this.textCantidad.Size = new System.Drawing.Size(43, 20);
+            this.textCantidad.TabIndex = 8;
+            // 
+            // labelCant
+            // 
+            this.labelCant.AutoSize = true;
+            this.labelCant.Location = new System.Drawing.Point(176, 207);
+            this.labelCant.Name = "labelCant";
+            this.labelCant.Size = new System.Drawing.Size(121, 13);
+            this.labelCant.TabIndex = 9;
+            this.labelCant.Text = "Cantidad de Consumible";
             // 
             // RegistrarConsumibles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 456);
+            this.ClientSize = new System.Drawing.Size(526, 394);
+            this.Controls.Add(this.labelCant);
+            this.Controls.Add(this.textCantidad);
             this.Controls.Add(this.botonRegistrar);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox1);
             this.Name = "RegistrarConsumibles";
             this.Text = "Registrar consumibles";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibleXEstadia)).EndInit();
             this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -238,22 +160,14 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridConsumibles;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textDescripcion;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textCodigo;
-        private System.Windows.Forms.Button botonBuscar;
-        private System.Windows.Forms.DataGridViewButtonColumn AgregarConsumible;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridView dataGridConsumibleXEstadia;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button botonRegistrar;
-        private System.Windows.Forms.DataGridViewButtonColumn ColumnaModificar;
-        private System.Windows.Forms.DataGridViewButtonColumn ColumnaEliminar;
+        private System.Windows.Forms.DataGridView dataGridConsumibles;
+        private System.Windows.Forms.MaskedTextBox textEstadia;
+        private System.Windows.Forms.Button botonBuscar;
+        private System.Windows.Forms.Label labelEstadia;
+        private System.Windows.Forms.MaskedTextBox textCantidad;
+        private System.Windows.Forms.Label labelCant;
     }
 }
