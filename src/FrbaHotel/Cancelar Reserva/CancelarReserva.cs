@@ -25,12 +25,6 @@ namespace FrbaHotel.Cancelar_Reserva
             limpiar();
         }
 
-        private void buttonBuscarNroReserva_Click(object sender, EventArgs e)
-        {
-            new BuscarIdHuesped().Show();
-            Globals.deshabilitarAnterior(this);
-        }
-
         private void botonLimpiar_Click(object sender, EventArgs e)
         {
             limpiar();
@@ -63,6 +57,11 @@ namespace FrbaHotel.Cancelar_Reserva
             if (chequearDatos())
             {
                 Reserva reserva = DAOReserva.obtener(Int32.Parse(textNroReserva.Text));
+                if (reserva == null)
+                {
+                    showToolTip("Ingrese un número de reserva válido.", textNroReserva, textNroReserva.Location);
+                    return;
+                }
                 CancelacionReserva cancelacion = new CancelacionReserva();
                 //Actualizemos los datos
                 cancelacion.Codigo_Reserva = reserva.CodigoReserva;
@@ -90,12 +89,22 @@ namespace FrbaHotel.Cancelar_Reserva
 
         private bool chequearDatos()
         {
+            if (textNroReserva.Text == "")
+            {
+                showToolTip("Ingrese un número de reserva.", textNroReserva, textNroReserva.Location);
+                return false;
+            }
             if (comboMotivos.SelectedIndex == -1)
             {
                 showToolTip("Ingrese un motivo de cancelacion.", comboMotivos, comboMotivos.Location);
                 return false;
             }
             return true;
+        }
+
+        private void textNroReserva_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+            showToolTip("Ingrese un solo números.", textNroReserva, textNroReserva.Location);
         }
 
         private void showToolTip(string msj, Control ventana, Point pos)

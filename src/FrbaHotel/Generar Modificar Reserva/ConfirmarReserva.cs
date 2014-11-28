@@ -59,9 +59,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 detalle.CodigoReserva = datos_Reserva.CodigoReserva;
                 DAOReserva.agregarHabitacion(detalle);
             }
-            MessageBox.Show("Reserva Realizada Correctamente.",
-            "", MessageBoxButtons.OK);
-
+            MessageBox.Show("Su número de reserva es: " + datos_Reserva.CodigoReserva.ToString() + 
+                ". Recuerde el mismo, ya que identifica su reserva.", "", MessageBoxButtons.OK);
             Globals.habilitarAnterior();
             Globals.VentanaAnterior.Dispose();
             this.Close();

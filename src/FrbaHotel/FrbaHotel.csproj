@@ -175,18 +175,6 @@
     <Compile Include="ABM de Usuario\UsuarioBajaMod.Designer.cs">
       <DependentUpon>UsuarioBajaMod.cs</DependentUpon>
     </Compile>
-    <Compile Include="Cancelar Reserva\BuscarIdHuesped.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cancelar Reserva\BuscarIdHuesped.Designer.cs">
-      <DependentUpon>BuscarIdHuesped.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Cancelar Reserva\BuscarReserva.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Cancelar Reserva\BuscarReserva.Designer.cs">
-      <DependentUpon>BuscarReserva.cs</DependentUpon>
-    </Compile>
     <Compile Include="Cancelar Reserva\CancelarReserva.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -301,12 +289,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ABM de Usuario\UsuarioBajaMod.resx">
       <DependentUpon>UsuarioBajaMod.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Reserva\BuscarIdHuesped.resx">
-      <DependentUpon>BuscarIdHuesped.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Cancelar Reserva\BuscarReserva.resx">
-      <DependentUpon>BuscarReserva.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar Reserva\CancelarReserva.resx">
       <DependentUpon>CancelarReserva.cs</DependentUpon>

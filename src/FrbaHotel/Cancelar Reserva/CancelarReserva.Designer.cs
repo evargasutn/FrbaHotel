@@ -32,16 +32,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textUsuario = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textNroReserva = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimeCancelacion = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
-            this.buttonBuscarNroReserva = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboMotivos = new System.Windows.Forms.ComboBox();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.botonCancelarReserva = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.comboMotivos = new System.Windows.Forms.ComboBox();
+            this.textNroReserva = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,14 +70,6 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Numero de reserva*";
             // 
-            // textNroReserva
-            // 
-            this.textNroReserva.Location = new System.Drawing.Point(147, 20);
-            this.textNroReserva.Name = "textNroReserva";
-            this.textNroReserva.ReadOnly = true;
-            this.textNroReserva.Size = new System.Drawing.Size(111, 20);
-            this.textNroReserva.TabIndex = 3;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -105,24 +96,13 @@
             this.label4.TabIndex = 6;
             this.label4.Text = "Usuario*";
             // 
-            // buttonBuscarNroReserva
-            // 
-            this.buttonBuscarNroReserva.Location = new System.Drawing.Point(264, 20);
-            this.buttonBuscarNroReserva.Name = "buttonBuscarNroReserva";
-            this.buttonBuscarNroReserva.Size = new System.Drawing.Size(73, 19);
-            this.buttonBuscarNroReserva.TabIndex = 8;
-            this.buttonBuscarNroReserva.Text = "Buscar";
-            this.buttonBuscarNroReserva.UseVisualStyleBackColor = true;
-            this.buttonBuscarNroReserva.Click += new System.EventHandler(this.buttonBuscarNroReserva_Click);
-            // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textNroReserva);
             this.groupBox1.Controls.Add(this.comboMotivos);
-            this.groupBox1.Controls.Add(this.buttonBuscarNroReserva);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.dateTimeCancelacion);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textNroReserva);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textUsuario);
             this.groupBox1.Controls.Add(this.label1);
@@ -132,6 +112,14 @@
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos  para cancelacion";
+            // 
+            // comboMotivos
+            // 
+            this.comboMotivos.FormattingEnabled = true;
+            this.comboMotivos.Location = new System.Drawing.Point(147, 101);
+            this.comboMotivos.Name = "comboMotivos";
+            this.comboMotivos.Size = new System.Drawing.Size(190, 21);
+            this.comboMotivos.TabIndex = 9;
             // 
             // botonLimpiar
             // 
@@ -153,13 +141,14 @@
             this.botonCancelarReserva.UseVisualStyleBackColor = true;
             this.botonCancelarReserva.Click += new System.EventHandler(this.botonCancelarReserva_Click);
             // 
-            // comboMotivos
+            // textNroReserva
             // 
-            this.comboMotivos.FormattingEnabled = true;
-            this.comboMotivos.Location = new System.Drawing.Point(147, 101);
-            this.comboMotivos.Name = "comboMotivos";
-            this.comboMotivos.Size = new System.Drawing.Size(190, 21);
-            this.comboMotivos.TabIndex = 9;
+            this.textNroReserva.Location = new System.Drawing.Point(147, 19);
+            this.textNroReserva.Mask = "999999999999999999";
+            this.textNroReserva.Name = "textNroReserva";
+            this.textNroReserva.Size = new System.Drawing.Size(111, 20);
+            this.textNroReserva.TabIndex = 10;
+            this.textNroReserva.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNroReserva_MaskInputRejected);
             // 
             // CancelarReserva
             // 
@@ -183,15 +172,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textUsuario;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textNroReserva;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dateTimeCancelacion;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button buttonBuscarNroReserva;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button botonLimpiar;
         private System.Windows.Forms.Button botonCancelarReserva;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ComboBox comboMotivos;
+        private System.Windows.Forms.MaskedTextBox textNroReserva;
     }
 }
