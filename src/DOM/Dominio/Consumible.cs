@@ -10,7 +10,8 @@ namespace DOM.Dominio
         #region Atributos
         private int codigo;
         private string descripcion;
-        private int importe;
+        private double importe;
+        private int cantidad;
         #endregion
 
         #region Propuedades
@@ -24,10 +25,15 @@ namespace DOM.Dominio
             get { return descripcion; }
             set { descripcion = value; }
         }
-        public int Importe
+        public double Importe
         {
             get { return importe; }
             set { importe = value; }
+        }
+        public int Cantidad
+        {
+            get { return cantidad; }
+            set { cantidad = value; }
         }
         #endregion
 

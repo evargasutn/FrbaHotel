@@ -30,20 +30,21 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridConsumibleXEstadia = new System.Windows.Forms.DataGridView();
+            this.textEstadia = new System.Windows.Forms.MaskedTextBox();
+            this.botonBuscar = new System.Windows.Forms.Button();
+            this.labelEstadia = new System.Windows.Forms.Label();
+            this.dataGridEstadia = new System.Windows.Forms.DataGridView();
+            this.dataGridConsumible = new System.Windows.Forms.DataGridView();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.botonRegistrar = new System.Windows.Forms.Button();
-            this.dataGridConsumibles = new System.Windows.Forms.DataGridView();
-            this.labelEstadia = new System.Windows.Forms.Label();
-            this.botonBuscar = new System.Windows.Forms.Button();
-            this.textEstadia = new System.Windows.Forms.MaskedTextBox();
             this.textCantidad = new System.Windows.Forms.MaskedTextBox();
             this.labelCant = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.botonRemover = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibleXEstadia)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEstadia)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumible)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -51,7 +52,7 @@
             this.groupBox1.Controls.Add(this.textEstadia);
             this.groupBox1.Controls.Add(this.botonBuscar);
             this.groupBox1.Controls.Add(this.labelEstadia);
-            this.groupBox1.Controls.Add(this.dataGridConsumibles);
+            this.groupBox1.Controls.Add(this.dataGridEstadia);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(501, 184);
@@ -59,17 +60,67 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Estadia";
             // 
-            // dataGridConsumibleXEstadia
+            // textEstadia
             // 
-            this.dataGridConsumibleXEstadia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridConsumibleXEstadia.Location = new System.Drawing.Point(9, 18);
-            this.dataGridConsumibleXEstadia.Name = "dataGridConsumibleXEstadia";
-            this.dataGridConsumibleXEstadia.Size = new System.Drawing.Size(486, 127);
-            this.dataGridConsumibleXEstadia.TabIndex = 5;
+            this.textEstadia.Location = new System.Drawing.Point(130, 18);
+            this.textEstadia.Mask = "9999999999999999";
+            this.textEstadia.Name = "textEstadia";
+            this.textEstadia.Size = new System.Drawing.Size(100, 20);
+            this.textEstadia.TabIndex = 5;
+            this.textEstadia.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textEstadia_MaskInputRejected);
+            // 
+            // botonBuscar
+            // 
+            this.botonBuscar.Location = new System.Drawing.Point(236, 18);
+            this.botonBuscar.Name = "botonBuscar";
+            this.botonBuscar.Size = new System.Drawing.Size(184, 20);
+            this.botonBuscar.TabIndex = 4;
+            this.botonBuscar.Text = "Mostrar Consumibles";
+            this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
+            // 
+            // labelEstadia
+            // 
+            this.labelEstadia.AutoSize = true;
+            this.labelEstadia.Location = new System.Drawing.Point(46, 22);
+            this.labelEstadia.Name = "labelEstadia";
+            this.labelEstadia.Size = new System.Drawing.Size(78, 13);
+            this.labelEstadia.TabIndex = 1;
+            this.labelEstadia.Text = "Código Estadia";
+            // 
+            // dataGridEstadia
+            // 
+            this.dataGridEstadia.AllowUserToAddRows = false;
+            this.dataGridEstadia.AllowUserToDeleteRows = false;
+            this.dataGridEstadia.AllowUserToResizeColumns = false;
+            this.dataGridEstadia.AllowUserToResizeRows = false;
+            this.dataGridEstadia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEstadia.Location = new System.Drawing.Point(6, 44);
+            this.dataGridEstadia.MultiSelect = false;
+            this.dataGridEstadia.Name = "dataGridEstadia";
+            this.dataGridEstadia.ReadOnly = true;
+            this.dataGridEstadia.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridEstadia.Size = new System.Drawing.Size(489, 127);
+            this.dataGridEstadia.TabIndex = 0;
+            // 
+            // dataGridConsumible
+            // 
+            this.dataGridConsumible.AllowUserToAddRows = false;
+            this.dataGridConsumible.AllowUserToDeleteRows = false;
+            this.dataGridConsumible.AllowUserToResizeColumns = false;
+            this.dataGridConsumible.AllowUserToResizeRows = false;
+            this.dataGridConsumible.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridConsumible.Location = new System.Drawing.Point(9, 18);
+            this.dataGridConsumible.MultiSelect = false;
+            this.dataGridConsumible.Name = "dataGridConsumible";
+            this.dataGridConsumible.ReadOnly = true;
+            this.dataGridConsumible.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridConsumible.Size = new System.Drawing.Size(486, 127);
+            this.dataGridConsumible.TabIndex = 5;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.dataGridConsumibleXEstadia);
+            this.groupBox3.Controls.Add(this.dataGridConsumible);
             this.groupBox3.Location = new System.Drawing.Point(12, 233);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(501, 151);
@@ -83,45 +134,9 @@
             this.botonRegistrar.Name = "botonRegistrar";
             this.botonRegistrar.Size = new System.Drawing.Size(149, 28);
             this.botonRegistrar.TabIndex = 7;
-            this.botonRegistrar.Text = "Registrar";
+            this.botonRegistrar.Text = "Registrar Consumible";
             this.botonRegistrar.UseVisualStyleBackColor = true;
             this.botonRegistrar.Click += new System.EventHandler(this.botonRegistrar_Click);
-            // 
-            // dataGridConsumibles
-            // 
-            this.dataGridConsumibles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridConsumibles.Location = new System.Drawing.Point(6, 44);
-            this.dataGridConsumibles.Name = "dataGridConsumibles";
-            this.dataGridConsumibles.Size = new System.Drawing.Size(489, 127);
-            this.dataGridConsumibles.TabIndex = 0;
-            // 
-            // labelEstadia
-            // 
-            this.labelEstadia.AutoSize = true;
-            this.labelEstadia.Location = new System.Drawing.Point(46, 22);
-            this.labelEstadia.Name = "labelEstadia";
-            this.labelEstadia.Size = new System.Drawing.Size(78, 13);
-            this.labelEstadia.TabIndex = 1;
-            this.labelEstadia.Text = "Código Estadia";
-            // 
-            // botonBuscar
-            // 
-            this.botonBuscar.Location = new System.Drawing.Point(236, 18);
-            this.botonBuscar.Name = "botonBuscar";
-            this.botonBuscar.Size = new System.Drawing.Size(184, 20);
-            this.botonBuscar.TabIndex = 4;
-            this.botonBuscar.Text = "Mostrar Consumibles";
-            this.botonBuscar.UseVisualStyleBackColor = true;
-            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
-            // 
-            // textEstadia
-            // 
-            this.textEstadia.Location = new System.Drawing.Point(130, 18);
-            this.textEstadia.Mask = "9999999999999999";
-            this.textEstadia.Name = "textEstadia";
-            this.textEstadia.Size = new System.Drawing.Size(100, 20);
-            this.textEstadia.TabIndex = 5;
-            this.textEstadia.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textEstadia_MaskInputRejected);
             // 
             // textCantidad
             // 
@@ -141,11 +156,22 @@
             this.labelCant.TabIndex = 9;
             this.labelCant.Text = "Cantidad de Consumible";
             // 
+            // botonRemover
+            // 
+            this.botonRemover.Location = new System.Drawing.Point(18, 199);
+            this.botonRemover.Name = "botonRemover";
+            this.botonRemover.Size = new System.Drawing.Size(149, 28);
+            this.botonRemover.TabIndex = 10;
+            this.botonRemover.Text = "Remover Consumible";
+            this.botonRemover.UseVisualStyleBackColor = true;
+            this.botonRemover.Click += new System.EventHandler(this.botonRemover_Click);
+            // 
             // RegistrarConsumibles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(526, 394);
+            this.Controls.Add(this.botonRemover);
             this.Controls.Add(this.labelCant);
             this.Controls.Add(this.textCantidad);
             this.Controls.Add(this.botonRegistrar);
@@ -158,9 +184,9 @@
             this.Load += new System.EventHandler(this.RegistrarConsumibles_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibleXEstadia)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEstadia)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumible)).EndInit();
             this.groupBox3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridConsumibles)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,15 +195,16 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridConsumibleXEstadia;
+        private System.Windows.Forms.DataGridView dataGridConsumible;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button botonRegistrar;
-        private System.Windows.Forms.DataGridView dataGridConsumibles;
+        private System.Windows.Forms.DataGridView dataGridEstadia;
         private System.Windows.Forms.MaskedTextBox textEstadia;
         private System.Windows.Forms.Button botonBuscar;
         private System.Windows.Forms.Label labelEstadia;
         private System.Windows.Forms.MaskedTextBox textCantidad;
         private System.Windows.Forms.Label labelCant;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button botonRemover;
     }
 }
