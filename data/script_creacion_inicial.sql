@@ -2660,6 +2660,24 @@ AS
 
 GO
 
+--/PROC GETCONSUMIBLES POR ESTADIA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getConsumiblesByEstadia', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumiblesByEstadia
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumiblesByEstadia
+	@codEstadia numeric(18)		
+AS
+		SELECT C.codConsumible, C.descripcion, C.importe, E.cantidad 
+		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C 
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA E
+		ON C.codConsumible = E.codConsumible
+		WHERE E.codReserva = @codEstadia
+GO
+
 --/PROC INSERTCONSUMIBLE 
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertConsumible', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertConsumible
@@ -2675,6 +2693,39 @@ AS
 	IF(@descripcion != '' AND @importe != -1)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(descripcion, importe)
 	VALUES (UPPER(@descripcion), @importe)
+GO
+
+--/PROC INSERTCONSUMIBLEXESTADIA 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertConsumibleXEstadia', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertConsumibleXEstadia
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertConsumibleXEstadia
+	@codEstadia numeric(18),
+	@codConsumible numeric(18),
+	@cantidad numeric(3)
+AS
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA(codReserva, codConsumible, cantidad)
+	VALUES (@codEstadia, @codConsumible, @cantidad)
+GO
+
+--/PROC DELETECONSUMIBLEXESTADIA 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.deleteConsumibleXEstadia', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteConsumibleXEstadia
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.deleteConsumibleXEstadia
+	@codEstadia numeric(18),
+	@codConsumible numeric(18)
+AS
+	DELETE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
+	WHERE codReserva = @codEstadia AND codConsumible = @codConsumible
 GO
 
 --//PROC UPDATECONSUMIBLE
