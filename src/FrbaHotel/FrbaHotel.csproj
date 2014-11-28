@@ -272,6 +272,12 @@
     <EmbeddedResource Include="ABM de Regimen\RegimenAlta.resx">
       <DependentUpon>RegimenAlta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Regimen\RegimenBajaMod.resx">
+      <DependentUpon>RegimenBajaMod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ABM de Regimen\RegimenMod.resx">
+      <DependentUpon>RegimenMod.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ABM de Rol\RolAlta.resx">
       <DependentUpon>RolAlta.cs</DependentUpon>
     </EmbeddedResource>

@@ -50,11 +50,10 @@ namespace DOM.DAO
 
         public static bool insertar(Regimen regimen)
         {
-            int codRegimen = regimen.CodRegimen;
             string descripcion = regimen.Descripcion;
             double precio = regimen.Precio;
             int campoBaja = (regimen.Estado) ? 1 : 0;
-            return executeProcedure("insertRegimen", codRegimen, descripcion, precio, campoBaja);
+            return executeProcedure("insertRegimen", descripcion, precio, campoBaja);
         }
 
         public static bool actualizar(Regimen regimen)
