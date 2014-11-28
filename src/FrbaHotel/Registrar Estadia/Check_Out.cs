@@ -15,7 +15,5 @@ namespace FrbaHotel.Registrar_Estadia
         {
             InitializeComponent();
         }
-
-        
     }
 }

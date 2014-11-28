@@ -28,186 +28,127 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Check_Out));
             this.textCodReserva = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textIdHuesped = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridEstadias = new System.Windows.Forms.DataGridView();
-            this.botonRegistrar = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.textFechaEvento = new System.Windows.Forms.TextBox();
+            this.textUser = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.botonRegEgreso = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEstadias)).BeginInit();
             this.SuspendLayout();
             // 
-            // label3
+            // textCodReserva
             // 
-            this.label3.AutoSize = true;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Location = new System.Drawing.Point(23, 33);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(482, 15);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "  Seleccione el código de reserva para registrar la salida, posterior a esto se e" +
-                "fectuara la facturación.";
+            this.textCodReserva.Location = new System.Drawing.Point(120, 175);
+            this.textCodReserva.Name = "textCodReserva";
+            this.textCodReserva.Size = new System.Drawing.Size(111, 20);
+            this.textCodReserva.TabIndex = 16;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(20, 178);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(102, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Código de Reserva*";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.textFechaEvento);
+            this.groupBox3.Controls.Add(this.textUser);
+            this.groupBox3.Controls.Add(this.label5);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Location = new System.Drawing.Point(16, 90);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(230, 72);
+            this.groupBox3.TabIndex = 15;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Datos para la Estadia";
+            // 
+            // textFechaEvento
+            // 
+            this.textFechaEvento.Location = new System.Drawing.Point(104, 38);
+            this.textFechaEvento.Name = "textFechaEvento";
+            this.textFechaEvento.ReadOnly = true;
+            this.textFechaEvento.Size = new System.Drawing.Size(111, 20);
+            this.textFechaEvento.TabIndex = 3;
+            // 
+            // textUser
+            // 
+            this.textUser.Location = new System.Drawing.Point(104, 13);
+            this.textUser.Name = "textUser";
+            this.textUser.ReadOnly = true;
+            this.textUser.Size = new System.Drawing.Size(111, 20);
+            this.textUser.TabIndex = 2;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(8, 9);
+            this.label5.Location = new System.Drawing.Point(4, 41);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(153, 24);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Registrar salida";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.textBox2);
-            this.groupBox3.Controls.Add(this.textBox1);
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(47, 61);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(443, 45);
-            this.groupBox3.TabIndex = 17;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Datos importantes";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(317, 12);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(111, 20);
-            this.textBox2.TabIndex = 3;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(85, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(111, 20);
-            this.textBox1.TabIndex = 2;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(217, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Fecha del evento*";
+            this.label5.Size = new System.Drawing.Size(93, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Fecha de ingreso*";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 15);
+            this.label2.Location = new System.Drawing.Point(51, 16);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Usuario*";
             // 
-            // groupBox2
+            // botonRegEgreso
             // 
-            this.groupBox2.Controls.Add(this.textCodReserva);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.textIdHuesped);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(17, 112);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(524, 53);
-            this.groupBox2.TabIndex = 16;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Filtro de estadia";
+            this.botonRegEgreso.Location = new System.Drawing.Point(12, 201);
+            this.botonRegEgreso.Name = "botonRegEgreso";
+            this.botonRegEgreso.Size = new System.Drawing.Size(120, 29);
+            this.botonRegEgreso.TabIndex = 13;
+            this.botonRegEgreso.Text = "Registrar ingreso";
+            this.botonRegEgreso.UseVisualStyleBackColor = true;
             // 
-            // textCodReserva
+            // label3
             // 
-            this.textCodReserva.Location = new System.Drawing.Point(365, 22);
-            this.textCodReserva.Name = "textCodReserva";
-            this.textCodReserva.Size = new System.Drawing.Size(137, 20);
-            this.textCodReserva.TabIndex = 8;
+            this.label3.AutoSize = true;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Location = new System.Drawing.Point(28, 49);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(540, 28);
+            this.label3.TabIndex = 12;
+            this.label3.Text = resources.GetString("label3.Text");
             // 
-            // label6
+            // label1
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(287, 25);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 13);
-            this.label6.TabIndex = 7;
-            this.label6.Text = "Cod. Reserva";
-            // 
-            // textIdHuesped
-            // 
-            this.textIdHuesped.Location = new System.Drawing.Point(115, 22);
-            this.textIdHuesped.Name = "textIdHuesped";
-            this.textIdHuesped.Size = new System.Drawing.Size(137, 20);
-            this.textIdHuesped.TabIndex = 6;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(40, 25);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(75, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Id de huesped";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.dataGridEstadias);
-            this.groupBox1.Location = new System.Drawing.Point(17, 171);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(524, 200);
-            this.groupBox1.TabIndex = 14;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Estadias";
-            // 
-            // dataGridEstadias
-            // 
-            this.dataGridEstadias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridEstadias.Location = new System.Drawing.Point(8, 16);
-            this.dataGridEstadias.Name = "dataGridEstadias";
-            this.dataGridEstadias.Size = new System.Drawing.Size(494, 178);
-            this.dataGridEstadias.TabIndex = 0;
-            // 
-            // botonRegistrar
-            // 
-            this.botonRegistrar.Location = new System.Drawing.Point(198, 377);
-            this.botonRegistrar.Name = "botonRegistrar";
-            this.botonRegistrar.Size = new System.Drawing.Size(127, 24);
-            this.botonRegistrar.TabIndex = 15;
-            this.botonRegistrar.Text = "Registrar";
-            this.botonRegistrar.UseVisualStyleBackColor = true;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(175, 24);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Registrar entrada ";
             // 
             // Check_Out
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(565, 422);
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.textCodReserva);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.botonRegistrar);
+            this.Controls.Add(this.botonRegEgreso);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label1);
             this.Name = "Check_Out";
-            this.Text = "Check Out";
+            this.Text = "Check_Out";
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridEstadias)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,20 +156,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textIdHuesped;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridEstadias;
-        private System.Windows.Forms.Button botonRegistrar;
         private System.Windows.Forms.TextBox textCodReserva;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox textFechaEvento;
+        private System.Windows.Forms.TextBox textUser;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button botonRegEgreso;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
     }
 }

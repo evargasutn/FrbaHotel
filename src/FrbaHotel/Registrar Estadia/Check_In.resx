@@ -121,4 +121,7 @@
     <value>  Seleccione el código de reserva para registrar la entrada, asegurese que la entrada concuerde con el inicio de 
 reserva, en caso de entrada posterior a la que indica la reserva al hacer registro de la mismael huesped la pierde.</value>
   </data>
+  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
 </root>
