@@ -35,6 +35,20 @@ namespace DOM
             return lista[0];
         }
 
+        public static DataTable obtenerReservaCancelableTabla(int codReserva)
+        {
+            return retrieveDataTable("getReservaCancelable", codReserva);
+        }
+
+        public static Reserva obtenerReservaCancelable(int codReserva)
+        {
+            List<Reserva> lista = transductor(obtenerTabla(codReserva));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
+        }
+        
+
         public static DataTable obtenerTabla(Reserva reserva)
         {
             int huesped = reserva.Huesped;
@@ -56,7 +70,7 @@ namespace DOM
 
         public static List<EstadoReservas> obtenerEstadosReservas()
         {
-            return (transductor_estado(retrieveDataTable("obtenerEstadoReserva", cadena_nula)));
+            return (transductor_estado(retrieveDataTable("getEstadoReserva", cadena_nula)));
         }
         #endregion
 

@@ -56,7 +56,7 @@ namespace FrbaHotel.Cancelar_Reserva
         {
             if (chequearDatos())
             {
-                Reserva reserva = DAOReserva.obtener(Int32.Parse(textNroReserva.Text));
+                Reserva reserva = DAOReserva.obtenerReservaCancelable(Int32.Parse(textNroReserva.Text));
                 if (reserva == null)
                 {
                     showToolTip("Ingrese un número de reserva válido.", textNroReserva, textNroReserva.Location);
@@ -72,9 +72,19 @@ namespace FrbaHotel.Cancelar_Reserva
                 cancelacion.Estado = reserva.Estado;
 
                 //Actualizamos el estado de la reserva
-                DAOReserva.actualizar(reserva);
+                if (!DAOReserva.agregarCancelacion(cancelacion))
+                {
+                    MessageBox.Show("Error al cancelar la reserva. Intente nuevamente.", "Error", MessageBoxButtons.OK); 
+                    return;
+                }
+                if (!DAOReserva.actualizar(reserva))
+                {
+                    MessageBox.Show("Error al cancelar la reserva. Intente nuevamente.", "Error", MessageBoxButtons.OK);
+                    return;
+                }
                 //Creamos la cancelacion
-                DAOReserva.agregarCancelacion(cancelacion);
+                MessageBox.Show("Se cancelo la reserva " + " correctamente.", "", MessageBoxButtons.OK);
+                this.Close();
             }
         }
 

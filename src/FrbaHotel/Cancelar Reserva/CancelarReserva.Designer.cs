@@ -144,7 +144,7 @@
             // textNroReserva
             // 
             this.textNroReserva.Location = new System.Drawing.Point(147, 19);
-            this.textNroReserva.Mask = "999999999999999999";
+            this.textNroReserva.Mask = "999999999999";
             this.textNroReserva.Name = "textNroReserva";
             this.textNroReserva.Size = new System.Drawing.Size(111, 20);
             this.textNroReserva.TabIndex = 10;
