@@ -86,7 +86,7 @@ namespace FrbaHotel.Login
                     break;
 
                 case "Facturar Estadia":
-                    new ABM_de_Facturas.FacturasList().Show();
+                    new ABM_de_Facturas.FacturasAlta().Show();
                     break;
 
                 case "Listado Estadistico":

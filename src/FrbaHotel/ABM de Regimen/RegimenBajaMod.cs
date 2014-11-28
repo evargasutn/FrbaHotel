@@ -61,6 +61,8 @@ namespace FrbaHotel.ABM_de_Regimen
         private void botonBaja_Click(object sender, EventArgs e)
         {
             MessageBox.Show("No implementada la Baja de Regimenes", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            return;
+
         }
 
         private void botonModificar_Click(object sender, EventArgs e)

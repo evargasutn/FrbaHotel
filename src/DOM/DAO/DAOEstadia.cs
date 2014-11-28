@@ -4,39 +4,64 @@ using System.Linq;
 using System.Text;
 using DOM.Dominio;
 using FrbaHotel.DOM;
+using System.Data;
 
 namespace DOM
 {
     public class DAOEstadia : SqlConnector
     {
-
-        #region DAAOEstadia Members
-
-        public List<Estadia> getAllEstadia()
+        public static DataTable obtenerTabla(int codReserva)
         {
-            throw new NotImplementedException();
+            return retrieveDataTable("getConsumibles", codReserva);
         }
 
-        public Estadia addEstadia(Estadia habitacion)
+        public static DataTable obtenerTablaTodos()
         {
-            throw new NotImplementedException();
+            return obtenerTabla(entero_nulo);
         }
 
-        public Estadia getEstadia(int codigoReserva)
+        public static List<Estadia> obtener()
         {
-            throw new NotImplementedException();
+            return transductor(obtenerTabla(entero_nulo));
         }
 
-        public void updateEstadia(Estadia habitacion)
+        public static Estadia obtener(int codReserva)
         {
-            throw new NotImplementedException();
+            List<Estadia> lista = transductor(obtenerTabla(codReserva));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
         }
 
-        public void deteleEstadia(int codigoReserva)
+        public static bool facturar(int codReserva, string tipoPago, string tarjeta)
         {
-            throw new NotImplementedException();
+            return executeProcedure("facturar", codReserva, tipoPago, tarjeta);
+        }
+
+        #region Conversores a Estadia desde DataTable
+
+        public static List<Estadia> transductor(DataTable tabla)
+        {
+            List<Estadia> lista = new List<Estadia>();
+            if (tabla != null)
+                foreach (DataRow fila in tabla.Rows)
+                {
+                    //Transcribir
+                    Estadia estadia = new Estadia();
+                    estadia.CodigoReserva = Convert.ToInt32(fila["codReserva"]);
+                    estadia.Fecha_Ingreso_struct = Convert.ToDateTime(fila["fecIngreso"]);
+                    estadia.Fecha_Egreso_struct = Convert.ToDateTime(fila["fecEgreso"]);
+                    Usuario usrIngreso = DAOUsuario.obtener(Convert.ToString(fila["usrIngreso"]));
+                    Usuario usrEgreso = DAOUsuario.obtener(Convert.ToString(fila["usrEgreso"]));
+                    estadia.Usuario_Ingreso = usrIngreso;
+                    estadia.Usuario_Egreso = usrEgreso;
+                    lista.Add(estadia);
+                }
+            return lista;
         }
 
         #endregion
+
+
     }
 }

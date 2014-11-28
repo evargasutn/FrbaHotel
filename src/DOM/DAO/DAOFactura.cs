@@ -8,5 +8,6 @@ namespace DOM.DAO
 {
     class DAOFactura : SqlConnector
     {
+
     }
 }
