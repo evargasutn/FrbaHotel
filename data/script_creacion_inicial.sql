@@ -2136,12 +2136,11 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.cancelarReserva 
 	--Toma la fecha del sistema al momento de agregar una cancelacion
 	@codReserva		numeric,
-	@motivo			varchar,
+	@motivo			varchar(255),
 	@fecha			datetime,
 	@usr			varchar(50),
 	@estado			int 
 AS 
-	IF(@codReserva != -1 AND @motivo != '' AND @usr != '' AND @estado != -1 AND @fecha != NULL)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA (codReserva, motivo, usr, estado,fecCancelacion)
 	VALUES (@codReserva, @motivo, @usr, @estado,@fecha)
 GO
