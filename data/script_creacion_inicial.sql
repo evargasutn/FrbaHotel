@@ -280,8 +280,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA
 (
 	codReserva	numeric(18) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
 	codHotel	numeric(8) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
-	habitacion	numeric(4) not null,
-	
+	habitacion	numeric(4) not null	
 )
 go
 ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA ADD CONSTRAINT PK_Detalles_Reserva PRIMARY KEY(codReserva, codHotel, habitacion);
@@ -292,7 +291,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVAINVALIDA
 	codHotel	numeric(8),
 	habitacion	numeric(4),
 	piso		numeric(2),
-	codRegimen	numeric(8),
+	codRegimen	numeric(8),	
 )
 go
 
@@ -1555,13 +1554,12 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRegimen
-	@codigoRegimen numeric(8),
 	@descripcion varchar(255),
 	@precio numeric (18,2)
 AS
-	IF(@codigoRegimen != -1 AND @descripcion != '' AND @precio != -1)
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(codRegimen, descripcion, precio, estado)
-	VALUES (@codigoRegimen, UPPER(@descripcion), @precio, 1)
+	IF(@descripcion != '' AND @precio != -1)
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(descripcion, precio, estado)
+	VALUES (UPPER(@descripcion), @precio, 1)
 GO
 
 
