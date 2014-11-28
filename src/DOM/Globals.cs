@@ -99,6 +99,20 @@ namespace DOM
 
         #endregion
 
+        #region Motivos Cancelacion Array
+        public static int posmotivoBaja(string motivo)
+        {
+            for (int i = 0; i < motivosBaja.Length; i++)
+                if (motivosBaja[i].ToUpper().CompareTo(motivo.ToUpper()) == 0)
+                    return i;
+            return -1;
+        }
+        public static string[] motivosBaja = new string[] { "Reserva Cancelada por Recepción",
+                                                            "Reserva Cancelada por Cliente",
+                                                            "Reserva Cancelada por No-Show"};
+
+        #endregion
+
         #region Paises array
         public static int posPais(string pais)
         {

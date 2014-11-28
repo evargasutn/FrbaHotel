@@ -75,7 +75,19 @@ namespace DOM
         }
         #endregion
 
+        #region Cancelaciones_Reserva
+        public static bool agregarCancelacion(CancelacionReserva cancelacion)
+        {
+            int codReserva = cancelacion.Codigo_Reserva;
+            string fecha = cancelacion.Fecha_Cancelacion;
+            string motivo = cancelacion.Motivo;
+            string usr = cancelacion.Usr;
+            int estado = cancelacion.Estado;
+            return executeProcedure("cancelarReserva", codReserva, motivo, fecha, usr, estado);
+        }
 
+        #endregion
+        
         public static bool agregar(Reserva reserva)
         {
             int idHuesped = reserva.Huesped;

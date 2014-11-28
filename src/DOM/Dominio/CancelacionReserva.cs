@@ -8,10 +8,11 @@ namespace DOM.Dominio
     public class CancelacionReserva
     {
         #region Atributos
-        private int codReserva;
-        private string motivo;
-        private DateTime fechaCancelacion;
-        private int usr;
+        private int codReserva = -1;
+        private string motivo = "";
+        private DateTime? fechaCancelacion = null;
+        private int estado = -1;
+        private string usr = "";
         #endregion
 
         #region Setters&Getters
@@ -21,7 +22,7 @@ namespace DOM.Dominio
             set { codReserva = value; }
         }
 
-        public int Usr
+        public string Usr
         {
             get { return usr; }
             set { usr = value; }
@@ -35,14 +36,20 @@ namespace DOM.Dominio
 
         public string Fecha_Cancelacion
         {
-            get { return fechaCancelacion.ToString("yyyyMMdd"); }
+            get { return ((DateTime) fechaCancelacion).ToString("yyyyMMdd"); }
             set { fechaCancelacion = DateTime.Parse(value); }
         }
 
         public DateTime Fecha_Cancelacion_struct
         {
-            get { return fechaCancelacion; }
+            get { return (DateTime) fechaCancelacion; }
             set { fechaCancelacion = value; }
+        }
+
+        public int Estado
+        {
+            get { return estado; }
+            set { estado = value; }
         }
         #endregion
     }
