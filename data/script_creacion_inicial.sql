@@ -320,42 +320,9 @@ create table COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
 (
 	codConsumible	numeric(18) identity(1,1) PRIMARY KEY,
 	descripcion		varchar(255) not null,
-	importe			numeric(18, 2) not null
-)
-go
-
-create table COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
-(
-	codConsumible	numeric(18,0) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(codConsumible),
-	codReserva		numeric(18,0) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
-	cantidad		numeric(3) not null,
-	PRIMARY KEY (codReserva, codConsumible)
-)
-go
-
-create table COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA_INVALIDA
-(
-	codConsumible	numeric(18,0),
-	codReserva		numeric(18,0),
-	cantidad		numeric(3)
-)
-go
-
-create table COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES
-(
-	hotel			numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
-	fecInicio		datetime not null,
-	fecFin			datetime not null,
-	motivo			varchar(255) not null,
-	PRIMARY KEY (hotel)
-)
-go
-
-create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO
-(
-	usr				varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
-	codHotel		numeric(8)  FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
-	PRIMARY KEY(codHotel, usr)
+	importe			numeric(18, 2) not null,
+	cantidad		numeric(18),
+	campoBaja	    bit not null default 0
 )
 go
 
@@ -385,7 +352,7 @@ go
 
 create table COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA
 (
-	numeroFactura	numeric(18,0) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura),
+	numeroFactura	numeric(18,0) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.FACTURAS(numeroFactura),
 	numeroItem		numeric(18) not null,
 	descripcion		varchar(255) not null default '',
 	montoUnitario	numeric(18,2) not null,
@@ -394,6 +361,48 @@ create table COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA
 	PRIMARY KEY (numeroFactura, numeroItem)
 )
 go
+
+create table COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
+(
+	codConsumible	numeric(18,0) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(codConsumible),
+	codReserva		numeric(18,0) not null FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.RESERVAS(codReserva),
+	numeroFactura	numeric(18,0) ,
+	itemFactura		numeric(18,0) ,
+	cantidad		numeric(18,0)
+	PRIMARY KEY (codReserva, codConsumible, itemFactura)
+)
+ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA ADD CONSTRAINT FK_Cons_X_Estadia 
+FOREIGN KEY (numeroFactura,itemFactura) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA (numeroFactura, numeroItem) 
+go
+
+create table COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA_INVALIDA
+(
+	codConsumible	numeric(18,0),
+	codReserva		numeric(18,0),
+	numeroFactura	numeric(18,0),
+	itemFactura		numeric(18,0),
+	cantidad		numeric(3)
+)
+go
+
+create table COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES
+(
+	hotel			numeric(8) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
+	fecInicio		datetime not null,
+	fecFin			datetime not null,
+	motivo			varchar(255) not null,
+	PRIMARY KEY (hotel)
+)
+go
+
+create table COMPUMUNDO_HIPER_MEGA_RED.HOTELES_X_USUARIO
+(
+	usr				varchar(50) FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.USUARIOS(usr),
+	codHotel		numeric(8)  FOREIGN KEY REFERENCES COMPUMUNDO_HIPER_MEGA_RED.HOTELES(codHotel),
+	PRIMARY KEY(codHotel, usr)
+)
+go
+
 
 create table COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA_INVALIDA
 (
@@ -765,28 +774,26 @@ GO
 	SET IDENTITY_INSERT COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES OFF
 GO
 
---//CONSUMIBLES_X_ESTADIA
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA(codConsumible, codReserva, cantidad)
-	SELECT DISTINCT M.Consumible_Codigo, M.Reserva_Codigo, count(M.Consumible_Codigo)
-	FROM gd_esquema.Maestra M
-	WHERE M.Consumible_Codigo IS NOT NULL AND
-		  M.Reserva_Codigo IS NOT NULL AND
-		  M.Reserva_Fecha_Inicio <= CURRENT_TIMESTAMP
-	GROUP BY M.Consumible_Codigo, M.Reserva_Codigo
-	ORDER BY M.Reserva_Codigo ASC
-GO	
 
---//CONSUMIBLES_X_ESTADIA_INVALIDA
-	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA_INVALIDA(codConsumible, codReserva, cantidad)
-	SELECT DISTINCT M.Consumible_Codigo, M.Reserva_Codigo, count(M.Consumible_Codigo)
-	FROM gd_esquema.Maestra M
-	WHERE M.Consumible_Codigo IS NOT NULL AND
-		  M.Reserva_Codigo IS NOT NULL AND
-		  M.Reserva_Fecha_Inicio > CURRENT_TIMESTAMP
-	GROUP BY M.Consumible_Codigo, M.Reserva_Codigo
-	ORDER BY M.Reserva_Codigo ASC
+----FUNCION QUE RETORNA EL CODIGO QUE CORRESPONDE A LOS RECARGOS EN CONSUMIBLES
+--INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(descripcion, importe)
+--VALUES ('Recargos de Categoria Hotel y Regimen',0)
+
+--IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.codRecargo', N'FN') IS NOT NULL
+--    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.codRecargo
+--GO
+--CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.codRecargo ()
+--RETURNS numeric(18)
+--AS
+--	BEGIN
+--		RETURN (SELECT CONS.codConsumible 
+--			   FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES CONS
+--			   WHERE CONS.descripcion LIKE 'Recargos%')
+--	END
+--GO
+
+
 GO
-
 --//DETALLES_RESERVA
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion)
 	SELECT DISTINCT H.codHotel, M.Reserva_Codigo, M.Habitacion_Numero
@@ -876,6 +883,36 @@ GO
 			  M.Factura_Fecha > CURRENT_TIMESTAMP
 	GROUP BY M.Factura_Nro, M.Item_Factura_Monto, M.Consumible_Descripcion
 GO
+
+
+--//CONSUMIBLES_X_ESTADIA
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA(codConsumible, codReserva, numeroFactura, itemFactura, cantidad)
+	SELECT  DISTINCT M.Consumible_Codigo, M.Reserva_Codigo, ITEMS.numeroFactura,ITEMS.numeroItem, count(M.Consumible_Codigo) AS 'Cantidad'
+	FROM gd_esquema.Maestra M, COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS
+	
+	WHERE M.Consumible_Codigo IS NOT NULL AND
+		  M.Reserva_Codigo IS NOT NULL AND
+		  M.Reserva_Fecha_Inicio <= CURRENT_TIMESTAMP AND
+		  M.Factura_Nro = ITEMS.numeroFactura AND
+		  M.Consumible_Descripcion = ITEMS.descripcion
+	GROUP BY M.Consumible_Codigo, M.Reserva_Codigo, ITEMS.numeroFactura,ITEMS.numeroItem
+	ORDER BY M.Reserva_Codigo ASC
+GO	
+
+--//CONSUMIBLES_X_ESTADIA_INVALIDA
+	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA_INVALIDA(codConsumible, codReserva, numeroFactura, itemFactura, cantidad)
+	SELECT  DISTINCT M.Consumible_Codigo, M.Reserva_Codigo, ITEMS.numeroFactura,ITEMS.numeroItem, count(M.Consumible_Codigo) AS 'Cantidad'
+	FROM gd_esquema.Maestra M, COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA_INVALIDA ITEMS
+	
+	WHERE M.Consumible_Codigo IS NOT NULL AND
+		  M.Reserva_Codigo IS NOT NULL AND
+		  M.Reserva_Fecha_Inicio > CURRENT_TIMESTAMP AND
+		  M.Factura_Nro = ITEMS.numeroFactura AND
+		  M.Consumible_Descripcion = ITEMS.descripcion
+	GROUP BY M.Consumible_Codigo, M.Reserva_Codigo, ITEMS.numeroFactura,ITEMS.numeroItem
+	ORDER BY M.Reserva_Codigo ASC
+GO
+
 
 /*
  *PROCEDURES
@@ -2480,7 +2517,7 @@ SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura
 	@numeroFactura  numeric(18),
-	@codReserva		numeric(18)     
+	@codReserva		numeric(18)  
 AS
 	DECLARE @nroItem numeric(18)
 	SET @nroItem = 1 
@@ -2499,6 +2536,21 @@ AS
 		SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
 		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
+		
+		--Update en consumibles_x_estadia
+		DECLARE @itemNuevo numeric(18)
+		SET @itemNuevo = (SELECT ITEMS.numeroItem
+						FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS,
+						COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+						JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON CE.codConsumible = C.codConsumible
+						WHERE ITEMS.descripcion = C.descripcion
+							)
+		
+		
+		UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
+		SET numeroFactura = @numeroFactura, itemFactura = @itemNuevo
+		WHERE codReserva = @codReserva
+		
 		
 		SET @nroItem = @nroItem + 1
 		--Si la reserva es All Inclusive, agrego un item más detallando que no se considera recargo de consumibles
