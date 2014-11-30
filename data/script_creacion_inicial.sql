@@ -2538,18 +2538,51 @@ AS
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
 		
 		--Update en consumibles_x_estadia
-		DECLARE @itemNuevo numeric(18)
-		SET @itemNuevo = (SELECT ITEMS.numeroItem
-						FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS,
-						COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
-						JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON CE.codConsumible = C.codConsumible
-						WHERE ITEMS.descripcion = C.descripcion
-							)
+		/*Step 1: Declare variables to hold the output from the cursor.*/
+	DECLARE @itemFactura numeric(18);
+	
+	/*Step 2: Declare the cursor object*/
+	DECLARE @Cursor_itemFactura as CURSOR;
+	
+	/*Step 3: Assign the query to the cursor.*/
+	SET @Cursor_itemFactura = CURSOR FOR
+		SELECT ITEMS.numeroItem
+		FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS,
+		COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON CE.codConsumible = C.codConsumible
+		WHERE	ITEMS.numeroFactura = @numeroFactura
+				AND ITEMS.descripcion = C.descripcion
+	
+	/*Step 4: Open the cursor.*/
+	OPEN @Cursor_itemFactura
+		/*Step 5: Fetch the first row.*/
+		FETCH NEXT FROM @Cursor_itemFactura INTO  @itemFactura;
+		/*Step 6: Loop until there are no more results. */
+		WHILE @@FETCH_STATUS = 0
+			BEGIN
+				UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
+				SET numeroFactura = @numeroFactura, itemFactura = @itemFactura
+				WHERE codReserva = @codReserva
+			
+			FETCH NEXT FROM @Cursor_itemFactura INTO @itemFactura;
+		END
+	/*Step 7: Close the cursor.*/
+	CLOSE @Cursor_itemFactura
+	/*Step 7: Deallocate the cursor to free up any memory or open result sets.*/
+	DEALLOCATE @Cursor_itemFactura
+		
+		--DECLARE @itemNuevo numeric(18)
+		--SET @itemNuevo = (SELECT ITEMS.numeroItem
+		--				FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS,
+		--				COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+		--				JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON CE.codConsumible = C.codConsumible
+		--				WHERE ITEMS.descripcion = C.descripcion
+		--					)
 		
 		
-		UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
-		SET numeroFactura = @numeroFactura, itemFactura = @itemNuevo
-		WHERE codReserva = @codReserva
+		--UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
+		--SET numeroFactura = @numeroFactura, itemFactura = @itemNuevo
+		--WHERE codReserva = @codReserva
 		
 		
 		SET @nroItem = @nroItem + 1
