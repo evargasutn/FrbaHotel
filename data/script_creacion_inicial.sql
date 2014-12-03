@@ -775,25 +775,6 @@ GO
 GO
 
 
-----FUNCION QUE RETORNA EL CODIGO QUE CORRESPONDE A LOS RECARGOS EN CONSUMIBLES
---INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES(descripcion, importe)
---VALUES ('Recargos de Categoria Hotel y Regimen',0)
-
---IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.codRecargo', N'FN') IS NOT NULL
---    DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.codRecargo
---GO
---CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.codRecargo ()
---RETURNS numeric(18)
---AS
---	BEGIN
---		RETURN (SELECT CONS.codConsumible 
---			   FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES CONS
---			   WHERE CONS.descripcion LIKE 'Recargos%')
---	END
---GO
-
-
-GO
 --//DETALLES_RESERVA
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA(codHotel, codReserva, habitacion)
 	SELECT DISTINCT H.codHotel, M.Reserva_Codigo, M.Habitacion_Numero
@@ -857,6 +838,56 @@ GO
 			  M.Factura_Fecha <= CURRENT_TIMESTAMP
 	GROUP BY M.Factura_Nro, M.Item_Factura_Monto, M.Consumible_Descripcion
 GO
+
+--UPDATE pone en items_factura el detalle de los dias alojados y desaprovechados
+--Listado de los items de facturas que ya fueron cargados
+/*Step 1: Declare variables to hold the output from the cursor.*/
+	DECLARE @numeroFactura numeric(18); 
+	DECLARE @nroItem numeric(18);
+	
+	/*Step 2: Declare the cursor object*/
+	DECLARE @Cursor_itemFactura as CURSOR;
+	
+	/*Step 3: Assign the query to the cursor.*/
+	SET @Cursor_itemFactura = CURSOR FOR
+		SELECT DISTINCT ITEMS.numeroFactura, ITEMS.numeroItem
+		FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS
+		GROUP BY ITEMS.numeroFactura, ITEMS.numeroItem
+	
+	/*Step 4: Open the cursor.*/
+	OPEN @Cursor_itemFactura
+		/*Step 5: Fetch the first row.*/
+		FETCH NEXT FROM @Cursor_itemFactura INTO  @numeroFactura, @nroItem;
+		/*Step 6: Loop until there are no more results. */
+		WHILE @@FETCH_STATUS = 0
+			BEGIN
+				
+				--Busco los datos de fechas que necesito de la estadia
+				DECLARE @codReserva numeric(18)
+				SET @codReserva = (SELECT F.codReserva FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F 
+									WHERE F.numeroFactura = @numeroFactura)
+									
+				SELECT E.fecIngreso, E.fecEgreso INTO #TEMP_EST	
+				FROM COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E WHERE E.codReserva = @codReserva
+				
+				DECLARE @fecIngreso datetime
+				SET @fecIngreso = (SELECT fecIngreso FROM #TEMP_EST)
+				DECLARE @fecEgreso datetime
+				SET @fecEgreso = (SELECT fecEgreso FROM #TEMP_EST)
+
+				--Inserta el registro faltante para una factura asociada a una estadia
+				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+				VALUES(@numeroFactura, @nroItem+1, 1,0,0,'Fecha de ingreso: '+@fecIngreso+ ' Fecha de egreso: '+@fecEgreso+' dias alojados: '+DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP)+' dias no aprovechados: '+DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso))
+					  
+			FETCH NEXT FROM @Cursor_itemFactura INTO @itemFactura, @codConsumible;
+		END
+	/*Step 7: Close the cursor.*/
+	CLOSE @Cursor_itemFactura
+	/*Step 7: Deallocate the cursor to free up any memory or open result sets.*/
+	DEALLOCATE @Cursor_itemFactura
+		
+GO
+
 
 --Funcion para calcular el ultimo item ingresado de una factura
 IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura', N'FN') IS NOT NULL
