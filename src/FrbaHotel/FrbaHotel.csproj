@@ -337,8 +337,8 @@
     <EmbeddedResource Include="Registrar Estadia\Check_Out.resx">
       <DependentUpon>Check_Out.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registrar Estadia\Facturacion.resx">
-      <DependentUpon>Facturacion.cs</DependentUpon>
+    <EmbeddedResource Include="Registrar Estadia\EstadiasMain.resx">
+      <DependentUpon>EstadiasMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registrar Estadia\IngresoHuespedes.resx">
       <DependentUpon>IngresoHuespedes.cs</DependentUpon>
@@ -375,11 +375,11 @@
     <Compile Include="Registrar Estadia\Check_Out.Designer.cs">
       <DependentUpon>Check_Out.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registrar Estadia\Facturacion.cs">
+    <Compile Include="Registrar Estadia\EstadiasMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registrar Estadia\Facturacion.Designer.cs">
-      <DependentUpon>Facturacion.cs</DependentUpon>
+    <Compile Include="Registrar Estadia\EstadiasMain.Designer.cs">
+      <DependentUpon>EstadiasMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Registrar Estadia\IngresoHuespedes.cs">
       <SubType>Form</SubType>
