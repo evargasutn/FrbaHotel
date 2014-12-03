@@ -850,7 +850,7 @@ GO
 	
 	/*Step 3: Assign the query to the cursor.*/
 	SET @Cursor_itemFactura = CURSOR FOR
-		SELECT DISTINCT ITEMS.numeroFactura, ITEMS.numeroItem
+		SELECT DISTINCT ITEMS.numeroFactura, MAX(ITEMS.numeroItem)
 		FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS
 		GROUP BY ITEMS.numeroFactura, ITEMS.numeroItem
 	
@@ -876,16 +876,18 @@ GO
 				SET @fecEgreso = (SELECT fecEgreso FROM #TEMP_EST)
 
 				--Inserta el registro faltante para una factura asociada a una estadia
+				SET @nroItem= @nroItem+1
 				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-				VALUES(@numeroFactura, @nroItem+1, 1,0,0,'Fecha de ingreso: '+@fecIngreso+ ' Fecha de egreso: '+@fecEgreso+' dias alojados: '+DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP)+' dias no aprovechados: '+DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso))
+				VALUES(@numeroFactura, @nroItem, 1,0,0,'Fecha de ingreso: '+CONVERT(VARCHAR(10),@fecIngreso)+ ' Fecha de egreso: '+CONVERT(VARCHAR(10),@fecEgreso)+' dias alojados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP))+' dias no aprovechados: '+CONVERT(VARCHAR(5),DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso)))
 					  
-			FETCH NEXT FROM @Cursor_itemFactura INTO @itemFactura, @codConsumible;
+				DROP TABLE #TEMP_EST
+			FETCH NEXT FROM @Cursor_itemFactura INTO @numeroFactura, @nroItem;
 		END
 	/*Step 7: Close the cursor.*/
 	CLOSE @Cursor_itemFactura
 	/*Step 7: Deallocate the cursor to free up any memory or open result sets.*/
 	DEALLOCATE @Cursor_itemFactura
-		
+
 GO
 
 
@@ -1259,7 +1261,7 @@ AS
 				SET password = @nueva_clave
 					WHERE usr = @usr
 			/*DROP TABLA TEMPORAL*/
-			DROP TABLE ##TEMP_TABLA
+			DROP TABLE #TEMP_TABLA
 		END
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 			SET primerLog = 0
@@ -2578,9 +2580,9 @@ AS
 		SET @fecEgreso = (SELECT fecEgreso FROM #TEMP_EST)
 
 		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura,numeroItem,cantidad,montoUnitario,montoTotal,descripcion)
-		VALUES(@numeroFactura, @nroItem+1, 1,0,0,'Fecha de ingreso: '+@fecIngreso+ ' Fecha de egreso: '+@fecEgreso+' dias alojados: '+DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP)+' dias no aprovechados: '+DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso))
+		VALUES(@numeroFactura, @nroItem+1, 1,0,0,'Fecha de ingreso: '+CONVERT(VARCHAR(10),@fecIngreso)+ ' Fecha de egreso: '+CONVERT(VARCHAR(10),@fecEgreso)+' dias alojados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP))+' dias no aprovechados: '+CONVERT(VARCHAR(5),DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso)))
 		
-		DROP TABLE ##TEMP_EST
+		DROP TABLE #TEMP_EST
 		--Update en consumibles_x_estadia
 		/*Step 1: Declare variables to hold the output from the cursor.*/
 	DECLARE @itemFactura numeric(18);
