@@ -45,7 +45,9 @@
             this.comboTipoPago = new System.Windows.Forms.ComboBox();
             this.labelTarjeta = new System.Windows.Forms.Label();
             this.textTarjeta = new System.Windows.Forms.TextBox();
+            this.dataGridFacturaEstadia = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturaEstadia)).BeginInit();
             this.SuspendLayout();
             // 
             // labelEstadia
@@ -147,7 +149,7 @@
             // 
             // botonFacturar
             // 
-            this.botonFacturar.Location = new System.Drawing.Point(12, 258);
+            this.botonFacturar.Location = new System.Drawing.Point(300, 132);
             this.botonFacturar.Name = "botonFacturar";
             this.botonFacturar.Size = new System.Drawing.Size(229, 39);
             this.botonFacturar.TabIndex = 3;
@@ -158,7 +160,7 @@
             // labelPago
             // 
             this.labelPago.AutoSize = true;
-            this.labelPago.Location = new System.Drawing.Point(12, 190);
+            this.labelPago.Location = new System.Drawing.Point(300, 43);
             this.labelPago.Name = "labelPago";
             this.labelPago.Size = new System.Drawing.Size(71, 13);
             this.labelPago.TabIndex = 4;
@@ -167,7 +169,7 @@
             // comboTipoPago
             // 
             this.comboTipoPago.FormattingEnabled = true;
-            this.comboTipoPago.Location = new System.Drawing.Point(120, 187);
+            this.comboTipoPago.Location = new System.Drawing.Point(408, 40);
             this.comboTipoPago.Name = "comboTipoPago";
             this.comboTipoPago.Size = new System.Drawing.Size(121, 21);
             this.comboTipoPago.TabIndex = 5;
@@ -175,7 +177,7 @@
             // labelTarjeta
             // 
             this.labelTarjeta.AutoSize = true;
-            this.labelTarjeta.Location = new System.Drawing.Point(13, 216);
+            this.labelTarjeta.Location = new System.Drawing.Point(301, 69);
             this.labelTarjeta.Name = "labelTarjeta";
             this.labelTarjeta.Size = new System.Drawing.Size(60, 13);
             this.labelTarjeta.TabIndex = 6;
@@ -183,16 +185,31 @@
             // 
             // textTarjeta
             // 
-            this.textTarjeta.Location = new System.Drawing.Point(120, 215);
+            this.textTarjeta.Location = new System.Drawing.Point(408, 68);
             this.textTarjeta.Name = "textTarjeta";
             this.textTarjeta.Size = new System.Drawing.Size(120, 20);
             this.textTarjeta.TabIndex = 7;
+            // 
+            // dataGridFacturaEstadia
+            // 
+            this.dataGridFacturaEstadia.AllowUserToAddRows = false;
+            this.dataGridFacturaEstadia.AllowUserToDeleteRows = false;
+            this.dataGridFacturaEstadia.AllowUserToResizeColumns = false;
+            this.dataGridFacturaEstadia.AllowUserToResizeRows = false;
+            this.dataGridFacturaEstadia.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridFacturaEstadia.Location = new System.Drawing.Point(12, 197);
+            this.dataGridFacturaEstadia.Name = "dataGridFacturaEstadia";
+            this.dataGridFacturaEstadia.ReadOnly = true;
+            this.dataGridFacturaEstadia.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            this.dataGridFacturaEstadia.Size = new System.Drawing.Size(516, 130);
+            this.dataGridFacturaEstadia.TabIndex = 8;
             // 
             // FacturasAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(253, 309);
+            this.ClientSize = new System.Drawing.Size(541, 329);
+            this.Controls.Add(this.dataGridFacturaEstadia);
             this.Controls.Add(this.textTarjeta);
             this.Controls.Add(this.labelTarjeta);
             this.Controls.Add(this.comboTipoPago);
@@ -206,6 +223,7 @@
             this.Load += new System.EventHandler(this.FacturasAlta_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturaEstadia)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,5 +247,6 @@
         private System.Windows.Forms.ComboBox comboTipoPago;
         private System.Windows.Forms.Label labelTarjeta;
         private System.Windows.Forms.TextBox textTarjeta;
+        private System.Windows.Forms.DataGridView dataGridFacturaEstadia;
     }
 }

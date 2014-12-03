@@ -41,9 +41,10 @@ namespace FrbaHotel.ABM_de_Facturas
             {
 
                 //Buscar y rellenar los valores
-
+                dataGridFacturaEstadia.DataSource = DAOEstadia.obtenerConsumiblesEstadia(Int32.Parse(textEstadia.Text));
+                double precioConsumibles = dataGridFacturaEstadia.Rows.Cast<DataGridViewRow>().Sum(X => Convert.ToInt32(X.Cells[4].Value));
                 double precioBase = 0;
-                double precioConsumibles = 0;
+                
                 mostrarDatos(precioBase, precioConsumibles);
                 datosMostrados = true;
             }
