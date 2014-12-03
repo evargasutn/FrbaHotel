@@ -321,7 +321,6 @@ create table COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
 	codConsumible	numeric(18) identity(1,1) PRIMARY KEY,
 	descripcion		varchar(255) not null,
 	importe			numeric(18, 2) not null,
-	cantidad		numeric(18),
 	campoBaja	    bit not null default 0
 )
 go
@@ -869,18 +868,22 @@ GO
 									WHERE F.numeroFactura = @numeroFactura)
 									
 				IF OBJECT_ID('tempdb..#TEMP_EST') IS NOT NULL DROP TABLE #TEMP_EST
-				SELECT E.fecIngreso, E.fecEgreso INTO #TEMP_EST	
-				FROM COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E WHERE E.codReserva = @codReserva
+				SELECT E.fecIngreso, E.fecEgreso, R.fecHasta INTO #TEMP_EST	
+				FROM COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E 
+				JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R ON R.codReserva = E.codReserva 
+				WHERE E.codReserva = @codReserva
 				
 				DECLARE @fecIngreso datetime
 				SET @fecIngreso = (SELECT fecIngreso FROM #TEMP_EST)
 				DECLARE @fecEgreso datetime
 				SET @fecEgreso = (SELECT fecEgreso FROM #TEMP_EST)
+				DECLARE @fecHasta datetime
+				SET @fecHasta = (SELECT fecHasta FROM #TEMP_EST)
 
 				--Inserta el registro faltante para una factura asociada a una estadia
 				SET @nroItem+=1
 				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-				VALUES(@numeroFactura, @nroItem, 1,0,0,'Fecha de ingreso: '+CONVERT(VARCHAR(10),@fecIngreso)+ ' Fecha de egreso: '+CONVERT(VARCHAR(10),@fecEgreso)+' dias alojados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP))+' dias no aprovechados: '+CONVERT(VARCHAR(5),DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso)))
+				VALUES(@numeroFactura, @nroItem, 1,0,0,'Fecha de ingreso: '+CONVERT(VARCHAR(11),@fecIngreso)+ ' Fecha de egreso: '+CONVERT(VARCHAR(11),@fecEgreso)+' dias alojados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecIngreso,@fecEgreso))+' dias no aprovechados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecEgreso,@fecHasta)))
 					  
 
 			FETCH NEXT FROM @Cursor_itemFactura INTO @numeroFactura, @nroItem;
@@ -2574,17 +2577,23 @@ AS
 		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 		VALUES(@numeroFactura, @nroItem+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Régimen')
 
-		--Guardo el detalle de los dias alojado
-		SELECT E.fecIngreso, E.fecEgreso INTO #TEMP_EST	
-		FROM COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E WHERE E.codReserva = @codReserva
+		IF OBJECT_ID('tempdb..#TEMP_EST') IS NOT NULL DROP TABLE #TEMP_EST
+		SELECT E.fecIngreso, E.fecEgreso, R.fecHasta INTO #TEMP_EST	
+		FROM COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E 
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R ON R.codReserva = E.codReserva 
+		WHERE E.codReserva = @codReserva
 		
 		DECLARE @fecIngreso datetime
 		SET @fecIngreso = (SELECT fecIngreso FROM #TEMP_EST)
 		DECLARE @fecEgreso datetime
 		SET @fecEgreso = (SELECT fecEgreso FROM #TEMP_EST)
+		DECLARE @fecHasta datetime
+		SET @fecHasta = (SELECT fecHasta FROM #TEMP_EST)
 
-		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura,numeroItem,cantidad,montoUnitario,montoTotal,descripcion)
-		VALUES(@numeroFactura, @nroItem+1, 1,0,0,'Fecha de ingreso: '+CONVERT(VARCHAR(10),@fecIngreso)+ ' Fecha de egreso: '+CONVERT(VARCHAR(10),@fecEgreso)+' dias alojados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP))+' dias no aprovechados: '+CONVERT(VARCHAR(5),DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso)))
+		--Inserta el registro faltante para una factura asociada a una estadia
+		SET @nroItem+=1
+		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+		VALUES(@numeroFactura, @nroItem, 1,0,0,'Fecha de ingreso: '+CONVERT(VARCHAR(11),@fecIngreso)+ ' Fecha de egreso: '+CONVERT(VARCHAR(11),@fecEgreso)+' dias alojados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecIngreso,@fecEgreso))+' dias no aprovechados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecEgreso,@fecHasta)))
 		
 		DROP TABLE #TEMP_EST
 		--Update en consumibles_x_estadia
@@ -2624,20 +2633,6 @@ AS
 	CLOSE @Cursor_itemFactura
 	/*Step 7: Deallocate the cursor to free up any memory or open result sets.*/
 	DEALLOCATE @Cursor_itemFactura
-		
-		--DECLARE @itemNuevo numeric(18)
-		--SET @itemNuevo = (SELECT ITEMS.numeroItem
-		--				FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS,
-		--				COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
-		--				JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON CE.codConsumible = C.codConsumible
-		--				WHERE ITEMS.descripcion = C.descripcion
-		--					)
-		
-		
-		--UPDATE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
-		--SET numeroFactura = @numeroFactura, itemFactura = @itemNuevo
-		--WHERE codReserva = @codReserva
-		
 		
 		SET @nroItem = @nroItem + 1
 		--Si la reserva es All Inclusive, agrego un item más detallando que no se considera recargo de consumibles
