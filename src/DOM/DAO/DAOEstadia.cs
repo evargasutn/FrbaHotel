@@ -10,9 +10,14 @@ namespace DOM
 {
     public class DAOEstadia : SqlConnector
     {
-        public static DataTable obtenerTabla(int codReserva)
+        public static DataTable obtenerConsumiblesEstadia(int codReserva)
         {
             return retrieveDataTable("getConsumibles", codReserva);
+        }
+        
+        public static DataTable obtenerTabla(int codReserva)
+        {
+            return retrieveDataTable("getEstadia", codReserva);
         }
 
         public static DataTable obtenerTablaTodos()
