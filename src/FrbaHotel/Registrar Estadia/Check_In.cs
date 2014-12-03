@@ -17,7 +17,7 @@ namespace FrbaHotel.Registrar_Estadia
     {
         Hotel hotel = Globals.infoSesion.Hotel;
         Usuario usuario = Globals.infoSesion.User;
-        public Check_In()
+        public Check_In(Reserva rsv)
         {
             InitializeComponent();
         }
