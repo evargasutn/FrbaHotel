@@ -51,9 +51,9 @@ namespace FrbaHotel.ABM_de_Facturas
                 dataGridFacturaEstadia.DataSource = DAOEstadia.obtenerConsumiblesEstadia(Int32.Parse(textEstadia.Text));
                 double precioConsumibles = dataGridFacturaEstadia.Rows.Cast<DataGridViewRow>().Sum(X => Convert.ToInt32(X.Cells[4].Value));
 
-                datos_Reserva = reserva;
-                int cantPersonas = datos_Reserva.tipo_habitacion.CantPersonas * datos_Reserva.cantHabitaciones;
-                double precioBase = Globals.obtenerPrecio(reserva.CodigoRegimen, cantPersonas, Globals.infoSesion.Hotel.Recargo);
+                int cantPersonas_originales = DAOHabitacion.obtenerCantHabitacionesByReserva(reserva.CodigoReserva);
+                double precioBase = Globals.obtenerPrecio(reserva.CodigoRegimen, cantPersonas_originales,
+                    Globals.infoSesion.Hotel.Recargo);
 
                 mostrarDatos(precioBase, precioConsumibles);
 
