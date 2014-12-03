@@ -66,7 +66,22 @@ namespace DOM
             Regimen reg = DAORegimen.obtener(codRegimen);
 
             return (reg.Precio * cantPersonas) + recargo;
-        }   
+        }
+
+        public static bool esElMismoDia(DateTime fecha1, DateTime fecha2)
+        {
+            int dia1 = fecha1.Day;
+            int dia2 = fecha2.Day;
+            int mes1 = fecha1.Month;
+            int mes2 = fecha2.Month;
+            int anio1 = fecha1.Year;
+            int anio2 = fecha2.Year;
+
+            if (dia1 == dia2 && mes1 == mes2 && anio1 == anio2)
+                return true;
+            else
+                return false;
+        }
        
         #endregion
 

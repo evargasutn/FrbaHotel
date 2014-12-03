@@ -38,6 +38,20 @@ namespace DOM
             return lista[0];
         }
 
+        public static bool ingresarEntrada(Estadia estadia)
+        {
+            int codReserva = estadia.CodigoReserva;
+            string usr = estadia.Usuario_Ingreso.Usr;
+            return executeProcedure("insertEstadia", codReserva, usr);
+        }
+
+        public static bool ingresarSalida(Estadia estadia)
+        {
+            int codReserva = estadia.CodigoReserva;
+            string usr = estadia.Usuario_Egreso.Usr;
+            return executeProcedure("updateEstadia", codReserva, usr);
+        }
+
         public static bool facturar(int codReserva, string tipoPago, string tarjeta)
         {
             return executeProcedure("facturar", codReserva, tipoPago, tarjeta);
@@ -55,11 +69,15 @@ namespace DOM
                     Estadia estadia = new Estadia();
                     estadia.CodigoReserva = Convert.ToInt32(fila["codReserva"]);
                     estadia.Fecha_Ingreso_struct = Convert.ToDateTime(fila["fecIngreso"]);
-                    estadia.Fecha_Egreso_struct = Convert.ToDateTime(fila["fecEgreso"]);
+                    if (!(fila["fecEgreso"] is DBNull))
+                        estadia.Fecha_Egreso_struct = Convert.ToDateTime(fila["fecEgreso"]);
+                    if (!(fila["usrEgreso"] is DBNull))
+                    {
+                        Usuario usrEgreso = DAOUsuario.obtener(Convert.ToString(fila["usrEgreso"]));
+                        estadia.Usuario_Egreso = usrEgreso;
+                    }
                     Usuario usrIngreso = DAOUsuario.obtener(Convert.ToString(fila["usrIngreso"]));
-                    Usuario usrEgreso = DAOUsuario.obtener(Convert.ToString(fila["usrEgreso"]));
                     estadia.Usuario_Ingreso = usrIngreso;
-                    estadia.Usuario_Egreso = usrEgreso;
                     lista.Add(estadia);
                 }
             return lista;

@@ -28,261 +28,169 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridHuespedes = new System.Windows.Forms.DataGridView();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textIdHuesped = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.comboTipoDeDNI = new System.Windows.Forms.ComboBox();
-            this.textDNI = new System.Windows.Forms.TextBox();
+            this.textNroDoc = new System.Windows.Forms.MaskedTextBox();
+            this.botonBuscar = new System.Windows.Forms.Button();
+            this.dataGridClientes = new System.Windows.Forms.DataGridView();
+            this.buttonRegistrarCliente = new System.Windows.Forms.Button();
+            this.textMail = new System.Windows.Forms.TextBox();
+            this.comboTipoDoc = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textApellido = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.textNombre = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.botonIngresarHuesped = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textCapacidadHuespedes = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textCantHuespedesIngresados = new System.Windows.Forms.TextBox();
+            this.botonVolver = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridHuespedes)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridHuespedes);
-            this.groupBox1.Location = new System.Drawing.Point(43, 190);
+            this.groupBox1.Controls.Add(this.textNroDoc);
+            this.groupBox1.Controls.Add(this.botonBuscar);
+            this.groupBox1.Controls.Add(this.dataGridClientes);
+            this.groupBox1.Controls.Add(this.buttonRegistrarCliente);
+            this.groupBox1.Controls.Add(this.textMail);
+            this.groupBox1.Controls.Add(this.comboTipoDoc);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(475, 171);
-            this.groupBox1.TabIndex = 0;
+            this.groupBox1.Size = new System.Drawing.Size(524, 274);
+            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Huespedes";
+            this.groupBox1.Text = "Cliente registrado";
             // 
-            // dataGridHuespedes
+            // textNroDoc
             // 
-            this.dataGridHuespedes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridHuespedes.Location = new System.Drawing.Point(6, 19);
-            this.dataGridHuespedes.Name = "dataGridHuespedes";
-            this.dataGridHuespedes.Size = new System.Drawing.Size(463, 144);
-            this.dataGridHuespedes.TabIndex = 0;
+            this.textNroDoc.Location = new System.Drawing.Point(128, 45);
+            this.textNroDoc.Mask = "99999999999999999";
+            this.textNroDoc.Name = "textNroDoc";
+            this.textNroDoc.Size = new System.Drawing.Size(137, 20);
+            this.textNroDoc.TabIndex = 8;
+            this.textNroDoc.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textNroDoc_MaskInputRejected);
             // 
-            // groupBox2
+            // botonBuscar
             // 
-            this.groupBox2.Controls.Add(this.textIdHuesped);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.comboTipoDeDNI);
-            this.groupBox2.Controls.Add(this.textDNI);
-            this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.textApellido);
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.textNombre);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(43, 82);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(474, 102);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Filtros de huespedes";
+            this.botonBuscar.Location = new System.Drawing.Point(128, 95);
+            this.botonBuscar.Name = "botonBuscar";
+            this.botonBuscar.Size = new System.Drawing.Size(138, 21);
+            this.botonBuscar.TabIndex = 7;
+            this.botonBuscar.Text = "Buscar";
+            this.botonBuscar.UseVisualStyleBackColor = true;
+            this.botonBuscar.Click += new System.EventHandler(this.botonBuscar_Click);
             // 
-            // textIdHuesped
+            // dataGridClientes
             // 
-            this.textIdHuesped.Location = new System.Drawing.Point(62, 19);
-            this.textIdHuesped.Name = "textIdHuesped";
-            this.textIdHuesped.Size = new System.Drawing.Size(105, 20);
-            this.textIdHuesped.TabIndex = 9;
+            this.dataGridClientes.AllowUserToAddRows = false;
+            this.dataGridClientes.AllowUserToDeleteRows = false;
+            this.dataGridClientes.AllowUserToResizeColumns = false;
+            this.dataGridClientes.AllowUserToResizeRows = false;
+            this.dataGridClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridClientes.Location = new System.Drawing.Point(6, 122);
+            this.dataGridClientes.MultiSelect = false;
+            this.dataGridClientes.Name = "dataGridClientes";
+            this.dataGridClientes.ReadOnly = true;
+            this.dataGridClientes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridClientes.Size = new System.Drawing.Size(510, 140);
+            this.dataGridClientes.TabIndex = 0;
             // 
-            // label5
+            // buttonRegistrarCliente
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 22);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Id huesped";
+            this.buttonRegistrarCliente.Location = new System.Drawing.Point(332, 19);
+            this.buttonRegistrarCliente.Name = "buttonRegistrarCliente";
+            this.buttonRegistrarCliente.Size = new System.Drawing.Size(184, 66);
+            this.buttonRegistrarCliente.TabIndex = 4;
+            this.buttonRegistrarCliente.Text = "Registrar nuevo cliente";
+            this.buttonRegistrarCliente.UseVisualStyleBackColor = true;
+            this.buttonRegistrarCliente.Click += new System.EventHandler(this.buttonRegistrarCliente_Click);
             // 
-            // comboTipoDeDNI
+            // textMail
             // 
-            this.comboTipoDeDNI.FormattingEnabled = true;
-            this.comboTipoDeDNI.Location = new System.Drawing.Point(267, 19);
-            this.comboTipoDeDNI.Name = "comboTipoDeDNI";
-            this.comboTipoDeDNI.Size = new System.Drawing.Size(111, 21);
-            this.comboTipoDeDNI.TabIndex = 7;
+            this.textMail.Location = new System.Drawing.Point(128, 69);
+            this.textMail.Name = "textMail";
+            this.textMail.Size = new System.Drawing.Size(138, 20);
+            this.textMail.TabIndex = 6;
             // 
-            // textDNI
+            // comboTipoDoc
             // 
-            this.textDNI.Location = new System.Drawing.Point(267, 45);
-            this.textDNI.Name = "textDNI";
-            this.textDNI.Size = new System.Drawing.Size(111, 20);
-            this.textDNI.TabIndex = 6;
+            this.comboTipoDoc.FormattingEnabled = true;
+            this.comboTipoDoc.Location = new System.Drawing.Point(128, 21);
+            this.comboTipoDoc.Name = "comboTipoDoc";
+            this.comboTipoDoc.Size = new System.Drawing.Size(137, 21);
+            this.comboTipoDoc.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(199, 48);
+            this.label4.Location = new System.Drawing.Point(7, 72);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(26, 13);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "DNI";
+            this.label4.Size = new System.Drawing.Size(30, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Mail*";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(199, 22);
+            this.label3.Location = new System.Drawing.Point(7, 48);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Tipo de DNI";
-            // 
-            // textApellido
-            // 
-            this.textApellido.Location = new System.Drawing.Point(62, 71);
-            this.textApellido.Name = "textApellido";
-            this.textApellido.Size = new System.Drawing.Size(105, 20);
-            this.textApellido.TabIndex = 3;
+            this.label3.Size = new System.Drawing.Size(119, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Número de documento*";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 74);
+            this.label2.Location = new System.Drawing.Point(7, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Apellido";
+            this.label2.Size = new System.Drawing.Size(103, 13);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Tipo de documento*";
             // 
-            // textNombre
+            // botonVolver
             // 
-            this.textNombre.Location = new System.Drawing.Point(62, 45);
-            this.textNombre.Name = "textNombre";
-            this.textNombre.Size = new System.Drawing.Size(105, 20);
-            this.textNombre.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 48);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Nombre";
-            // 
-            // botonIngresarHuesped
-            // 
-            this.botonIngresarHuesped.Location = new System.Drawing.Point(405, 378);
-            this.botonIngresarHuesped.Name = "botonIngresarHuesped";
-            this.botonIngresarHuesped.Size = new System.Drawing.Size(117, 28);
-            this.botonIngresarHuesped.TabIndex = 2;
-            this.botonIngresarHuesped.Text = "Huesped nuevo";
-            this.botonIngresarHuesped.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label6.Location = new System.Drawing.Point(42, 19);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(455, 15);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Ingrese los huespedes restantes de la estadia al hotel,en caso de no estar regist" +
-                "rado registrelo.";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.textCapacidadHuespedes);
-            this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.textCantHuespedesIngresados);
-            this.groupBox3.Location = new System.Drawing.Point(42, 37);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(466, 39);
-            this.groupBox3.TabIndex = 15;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Huespedes a la habitacion";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(229, 16);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(128, 13);
-            this.label8.TabIndex = 3;
-            this.label8.Text = "Capacidad de huespedes";
-            // 
-            // textCapacidadHuespedes
-            // 
-            this.textCapacidadHuespedes.Location = new System.Drawing.Point(363, 13);
-            this.textCapacidadHuespedes.Name = "textCapacidadHuespedes";
-            this.textCapacidadHuespedes.ReadOnly = true;
-            this.textCapacidadHuespedes.Size = new System.Drawing.Size(30, 20);
-            this.textCapacidadHuespedes.TabIndex = 2;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(115, 13);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Huespedes ingresados";
-            // 
-            // textCantHuespedesIngresados
-            // 
-            this.textCantHuespedesIngresados.Location = new System.Drawing.Point(130, 13);
-            this.textCantHuespedesIngresados.Name = "textCantHuespedesIngresados";
-            this.textCantHuespedesIngresados.ReadOnly = true;
-            this.textCantHuespedesIngresados.Size = new System.Drawing.Size(30, 20);
-            this.textCantHuespedesIngresados.TabIndex = 0;
+            this.botonVolver.Location = new System.Drawing.Point(391, 292);
+            this.botonVolver.Name = "botonVolver";
+            this.botonVolver.Size = new System.Drawing.Size(145, 23);
+            this.botonVolver.TabIndex = 4;
+            this.botonVolver.Text = "Volver";
+            this.botonVolver.UseVisualStyleBackColor = true;
             // 
             // IngresoHuespedes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(564, 418);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.botonIngresarHuesped);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(544, 323);
+            this.Controls.Add(this.botonVolver);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "IngresoHuespedes";
-            this.Text = "Ingreso de restantes huespedes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Ingreso Huespedes en el Sistema";
+            this.Load += new System.EventHandler(this.IngresoHuespedes_Load);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridHuespedes)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridClientes)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridHuespedes;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textIdHuesped;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboTipoDeDNI;
-        private System.Windows.Forms.TextBox textDNI;
+        private System.Windows.Forms.MaskedTextBox textNroDoc;
+        private System.Windows.Forms.Button botonBuscar;
+        private System.Windows.Forms.DataGridView dataGridClientes;
+        private System.Windows.Forms.Button buttonRegistrarCliente;
+        private System.Windows.Forms.TextBox textMail;
+        private System.Windows.Forms.ComboBox comboTipoDoc;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textApellido;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textNombre;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button botonIngresarHuesped;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textCapacidadHuespedes;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textCantHuespedesIngresados;
+        private System.Windows.Forms.Button botonVolver;
+        private System.Windows.Forms.ToolTip toolTip;
+
     }
 }

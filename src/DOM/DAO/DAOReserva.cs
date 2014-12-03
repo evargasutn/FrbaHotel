@@ -169,7 +169,9 @@ namespace DOM
                     reserva.Fecha_Fin_struct = Convert.ToDateTime(fila["fecHasta"]);
                     reserva.Fecha_Inicio_struct = Convert.ToDateTime(fila["fecDesde"]);
                     reserva.Fecha_Reserva_struct = Convert.ToDateTime(fila["fecReserva"]);
+                    reserva.Huesped = Convert.ToInt32(fila["idHuesped"]);
                     reserva.Usr = Convert.ToString(fila["usr"]);
+                    reserva.Estado = Convert.ToInt32(fila["estado"]);
                     //Transcribir
                     lista.Add(reserva);
                 }

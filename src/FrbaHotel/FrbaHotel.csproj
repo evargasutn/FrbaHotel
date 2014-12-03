@@ -331,14 +331,8 @@
     <EmbeddedResource Include="Registrar Consumible\RegistrarConsumibles.resx">
       <DependentUpon>RegistrarConsumibles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Registrar Estadia\Check_In.resx">
-      <DependentUpon>Check_In.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Registrar Estadia\Check_Out.resx">
-      <DependentUpon>Check_Out.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Registrar Estadia\Facturacion.resx">
-      <DependentUpon>Facturacion.cs</DependentUpon>
+    <EmbeddedResource Include="Registrar Estadia\EstadiasMain.resx">
+      <DependentUpon>EstadiasMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Registrar Estadia\IngresoHuespedes.resx">
       <DependentUpon>IngresoHuespedes.cs</DependentUpon>
@@ -363,23 +357,11 @@
     <Compile Include="Registrar Consumible\RegistrarConsumibles.Designer.cs">
       <DependentUpon>RegistrarConsumibles.cs</DependentUpon>
     </Compile>
-    <Compile Include="Registrar Estadia\Check_In.cs">
+    <Compile Include="Registrar Estadia\EstadiasMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Registrar Estadia\Check_In.Designer.cs">
-      <DependentUpon>Check_In.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registrar Estadia\Check_Out.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registrar Estadia\Check_Out.Designer.cs">
-      <DependentUpon>Check_Out.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Registrar Estadia\Facturacion.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Registrar Estadia\Facturacion.Designer.cs">
-      <DependentUpon>Facturacion.cs</DependentUpon>
+    <Compile Include="Registrar Estadia\EstadiasMain.Designer.cs">
+      <DependentUpon>EstadiasMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Registrar Estadia\IngresoHuespedes.cs">
       <SubType>Form</SubType>

@@ -78,7 +78,7 @@ namespace FrbaHotel.Login
                     break;
 
                 case "Registrar Estadia":
-                    new Registrar_Estadia.Check_In().Show();
+                    new Registrar_Estadia.EstadiasMain().Show();
                     break;
 
                 case "Registrar Consumibles":

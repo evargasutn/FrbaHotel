@@ -854,6 +854,7 @@ GO
 		FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS
 		GROUP BY ITEMS.numeroFactura, ITEMS.numeroItem
 	
+	
 	/*Step 4: Open the cursor.*/
 	OPEN @Cursor_itemFactura
 		/*Step 5: Fetch the first row.*/
@@ -867,6 +868,7 @@ GO
 				SET @codReserva = (SELECT F.codReserva FROM COMPUMUNDO_HIPER_MEGA_RED.FACTURAS F 
 									WHERE F.numeroFactura = @numeroFactura)
 									
+				IF OBJECT_ID('tempdb..#TEMP_EST') IS NOT NULL DROP TABLE #TEMP_EST
 				SELECT E.fecIngreso, E.fecEgreso INTO #TEMP_EST	
 				FROM COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E WHERE E.codReserva = @codReserva
 				
@@ -880,7 +882,7 @@ GO
 				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 				VALUES(@numeroFactura, @nroItem, 1,0,0,'Fecha de ingreso: '+CONVERT(VARCHAR(10),@fecIngreso)+ ' Fecha de egreso: '+CONVERT(VARCHAR(10),@fecEgreso)+' dias alojados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP))+' dias no aprovechados: '+CONVERT(VARCHAR(5),DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso)))
 					  
-				DROP TABLE #TEMP_EST
+
 			FETCH NEXT FROM @Cursor_itemFactura INTO @numeroFactura, @nroItem;
 		END
 	/*Step 7: Close the cursor.*/
@@ -1543,11 +1545,13 @@ BEGIN
 	FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H ON H.habitacion = DR.habitacion
 	JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R ON R.codReserva = DR.codReserva
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA C ON R.codReserva = C.codReserva 
 	WHERE DR.codHotel = @codHotel AND
 		  H.campoBaja = 0 AND
+		  ((C.estado IS NULL AND
 		  R.fecDesde BETWEEN @fechaDesde AND @fechaHasta AND
-		  R.fecHasta BETWEEN @fechaDesde AND @fechaHasta
-		  
+		  R.fecHasta BETWEEN @fechaDesde AND @fechaHasta)
+		  OR C.estado BETWEEN 3 AND 5)
 	RETURN
 END
 GO
