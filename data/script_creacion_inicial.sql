@@ -852,7 +852,7 @@ GO
 	SET @Cursor_itemFactura = CURSOR FOR
 		SELECT DISTINCT ITEMS.numeroFactura, MAX(ITEMS.numeroItem)
 		FROM COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA ITEMS
-		GROUP BY ITEMS.numeroFactura, ITEMS.numeroItem
+		GROUP BY ITEMS.numeroFactura
 	
 	
 	/*Step 4: Open the cursor.*/
@@ -878,7 +878,7 @@ GO
 				SET @fecEgreso = (SELECT fecEgreso FROM #TEMP_EST)
 
 				--Inserta el registro faltante para una factura asociada a una estadia
-				SET @nroItem= @nroItem+1
+				SET @nroItem+=1
 				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 				VALUES(@numeroFactura, @nroItem, 1,0,0,'Fecha de ingreso: '+CONVERT(VARCHAR(10),@fecIngreso)+ ' Fecha de egreso: '+CONVERT(VARCHAR(10),@fecEgreso)+' dias alojados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP))+' dias no aprovechados: '+CONVERT(VARCHAR(5),DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso)))
 					  
