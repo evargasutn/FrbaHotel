@@ -57,8 +57,8 @@ namespace FrbaHotel.ABM_de_Facturas
 
                 mostrarDatos(precioBase, precioConsumibles);
 
-                DateTime eIngreso = estadia.Fecha_Ingreso_struct;
-                DateTime eEgreso = estadia.Fecha_Egreso_struct;
+                DateTime eIngreso = (DateTime) estadia.Fecha_Ingreso_struct;
+                DateTime eEgreso = (DateTime) estadia.Fecha_Egreso_struct;
                 DateTime rIngreso = (DateTime)reserva.Fecha_Inicio_struct;
                 DateTime rEgreso = (DateTime)reserva.Fecha_Fin_struct;
                 mostrarDatosEstadia(eIngreso, eEgreso, rIngreso, rEgreso);                

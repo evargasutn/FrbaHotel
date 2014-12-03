@@ -8,12 +8,12 @@ namespace DOM.Dominio
     public class Estadia
     {
         #region Atributos
-        private int codigoReserva;
-        private DateTime fecha_ingreso;
-        private Usuario usr_ingreso_estadia;
-        private DateTime fecha_egreso;
-        private Usuario usr_egreso_estadia;
-        private Factura factura;
+        private int codigoReserva = -1;
+        private DateTime? fecha_ingreso = null;
+        private Usuario usr_ingreso_estadia = null;
+        private DateTime? fecha_egreso = null;
+        private Usuario usr_egreso_estadia = null;
+        private Factura factura = null;
         #endregion
 
         #region Setters&Getters
@@ -24,7 +24,7 @@ namespace DOM.Dominio
         }
         public string Fecha_Ingreso
         {
-            get { return fecha_ingreso.ToString("yyyyMMdd"); }
+            get { return ((DateTime)fecha_ingreso).ToString("yyyyMMdd"); }
             set { fecha_ingreso = DateTime.Parse(value); }
         }
         public Usuario Usuario_Ingreso
@@ -37,17 +37,17 @@ namespace DOM.Dominio
             get { return usr_egreso_estadia; }
             set { usr_egreso_estadia = value; }
         }
-        public DateTime Fecha_Ingreso_struct
+        public DateTime? Fecha_Ingreso_struct
         {
             get { return fecha_ingreso; }
             set { fecha_ingreso = value; }
         }
         public string Fecha_Egreso
         {
-            get { return fecha_egreso.ToString("yyyyMMdd"); }
+            get { return ((DateTime)fecha_egreso).ToString("yyyyMMdd"); }
             set { fecha_egreso = DateTime.Parse(value); }
         }
-        public DateTime Fecha_Egreso_struct
+        public DateTime? Fecha_Egreso_struct
         {
             get { return fecha_egreso; }
             set { fecha_egreso = value; }
