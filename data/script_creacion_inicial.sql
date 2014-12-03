@@ -879,7 +879,7 @@ GO
 				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 				VALUES(@numeroFactura, @nroItem+1, 1,0,0,'Fecha de ingreso: '+@fecIngreso+ ' Fecha de egreso: '+@fecEgreso+' dias alojados: '+DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP)+' dias no aprovechados: '+DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso))
 					  
-			FETCH NEXT FROM @Cursor_itemFactura INTO @itemFactura, @codConsumible;
+			FETCH NEXT FROM @Cursor_itemFactura INTO @numeroFactura, @nroItem;
 		END
 	/*Step 7: Close the cursor.*/
 	CLOSE @Cursor_itemFactura
