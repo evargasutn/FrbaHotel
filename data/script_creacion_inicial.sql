@@ -2524,19 +2524,32 @@ AS
 	
 	IF(@numeroFactura != -1 AND @codReserva != -1)
 	BEGIN
-		--Guardo primero RECARGOS
-		DECLARE @totalRecargos numeric(18,2)
-		SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
-							+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
-		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-		VALUES(@numeroFactura, @nroItem, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Régimen')
-		
 		--Guardo los consumibles
 		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 		SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
 		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
 		
+		--Guardo los RECARGOS
+		DECLARE @totalRecargos numeric(18,2)
+		SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
+							+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
+		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+		VALUES(@numeroFactura, @nroItem+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Régimen')
+
+		--Guardo el detalle de los dias alojado
+		SELECT E.fecIngreso, E.fecEgreso INTO #TEMP_EST	
+		FROM COMPUMUNDO_HIPER_MEGA_RED.ESTADIA E WHERE E.codReserva = @codReserva
+		
+		DECLARE @fecIngreso datetime
+		SET @fecIngreso = (SELECT fecIngreso FROM #TEMP_EST)
+		DECLARE @fecEgreso datetime
+		SET @fecEgreso = (SELECT fecEgreso FROM #TEMP_EST)
+
+		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura,numeroItem,cantidad,montoUnitario,montoTotal,descripcion)
+		VALUES(@numeroFactura, @nroItem+1, 1,0,0,'Fecha de ingreso: '+@fecIngreso+ ' Fecha de egreso: '+@fecEgreso+' dias alojados: '+DATEDIFF(day,@fecIngreso,CURRENT_TIMESTAMP)+' dias no aprovechados: '+DATEDIFF(day,CURRENT_TIMESTAMP,@fecEgreso))
+		
+		DROP TABLE ##TEMP_EST
 		--Update en consumibles_x_estadia
 		/*Step 1: Declare variables to hold the output from the cursor.*/
 	DECLARE @itemFactura numeric(18);
@@ -2710,7 +2723,7 @@ AS
 	END
 GO
 
---/PROC		DIA
+--/PROC	INSERTESTADIA
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.insertEstadia', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertEstadia
 GO
@@ -2750,6 +2763,21 @@ AS
 	END
 GO
 
+--/PROC	GETESTADIA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getEstadia', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getEstadia
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getEstadia
+	@codReserva numeric(18)
+AS
+	IF(@codReserva != -1)
+		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.ESTADIA EST WHERE EST.codReserva = @codReserva
+GO
+
 --/PROC AGREGAR CONSUMIBLE A UNA ESTADIA
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.agregarConsumible', 'P' ) IS NOT NULL 
 		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.agregarConsumible
@@ -2776,12 +2804,21 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumibles
-	@codConsumible numeric(18)		
+	@codReserva numeric(18)		
 AS
-	IF (@codConsumible = -1)
-		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C
+	IF (@codReserva = -1)
+		SELECT CE.itemFactura AS 'ITEM', C.descripcion AS 'DETALLE', 
+				CE.cantidad AS 'CANTIDAD', C.importe AS 'PRECIO UNIT', CE.cantidad*C.importe AS 'TOTAL ITEM'
+		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible  
+		ORDER BY CE.itemFactura ASC 
 	ELSE
-		SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C WHERE C.codConsumible = @codConsumible
+		SELECT CE.itemFactura AS 'ITEM', C.descripcion AS 'DETALLE', 
+				CE.cantidad AS 'CANTIDAD', C.importe AS 'PRECIO UNIT', CE.cantidad*C.importe AS 'TOTAL ITEM'
+		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible  
+		WHERE CE.codReserva = @codReserva 
+		ORDER BY CE.itemFactura ASC
 
 GO
 
