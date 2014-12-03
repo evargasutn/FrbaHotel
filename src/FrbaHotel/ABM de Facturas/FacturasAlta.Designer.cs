@@ -46,8 +46,16 @@
             this.labelTarjeta = new System.Windows.Forms.Label();
             this.textTarjeta = new System.Windows.Forms.TextBox();
             this.dataGridFacturaEstadia = new System.Windows.Forms.DataGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lIngreso = new System.Windows.Forms.Label();
+            this.lEgreso = new System.Windows.Forms.Label();
+            this.lDias = new System.Windows.Forms.Label();
+            this.textIngreso = new System.Windows.Forms.TextBox();
+            this.textEgreso = new System.Windows.Forms.TextBox();
+            this.textDias = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturaEstadia)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelEstadia
@@ -84,7 +92,7 @@
             this.groupBox1.Size = new System.Drawing.Size(229, 169);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Datos de la Estadia";
+            this.groupBox1.Text = "Detalle de Importes";
             // 
             // label2
             // 
@@ -149,9 +157,9 @@
             // 
             // botonFacturar
             // 
-            this.botonFacturar.Location = new System.Drawing.Point(300, 132);
+            this.botonFacturar.Location = new System.Drawing.Point(280, 159);
             this.botonFacturar.Name = "botonFacturar";
-            this.botonFacturar.Size = new System.Drawing.Size(229, 39);
+            this.botonFacturar.Size = new System.Drawing.Size(229, 32);
             this.botonFacturar.TabIndex = 3;
             this.botonFacturar.Text = "Facturar";
             this.botonFacturar.UseVisualStyleBackColor = true;
@@ -160,7 +168,7 @@
             // labelPago
             // 
             this.labelPago.AutoSize = true;
-            this.labelPago.Location = new System.Drawing.Point(300, 43);
+            this.labelPago.Location = new System.Drawing.Point(262, 106);
             this.labelPago.Name = "labelPago";
             this.labelPago.Size = new System.Drawing.Size(71, 13);
             this.labelPago.TabIndex = 4;
@@ -169,7 +177,7 @@
             // comboTipoPago
             // 
             this.comboTipoPago.FormattingEnabled = true;
-            this.comboTipoPago.Location = new System.Drawing.Point(408, 40);
+            this.comboTipoPago.Location = new System.Drawing.Point(370, 103);
             this.comboTipoPago.Name = "comboTipoPago";
             this.comboTipoPago.Size = new System.Drawing.Size(121, 21);
             this.comboTipoPago.TabIndex = 5;
@@ -177,7 +185,7 @@
             // labelTarjeta
             // 
             this.labelTarjeta.AutoSize = true;
-            this.labelTarjeta.Location = new System.Drawing.Point(301, 69);
+            this.labelTarjeta.Location = new System.Drawing.Point(263, 132);
             this.labelTarjeta.Name = "labelTarjeta";
             this.labelTarjeta.Size = new System.Drawing.Size(60, 13);
             this.labelTarjeta.TabIndex = 6;
@@ -185,7 +193,7 @@
             // 
             // textTarjeta
             // 
-            this.textTarjeta.Location = new System.Drawing.Point(408, 68);
+            this.textTarjeta.Location = new System.Drawing.Point(370, 131);
             this.textTarjeta.Name = "textTarjeta";
             this.textTarjeta.Size = new System.Drawing.Size(120, 20);
             this.textTarjeta.TabIndex = 7;
@@ -204,11 +212,81 @@
             this.dataGridFacturaEstadia.Size = new System.Drawing.Size(516, 130);
             this.dataGridFacturaEstadia.TabIndex = 8;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.textDias);
+            this.groupBox2.Controls.Add(this.textEgreso);
+            this.groupBox2.Controls.Add(this.textIngreso);
+            this.groupBox2.Controls.Add(this.lDias);
+            this.groupBox2.Controls.Add(this.lEgreso);
+            this.groupBox2.Controls.Add(this.lIngreso);
+            this.groupBox2.Location = new System.Drawing.Point(259, 10);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(268, 87);
+            this.groupBox2.TabIndex = 9;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Datos de la Estadía";
+            // 
+            // lIngreso
+            // 
+            this.lIngreso.AutoSize = true;
+            this.lIngreso.Location = new System.Drawing.Point(29, 20);
+            this.lIngreso.Name = "lIngreso";
+            this.lIngreso.Size = new System.Drawing.Size(42, 13);
+            this.lIngreso.TabIndex = 0;
+            this.lIngreso.Text = "Ingreso";
+            // 
+            // lEgreso
+            // 
+            this.lEgreso.AutoSize = true;
+            this.lEgreso.Location = new System.Drawing.Point(29, 44);
+            this.lEgreso.Name = "lEgreso";
+            this.lEgreso.Size = new System.Drawing.Size(40, 13);
+            this.lEgreso.TabIndex = 1;
+            this.lEgreso.Text = "Egreso";
+            // 
+            // lDias
+            // 
+            this.lDias.AutoSize = true;
+            this.lDias.Location = new System.Drawing.Point(29, 68);
+            this.lDias.Name = "lDias";
+            this.lDias.Size = new System.Drawing.Size(76, 13);
+            this.lDias.TabIndex = 2;
+            this.lDias.Text = "Dias sin utilizar";
+            // 
+            // textIngreso
+            // 
+            this.textIngreso.BackColor = System.Drawing.SystemColors.Control;
+            this.textIngreso.Location = new System.Drawing.Point(131, 17);
+            this.textIngreso.Name = "textIngreso";
+            this.textIngreso.ReadOnly = true;
+            this.textIngreso.Size = new System.Drawing.Size(100, 20);
+            this.textIngreso.TabIndex = 3;
+            // 
+            // textEgreso
+            // 
+            this.textEgreso.BackColor = System.Drawing.SystemColors.Control;
+            this.textEgreso.Location = new System.Drawing.Point(131, 41);
+            this.textEgreso.Name = "textEgreso";
+            this.textEgreso.ReadOnly = true;
+            this.textEgreso.Size = new System.Drawing.Size(100, 20);
+            this.textEgreso.TabIndex = 4;
+            // 
+            // textDias
+            // 
+            this.textDias.BackColor = System.Drawing.SystemColors.Control;
+            this.textDias.Location = new System.Drawing.Point(131, 65);
+            this.textDias.Name = "textDias";
+            this.textDias.ReadOnly = true;
+            this.textDias.Size = new System.Drawing.Size(100, 20);
+            this.textDias.TabIndex = 5;
+            // 
             // FacturasAlta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(541, 329);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.dataGridFacturaEstadia);
             this.Controls.Add(this.textTarjeta);
             this.Controls.Add(this.labelTarjeta);
@@ -224,6 +302,8 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturaEstadia)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -248,5 +328,12 @@
         private System.Windows.Forms.Label labelTarjeta;
         private System.Windows.Forms.TextBox textTarjeta;
         private System.Windows.Forms.DataGridView dataGridFacturaEstadia;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lIngreso;
+        private System.Windows.Forms.TextBox textDias;
+        private System.Windows.Forms.TextBox textEgreso;
+        private System.Windows.Forms.TextBox textIngreso;
+        private System.Windows.Forms.Label lDias;
+        private System.Windows.Forms.Label lEgreso;
     }
 }

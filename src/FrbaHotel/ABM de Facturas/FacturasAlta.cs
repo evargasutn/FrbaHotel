@@ -8,6 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using DOM;
 using DOM.Dominio;
+using DOM.Auxiliares;
+using DOM.DAO;
+using System.Net.Mail;
+
+
 
 namespace FrbaHotel.ABM_de_Facturas
 {
@@ -16,6 +21,7 @@ namespace FrbaHotel.ABM_de_Facturas
 
         private bool datosMostrados = false;
         private int codReserva = -1;
+        Reserva datos_Reserva;
 
         public FacturasAlta()
         {
@@ -37,15 +43,26 @@ namespace FrbaHotel.ABM_de_Facturas
                 return;
             }
             Estadia estadia = DAOEstadia.obtener(Int32.Parse(textEstadia.Text));
+            Reserva reserva = DAOReserva.obtener(Int32.Parse(textEstadia.Text));
             if (estadia != null)
             {
 
                 //Buscar y rellenar los valores
                 dataGridFacturaEstadia.DataSource = DAOEstadia.obtenerConsumiblesEstadia(Int32.Parse(textEstadia.Text));
                 double precioConsumibles = dataGridFacturaEstadia.Rows.Cast<DataGridViewRow>().Sum(X => Convert.ToInt32(X.Cells[4].Value));
-                double precioBase = 0;
-                
+
+                datos_Reserva = reserva;
+                int cantPersonas = datos_Reserva.tipo_habitacion.CantPersonas * datos_Reserva.cantHabitaciones;
+                double precioBase = Globals.obtenerPrecio(reserva.CodigoRegimen, cantPersonas, Globals.infoSesion.Hotel.Recargo);
+
                 mostrarDatos(precioBase, precioConsumibles);
+
+                DateTime eIngreso = estadia.Fecha_Ingreso_struct;
+                DateTime eEgreso = estadia.Fecha_Egreso_struct;
+                DateTime rIngreso = (DateTime)reserva.Fecha_Inicio_struct;
+                DateTime rEgreso = (DateTime)reserva.Fecha_Fin_struct;
+                mostrarDatosEstadia(eIngreso, eEgreso, rIngreso, rEgreso);                
+                
                 datosMostrados = true;
             }
             else
@@ -86,6 +103,13 @@ namespace FrbaHotel.ABM_de_Facturas
             return true;
         }
 
+        private void mostrarDatosEstadia(DateTime eIngreso, DateTime eEgreso, DateTime rIngreso, DateTime rEgreso)
+        {
+            textIngreso.Text = eIngreso.ToString("dd/MM/yyyy");
+            textEgreso.Text = eEgreso.ToString("dd/MM/yyyy");
+            textDias.Text = rEgreso.Subtract(eEgreso).Days.ToString();
+        }
+
         private void mostrarDatos(double precioBase, double consumibles)
         {
             textBase.Text = precioBase.ToString();
@@ -114,5 +138,6 @@ namespace FrbaHotel.ABM_de_Facturas
             // Confirm user wants to close
             Globals.habilitarAnterior();
         }
+
     }
 }
