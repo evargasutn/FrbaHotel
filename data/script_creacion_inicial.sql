@@ -2557,13 +2557,28 @@ AS
 	
 	IF(@numeroFactura != -1 AND @codReserva != -1)
 	BEGIN
-		BEGIN TRANSACTION
 		--Guardo los consumibles
-		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-		SELECT DISTINCT @numeroFactura, COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura(@numeroFactura)+1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
-		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
-		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
-		WHERE CE.codReserva = @codReserva
+	
+	DECLARE @consumible int
+	DECLARE @Cursor_consumibles as CURSOR;
+	SET @Cursor_consumibles = CURSOR FOR
+		SELECT DISTINCT codConsumible
+			 FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
+				WHERE codReserva = @codReserva
+	OPEN @Cursor_consumibles
+	FETCH NEXT FROM @Cursor_consumibles INTO  @consumible;
+	WHILE @@FETCH_STATUS = 0
+		BEGIN
+			INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
+			SELECT DISTINCT @numeroFactura, COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura(@numeroFactura)+1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
+			FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
+			JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
+			WHERE CE.codReserva = @codReserva AND CE.codConsumible = @consumible
+				  
+			FETCH NEXT FROM @Cursor_consumibles INTO @consumible;
+		END
+	CLOSE @Cursor_consumibles
+	DEALLOCATE @Cursor_consumibles
 		
 		--Guardo los RECARGOS
 		DECLARE @totalRecargos numeric(18,2)
@@ -2641,19 +2656,7 @@ AS
 				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 				VALUES(@numeroFactura, @nroItem, 1, @totalConsumiblesDescontar, @totalConsumiblesDescontar, 'Descuento por Régimen de Estadía')
 			END
-   IF @@ERROR != 0
-        BEGIN
-            PRINT @@ERROR
-                      PRINT 'ERROR IN SCRIPT'
-            ROLLBACK TRANSACTION
-            RETURN
-        END
-    ELSE
-    BEGIN
-        COMMIT TRANSACTION
-        PRINT 'COMMITTED SUCCESSFULLY'
-    END
-END
+	END
 GO
 
 
@@ -2718,6 +2721,8 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.facturar
 	@tipoPago	varchar(50),
 	@codTarjetaCredito	varchar(19)
 AS
+				
+	BEGIN TRANSACTION
 	IF(@codReserva != -1 AND @tipoPago != '')
 	BEGIN
 		DECLARE @totalConsumibles numeric(18,2)
@@ -2758,8 +2763,20 @@ AS
 		
 		--INSERT EN LA TABLA ITEMS_FACTURA
 		EXEC COMPUMUNDO_HIPER_MEGA_RED.insertItemFactura @numeroFactura, @codReserva
-	
-	END
+
+	IF @@ERROR != 0
+        BEGIN
+            PRINT @@ERROR
+                      PRINT 'ERROR IN SCRIPT'
+            ROLLBACK TRANSACTION
+            RETURN
+        END
+    ELSE
+    BEGIN
+        COMMIT TRANSACTION
+        PRINT 'COMMITTED SUCCESSFULLY'
+    END
+    END
 GO
 
 --/PROC	INSERTESTADIA
