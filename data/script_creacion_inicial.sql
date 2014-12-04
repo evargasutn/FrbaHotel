@@ -904,7 +904,7 @@ CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura (@nroFactura num
 RETURNS numeric(1)
 AS
 	BEGIN
-		return (select max(i.numeroItem) 
+		return (select ISNULL(MAX(i.numeroItem),0) 
 			   from COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA i
 			   where i.numeroFactura = @nroFactura)
 	END
@@ -2560,9 +2560,10 @@ AS
 	BEGIN
 		--Guardo los consumibles
 		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-		SELECT DISTINCT @numeroFactura, @nroItem + 1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
+		SELECT DISTINCT @numeroFactura, COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura(@numeroFactura)+1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
 		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible
+		WHERE CE.codReserva = @codReserva
 		
 		--Guardo los RECARGOS
 		DECLARE @totalRecargos numeric(18,2)
