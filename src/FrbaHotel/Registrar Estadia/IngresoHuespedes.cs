@@ -44,6 +44,11 @@ namespace FrbaHotel.Registrar_Estadia
             }
         }
 
+        private void botonVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
         private bool chequearDatos()
         {
             if (comboTipoDoc.SelectedIndex == -1)

@@ -368,7 +368,7 @@ create table COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA
 	numeroFactura	numeric(18,0) ,
 	itemFactura		numeric(18,0) ,
 	cantidad		numeric(18,0)
-	PRIMARY KEY (codReserva, codConsumible, itemFactura)
+	PRIMARY KEY (codReserva, codConsumible)
 )
 ALTER TABLE COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA ADD CONSTRAINT FK_Cons_X_Estadia 
 FOREIGN KEY (numeroFactura,itemFactura) REFERENCES COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA (numeroFactura, numeroItem) 
@@ -2482,12 +2482,10 @@ CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella (@codReserva	numeric(1
 RETURNS numeric(2)
 AS
 	BEGIN
-	DECLARE @recargoEstrella numeric(18)
-	SET @recargoEstrella =	(SELECT (H.recargoEstrella * H.cantEstrellas) 
-							FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
-							JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = DR.codHotel
-							WHERE DR.codReserva = @codReserva)
-	RETURN @recargoEstrella
+	RETURN (SELECT (H.recargoEstrella * H.cantEstrellas) 
+			FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
+			JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H ON H.codHotel = DR.codHotel
+			WHERE DR.codReserva = @codReserva)
 	END
 GO
 
@@ -2495,14 +2493,12 @@ IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.precioRegimen', N'FN') IS NOT NULL
     DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.precioRegimen
 GO
 CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.precioRegimen (@codReserva numeric(18))
-RETURNS numeric(3,2)
+RETURNS numeric(18,2)
 AS
 	BEGIN	
-		DECLARE @precioRegimen numeric(18,2)
-		SET @precioRegimen = (SELECT REG.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES REG
-							 JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS RES ON RES.codRegimen = REG.codRegimen
-							 WHERE RES.codReserva = @codReserva)
-		RETURN @precioRegimen
+		RETURN (SELECT REG.precio FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES REG
+				JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS RES ON RES.codRegimen = REG.codRegimen
+				WHERE RES.codReserva = @codReserva)
 	END
 GO
 
@@ -2510,17 +2506,15 @@ IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion', N'FN') IS NOT NU
     DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion
 GO
 CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva	numeric(18))
-RETURNS numeric(2,2)
+RETURNS numeric(5,2)
 AS
 	BEGIN
-		DECLARE @porcentualHabitacionTipo numeric(5,2)
-		SET @porcentualHabitacionTipo = (SELECT DISTINCT TH.tipoPorcentual 
+		RETURN (SELECT DISTINCT TH.tipoPorcentual 
 				FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
 				JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H ON DR.codHotel = H.codHotel
 				JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES ON DR.habitacion = H.habitacion
 				JOIN COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES TH ON TH.tipoCodigo = H.tipoCodigo
-		WHERE DR.codReserva = @codReserva)
-		RETURN @porcentualHabitacionTipo
+				WHERE DR.codReserva = @codReserva)
 	END
 GO
 /************************************************************************************************************/	
@@ -2711,7 +2705,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.facturar
 	@tipoPago	varchar(50),
 	@codTarjetaCredito	varchar(19)
 AS
-	IF(@codReserva != -1 AND @tipoPago != '' AND @codTarjetaCredito != '')
+	IF(@codReserva != -1 AND @tipoPago != '')
 	BEGIN
 		DECLARE @totalConsumibles numeric(18,2)
 		SET @totalConsumibles = COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles(@codReserva)
@@ -2719,10 +2713,10 @@ AS
 		DECLARE @recargoEstrella numeric(18)
 		SET @recargoEstrella = COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
 
-		DECLARE @precioRegimen numeric(3,2)
+		DECLARE @precioRegimen numeric(18,2)
 		SET @precioRegimen = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen (@codReserva)
 		
-		DECLARE @porcentualHabitacionTipo numeric(2,2)
+		DECLARE @porcentualHabitacionTipo numeric(5,2)
 		SET @porcentualHabitacionTipo = COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion (@codReserva)
 		
 		DECLARE @totalRegimenHabitacion numeric(18,2)
@@ -2836,6 +2830,26 @@ GO
 SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumibles
+	@codConsumible numeric(18)		
+AS
+	IF (@codConsumible = -1)
+		SELECT *
+		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
+	ELSE
+		SELECT *
+		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
+		WHERE codConsumible = @codConsumible 
+GO
+
+--/PROC GETCONSUMIBLES POR ESTADIA
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getConsumiblesByEstadia', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumiblesByEstadia
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumiblesByEstadia
 	@codReserva numeric(18)		
 AS
 	IF (@codReserva = -1)
@@ -2851,25 +2865,6 @@ AS
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible  
 		WHERE CE.codReserva = @codReserva 
 		ORDER BY CE.itemFactura ASC
-
-GO
-
---/PROC GETCONSUMIBLES POR ESTADIA
-IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getConsumiblesByEstadia', 'P' ) IS NOT NULL 
-		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumiblesByEstadia
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_NULLS ON
-GO
-CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumiblesByEstadia
-	@codEstadia numeric(18)		
-AS
-		SELECT C.codConsumible, C.descripcion, C.importe, E.cantidad 
-		FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C 
-		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA E
-		ON C.codConsumible = E.codConsumible
-		WHERE E.codReserva = @codEstadia
 GO
 
 --/PROC INSERTCONSUMIBLE 

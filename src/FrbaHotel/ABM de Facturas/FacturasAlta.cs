@@ -20,8 +20,8 @@ namespace FrbaHotel.ABM_de_Facturas
     {
 
         private bool datosMostrados = false;
-        private int codReserva = -1;
-        Reserva datos_Reserva;
+        Reserva reserva;
+        Estadia estadia;
 
         public FacturasAlta()
         {
@@ -42,13 +42,13 @@ namespace FrbaHotel.ABM_de_Facturas
                 showToolTip("Ingrese un número de estadía.", textEstadia, textEstadia.Location);
                 return;
             }
-            Estadia estadia = DAOEstadia.obtener(Int32.Parse(textEstadia.Text));
-            Reserva reserva = DAOReserva.obtener(Int32.Parse(textEstadia.Text));
+            estadia = DAOEstadia.obtener(Int32.Parse(textEstadia.Text));
+            reserva = DAOReserva.obtener(Int32.Parse(textEstadia.Text));
             if (estadia != null)
             {
 
                 //Buscar y rellenar los valores
-                dataGridFacturaEstadia.DataSource = DAOEstadia.obtenerConsumiblesEstadia(Int32.Parse(textEstadia.Text));
+                dataGridFacturaEstadia.DataSource = DAOConsumible.obtenerTablaByEstadia(Int32.Parse(textEstadia.Text));
                 double precioConsumibles = dataGridFacturaEstadia.Rows.Cast<DataGridViewRow>().Sum(X => Convert.ToInt32(X.Cells[4].Value));
 
                 int cantPersonas_originales = DAOHabitacion.obtenerCantHabitacionesByReserva(reserva.CodigoReserva);
@@ -74,11 +74,13 @@ namespace FrbaHotel.ABM_de_Facturas
             if (chequearDatos())
             {
                 //Facturar
-                if (DAOEstadia.facturar(codReserva, comboTipoPago.SelectedItem.ToString(), textTarjeta.Text))
+                if (!DAOEstadia.facturar(reserva.CodigoReserva, comboTipoPago.SelectedItem.ToString(), textTarjeta.Text))
                 {
                     MessageBox.Show("Error al generar la Factura", "", MessageBoxButtons.OK);
                     return;
                 }
+                MessageBox.Show("Factura Generada Correctamente.", "", MessageBoxButtons.OK);
+                //Mandar a imprimir
                 this.Close();
             }
         }

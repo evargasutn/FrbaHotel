@@ -157,6 +157,7 @@
             this.botonVolver.TabIndex = 4;
             this.botonVolver.Text = "Volver";
             this.botonVolver.UseVisualStyleBackColor = true;
+            this.botonVolver.Click += new System.EventHandler(this.botonVolver_Click);
             // 
             // IngresoHuespedes
             // 
