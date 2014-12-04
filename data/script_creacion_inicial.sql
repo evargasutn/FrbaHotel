@@ -901,7 +901,7 @@ IF object_id(N'COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura', N'FN') IS NOT N
     DROP FUNCTION COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura
 GO
 CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura (@nroFactura numeric(18))
-RETURNS numeric(1)
+RETURNS numeric(2)
 AS
 	BEGIN
 		return (select ISNULL(MAX(i.numeroItem),0) 
@@ -909,7 +909,6 @@ AS
 			   where i.numeroFactura = @nroFactura)
 	END
 GO
-
 
 --//ITEMS_FACTURA_INVALIDA
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA_INVALIDA(numeroFactura, numeroItem, descripcion, montoUnitario, cantidad, montoTotal)
@@ -2558,6 +2557,7 @@ AS
 	
 	IF(@numeroFactura != -1 AND @codReserva != -1)
 	BEGIN
+		BEGIN TRANSACTION
 		--Guardo los consumibles
 		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 		SELECT DISTINCT @numeroFactura, COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura(@numeroFactura)+1, CE.cantidad, C.importe, CE.cantidad * C.importe, UPPER(C.descripcion)
@@ -2570,7 +2570,7 @@ AS
 		SET @totalRecargos = COMPUMUNDO_HIPER_MEGA_RED.precioRegimen(@codReserva)*COMPUMUNDO_HIPER_MEGA_RED.porcentualHabitacion(@codReserva)
 							+ COMPUMUNDO_HIPER_MEGA_RED.recargoEstrella(@codReserva)
 		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
-		VALUES(@numeroFactura, @nroItem+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Régimen')
+		VALUES(@numeroFactura, COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura(@numeroFactura)+1, 1, @totalRecargos, @totalRecargos, 'Recargos de Categoria Hotel y Régimen')
 
 		IF OBJECT_ID('tempdb..#TEMP_EST') IS NOT NULL DROP TABLE #TEMP_EST
 		SELECT E.fecIngreso, E.fecEgreso, R.fecHasta INTO #TEMP_EST	
@@ -2586,7 +2586,7 @@ AS
 		SET @fecHasta = (SELECT fecHasta FROM #TEMP_EST)
 
 		--Inserta el registro faltante para una factura asociada a una estadia
-		SET @nroItem+=1
+		SET @nroItem = COMPUMUNDO_HIPER_MEGA_RED.get_ultimoItemFactura(@numeroFactura) + 1
 		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 		VALUES(@numeroFactura, @nroItem, 1,0,0,'Fecha de ingreso: '+CONVERT(VARCHAR(11),@fecIngreso)+ ' Fecha de egreso: '+CONVERT(VARCHAR(11),@fecEgreso)+' dias alojados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecIngreso,@fecEgreso))+' dias no aprovechados: '+CONVERT(VARCHAR(5),DATEDIFF(day,@fecEgreso,@fecHasta)))
 		
@@ -2641,7 +2641,19 @@ AS
 				INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ITEMS_FACTURA(numeroFactura, numeroItem, cantidad, montoUnitario, montoTotal, descripcion)
 				VALUES(@numeroFactura, @nroItem, 1, @totalConsumiblesDescontar, @totalConsumiblesDescontar, 'Descuento por Régimen de Estadía')
 			END
-	END
+   IF @@ERROR != 0
+        BEGIN
+            PRINT @@ERROR
+                      PRINT 'ERROR IN SCRIPT'
+            ROLLBACK TRANSACTION
+            RETURN
+        END
+    ELSE
+    BEGIN
+        COMMIT TRANSACTION
+        PRINT 'COMMITTED SUCCESSFULLY'
+    END
+END
 GO
 
 
