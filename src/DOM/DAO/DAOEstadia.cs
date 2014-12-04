@@ -52,6 +52,19 @@ namespace DOM
             return executeProcedure("facturar", codReserva, tipoPago, tarjeta);
         }
 
+        public static DataTable obtenerFacturasTabla(int codReserva)
+        {
+            return retrieveDataTable("getFacturaReserva", codReserva);
+        }
+
+        public static Factura obtenerFactura(int codReserva)
+        {
+            List<Factura> lista = transductor_facturas(obtenerFacturasTabla(codReserva));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
+        }
+
         #region Conversores a Estadia desde DataTable
 
         public static List<Estadia> transductor(DataTable tabla)
@@ -74,6 +87,23 @@ namespace DOM
                     Usuario usrIngreso = DAOUsuario.obtener(Convert.ToString(fila["usrIngreso"]));
                     estadia.Usuario_Ingreso = usrIngreso;
                     lista.Add(estadia);
+                }
+            return lista;
+        }
+
+        public static List<Factura> transductor_facturas(DataTable tabla)
+        {
+            List<Factura> lista = new List<Factura>();
+            if (tabla != null)
+                foreach (DataRow fila in tabla.Rows)
+                {
+                    //Transcribir
+                    Factura factura = new Factura();
+                    factura.CodReserva = Convert.ToInt32(fila["codReserva"]);
+                    factura.Fecha_struct = Convert.ToDateTime(fila["fecha"]);
+                    factura.Monto = Convert.ToDouble(fila["montoTotal"]);
+                    factura.IdHuesped = Convert.ToInt32(fila["idHuesped"]);
+                    lista.Add(factura);
                 }
             return lista;
         }

@@ -8,10 +8,11 @@ namespace DOM.Dominio
     public class Factura
     {
         #region Atributos
-        private int numFactura;
-        private int codReserva;
-        private DateTime fecha;
-        private int idHuesped;
+        private int numFactura = -1;
+        private int codReserva = -1;
+        private double monto = -1;
+        private DateTime? fecha = null;
+        private int idHuesped = -1;
         private List<ItemsFactura> items = new List<ItemsFactura>();
         #endregion
 
@@ -32,15 +33,21 @@ namespace DOM.Dominio
             set { idHuesped = value; }
         }
 
+        public double Monto
+        {
+            get { return monto; }
+            set { monto = value; }
+        }
+
         public string Fecha
         {
-            get { return fecha.ToString("yyyyMMdd"); }
+            get { return ((DateTime)fecha).ToString("yyyyMMdd"); }
             set { fecha = DateTime.Parse(value); }
         }
 
         public DateTime Fecha_struct
         {
-            get { return fecha; }
+            get { return (DateTime) fecha; }
             set { fecha = value; }
         }
 

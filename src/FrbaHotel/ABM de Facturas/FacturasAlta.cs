@@ -42,6 +42,12 @@ namespace FrbaHotel.ABM_de_Facturas
                 showToolTip("Ingrese un número de estadía.", textEstadia, textEstadia.Location);
                 return;
             }
+            Factura factura = DAOEstadia.obtenerFactura(Int32.Parse(textEstadia.Text));
+            if (factura != null)
+            {
+                MessageBox.Show("Factura ya generada anteriormente. Por favor, seleccione otra Reserva", "", MessageBoxButtons.OK);
+                return;
+            }
             estadia = DAOEstadia.obtener(Int32.Parse(textEstadia.Text));
             reserva = DAOReserva.obtener(Int32.Parse(textEstadia.Text));
             if (estadia != null)
