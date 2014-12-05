@@ -1187,9 +1187,6 @@ AS
 	IF(@usr != '' AND @password != '' AND @nombre != '' AND @apellido != '' AND @tipoDocu != '' AND
 		@numDocu != -1 AND @mail != '' AND @telefono != -1 AND @direccionCalle != '' AND @direccionNumero != -1 
 		AND @direccionPiso != -1 AND @direccionDepto != '' AND @FecNacimiento IS NOT NULL)
-		
-		BEGIN TRANSACTION
-		
 		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr, password, nombre, apellido, contador_intentos_login, tipoDocu, numDocu,
 			mail, telefono, direccionCalle, direccionNumero, FecNacimiento, campoBaja)
 		VALUES(@usr, @password, UPPER(@nombre), UPPER(@apellido), 0, @tipoDocu, @numDocu, LOWER(@mail), @telefono, UPPER(@direccionCalle), @direccionNumero, 
@@ -1203,7 +1200,6 @@ AS
 			UPDATE COMPUMUNDO_HIPER_MEGA_RED.USUARIOS
 			SET direccionDepto = @direccionDepto
 			WHERE usr = usr			
-		COMMIT TRANSACTION
 GO
 
 
