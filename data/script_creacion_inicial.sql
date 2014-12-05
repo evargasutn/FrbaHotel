@@ -1480,30 +1480,26 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateHabitacion
 AS
 	IF(@habitacion != -1)
 	BEGIN
-		IF (@codHotel != -1)
-		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
-			SET codHotel = @codHotel
-				WHERE habitacion = @habitacion
 		IF(@piso != -1)
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 			SET piso = @piso
-				WHERE habitacion= @habitacion
+				WHERE habitacion = @habitacion AND codHotel = @codHotel
 		IF (@ubicacion != '')
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES	
 			SET ubicacion = UPPER(@ubicacion)
-				WHERE habitacion= @habitacion
+				WHERE habitacion = @habitacion AND codHotel = @codHotel
 		IF (@tipo != -1)
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 			SET tipoCodigo = @tipo
-				WHERE habitacion= @habitacion
+				WHERE habitacion = @habitacion AND codHotel = @codHotel
 		IF (@descripcion != '')		
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 			SET descripcion = UPPER(@descripcion)
-				WHERE habitacion= @habitacion
+				WHERE habitacion = @habitacion AND codHotel = @codHotel
 		IF (@campoBaja != -1)
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES
 			SET campoBaja = @campoBaja
-				WHERE habitacion= @habitacion
+				WHERE habitacion = @habitacion AND codHotel = @codHotel
 	END
 GO
 
