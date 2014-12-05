@@ -91,7 +91,9 @@ namespace FrbaHotel.ABM_de_Cliente
                 return;
             }
             int idDelete = (int) dataGridCliente.CurrentRow.Cells["idHuesped"].Value;
-            DialogResult dr = MessageBox.Show("Desea dar de Baja al usuario "+idDelete.ToString()+"?",
+            string nombre = dataGridCliente.CurrentRow.Cells["nombre"].Value.ToString();
+            string apellido = dataGridCliente.CurrentRow.Cells["apellido"].Value.ToString();
+            DialogResult dr = MessageBox.Show("Desea dar de Baja al usuario "+nombre+" "+apellido+"?",
             "", MessageBoxButtons.YesNo);
             switch (dr){
                 case DialogResult.Yes: 
