@@ -45,16 +45,26 @@ namespace FrbaHotel.Login
                 
                 comboRoles.Enabled = false;
             }
-            
-            comboHoteles.ValueMember = "Nombre";
+            if (hotelesDeUsuario.Count > 0)
+            {
+                comboHoteles.ValueMember = "Nombre";
+                comboHoteles.SelectedIndex = 0;
+            }
             comboRoles.ValueMember = "Nombre";
-            comboHoteles.SelectedIndex = 0;
-            comboRoles.SelectedIndex = 0;
-            
+            comboRoles.SelectedIndex = 0;            
         }
 
         private void botonAceptar_Click(object sender, EventArgs e)
         {
+            if (comboHoteles.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione un hotel válido.", "Error:Hotel no seleccionados");
+            }
+            if (comboRoles.SelectedIndex == -1)
+            {
+                MessageBox.Show("Seleccione un rol válido.", "Error:Rol no seleccionados");
+            }
+
             Hotel hotelSeleccionado = hotelesDeUsuario.Find(x => x.Nombre == ((Hotel)comboHoteles.SelectedItem).Nombre);
             Rol rolSeleccionado;
             if (usuario.Usr != "GUEST")
