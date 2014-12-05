@@ -113,7 +113,9 @@ namespace FrbaHotel.ABM_de_Usuario
         private void botonBaja_Click(object sender, System.EventArgs e)
         {
             string usrDelete = dataGridUsuario.CurrentRow.Cells["usr"].Value.ToString();
-            DialogResult dr = MessageBox.Show("Desea dar de Baja al usuario "+usrDelete+"?",
+            string nombreUsr =  String.Concat(dataGridUsuario.CurrentRow.Cells["nombre"].ToString(),
+                                dataGridUsuario.CurrentRow.Cells["apellido"].ToString());
+            DialogResult dr = MessageBox.Show("Desea dar de Baja al usuario " + nombreUsr + "?",
             "", MessageBoxButtons.YesNo);
             switch (dr){
                 case DialogResult.Yes: 
