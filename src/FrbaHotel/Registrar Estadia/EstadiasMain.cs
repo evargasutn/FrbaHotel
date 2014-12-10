@@ -139,7 +139,8 @@ namespace FrbaHotel.Registrar_Estadia
 
         private bool reservaCancelada()
         {
-            if (!Globals.esElMismoDia(Globals.getFechaSistema(),(DateTime)reserva_seleccionada.Fecha_Inicio_struct))
+            int rspta = Globals.esElMismoDia(Globals.getFechaSistema(),(DateTime)reserva_seleccionada.Fecha_Inicio_struct);
+            if (rspta > 0)
             {
                 MessageBox.Show("La reserva seleccionada se encuentra cancelada debido a que se encuentra vencida.", "", MessageBoxButtons.OK);
                 if (reserva_seleccionada.Estado > 2 && reserva_seleccionada.Estado < 6)
@@ -163,6 +164,12 @@ namespace FrbaHotel.Registrar_Estadia
                 DAOReserva.agregarCancelacion(cancelacion);
                 return true;
             }
+            else
+                if (rspta < 0)
+                {
+                    MessageBox.Show("La fecha de inicio reserva seleccionada es posterior a la fecha actual. Por favor, efectivize la reserva el día indicado.", "", MessageBoxButtons.OK);
+                    return true; //Significa que ya esta dada de baja y pulso nuevamente
+                }
             return false;
         }
         

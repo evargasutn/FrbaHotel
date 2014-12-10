@@ -68,7 +68,7 @@ namespace DOM
             return (reg.Precio * cantPersonas) + recargo;
         }
 
-        public static bool esElMismoDia(DateTime fecha1, DateTime fecha2)
+        public static int esElMismoDia(DateTime fecha1, DateTime fecha2)
         {
             int dia1 = fecha1.Day;
             int dia2 = fecha2.Day;
@@ -78,9 +78,10 @@ namespace DOM
             int anio2 = fecha2.Year;
 
             if (dia1 == dia2 && mes1 == mes2 && anio1 == anio2)
-                return true;
-            else
-                return false;
+                return 0; //Si son el mismo dia
+            if (fecha1.CompareTo(fecha2) > 0) //Si la fecha1 es posterior a fecha2 retorna 1, vencido
+                return 1;
+            return -1; //La fecha es anterior
         }
        
         #endregion
