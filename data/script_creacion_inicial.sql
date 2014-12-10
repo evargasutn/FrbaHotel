@@ -1391,10 +1391,18 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getHabitacion
 AS
 	BEGIN
 			IF (@habitacion = -1)
-				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+				SELECT h.codHotel, h.habitacion, h.descripcion, h.piso, H.ubicacion,
+				H.tipoCodigo, TIPO.tipoDescripcion, H.descripcion, H.campoBaja 
+				FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+				JOIN COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES TIPO
+				ON H.tipoCodigo = TIPO.tipoCodigo
 				WHERE H.codHotel = @codHotel				
 			ELSE
-				SELECT * FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+				SELECT h.codHotel, h.habitacion, h.descripcion, h.piso, H.ubicacion,
+				H.tipoCodigo, TIPO.tipoDescripcion, H.descripcion, H.campoBaja 
+				FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+				JOIN COMPUMUNDO_HIPER_MEGA_RED.TIPO_HABITACIONES TIPO
+				ON H.tipoCodigo = TIPO.tipoCodigo
 				WHERE H.habitacion = @habitacion AND H.codHotel = @codHotel				
 	END
 GO
@@ -1533,19 +1541,20 @@ CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.habitacionesReservadas(@codHotel numer
 RETURNS @T_HABITACIONESRESERVADAS TABLE(habitacion numeric(4)) 
 AS 
 BEGIN
-	DECLARE @habitacion numeric(4)
-	
-	SELECT @habitacion = H.habitacion
-	FROM COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA DR
-	JOIN COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H ON H.habitacion = DR.habitacion
-	JOIN COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R ON R.codReserva = DR.codReserva
-	JOIN COMPUMUNDO_HIPER_MEGA_RED.CANCELACIONES_RESERVA C ON R.codReserva = C.codReserva 
-	WHERE DR.codHotel = @codHotel AND
-		  H.campoBaja = 0 AND
-		  ((C.estado IS NULL AND
-		  R.fecDesde BETWEEN @fechaDesde AND @fechaHasta AND
-		  R.fecHasta BETWEEN @fechaDesde AND @fechaHasta)
-		  OR C.estado BETWEEN 3 AND 5)
+
+	INSERT @T_HABITACIONESRESERVADAS
+		SELECT H.habitacion
+		FROM COMPUMUNDO_HIPER_MEGA_RED.HABITACIONES H
+		WHERE codHotel = @codHotel AND
+		EXISTS(		SELECT * 
+					FROM COMPUMUNDO_HIPER_MEGA_RED.RESERVAS R
+					JOIN COMPUMUNDO_HIPER_MEGA_RED.DETALLES_RESERVA Det
+					ON R.codReserva = Det.codReserva
+					WHERE Det.codHotel = @codHotel AND
+					H.habitacion = Det.habitacion AND
+					(R.fecDesde BETWEEN @fechaDesde AND @fechaHasta OR
+					R.fecHasta BETWEEN @fechaDesde AND @fechaHasta) AND
+					(R.estado = 1 OR R.estado = 2 OR R.estado = 6))
 	RETURN
 END
 GO
