@@ -139,7 +139,7 @@ namespace FrbaHotel.Registrar_Estadia
 
         private bool reservaCancelada()
         {
-            if (!Globals.esElMismoDia(Globals.getFechaSistema(),(DateTime)reserva_seleccionada.Fecha_Reserva_struct))
+            if (!Globals.esElMismoDia(Globals.getFechaSistema(),(DateTime)reserva_seleccionada.Fecha_Inicio_struct))
             {
                 MessageBox.Show("La reserva seleccionada se encuentra cancelada debido a que se encuentra vencida.", "", MessageBoxButtons.OK);
                 if (reserva_seleccionada.Estado > 2 && reserva_seleccionada.Estado < 6)
