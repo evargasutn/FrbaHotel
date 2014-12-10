@@ -47,6 +47,7 @@ namespace FrbaHotel.ABM_de_Cliente
             textDirAltura.Text = huesped_seleccionado.Direccion.calle_altura.ToString();
             textLocalidad.Text = huesped_seleccionado.Localidad;
             textPais.SelectedIndex = Globals.posPais(huesped_seleccionado.Nacionalidad);
+            checkBaja.Checked = huesped_seleccionado.Campo_Baja;
             if(huesped_seleccionado.Direccion.calle_dpto != "''")
                 textDirDpto.Text = huesped_seleccionado.Direccion.calle_dpto;
             if(huesped_seleccionado.Direccion.calle_piso != -1)
@@ -161,7 +162,7 @@ namespace FrbaHotel.ABM_de_Cliente
             {
                 huesped_seleccionado.Nombre = textNombre.Text;
                 huesped_seleccionado.Apellido = textApellido.Text;
-                huesped_seleccionado.TipoDocu = comboTipoDoc.SelectedText;
+                huesped_seleccionado.TipoDocu = Documento.string_docu[comboTipoDoc.SelectedIndex];
                 huesped_seleccionado.NroDocu = Int32.Parse(textNumDoc.Text);
                 huesped_seleccionado.Fecha_nacimiento = dateTimeNacimiento.Text;
                 huesped_seleccionado.Mail = textMail.Text;
@@ -174,6 +175,7 @@ namespace FrbaHotel.ABM_de_Cliente
                     huesped_seleccionado.Direccion.calle_dpto = textDirDpto.Text;
                 huesped_seleccionado.Localidad = textLocalidad.Text;
                 huesped_seleccionado.Nacionalidad = (string)textPais.SelectedItem;
+                huesped_seleccionado.Campo_Baja = checkBaja.Checked;
                 if (!DAOHuesped.actualizar(huesped_seleccionado))
                 {
                     MessageBox.Show("Error al modificar el huesped.", "Error al Modificar Huesped",

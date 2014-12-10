@@ -59,12 +59,13 @@
             this.lblTipoDoc = new System.Windows.Forms.Label();
             this.lblApellido = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.checkBaja = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // botonLimpiar
             // 
-            this.botonLimpiar.Location = new System.Drawing.Point(12, 338);
+            this.botonLimpiar.Location = new System.Drawing.Point(12, 364);
             this.botonLimpiar.Name = "botonLimpiar";
             this.botonLimpiar.Size = new System.Drawing.Size(106, 27);
             this.botonLimpiar.TabIndex = 29;
@@ -74,7 +75,7 @@
             // 
             // botonGuardar
             // 
-            this.botonGuardar.Location = new System.Drawing.Point(197, 338);
+            this.botonGuardar.Location = new System.Drawing.Point(197, 364);
             this.botonGuardar.Name = "botonGuardar";
             this.botonGuardar.Size = new System.Drawing.Size(106, 27);
             this.botonGuardar.TabIndex = 28;
@@ -341,11 +342,23 @@
             this.lblApellido.TabIndex = 4;
             this.lblApellido.Text = "Apellido";
             // 
+            // checkBaja
+            // 
+            this.checkBaja.AutoSize = true;
+            this.checkBaja.Location = new System.Drawing.Point(256, 338);
+            this.checkBaja.Name = "checkBaja";
+            this.checkBaja.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.checkBaja.Size = new System.Drawing.Size(47, 17);
+            this.checkBaja.TabIndex = 30;
+            this.checkBaja.Text = "Baja";
+            this.checkBaja.UseVisualStyleBackColor = true;
+            // 
             // ClienteMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(315, 376);
+            this.ClientSize = new System.Drawing.Size(315, 403);
+            this.Controls.Add(this.checkBaja);
             this.Controls.Add(this.botonLimpiar);
             this.Controls.Add(this.botonGuardar);
             this.Controls.Add(this.groupBox2);
@@ -357,6 +370,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -392,5 +406,6 @@
         private System.Windows.Forms.MaskedTextBox textTelefono;
         private System.Windows.Forms.MaskedTextBox textNumDoc;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.CheckBox checkBaja;
     }
 }

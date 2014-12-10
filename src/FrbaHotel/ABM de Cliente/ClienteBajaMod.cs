@@ -35,9 +35,9 @@ namespace FrbaHotel.ABM_de_Cliente
                 dataGridCliente.Columns["idHuesped"].Visible = false;
                 //dataGridCliente.Columns["campoBaja"].Visible = false;
             }
-            dataGridCliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dataGridCliente.AutoResizeColumns();
-            dataGridCliente.AutoResizeRows();
+            //bdataGridCliente.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //dataGridCliente.AutoResizeColumns();
+            //dataGridCliente.AutoResizeRows();
         }
 
         public void limpiar()

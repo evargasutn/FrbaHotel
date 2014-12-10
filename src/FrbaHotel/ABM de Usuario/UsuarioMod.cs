@@ -85,6 +85,7 @@ namespace FrbaHotel.ABM_de_Usuario
             textDirPiso.Text = Convert.ToString(usuarioMod.Direccion.calle_piso);
             textDirDpto.Text = usuarioMod.Direccion.calle_dpto;
             textTelefono.Text = Convert.ToString(usuarioMod.Telefono);
+            checkBoxBajaUsr.Checked = usuarioMod.CampoBaja;
      }
 
         private void botonGuardar_Click(object sender, EventArgs e)

@@ -112,10 +112,20 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void botonBaja_Click(object sender, System.EventArgs e)
         {
+            if (dataGridUsuario.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un Usuario a dar de baja.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
+            if ((bool)dataGridUsuario.CurrentRow.Cells["campoBaja"].Value)
+            {
+                MessageBox.Show("Usuario ya deshabilitado.",
+                "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
             string usrDelete = dataGridUsuario.CurrentRow.Cells["usr"].Value.ToString();
-            string nombreUsr =  String.Concat(dataGridUsuario.CurrentRow.Cells["nombre"].ToString(),
-                                dataGridUsuario.CurrentRow.Cells["apellido"].ToString());
-            DialogResult dr = MessageBox.Show("Desea dar de Baja al usuario " + nombreUsr + "?",
+            DialogResult dr = MessageBox.Show("Desea dar de Baja al usuario " + usrDelete + "?",
             "", MessageBoxButtons.YesNo);
             switch (dr){
                 case DialogResult.Yes: 
@@ -128,6 +138,12 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void botonModificar_Click(object sender, EventArgs e)
         {
+            if (dataGridUsuario.CurrentRow == null)
+            {
+                MessageBox.Show("Seleccione un Usuario a modificar.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
             string usrModif = dataGridUsuario.CurrentRow.Cells["usr"].Value.ToString();
             DialogResult dr = MessageBox.Show("Desea modificar datos del usuario " + usrModif + "?",
             "", MessageBoxButtons.YesNo);

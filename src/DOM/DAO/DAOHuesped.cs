@@ -87,12 +87,14 @@ namespace DOM
             int dir_altura = huesped.Direccion.calle_altura;
             int dir_piso = huesped.Direccion.calle_piso;
             string dir_dpto = huesped.Direccion.calle_dpto;
-            string fecha_nacimiento = (huesped.Fecha_nacimiento_struct == null) ? huesped.Fecha_nacimiento : cadena_nula;
+            string localidad = huesped.Localidad;
+            string nacionalidad = huesped.Nacionalidad;
+            string fecha_nacimiento = (huesped.Fecha_nacimiento_struct != null) ? huesped.Fecha_nacimiento : cadena_nula;
             int campoBaja = (huesped.Campo_Baja) ? 1 : 0;
             return executeProcedure("updateHuesped", id, nombre, apellido,
                                                     doc_tipo, doc_num, email, telefono,
                                                     dir_calle, dir_altura, dir_piso, dir_dpto,
-                                                    fecha_nacimiento, campoBaja);
+                                                    fecha_nacimiento, localidad, nacionalidad, campoBaja);
         }
 
         #region Convertir DataTable
