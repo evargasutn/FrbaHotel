@@ -36,6 +36,16 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 showToolTip("Número de Reserva inválido. Ingrese su número nuevamente.", textReserva, textReserva.Location);
                 return;
             }
+            if (reserva.Estado == 6)
+            {
+                showToolTip("Reserva ya efectivizada. No es posible modificarla.", textReserva, textReserva.Location);
+                return;
+            }
+            if (reserva.Estado > 2)
+            {
+                showToolTip("Reserva cancelada. No es posible modificarla.", textReserva, textReserva.Location);
+                return;
+            }
             new ModificarReserva(reserva).Show();
             this.Dispose();
         }
