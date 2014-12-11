@@ -27,10 +27,15 @@ namespace DOM
 
         public static List<Rol> obtenerTodos(string usr)
         {
-            List<Rol> lista = transductor(retrieveDataTable("JoinUsrRol", usr));
+            List<Rol> lista = transductor_usr(retrieveDataTable("JoinUsrRol", usr));
             return lista;
         }
 
+        public static List<Rol> obtenerRolesDeUsuario(string nombreRol)
+        {
+            List<Rol> lista = transductor_usr(retrieveDataTable("getRolOfUser", nombreRol));
+            return lista;
+        }
    
         public static bool insertar(Rol rol)
         {
@@ -50,6 +55,23 @@ namespace DOM
             return executeProcedure("deleteRol", rolAbaja);
         }
 
+        public static List<Rol> traerTodosLosRolesPosibles()
+        {
+            List<Rol> filtrada = transductor(obtenerTabla()).Where(elemento => elemento.Nombre != "Guest").ToList();
+            return filtrada;
+        }
+
+        public static bool insertarRolUsuario(string rol, string usr)
+        {
+            return executeProcedure("insertRolUsuario", rol, usr);
+        }
+
+        public static bool borrarRolUsuario(string rol, string usr)
+        {
+            return executeProcedure("deleteRolUsuario", rol, usr);
+        }
+
+
         private static List<Rol> transductor(DataTable tabla)
         {
             List<Rol> lista = new List<Rol>();
@@ -65,20 +87,20 @@ namespace DOM
             return lista;
         }
 
-        public static List<Rol> traerTodosLosRolesPosibles()
+        private static List<Rol> transductor_usr(DataTable tabla)
         {
-            List<Rol> filtrada = transductor(obtenerTabla()).Where(elemento => elemento.Nombre != "Guest").ToList();
-            return filtrada;
-        }
-
-        public static bool insertarRolUsuario(string rol, string usr)
-        {
-            return executeProcedure("insertRolUsuario", rol, usr);
-        }
-
-        public static bool borrarRolUsuario(string rol, string usr)
-        {
-            return executeProcedure("deleteRolUsuario", rol, usr);
+            List<Rol> lista = new List<Rol>();
+            if (tabla != null)
+                foreach (DataRow fila in tabla.Rows)
+                {
+                    //Transcribir
+                    Rol rol = new Rol();
+                    rol.Nombre = Convert.ToString(fila["nombreRol"]);
+                    rol.Estado = Convert.ToBoolean(fila["estado"]);
+                    rol.Usr = Convert.ToString(fila["usr"]);
+                    lista.Add(rol);
+                }
+            return lista;
         }
     }
 }

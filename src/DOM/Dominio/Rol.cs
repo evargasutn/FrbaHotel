@@ -10,6 +10,7 @@ namespace DOM.Dominio
         #region Atributos
         private string nombreRol = "''";
         private bool estado = true;
+        private string usr = "''";
         #endregion
 
         #region Propiedades
@@ -22,6 +23,11 @@ namespace DOM.Dominio
         {
             get { return estado; }
             set { estado = value; }
+        }
+        public string Usr
+        {
+            get { return usr; }
+            set { usr = value; }
         }
         #endregion
     }

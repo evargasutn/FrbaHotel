@@ -1184,9 +1184,6 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertUsuario
 	@direccionDepto varchar(50),
 	@FecNacimiento DateTime
 AS
-	IF(@usr != '' AND @password != '' AND @nombre != '' AND @apellido != '' AND @tipoDocu != '' AND
-		@numDocu != -1 AND @mail != '' AND @telefono != -1 AND @direccionCalle != '' AND @direccionNumero != -1 
-		AND @direccionPiso != -1 AND @direccionDepto != '' AND @FecNacimiento IS NOT NULL)
 		INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.USUARIOS (usr, password, nombre, apellido, contador_intentos_login, tipoDocu, numDocu,
 			mail, telefono, direccionCalle, direccionNumero, FecNacimiento, campoBaja)
 		VALUES(@usr, @password, UPPER(@nombre), UPPER(@apellido), 0, @tipoDocu, @numDocu, LOWER(@mail), @telefono, UPPER(@direccionCalle), @direccionNumero, 
@@ -2035,19 +2032,28 @@ GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.JoinUsrRol
 	@usr varchar(15)
 AS
-	 IF (@usr IS NULL OR @usr = '')
-		SELECT R.nombreRol, R.estado
-		FROM COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU
-		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES R
-			ON RU.nombreRol = R.nombreRol
-	ELSE
-		SELECT R.nombreRol, R.estado
-		FROM COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU
-		JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES R
-			ON RU.nombreRol = R.nombreRol
-		WHERE RU.usr = @usr
+	SELECT R.nombreRol, R.estado, RU.usr
+	FROM COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES R
+		ON RU.nombreRol = R.nombreRol
 GO
 
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getRolOfUser', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRolOfUser
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRolOfUser
+	@nombreRol varchar(15)
+AS
+	SELECT R.nombreRol, R.estado, RU.usr
+	FROM COMPUMUNDO_HIPER_MEGA_RED.ROLES_X_USUARIO RU
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.ROLES R
+		ON RU.nombreRol = R.nombreRol
+	WHERE RU.nombreRol = @nombreRol
+GO
 
 /*************************************************************************************
  *AUXILIAR PARA CODIGO DE RESERVA

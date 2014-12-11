@@ -41,25 +41,20 @@ namespace FrbaHotel.ABM_de_Usuario
 
         private void botonBuscar_Click(object sender, EventArgs e)
         {
-
-            if (String.IsNullOrEmpty(textUsuario.Text) && String.IsNullOrEmpty(textNombre.Text) &&
-                String.IsNullOrEmpty(textApellido.Text) && String.IsNullOrEmpty((string)(comboListRol.SelectedItem)))
+            string rol = "";
+            if(comboListRol.SelectedIndex != -1)
+                rol = comboListRol.SelectedItem.ToString();
+            //Aplica criterios de búsqueda
+            DataTable respuesta = FiltrarUsuario(textUsuario.Text, textNombre.Text, textApellido.Text, rol);
+            //Llena el DataGrid con los datos de la tabla devuelta
+            dataGridUsuario.DataSource = respuesta;
+            //Muestra solo las primeras 6 columnas
+            if (respuesta != null)
             {
-                dataGridUsuario.DataSource = DAOUsuario.obtenerTabla();
                 dataGridUsuario.Columns["password"].Visible = false;
                 dataGridUsuario.Columns["contador_intentos_login"].Visible = false;
                 dataGridUsuario.Columns["primerLog"].Visible = false;
             }
-            else
-            {
-                //Aplica criterios de búsqueda
-                DataTable respuesta = FiltrarUsuario(textUsuario.Text, textNombre.Text, textApellido.Text, comboListRol.SelectedItem.ToString());
-                //Llena el DataGrid con los datos de la tabla devuelta
-                dataGridUsuario.DataSource = respuesta;
-                //Muestra solo las primeras 6 columnas
-                for (int item = 6; item < dataGridUsuario.ColumnCount; item++)
-                    dataGridUsuario.Columns[item].Visible = false;
-             }
 
             dataGridUsuario.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridUsuario.AutoResizeColumns();
@@ -75,8 +70,28 @@ namespace FrbaHotel.ABM_de_Usuario
             if (usr != "") filtrosBusqueda.Add("usr LIKE '%" + usr + "%'");
             if (nombre != "") filtrosBusqueda.Add("nombre LIKE '%" + nombre + "%'");
             if (apellido != "") filtrosBusqueda.Add("apellido LIKE '%" + apellido + "%'");
-            if (rol != "") filtrosBusqueda.Add("nombreRol LIKE '%" + rol + "%'");
-            
+            if (rol != "")
+            {
+                List<Rol> tabla_rol = DAORol.obtenerRolesDeUsuario(rol);
+                if (tabla_rol.Count > 0)
+                {
+                    bool hayMasFiltros = false;
+                    if (filtrosBusqueda.Count != 0)
+                        hayMasFiltros = true;
+                    string filtro_rol = "";
+                    if (hayMasFiltros)
+                        filtro_rol += "(";
+                    filtro_rol += ("usr = '" + tabla_rol[0].Usr + "'");
+                    for (int i = 1; i < tabla_rol.Count; i++)
+                    {
+                        filtro_rol += " OR ";
+                        filtro_rol += ("usr = '" + tabla_rol[i].Usr + "'");
+                    }
+                    if (hayMasFiltros)
+                        filtro_rol += ")";
+                    filtrosBusqueda.Add(filtro_rol);
+                }
+            }
             //Concatena hasta formar la consulta para filtrar
             foreach (var filtro in filtrosBusqueda)
             {
