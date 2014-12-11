@@ -101,9 +101,9 @@ namespace FrbaHotel.ABM_de_Hotel
             var filtrosBusqueda = new List<string>();
 
             if (nombre != "") filtrosBusqueda.Add("nombreHotel LIKE '%" + nombre + "%'");
-            if (pais != "") filtrosBusqueda.Add("ubicacion LIKE '%" + pais + "%'");
-            if (ciudad != "") filtrosBusqueda.Add("ciudad LIKE '%"+ciudad+"%");
-            if (tipoEstrella != -1) filtrosBusqueda.Add("cantEstrellas=" + comboEstrellas.Items[tipoEstrella].ToString());
+            if (pais != "") filtrosBusqueda.Add("pais LIKE '%" + pais + "%'");
+            if (ciudad != "") filtrosBusqueda.Add("ciudad LIKE '%"+ciudad+"%'");
+            if (tipoEstrella != -1) filtrosBusqueda.Add("cantEstrellas = " + comboEstrellas.Items[tipoEstrella].ToString());
 
 
             foreach (var filtro in filtrosBusqueda)

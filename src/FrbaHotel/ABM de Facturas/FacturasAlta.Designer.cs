@@ -49,10 +49,10 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textDias = new System.Windows.Forms.TextBox();
             this.textEgreso = new System.Windows.Forms.TextBox();
-            this.textIngreso = new System.Windows.Forms.TextBox();
             this.lDias = new System.Windows.Forms.Label();
             this.lEgreso = new System.Windows.Forms.Label();
             this.lIngreso = new System.Windows.Forms.Label();
+            this.textIngreso = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridFacturaEstadia)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -245,15 +245,6 @@
             this.textEgreso.Size = new System.Drawing.Size(100, 20);
             this.textEgreso.TabIndex = 4;
             // 
-            // textIngreso
-            // 
-            this.textIngreso.BackColor = System.Drawing.SystemColors.Control;
-            this.textIngreso.Location = new System.Drawing.Point(131, 17);
-            this.textIngreso.Name = "textIngreso";
-            this.textIngreso.ReadOnly = true;
-            this.textIngreso.Size = new System.Drawing.Size(100, 20);
-            this.textIngreso.TabIndex = 3;
-            // 
             // lDias
             // 
             this.lDias.AutoSize = true;
@@ -280,6 +271,15 @@
             this.lIngreso.Size = new System.Drawing.Size(42, 13);
             this.lIngreso.TabIndex = 0;
             this.lIngreso.Text = "Ingreso";
+            // 
+            // textIngreso
+            // 
+            this.textIngreso.BackColor = System.Drawing.SystemColors.Control;
+            this.textIngreso.Location = new System.Drawing.Point(131, 17);
+            this.textIngreso.Name = "textIngreso";
+            this.textIngreso.ReadOnly = true;
+            this.textIngreso.Size = new System.Drawing.Size(100, 20);
+            this.textIngreso.TabIndex = 3;
             // 
             // FacturasAlta
             // 
@@ -333,8 +333,8 @@
         private System.Windows.Forms.Label lIngreso;
         private System.Windows.Forms.TextBox textDias;
         private System.Windows.Forms.TextBox textEgreso;
-        private System.Windows.Forms.TextBox textIngreso;
         private System.Windows.Forms.Label lDias;
         private System.Windows.Forms.Label lEgreso;
+        private System.Windows.Forms.TextBox textIngreso;
     }
 }

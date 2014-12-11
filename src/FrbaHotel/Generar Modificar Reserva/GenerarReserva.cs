@@ -32,7 +32,8 @@ namespace FrbaHotel.Generar_Modificar_Reserva
             foreach (Tipo_Habitacion tipo in tipos_habitacion)
                 comboTipoHab.Items.Add(tipo.Descripcion);
             foreach (Regimen reg in lista_regimenes)
-                comboBoxTipoRegimen.Items.Add(reg.Descripcion);
+                if(reg.Estado)
+                    comboBoxTipoRegimen.Items.Add(reg.Descripcion);
             limpiar();
         }
 

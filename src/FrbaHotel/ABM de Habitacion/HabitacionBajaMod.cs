@@ -35,6 +35,8 @@ namespace FrbaHotel.ABM_de_Habitacion
             dataGridHabitacion.DataSource = respuesta;
             if (respuesta != null)
             {
+                dataGridHabitacion.Columns["descripcion1"].Visible = false;
+                dataGridHabitacion.Columns["tipoCodigo"].Visible = false;
                 dataGridHabitacion.Columns["codHotel"].Visible = false;
             }
             dataGridHabitacion.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;

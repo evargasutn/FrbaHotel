@@ -32,6 +32,15 @@ namespace FrbaHotel.ABM_de_Regimen
             {
                 Regimen regimen = new Regimen();
                 regimen.Descripcion = textDescripcion.Text;
+                try
+                {
+                    Double.Parse(textPrecioBase.Text);
+                }
+                catch
+                {
+                    showToolTip("Ingrese un precio base válido.", textPrecioBase, textPrecioBase.Location);
+                    return;
+                }
                 regimen.Precio = Double.Parse(textPrecioBase.Text);
                 if (comboEstado.SelectedIndex == 1)
                     regimen.Estado = true;
@@ -41,6 +50,7 @@ namespace FrbaHotel.ABM_de_Regimen
                 {
                     MessageBox.Show("Error al crear el régimen.", "Error al crear Nuevo Régimen",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
                 MessageBox.Show("Régimen Creado Correctamente.", "Nuevo Régimen",
                 MessageBoxButtons.OK, MessageBoxIcon.None);

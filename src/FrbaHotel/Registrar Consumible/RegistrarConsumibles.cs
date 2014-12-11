@@ -37,10 +37,18 @@ namespace FrbaHotel.Registrar_Consumible
             reserva = DAOReserva.obtener(Int32.Parse(textEstadia.Text));
             if (reserva != null)
             {
-                dataGridEstadia.DataSource = DAOConsumible.obtenerTablaByEstadia(reserva.CodigoReserva);
-                dataGridEstadia.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-                dataGridEstadia.AutoResizeColumns();
-                dataGridEstadia.AutoResizeRows();
+                if (reserva.Estado == 6)
+                {
+                    dataGridEstadia.DataSource = DAOConsumible.obtenerTablaByEstadia(reserva.CodigoReserva);
+                    dataGridEstadia.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                    dataGridEstadia.AutoResizeColumns();
+                    dataGridEstadia.AutoResizeRows();
+                }
+                else
+                    if (reserva.Estado <= 2) 
+                        showToolTip("Reserva no efectivizada aún. Por favor, ingrese una reserva efectivizada.", textEstadia, textEstadia.Location);
+                    else
+                        showToolTip("Reserva Cancelada. Por favor, ingrese una reserva válida.", textEstadia, textEstadia.Location);
             }
             else
                 showToolTip("Ingrese un código de estadia válido.", textEstadia, textEstadia.Location);
@@ -77,14 +85,14 @@ namespace FrbaHotel.Registrar_Consumible
                 showToolTip("Seleccione un consumible a remover.", botonRemover, botonRemover.Location);
                 return;
             }
-            int _codConsumible = Convert.ToInt32(dataGridEstadia.CurrentRow.Cells["codConsumible"].Value);
-            string _consumible = dataGridEstadia.CurrentRow.Cells["descripcion"].Value.ToString();
-            DialogResult dr = MessageBox.Show("Desea remover el consumible " + _consumible + " de la reserva " + reserva.CodigoReserva + "?",
+            string _detalleConsumible = Convert.ToString(dataGridEstadia.CurrentRow.Cells["DETALLE"].Value);
+            Consumible _consumible = DAOConsumible.obtener(_detalleConsumible);
+            DialogResult dr = MessageBox.Show("Desea remover el consumible " + _detalleConsumible + " de la reserva " + reserva.CodigoReserva + "?",
                 "", MessageBoxButtons.YesNo);
             switch (dr)
             {
                 case DialogResult.Yes:
-                    if (!DAOConsumible.borrarConsumibleXEstadia(reserva.CodigoReserva, _codConsumible))
+                    if (!DAOConsumible.borrarConsumibleXEstadia(reserva.CodigoReserva, _consumible.Codigo))
                         MessageBox.Show("Error al remover el consumible.", "Error", MessageBoxButtons.OK);
                     else
                         updateGrid();

@@ -34,12 +34,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.botonGuardar = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.textPrecioBase = new System.Windows.Forms.MaskedTextBox();
             this.nota = new System.Windows.Forms.Label();
             this.comboEstado = new System.Windows.Forms.ComboBox();
             this.textDescripcion = new System.Windows.Forms.TextBox();
             this.botonLimpiar = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.textPrecioBase = new System.Windows.Forms.MaskedTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,6 +96,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de régimen";
             // 
+            // textPrecioBase
+            // 
+            this.textPrecioBase.Location = new System.Drawing.Point(206, 39);
+            this.textPrecioBase.Name = "textPrecioBase";
+            this.textPrecioBase.Size = new System.Drawing.Size(67, 20);
+            this.textPrecioBase.TabIndex = 35;
+            this.textPrecioBase.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textPrecioBase_MaskInputRejected);
+            // 
             // nota
             // 
             this.nota.AutoSize = true;
@@ -130,15 +138,6 @@
             this.botonLimpiar.Text = "Limpiar";
             this.botonLimpiar.UseVisualStyleBackColor = true;
             this.botonLimpiar.Click += new System.EventHandler(this.botonLimpiar_Click);
-            // 
-            // textPrecioBase
-            // 
-            this.textPrecioBase.Location = new System.Drawing.Point(206, 39);
-            this.textPrecioBase.Mask = "9999999,99";
-            this.textPrecioBase.Name = "textPrecioBase";
-            this.textPrecioBase.Size = new System.Drawing.Size(67, 20);
-            this.textPrecioBase.TabIndex = 35;
-            this.textPrecioBase.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.textPrecioBase_MaskInputRejected);
             // 
             // RegimenAlta
             // 

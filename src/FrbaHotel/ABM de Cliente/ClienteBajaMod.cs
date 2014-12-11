@@ -59,7 +59,7 @@ namespace FrbaHotel.ABM_de_Cliente
             if (nombre != "") filtrosBusqueda.Add("nombre LIKE '%" + nombre + "%'");
             if (apellido != "") filtrosBusqueda.Add("apellido LIKE '%" + apellido + "%'");
             if (mail != "") filtrosBusqueda.Add("mail LIKE '%" + mail + "%'");
-            if (numDoc != "") filtrosBusqueda.Add("numDocu LIKE '%" + numDoc + "%'");
+            if (numDoc != "") filtrosBusqueda.Add("numDocu = " + numDoc);
             if (tipoDoc != -1) filtrosBusqueda.Add("tipoDocu LIKE '%" + comboTipoDoc.Items[tipoDoc] + "%'");
             foreach (var filtro in filtrosBusqueda)
             {

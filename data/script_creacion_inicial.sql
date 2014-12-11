@@ -1594,8 +1594,7 @@ CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getRegimen
 AS
 	--SI RECIBE -1, MUESTRA TODOS LOS REGIMENES HABILITADOS
 	IF (@codigo = -1)
-		SELECT R.codRegimen, R.descripcion, R.precio, R.estado FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
-		WHERE R.estado = 1				
+		SELECT R.codRegimen, R.descripcion, R.precio, R.estado FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R			
 	ELSE
 		SELECT R.codRegimen, R.descripcion, R.precio, R.estado FROM COMPUMUNDO_HIPER_MEGA_RED.REGIMENES R
 		WHERE R.codRegimen = @codigo
@@ -1629,13 +1628,13 @@ SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertRegimen
 	@descripcion varchar(255),
-	@precio numeric (18,2)
+	@precio numeric (18,2),
+	@campoBaja bit
 AS
 	IF(@descripcion != '' AND @precio != -1)
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.REGIMENES(descripcion, precio, estado)
-	VALUES (UPPER(@descripcion), @precio, 1)
+	VALUES (UPPER(@descripcion), @precio, @campoBaja)
 GO
-
 
 --/PROC UPDATEREGIMEN
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateRegimen', 'P' ) IS NOT NULL 
@@ -2796,11 +2795,12 @@ SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.insertEstadia
 	@codReserva numeric(18),
-	@usr varchar(50)		
+	@usr varchar(50),
+	@fechaInicio datetime		
 AS
 	IF(@codReserva != -1 AND @usr != '')
 	INSERT INTO COMPUMUNDO_HIPER_MEGA_RED.ESTADIA(codReserva, usrIngreso, fecIngreso)
-	VALUES(@codReserva, @usr, CURRENT_TIMESTAMP)
+	VALUES(@codReserva, @usr, @fechaInicio)
 GO
 --/PROC UPDATEESTADIA
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.updateEstadia', 'P' ) IS NOT NULL 
@@ -2812,7 +2812,8 @@ SET ANSI_NULLS ON
 GO
 CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.updateEstadia
 	@codReserva numeric(18),
-	@usr varchar(50)		
+	@usr varchar(50),
+	@fechaFin datetime		
 AS
 	IF(@codReserva != -1)
 	BEGIN
@@ -2821,7 +2822,7 @@ AS
 				SET usrEgreso = @usr 
 					WHERE codReserva = @codReserva
 		UPDATE COMPUMUNDO_HIPER_MEGA_RED.ESTADIA
-			SET fecEgreso = CURRENT_TIMESTAMP
+			SET fecEgreso = @fechaFin
 				WHERE codReserva = @codReserva
 	END
 GO
@@ -2902,6 +2903,22 @@ AS
 		JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible  
 		WHERE CE.codReserva = @codReserva 
 		ORDER BY CE.itemFactura ASC
+GO
+
+--/PROC GETCONSUMIBLESBYDESCRIPCION
+IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getConsumibleByDescripcion', 'P' ) IS NOT NULL 
+		DROP PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumibleByDescripcion
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_NULLS ON
+GO
+CREATE PROCEDURE COMPUMUNDO_HIPER_MEGA_RED.getConsumibleByDescripcion
+	@descripcion varchar(255)		
+AS
+	SELECT *
+	FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES
+	WHERE UPPER(descripcion) = UPPER(@descripcion)
 GO
 
 --/PROC INSERTCONSUMIBLE 

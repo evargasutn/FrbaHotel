@@ -37,14 +37,16 @@ namespace DOM
         {
             int codReserva = estadia.CodigoReserva;
             string usr = estadia.Usuario_Ingreso.Usr;
-            return executeProcedure("insertEstadia", codReserva, usr);
+            string inicio = estadia.Fecha_Ingreso;
+            return executeProcedure("insertEstadia", codReserva, usr, inicio);
         }
 
         public static bool ingresarSalida(Estadia estadia)
         {
             int codReserva = estadia.CodigoReserva;
             string usr = estadia.Usuario_Egreso.Usr;
-            return executeProcedure("updateEstadia", codReserva, usr);
+            string fin = estadia.Fecha_Egreso;
+            return executeProcedure("updateEstadia", codReserva, usr, fin);
         }
 
         public static bool facturar(int codReserva, string tipoPago, string tarjeta)

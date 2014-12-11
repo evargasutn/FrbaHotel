@@ -36,7 +36,13 @@ namespace FrbaHotel.Generar_Modificar_Reserva
                 return;
             }
             int codRegimen = Convert.ToInt32(dataGridRegimen.CurrentRow.Cells["codRegimen"].Value);
-
+            bool estado = Convert.ToBoolean(dataGridRegimen.CurrentRow.Cells["estado"].Value);
+            if (!estado)
+            {
+                MessageBox.Show("Régimen NO habilitado para reservar. Elija otro Régimen.",
+                "", MessageBoxButtons.OK);
+                return;
+            }
             ((GenerarReserva)Globals.VentanaAnterior).actualizarRegimen(codRegimen);
             this.Close();
         }

@@ -34,14 +34,14 @@
             this.buttonLimpiar = new System.Windows.Forms.Button();
             this.buttonBuscar = new System.Windows.Forms.Button();
             this.groupFiltros = new System.Windows.Forms.GroupBox();
+            this.textPrecioBase = new System.Windows.Forms.MaskedTextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.comboEstado = new System.Windows.Forms.ComboBox();
             this.labelEstado = new System.Windows.Forms.Label();
             this.labelDescripcion = new System.Windows.Forms.Label();
             this.textDescripcion = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.altaDeRolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textPrecioBase = new System.Windows.Forms.MaskedTextBox();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).BeginInit();
             this.groupFiltros.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -121,6 +121,23 @@
             this.groupFiltros.TabStop = false;
             this.groupFiltros.Text = "Filtros de busqueda";
             // 
+            // textPrecioBase
+            // 
+            this.textPrecioBase.Location = new System.Drawing.Point(146, 62);
+            this.textPrecioBase.Name = "textPrecioBase";
+            this.textPrecioBase.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.textPrecioBase.Size = new System.Drawing.Size(120, 20);
+            this.textPrecioBase.TabIndex = 37;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 65);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(94, 13);
+            this.label2.TabIndex = 36;
+            this.label2.Text = "Precio base(US$)*";
+            // 
             // comboEstado
             // 
             this.comboEstado.FormattingEnabled = true;
@@ -171,23 +188,6 @@
             this.altaDeRolToolStripMenuItem.Text = "Alta de Régimen";
             this.altaDeRolToolStripMenuItem.Click += new System.EventHandler(this.altaDeRolToolStripMenuItem_Click);
             // 
-            // textPrecioBase
-            // 
-            this.textPrecioBase.Location = new System.Drawing.Point(146, 62);
-            this.textPrecioBase.Name = "textPrecioBase";
-            this.textPrecioBase.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textPrecioBase.Size = new System.Drawing.Size(120, 20);
-            this.textPrecioBase.TabIndex = 37;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(94, 13);
-            this.label2.TabIndex = 36;
-            this.label2.Text = "Precio base(US$)*";
-            // 
             // RegimenBajaMod
             // 
             this.AcceptButton = this.buttonBuscar;
@@ -204,7 +204,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "RegimenBajaMod";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "RegimenBajaMod";
+            this.Text = "Gestión de Regímenes";
             this.Load += new System.EventHandler(this.RegimenBajaMod_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewRol)).EndInit();
             this.groupFiltros.ResumeLayout(false);

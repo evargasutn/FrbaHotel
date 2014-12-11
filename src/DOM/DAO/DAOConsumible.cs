@@ -34,6 +34,14 @@ namespace DOM
             return lista[0];
         }
 
+        public static Consumible obtener(string descripcion)
+        {
+            List<Consumible> lista = transductor(retrieveDataTable("getConsumibleByDescripcion", descripcion));
+            if (lista.Count == 0)
+                return null;
+            return lista[0];
+        }
+
         public static DataTable obtenerTablaByEstadia(int codEstadia)
         {
             return retrieveDataTable("getConsumiblesByEstadia", codEstadia);
