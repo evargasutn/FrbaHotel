@@ -49,7 +49,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 26);
+            this.label1.Location = new System.Drawing.Point(6, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(30, 13);
             this.label1.TabIndex = 0;
@@ -58,7 +58,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 50);
+            this.label2.Location = new System.Drawing.Point(6, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 13);
             this.label2.TabIndex = 1;
@@ -68,17 +68,17 @@
             // 
             this.dateTimeAnioEstadistica.CustomFormat = "yyyy";
             this.dateTimeAnioEstadistica.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimeAnioEstadistica.Location = new System.Drawing.Point(78, 20);
+            this.dateTimeAnioEstadistica.Location = new System.Drawing.Point(42, 23);
             this.dateTimeAnioEstadistica.Name = "dateTimeAnioEstadistica";
-            this.dateTimeAnioEstadistica.Size = new System.Drawing.Size(62, 20);
+            this.dateTimeAnioEstadistica.Size = new System.Drawing.Size(106, 20);
             this.dateTimeAnioEstadistica.TabIndex = 3;
             // 
             // comboTrimestre
             // 
             this.comboTrimestre.FormattingEnabled = true;
-            this.comboTrimestre.Location = new System.Drawing.Point(77, 47);
+            this.comboTrimestre.Location = new System.Drawing.Point(66, 50);
             this.comboTrimestre.Name = "comboTrimestre";
-            this.comboTrimestre.Size = new System.Drawing.Size(63, 21);
+            this.comboTrimestre.Size = new System.Drawing.Size(82, 21);
             this.comboTrimestre.TabIndex = 4;
             // 
             // groupBox1

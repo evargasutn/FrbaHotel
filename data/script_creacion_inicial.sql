@@ -3026,23 +3026,25 @@ AS
 							   WHEN 4 THEN 10
 						  END )
 	DECLARE @finPeriodo int
-	SET @iniPeriodo =  (CASE @opcion
+	SET @finPeriodo =  (CASE @opcion
 						   WHEN 1 THEN 3
 						   WHEN 2 THEN 6
 						   WHEN 3 THEN 9
 						   WHEN 4 | 5 THEN 12
 						END )
 	
-	SELECT TOP 5 (I.hotel) AS Hotel, SUM(DATEDIFF(day,I.fecInicio,I.fecFin)) as Dias FROM COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES I
+	SELECT TOP 5 (I.hotel) AS CodHotel, (H.nombreHotel) AS Hotel, SUM(DATEDIFF(day,I.fecInicio,I.fecFin)) as Dias 
+	FROM COMPUMUNDO_HIPER_MEGA_RED.INHABILITACIONES I
+	JOIN COMPUMUNDO_HIPER_MEGA_RED.HOTELES H
+	ON I.hotel = H.codHotel
 	
-	WHERE MONTH (I.fecInicio) BETWEEN @iniPeriodo AND @iniPeriodo
+	WHERE MONTH (I.fecInicio) BETWEEN @iniPeriodo AND @finPeriodo
 		   AND YEAR (I.fecInicio) = @anio
 			 	
-	GROUP BY I.hotel
+	GROUP BY I.hotel, H.nombreHotel
 	
 	ORDER BY 2 DESC
 GO
-
 
 --/PROC GETHOTELESMAYORCANCELACIONES
 IF OBJECT_ID ( 'COMPUMUNDO_HIPER_MEGA_RED.getHotelesMayorCancelaciones', 'P' ) IS NOT NULL 
