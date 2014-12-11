@@ -2468,10 +2468,10 @@ CREATE FUNCTION COMPUMUNDO_HIPER_MEGA_RED.totalConsumibles (@codReserva	numeric(
 RETURNS numeric(18,2)
 AS
 	BEGIN
-	RETURN (SELECT SUM(CE.cantidad*C.importe) 
+	RETURN ISNULL((SELECT SUM(CE.cantidad*C.importe) 
 			FROM COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES_X_ESTADIA CE
 			JOIN COMPUMUNDO_HIPER_MEGA_RED.CONSUMIBLES C ON C.codConsumible = CE.codConsumible 
-			WHERE CE.codReserva = @codReserva)
+			WHERE CE.codReserva = @codReserva),0)
 	END
 GO
 
