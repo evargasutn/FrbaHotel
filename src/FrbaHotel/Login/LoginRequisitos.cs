@@ -33,8 +33,8 @@ namespace FrbaHotel.Login
                 ///Completa combo hoteles
                 rolesDeUsuario = DAORol.obtenerTodos(usuario.Usr);
                 foreach (Rol unRol in rolesDeUsuario)
-                    comboRoles.Items.Add(unRol);
-                
+                    if(unRol.Estado)
+                        comboRoles.Items.Add(unRol);                
             }
             else
             {
