@@ -40,7 +40,8 @@ namespace FrbaHotel.Cancelar_Reserva
             textNroReserva.Text = "";
             textUsuario.Text = Globals.infoSesion.User.Usr;
             dateTimeCancelacion.Value = Globals.getFechaSistema();
-            
+            while(comboMotivos.Items.Count > 0)
+                comboMotivos.Items.RemoveAt(0);
             comboMotivos.Items.AddRange(Globals.motivosBaja);
             if(Globals.infoSesion.Rol.Nombre == "GUEST")
             {
@@ -93,7 +94,7 @@ namespace FrbaHotel.Cancelar_Reserva
             List<EstadoReservas> estados = DAOReserva.obtenerEstadosReservas();
             for(int i = 0; i < estados.Count; i++)
                 if (estados[i].descripcion.ToUpper() == motivo.ToUpper())
-                    return i;
+                    return i + 1;
             return -1;
         }
 
